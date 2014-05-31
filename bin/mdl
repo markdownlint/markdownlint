@@ -18,14 +18,12 @@ end.parse!
 rules = MarkdownLint::RuleSet.load(File.join(File.dirname(__FILE__), "../lib/mdl/rules.rb"))
 
 ARGV.each do |filename|
-  text = File.read(filename)
-  doc = Kramdown::Document.new(text)
-  lines = text.split("\n")
-  doc.warnings.each do |w|
+  doc = MarkdownLint::Doc.new(filename)
+  doc.parsed.warnings.each do |w|
     puts "#{filename}: Kramdown Warning: #{w}"
   end
   rules.each do |rule|
-    error_lines = rule.check.call(doc, lines)
+    error_lines = rule.check.call(doc)
     next unless error_lines
     error_lines.each do |line|
       puts "#{filename}:#{line}: #{rule.id} #{rule.description}"
