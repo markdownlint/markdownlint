@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+require_relative '../lib/mdl'
+
+require 'optparse'
+require 'kramdown'
+
+options = {
+  :verbose => false
+}
+OptionParser.new do |opts|
+  opts.banner = "Usage: mdl.rb [options]"
+
+  opts.on("-v", "--[no-]verbose", "Increase verbosity") do |v|
+    options[:verbose] = v
+  end
+end.parse!
+
+rules = MarkdownLint::RuleSet.load(File.join(File.dirname(__FILE__), "../lib/mdl/rules.rb"))
+
+ARGV.each do |filename|
+  text = File.read(filename)
+  doc = Kramdown::Document.new(text)
+  lines = text.split("\n")
+  rules.each do |rule|
+    error_lines = rule.check.call(doc, lines)
+    next unless error_lines
+    error_lines.each do |line|
+      puts "#{filename}:#{line} - #{rule.id} - #{rule.description}"
+    end
+  end
+end

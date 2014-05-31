@@ -1,0 +1,9 @@
+# Bundler vendored files
+vendor/
+bin/*
+
+# We exclude everything in bin, but bin/mdl is a legitimate script
+!bin/mdl
+
+# Vim
+*.swp
