@@ -17,16 +17,20 @@ end.parse!
 
 rules = MarkdownLint::RuleSet.load(File.join(File.dirname(__FILE__), "../lib/mdl/rules.rb"))
 
+status = 0
 ARGV.each do |filename|
   doc = MarkdownLint::Doc.new(filename)
+  status = 2 if not doc.parsed.warnings.empty?
   doc.parsed.warnings.each do |w|
     puts "#{filename}: Kramdown Warning: #{w}"
   end
   rules.each do |rule|
     error_lines = rule.check.call(doc)
-    next unless error_lines
+    next if error_lines.nil? or error_lines.empty?
+    status = 1
     error_lines.each do |line|
       puts "#{filename}:#{line}: #{rule.id} #{rule.description}"
     end
   end
 end
+exit status
