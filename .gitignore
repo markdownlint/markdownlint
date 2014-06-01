@@ -1,9 +1,9 @@
-# Bundler vendored files
+# Bundler/Ruby
 vendor/
-bin/*
-
-# We exclude everything in bin, but bin/mdl is a legitimate script
-!bin/mdl
+.bundle
+Gemfile.lock
+spec/reports
+tmp
 
 # Vim
 *.swp

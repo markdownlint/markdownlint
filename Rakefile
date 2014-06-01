@@ -1,3 +1,1 @@
-task :bundle do
-  sh "bundle install --path vendor --binstubs"
-end
+require "bundler/gem_tasks"
