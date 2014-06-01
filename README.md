@@ -19,11 +19,10 @@
   * `:location` - line number of element
   * other stuff that varies by element
 
-## TODO
+## Contributing
 
-* Helpers for:
-  * getting the raw line given an element
-  * populating errors given a set of elements (i.e. turn a list of elements
-    into line numbers)
-* Xpath lookup for kramdown elements (see if xpath module is available and
-  generic - see foodcritic for an example)
+1. Fork it ( http://github.com/mivok/mdl/fork )
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
