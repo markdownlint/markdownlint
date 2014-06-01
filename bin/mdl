@@ -19,7 +19,7 @@ rules = MarkdownLint::RuleSet.load_default
 
 status = 0
 ARGV.each do |filename|
-  doc = MarkdownLint::Doc.new(filename)
+  doc = MarkdownLint::Doc.new_from_file(filename)
   status = 2 if not doc.parsed.warnings.empty?
   doc.parsed.warnings.each do |w|
     puts "#{filename}: Kramdown Warning: #{w}"

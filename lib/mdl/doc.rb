@@ -5,11 +5,15 @@ module MarkdownLint
   class Doc
     attr_reader :lines, :parsed, :elements
 
-    def initialize(filename)
-      @text = File.read(filename)
-      @lines = @text.split("\n")
-      @parsed = Kramdown::Document.new(@text)
+    def initialize(text)
+      @lines = text.split("\n")
+      @parsed = Kramdown::Document.new(text)
       @elements = @parsed.root.children
+    end
+
+    def self.new_from_file(filename)
+      # Alternate 'constructor' passing in a filename
+      self.new(File.read(filename))
     end
 
     def find_type(type)
