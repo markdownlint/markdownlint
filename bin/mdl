@@ -15,7 +15,7 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-rules = MarkdownLint::RuleSet.load(File.join(File.dirname(__FILE__), "../lib/mdl/rules.rb"))
+rules = MarkdownLint::RuleSet.load_default
 
 status = 0
 ARGV.each do |filename|
@@ -24,12 +24,12 @@ ARGV.each do |filename|
   doc.parsed.warnings.each do |w|
     puts "#{filename}: Kramdown Warning: #{w}"
   end
-  rules.each do |rule|
+  rules.sort.each do |id, rule|
     error_lines = rule.check.call(doc)
     next if error_lines.nil? or error_lines.empty?
     status = 1
     error_lines.each do |line|
-      puts "#{filename}:#{line}: #{rule.id} #{rule.description}"
+      puts "#{filename}:#{line}: #{id} #{rule.description}"
     end
   end
 end

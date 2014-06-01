@@ -11,13 +11,18 @@ module MarkdownLint
     attr_reader :rules
 
     def rule(id, description, &block)
-      @rules = [] if @rules.nil?
-      @rules << Rule.new(id, description)
+      @rules = {} if @rules.nil?
+      @rules[id] = Rule.new(id, description)
+      @last_rule = id
       yield self
     end
 
     def check(&block)
-      @rules.last.check = block
+      @rules[@last_rule].check = block
+    end
+
+    def self.load_default
+      self.load(File.expand_path("../rules.rb", __FILE__))
     end
 
     def self.load(rules_file)
