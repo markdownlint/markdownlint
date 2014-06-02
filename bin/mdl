@@ -5,24 +5,51 @@ require 'optparse'
 require 'kramdown'
 
 options = {
-  :verbose => false
+  :verbose => false,
+  :show_kramdown_warnings => false
 }
-OptionParser.new do |opts|
-  opts.banner = "Usage: mdl.rb [options]"
+optparse = OptionParser.new do |opts|
+  opts.banner = "Usage: #{$0} [options] FILE.md [FILE.md ...]"
+
+  opts.separator ""
+  opts.separator "Options:"
 
   opts.on("-v", "--[no-]verbose", "Increase verbosity") do |v|
     options[:verbose] = v
   end
-end.parse!
+
+  opts.on("-w", "--[no-]warnings", "Show kramdown warnings") do |v|
+    options[:show_kramdown_warnings] = v
+  end
+
+  opts.on_tail("-h", "--help", "Show this message") do
+    puts opts
+    exit
+  end
+
+  opts.on_tail("--version", "Show version") do
+    puts MarkdownLint::VERSION
+    exit
+  end
+end
+optparse.parse!
+
+if ARGV.empty?
+  puts optparse
+  exit -1
+end
 
 rules = MarkdownLint::RuleSet.load_default
 
 status = 0
 ARGV.each do |filename|
+  puts "Checking #{filename}..." if options[:verbose]
   doc = MarkdownLint::Doc.new_from_file(filename)
-  status = 2 if not doc.parsed.warnings.empty?
-  doc.parsed.warnings.each do |w|
-    puts "#{filename}: Kramdown Warning: #{w}"
+  if options[:show_kramdown_warnings]
+    status = 2 if not doc.parsed.warnings.empty?
+    doc.parsed.warnings.each do |w|
+      puts "#{filename}: Kramdown Warning: #{w}"
+    end
   end
   rules.sort.each do |id, rule|
     error_lines = rule.check.call(doc)
