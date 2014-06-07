@@ -154,4 +154,92 @@ describe "rules" do
       expect(rules["MD003"].check.call(doc)).to eq [4]
     end
   end
+
+  describe "MD004" do
+    it "doesn't fire on an empty doc" do
+      doc = doc_for ""
+      expect(rules["MD004"].check.call(doc)).to be_nil
+    end
+
+    it "doesn't fire on consistent bullet styles (asterisk)" do
+      doc = doc_for <<-EOF.unindent
+                    * Item
+                      * Item
+                      * Item
+                    EOF
+      expect(rules["MD004"].check.call(doc)).to be_empty
+    end
+    it "doesn't fire on consistent bullet styles (dash)" do
+      doc = doc_for <<-EOF.unindent
+                    - Item
+                      - Item
+                      - Item
+                    EOF
+      expect(rules["MD004"].check.call(doc)).to be_empty
+    end
+    it "doesn't fire on consistent bullet styles (plus)" do
+      doc = doc_for <<-EOF.unindent
+                    + Item
+                      + Item
+                      + Item
+                    EOF
+      expect(rules["MD004"].check.call(doc)).to be_empty
+    end
+    it "fires on mixed bullet styles (asterisk + plus)" do
+      doc = doc_for <<-EOF.unindent
+                    * Item
+                      + Item
+                      + Item
+                    EOF
+      expect(rules["MD004"].check.call(doc)).to eq [2,3]
+    end
+    it "fires on mixed bullet styles (asterisk + dash)" do
+      doc = doc_for <<-EOF.unindent
+                    * Item
+                      - Item
+                      - Item
+                    EOF
+      expect(rules["MD004"].check.call(doc)).to eq [2,3]
+    end
+    it "fires on mixed bullet styles (dash + plus)" do
+      doc = doc_for <<-EOF.unindent
+                    - Item
+                      + Item
+                      + Item
+                    EOF
+      expect(rules["MD004"].check.call(doc)).to eq [2,3]
+    end
+    it "fires on mixed bullet styles (dash + asterisk)" do
+      doc = doc_for <<-EOF.unindent
+                    - Item
+                      * Item
+                      * Item
+                    EOF
+      expect(rules["MD004"].check.call(doc)).to eq [2,3]
+    end
+    it "fires on mixed bullet styles (plus + asterisk)" do
+      doc = doc_for <<-EOF.unindent
+                    + Item
+                      * Item
+                      * Item
+                    EOF
+      expect(rules["MD004"].check.call(doc)).to eq [2,3]
+    end
+    it "fires on mixed bullet styles (plus + dash)" do
+      doc = doc_for <<-EOF.unindent
+                    + Item
+                      - Item
+                      - Item
+                    EOF
+      expect(rules["MD004"].check.call(doc)).to eq [2,3]
+    end
+    it "fires on mixed bullet styles (all 3 types)" do
+      doc = doc_for <<-EOF.unindent
+                    * Item
+                      - Item
+                      + Item
+                    EOF
+      expect(rules["MD004"].check.call(doc)).to eq [2,3]
+    end
+  end
 end

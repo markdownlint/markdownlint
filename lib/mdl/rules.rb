@@ -34,3 +34,16 @@ rule "MD003", "Mixed header styles" do
     end
   end
 end
+
+rule "MD004", "Mixed bullet styles" do
+  check do |doc|
+    bullets = doc.find_type_elements(:li)
+    if bullets.empty?
+      nil
+    else
+      doc_style = doc.bullet_style(bullets.first)
+      bullets.map { |b| doc.element_linenumber(b) \
+                    if doc.bullet_style(b) != doc_style }.compact
+    end
+  end
+end

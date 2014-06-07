@@ -17,11 +17,18 @@ module MarkdownLint
     end
 
     def find_type(type)
-      @elements.select { |e| e.type == type }.map { |e| e.options }
+      find_type_elements(type).map { |e| e.options }
     end
 
-    def find_type_elements(type)
-      @elements.select { |e| e.type == type }
+    def find_type_elements(type, elements=@elements)
+      results = []
+      elements.each do |e|
+        results.push(e) if e.type == type
+        if not e.children.empty?
+          results.concat(find_type_elements(type, e.children))
+        end
+      end
+      results
     end
 
     def element_linenumber(element)
@@ -55,6 +62,22 @@ module MarkdownLint
         end
       else
         :setext
+      end
+    end
+
+    def bullet_style(bullet)
+      if bullet.type != :li
+        raise "bullet_style called with non-bullet element"
+      end
+      line = element_line(bullet).strip
+      if line.start_with?("*")
+        :asterisk
+      elsif line.start_with?("+")
+        :plus
+      elsif line.start_with?("-")
+        :dash
+      else
+        :unknown
       end
     end
   end
