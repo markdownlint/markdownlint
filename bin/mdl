@@ -6,7 +6,9 @@ require 'kramdown'
 
 options = {
   :verbose => false,
-  :show_kramdown_warnings => false
+  :show_kramdown_warnings => false,
+  :tags => nil,
+  :rules => nil
 }
 optparse = OptionParser.new do |opts|
   opts.banner = "Usage: #{$0} [options] FILE.md [FILE.md ...]"
@@ -20,6 +22,15 @@ optparse = OptionParser.new do |opts|
 
   opts.on("-w", "--[no-]warnings", "Show kramdown warnings") do |v|
     options[:show_kramdown_warnings] = v
+  end
+
+  opts.on("-t", "--tags TAG1,TAG2", Array,
+          "Only process rules with these tags") do |v|
+    options[:tags] = v.map { |t| t.to_sym }
+  end
+
+  opts.on("-r" "--rules RULE1,RULE2", Array, "Only process these rules") do |v|
+    options[:rules] = v
   end
 
   opts.on_tail("-h", "--help", "Show this message") do
@@ -52,6 +63,15 @@ ARGV.each do |filename|
     end
   end
   rules.sort.each do |id, rule|
+    if options[:rules] and not options[:rules].include?(id)
+      puts "Skipping rule #{id} (rule limit)" if options[:verbose]
+      next
+    end
+    if options[:tags] and (rule.tags & options[:tags]).empty?
+      puts "Skipping rule #{id} (tag limit)" if options[:verbose]
+      next
+    end
+    puts "Processing rule #{id}" if options[:verbose]
     error_lines = rule.check.call(doc)
     next if error_lines.nil? or error_lines.empty?
     status = 1

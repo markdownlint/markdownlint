@@ -1,4 +1,5 @@
 rule "MD001", "Header levels should only increment by one level at a time" do
+  tags :headers
   check do |doc|
     headers = doc.find_type(:header)
     old_level = nil
@@ -14,6 +15,7 @@ rule "MD001", "Header levels should only increment by one level at a time" do
 end
 
 rule "MD002", "First header should be a top level header" do
+  tags :headers
   check do |doc|
     first_header = doc.find_type(:header).first
     [first_header[:location]] if first_header and first_header[:level] != 1
@@ -23,6 +25,7 @@ end
 rule "MD003", "Mixed header styles" do
   # Header styles are things like ### and adding underscores
   # See http://daringfireball.net/projects/markdown/syntax#header
+  tags :headers, :mixed
   check do |doc|
     headers = doc.find_type_elements(:header)
     if headers.empty?
@@ -36,6 +39,7 @@ rule "MD003", "Mixed header styles" do
 end
 
 rule "MD004", "Mixed bullet styles" do
+  tags :bullet, :mixed
   check do |doc|
     bullets = doc.find_type_elements(:li)
     if bullets.empty?

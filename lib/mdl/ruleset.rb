@@ -1,9 +1,10 @@
 module MarkdownLint
   class Rule
-    attr_accessor :id, :description, :check
+    attr_accessor :id, :description, :check, :tags
 
     def initialize(id, description)
       @id, @description = id, description
+      @tags = []
     end
   end
 
@@ -19,6 +20,10 @@ module MarkdownLint
 
     def check(&block)
       @rules[@last_rule].check = block
+    end
+
+    def tags(*t)
+      @rules[@last_rule].tags = t.flatten.map {|i| i.to_sym}
     end
 
     def self.load_default
