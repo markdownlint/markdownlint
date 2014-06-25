@@ -127,7 +127,13 @@ class TestRules < Minitest::Test
       - Item
         * Item {MD004}
         + Item {MD004}
-    )
+    ),
+    'inconsistent_bullet_indent_same_level' => %(
+      * Item
+          * Item
+        * Item {MD005}
+          * Item
+    ),
   }
 
   testcases.each do |title, text|

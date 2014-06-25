@@ -51,3 +51,21 @@ rule "MD004", "Mixed bullet styles" do
     end
   end
 end
+
+rule "MD005", "Inconsistent indentation for bullets at the same level" do
+  check do |doc|
+    bullets = doc.find_type(:li)
+    errors = []
+    indent_levels = []
+    bullets.each do |b|
+      indent_level = doc.indent_for(doc.element_line(b))
+      if indent_levels[b[:element_level]].nil?
+        indent_levels[b[:element_level]] = indent_level
+      end
+      if indent_level != indent_levels[b[:element_level]]
+        errors << doc.element_linenumber(b)
+      end
+    end
+    errors
+  end
+end

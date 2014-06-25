@@ -9,11 +9,20 @@ module MarkdownLint
       @lines = text.split("\n")
       @parsed = Kramdown::Document.new(text)
       @elements = @parsed.root.children
+      add_levels(@elements)
     end
 
     def self.new_from_file(filename)
       # Alternate 'constructor' passing in a filename
       self.new(File.read(filename))
+    end
+
+    def add_levels(elements, level=1)
+      # Adds a 'level' option to all elements to show how nested they are
+      elements.each do |e|
+        e.options[:element_level] = level
+        add_levels(e.children, level+1)
+      end
     end
 
     def find_type(type)
@@ -79,6 +88,11 @@ module MarkdownLint
       else
         :unknown
       end
+    end
+
+    def indent_for(line)
+      # Returns how much a given line is indented (hard tabs are 8 spaces)
+      return line.match(/^\s*/)[0].gsub("\t", " " * 8).length
     end
   end
 end
