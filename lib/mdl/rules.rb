@@ -78,3 +78,42 @@ rule "MD006", "Consider starting bulleted lists at the beginning of the line" do
       |e| doc.indent_for(doc.element_line(e)) != 0 }.map{ |e| e[:location] }
   end
 end
+
+rule "MD007", "Bullets must be indented by 4 spaces in multi-markdown" do
+  tags :multimarkdown
+  check do |doc|
+    indents = []
+    errors = []
+    indents = doc.find_type(:ul).map {
+      |e| [doc.indent_for(doc.element_line(e)), doc.element_linenumber(e)] }
+    curr_indent = indents[0][0] unless indents.empty?
+    indents.each do |indent, linenum|
+      if indent > curr_indent and indent - curr_indent != 4
+        errors << linenum
+      end
+      curr_indent = indent
+    end
+    errors
+  end
+end
+
+rule "MD008", "Consider 2 space indents for bulleted lists" do
+  # If not using multi-markdown, then indents for nested bulleted lists should
+  # be 2 spaces. This means that nested lists are in line with the start of
+  # the text. This rule is inconsistent with MD007.
+  tags :not_multimarkdown
+  check do |doc|
+    indents = []
+    errors = []
+    indents = doc.find_type(:ul).map {
+      |e| [doc.indent_for(doc.element_line(e)), doc.element_linenumber(e)] }
+    curr_indent = indents[0][0] unless indents.empty?
+    indents.each do |indent, linenum|
+      if indent > curr_indent and indent - curr_indent != 2
+        errors << linenum
+      end
+      curr_indent = indent
+    end
+    errors
+  end
+end

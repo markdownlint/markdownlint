@@ -17,11 +17,13 @@ class TestRules < Minitest::Test
     # Looks for lines tagged with {MD123} to sigify that a rule is expected to
     # fire for this line.
     expected_errors = {}
+    re = /\{(MD\d+)\}/
     lines.each_with_index do |line, num|
-      m = /\{(MD\d+)\}/.match(line)
-      if m
+      m = re.match(line)
+      while m
         expected_errors[m[1]] ||= []
         expected_errors[m[1]] << num + 1 # 1 indexed lines
+        m = re.match(line, m.end(0))
       end
     end
     expected_errors
@@ -100,37 +102,37 @@ class TestRules < Minitest::Test
     ),
     'consistent_bullet_styles_asterisk' => %(
       * Item
-        * Item
+        * Item {MD007}
         * Item
     ),
     'consistent_bullet_styles_plus' => %(
       + Item
-        + Item
+        + Item {MD007}
         + Item
     ),
     'consistent_bullet_styles_dash' => %(
       - Item
-        - Item
+        - Item {MD007}
         - Item
     ),
     'inconsistent_bullet_styles_asterisk' => %(
       * Item
-        + Item {MD004}
+        + Item {MD004} {MD007}
         - Item {MD004}
     ),
     'inconsistent_bullet_styles_plus' => %(
       + Item
-        * Item {MD004}
+        * Item {MD004} {MD007}
         - Item {MD004}
     ),
     'inconsistent_bullet_styles_dash' => %(
       - Item
-        * Item {MD004}
+        * Item {MD004} {MD007}
         + Item {MD004}
     ),
     'inconsistent_bullet_indent_same_level' => %(
       * Item
-          * Item
+          * Item {MD008}
         * Item {MD005}
           * Item
     ),
@@ -138,9 +140,9 @@ class TestRules < Minitest::Test
       Some text
 
         * Item {MD006}
+          * Item {MD007}
           * Item
-          * Item
-            * Item
+            * Item {MD007}
           * Item
         * Item
         * Item
@@ -148,8 +150,13 @@ class TestRules < Minitest::Test
       Some more text
 
         * Item {MD006}
-          * Item
+          * Item {MD007}
     ),
+    'bulleted_list_4_space_indent' => %(
+      * Test X
+          * Test Y {MD008}
+              * Test Z {MD008}
+    )
   }
 
   testcases.each do |title, text|
