@@ -53,6 +53,7 @@ rule "MD004", "Mixed bullet styles" do
 end
 
 rule "MD005", "Inconsistent indentation for bullets at the same level" do
+  tags :bullet, :indentation
   check do |doc|
     bullets = doc.find_type(:li)
     errors = []
@@ -73,6 +74,7 @@ end
 rule "MD006", "Consider starting bulleted lists at the beginning of the line" do
   # Starting at the beginning of the line means that indendation for each
   # bullet level can be identical.
+  tags :bullet, :indentation
   check do |doc|
     doc.find_type(:ul, false).select{
       |e| doc.indent_for(doc.element_line(e)) != 0 }.map{ |e| e[:location] }
@@ -80,7 +82,7 @@ rule "MD006", "Consider starting bulleted lists at the beginning of the line" do
 end
 
 rule "MD007", "Bullets must be indented by 4 spaces in multi-markdown" do
-  tags :multimarkdown
+  tags :bullet, :multimarkdown
   check do |doc|
     indents = []
     errors = []
@@ -101,7 +103,7 @@ rule "MD008", "Consider 2 space indents for bulleted lists" do
   # If not using multi-markdown, then indents for nested bulleted lists should
   # be 2 spaces. This means that nested lists are in line with the start of
   # the text. This rule is inconsistent with MD007.
-  tags :not_multimarkdown
+  tags :bullet, :not_multimarkdown
   check do |doc|
     indents = []
     errors = []
@@ -119,12 +121,14 @@ rule "MD008", "Consider 2 space indents for bulleted lists" do
 end
 
 rule "MD009", "Trailing spaces" do
+  tags :whitespace
   check do |doc|
     doc.lines.each_with_index.select{|l, i| /\s$/.match(l)}.map{|i| i[1]+1}
   end
 end
 
 rule "MD010", "Hard tabs" do
+  tags :whitespace, :hard_tab
   check do |doc|
     doc.lines.each_with_index.select{|l, i| /\t/.match(l)}.map{|i| i[1]+1}
   end
