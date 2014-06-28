@@ -159,6 +159,14 @@ module MarkdownLint
       return line.match(/^\s*/)[0].gsub("\t", " " * 8).length
     end
 
+    ##
+    # Returns line numbers for lines that match the given regular expression
+
+    def matching_lines(re)
+      @lines.each_with_index.select{|text, linenum| re.match(text)}.map{
+        |i| i[1]+1}
+    end
+
     private
 
     ##

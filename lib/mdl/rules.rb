@@ -123,13 +123,20 @@ end
 rule "MD009", "Trailing spaces" do
   tags :whitespace
   check do |doc|
-    doc.lines.each_with_index.select{|l, i| /\s$/.match(l)}.map{|i| i[1]+1}
+    doc.matching_lines(/\s$/)
   end
 end
 
 rule "MD010", "Hard tabs" do
   tags :whitespace, :hard_tab
   check do |doc|
-    doc.lines.each_with_index.select{|l, i| /\t/.match(l)}.map{|i| i[1]+1}
+    doc.matching_lines(/\t/)
+  end
+end
+
+rule "MD011", "Reversed link syntax" do
+  tags :links
+  check do |doc|
+    doc.matching_lines(/\([^)]+\)\[[^\]]+\]/)
   end
 end

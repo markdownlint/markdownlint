@@ -161,6 +161,9 @@ class TestRules < Minitest::Test
       Some text {MD009} 
       Some	more text {MD010}
       Some more text
+    ),
+    'reversed_link' => %(
+      Go to (this website)[http://www.example.com] {MD011}
     )
   }
 
