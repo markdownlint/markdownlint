@@ -134,6 +134,22 @@ class TestRules < Minitest::Test
         * Item {MD005}
           * Item
     ),
+    'bulleted_list_not_at_beginning_of_line' => %(
+      Some text
+
+        * Item {MD006}
+          * Item
+          * Item
+            * Item
+          * Item
+        * Item
+        * Item
+
+      Some more text
+
+        * Item {MD006}
+          * Item
+    ),
   }
 
   testcases.each do |title, text|
