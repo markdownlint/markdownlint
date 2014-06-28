@@ -47,21 +47,27 @@ module MarkdownLint
     #
     #   # Returns [ { :location => 1, :element_level => 2 }, ... ]
     #   elements = find_type(:li)
+    #
+    # If +nested+ is set to false, this returns only top level elements of a
+    # given type.
 
-    def find_type(type)
-      find_type_elements(type).map { |e| e.options }
+    def find_type(type, nested=true)
+      find_type_elements(type, nested).map { |e| e.options }
     end
 
     ##
     # Find all elements of a given type, returning a list of the element
     # objects themselves.
+    #
+    # If +nested+ is set to false, this returns only top level elements of a
+    # given type.
 
-    def find_type_elements(type, elements=@elements)
+    def find_type_elements(type, nested=true, elements=@elements)
       results = []
       elements.each do |e|
         results.push(e) if e.type == type
-        if not e.children.empty?
-          results.concat(find_type_elements(type, e.children))
+        if nested and not e.children.empty?
+          results.concat(find_type_elements(type, nested, e.children))
         end
       end
       results

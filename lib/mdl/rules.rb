@@ -74,8 +74,7 @@ rule "MD006", "Consider starting bulleted lists at the beginning of the line" do
   # Starting at the beginning of the line means that indendation for each
   # bullet level can be identical.
   check do |doc|
-    doc.find_type(:ul).select{
-      |e| e[:element_level] == 1 and
-      doc.indent_for(doc.element_line(e)) != 0 }.map{ |e| e[:location] }
+    doc.find_type(:ul, false).select{
+      |e| doc.indent_for(doc.element_line(e)) != 0 }.map{ |e| e[:location] }
   end
 end
