@@ -117,3 +117,15 @@ rule "MD008", "Consider 2 space indents for bulleted lists" do
     errors
   end
 end
+
+rule "MD009", "Trailing spaces" do
+  check do |doc|
+    doc.lines.each_with_index.select{|l, i| /\s$/.match(l)}.map{|i| i[1]+1}
+  end
+end
+
+rule "MD010", "Hard tabs" do
+  check do |doc|
+    doc.lines.each_with_index.select{|l, i| /\t/.match(l)}.map{|i| i[1]+1}
+  end
+end

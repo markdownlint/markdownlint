@@ -156,6 +156,11 @@ class TestRules < Minitest::Test
       * Test X
           * Test Y {MD008}
               * Test Z {MD008}
+    ),
+    'whitespace issues' => %(
+      Some text {MD009} 
+      Some	more text {MD010}
+      Some more text
     )
   }
 
