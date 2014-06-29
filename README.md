@@ -12,7 +12,7 @@ A simple tool to lint markdown files and flag style issues.
       end
     end
 
-* doc - Object containing a repsresentation of the markdown document
+* doc - Object containing a representation of the markdown document
 * doc.lines - The raw markdown file as an array of lines
   * You can look up a line given an element with doc.element_lines
 * doc.parsed - Kramdown internal representation of the doc
