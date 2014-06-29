@@ -1,4 +1,6 @@
 [![Stories in Ready](https://badge.waffle.io/mivok/markdownlint.png?label=ready&title=Ready)](https://waffle.io/mivok/markdownlint)
+[![Travis build status](http://api.travis-ci.org/mivok/markdownlint.svg)](https://travis-ci.org/mivok/markdownlint)
+
 # Markdown lint tool
 
 A simple tool to lint markdown files and flag style issues.
