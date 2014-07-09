@@ -162,3 +162,12 @@ rule "MD013", "Line longer than 80 characters" do
     doc.matching_lines(/^.{80}.*\s/)
   end
 end
+
+rule "MD014", "Dollar signs used before commands without showing output" do
+  tags :code
+  check do |doc|
+    doc.find_type_elements(:codeblock).select{
+      |e| not e.value.split(/\n+/).map{|l| l.match(/^\$/)}.include?(nil)
+    }.map{|e| doc.element_linenumber(e)}
+  end
+end

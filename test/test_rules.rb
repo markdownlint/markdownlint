@@ -189,6 +189,25 @@ class TestRules < Minitest::Test
       This is a very very very very very very very very very very very very very very long line {MD013}
 
       This line however, while very long, doesn't have whitespace after the 80th columnwhichallowsforURLsandotherlongthings.
+    ),
+    'code_block_dollar' => %(
+      The following code block shouldn't have $ before the commands:
+
+          $ ls {MD014}
+          $ less foo
+
+          $ cat bar
+
+      However the following code block shows output, and $ can be used to
+      distinguish between command and output:
+
+          $ ls
+          foo bar
+          $ less foo
+          Hello world
+
+          $ cat bar
+          baz
     )
   }
 

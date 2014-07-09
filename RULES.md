@@ -247,3 +247,36 @@ characters. To fix this, split the line up into multiple lines.
 This rule has an exception where there is no whitespace after the 80th
 character. This allows you to still include items such as long URLs without
 being forced to break them in the middle.
+
+## MD014 - Dollar signs used before commands without showing output
+
+Tags: code
+
+This rule is triggered when there are code blocks showing shell commands to be
+typed, and the shell commands are preceded by dollar signs ($):
+
+    $ ls
+    $ cat foo
+    $ less bar
+
+The dollar signs are unnecessary in the above situation, and should not be
+included:
+
+    ls
+    cat foo
+    less bar
+
+However, an exception is made when there is a need to distinguish between
+typed commands and command output, as in the following example:
+
+    $ ls
+    foo bar
+    $ cat foo
+    Hello world
+    $ cat bar
+    baz
+
+Rationale: it is easier to copy and paste and less noisy if the dollar signs
+are omitted when they are not needed. See
+<http://www.cirosantilli.com/markdown-styleguide/#dollar-signs-in-shell-code>
+for more information.
