@@ -184,6 +184,11 @@ class TestRules < Minitest::Test
           with two blank lines in it
 
       Some more text
+    ),
+    'long_lines' => %(
+      This is a very very very very very very very very very very very very very very long line {MD013}
+
+      This line however, while very long, doesn't have whitespace after the 80th columnwhichallowsforURLsandotherlongthings.
     )
   }
 

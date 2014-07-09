@@ -155,3 +155,10 @@ rule "MD012", "Multiple consecutive blank lines" do
     cons_blank_lines - codeblock_lines
   end
 end
+
+rule "MD013", "Line longer than 80 characters" do
+  tags :line_length
+  check do |doc|
+    doc.matching_lines(/^.{80}.*\s/)
+  end
+end

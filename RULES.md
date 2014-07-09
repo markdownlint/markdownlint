@@ -236,3 +236,14 @@ To fix this, delete the offending lines:
 
 Note: this rule will not be triggered if there are multiple consecutive blank
 lines inside code blocks.
+
+## MD013 - Line longer than 80 character
+
+Tags: line_length
+
+This rule is triggered when there are lines that are longer than 80
+characters. To fix this, split the line up into multiple lines.
+
+This rule has an exception where there is no whitespace after the 80th
+character. This allows you to still include items such as long URLs without
+being forced to break them in the middle.
