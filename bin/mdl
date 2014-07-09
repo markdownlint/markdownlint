@@ -8,7 +8,8 @@ options = {
   :verbose => false,
   :show_kramdown_warnings => false,
   :tags => nil,
-  :rules => nil
+  :rules => nil,
+  :style => "default"
 }
 optparse = OptionParser.new do |opts|
   opts.banner = "Usage: #{$0} [options] FILE.md [FILE.md ...]"
@@ -33,6 +34,10 @@ optparse = OptionParser.new do |opts|
     options[:rules] = v
   end
 
+  opts.on("-s", "--style STYLE", String, "Load the given style") do |v|
+    options[:style] = v
+  end
+
   opts.on_tail("-h", "--help", "Show this message") do
     puts opts
     exit
@@ -51,6 +56,12 @@ if ARGV.empty?
 end
 
 rules = MarkdownLint::RuleSet.load_default
+unless options[:style].include?("/") or options[:style].end_with?(".rb")
+  options[:style] = File.expand_path(
+    "../../lib/mdl/styles/#{options[:style]}.rb", __FILE__)
+end
+style = MarkdownLint::Style.load(options[:style], rules)
+rules.select! {|r| style.rules.include?(r)}
 
 status = 0
 ARGV.each do |filename|
