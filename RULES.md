@@ -215,3 +215,24 @@ reversed):
 To fix this, swap the `[]` and `()` around:
 
     [Correct link syntax](http://www.example.com/)
+
+## MD012 - Multiple consecutive blank lines
+
+Tags: whitespace, blank_lines
+
+This rule is triggered when there are multiple consecutive blank lines in the
+document:
+
+    Some text here
+
+
+    Some more text here
+
+To fix this, delete the offending lines:
+
+    Some text here
+
+    Some more text here
+
+Note: this rule will not be triggered if there are multiple consecutive blank
+lines inside code blocks.

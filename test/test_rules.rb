@@ -14,15 +14,22 @@ class TestRules < Minitest::Test
   end
 
   def get_expected_errors(lines)
-    # Looks for lines tagged with {MD123} to sigify that a rule is expected to
-    # fire for this line.
+    # Looks for lines tagged with {MD123} to signify that a rule is expected to
+    # fire for this line. It also looks for lines tagged with {MD123:1} to
+    # signify that a rule is expected to fire on another line (the line number
+    # after the colon).
     expected_errors = {}
-    re = /\{(MD\d+)\}/
+    re = /\{(MD\d+)(?::(\d+))?\}/
     lines.each_with_index do |line, num|
       m = re.match(line)
       while m
         expected_errors[m[1]] ||= []
-        expected_errors[m[1]] << num + 1 # 1 indexed lines
+        if m[2]
+          expected_line = m[2].to_i
+        else
+          expected_line = num + 1 # 1 indexed lines
+        end
+        expected_errors[m[1]] << expected_line
         m = re.match(line, m.end(0))
       end
     end
@@ -164,6 +171,19 @@ class TestRules < Minitest::Test
     ),
     'reversed_link' => %(
       Go to (this website)[http://www.example.com] {MD011}
+    ),
+    'consecutive_blank_lines' => %(
+      Some text
+
+
+      Some text {MD012:3}
+
+          This is a code block
+
+
+          with two blank lines in it
+
+      Some more text
     )
   }
 

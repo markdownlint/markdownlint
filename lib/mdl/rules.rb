@@ -140,3 +140,18 @@ rule "MD011", "Reversed link syntax" do
     doc.matching_lines(/\([^)]+\)\[[^\]]+\]/)
   end
 end
+
+rule "MD012", "Multiple consecutive blank lines" do
+  tags :whitespace, :blank_lines
+  check do |doc|
+    # Every line in the document that is part of a code block. Blank lines
+    # inside of a code block are acceptable.
+    codeblock_lines = doc.find_type_elements(:codeblock).map{
+      |e| (doc.element_linenumber(e)..
+           doc.element_linenumber(e) + e.value.count('\n') - 1).to_a }.flatten
+    blank_lines = doc.matching_lines(/^\s*$/)
+    cons_blank_lines = blank_lines.each_cons(2).select{
+      |p, n| n - p == 1}.map{|p, n| n}
+    cons_blank_lines - codeblock_lines
+  end
+end
