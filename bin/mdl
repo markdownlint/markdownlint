@@ -29,7 +29,7 @@ optparse = OptionParser.new do |opts|
     options[:tags] = v.map { |t| t.to_sym }
   end
 
-  opts.on("-r" "--rules RULE1,RULE2", Array, "Only process these rules") do |v|
+  opts.on("-r", "--rules RULE1,RULE2", Array, "Only process these rules") do |v|
     options[:rules] = v
   end
 
