@@ -41,7 +41,8 @@ end
 rule "MD004", "Mixed bullet styles" do
   tags :bullet, :mixed
   check do |doc|
-    bullets = doc.find_type_elements(:li)
+    bullets = doc.find_type_elements(:ul).map {|l|
+      doc.find_type_elements(:li, false, l.children)}.flatten
     if bullets.empty?
       nil
     else
@@ -52,7 +53,7 @@ rule "MD004", "Mixed bullet styles" do
   end
 end
 
-rule "MD005", "Inconsistent indentation for bullets at the same level" do
+rule "MD005", "Inconsistent indentation for list items at the same level" do
   tags :bullet, :indentation
   check do |doc|
     bullets = doc.find_type(:li)
