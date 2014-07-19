@@ -129,6 +129,34 @@ class TestRules < Minitest::Test
 
       #   Header 1 {MD021} {MD015} {MD017}   #
     ),
+    'headers_surrounding_space_atx' => %(
+      # Header 1 {MD016} {MD017}
+
+      # Header 1 {MD022} {MD016} {MD017}
+      Some text
+      # Header 1 {MD022}
+      Some text
+      # Header 1 {MD022}
+
+      # Header 1 {MD016} {MD017}
+    ),
+    'headers_surrounding_space_setext' => %(
+      Header 1 {MD015} {MD016}
+      ========================
+
+      Header 1 {MD022} {MD015} {MD016}
+      ================================
+      Some text
+      Header 1 {MD022}
+      ================
+      Some text
+      Header 1 {MD022}
+      ================
+      Some text
+
+      Header 1 {MD015} {MD016}
+      ========================
+    ),
     'consistent_bullet_styles_asterisk' => %(
       * Item
         * Item {MD007}

@@ -254,3 +254,46 @@ rule "MD021", "Multiple spaces inside hashes on closed atx style header" do
     end.map { |h| doc.element_linenumber(h) }
   end
 end
+
+rule "MD022", "Headers should be surrounded by blank lines" do
+  tags :headers, :blank_lines
+  check do |doc|
+    errors = []
+    doc.find_type_elements(:header).each do |h|
+      header_bad = false
+      linenum = doc.element_linenumber(h)
+      # Check previous line
+      if linenum > 1 and not doc.lines[linenum - 2].empty?
+        header_bad = true
+      end
+      # Check next line
+      next_line_idx = doc.header_style(h) == :setext ? linenum + 1 : linenum
+      next_line = doc.lines[next_line_idx]
+      header_bad = true if not next_line.nil? and not next_line.empty?
+      errors << linenum if header_bad
+    end
+    # Kramdown requires that headers start on a block boundary, so in most
+    # cases it won't pick up a header without a blank line before it. We need
+    # to check regular text and pick out headers ourselves too
+    doc.find_type_elements(:p).each do |p|
+      linenum = doc.element_linenumber(p)
+      text = p.children[0].value # Paragraphs will contain a single text child
+      lines = text.split("\n")
+      prev_lines = ["", ""]
+      lines.each do |line|
+        # First look for ATX style headers without blank lines before
+        if line.match(/^\#{1,6}/) and not prev_lines[1].empty?
+          errors << linenum
+        end
+        # Next, look for setext style
+        if line.match(/^(-+|=+)\s*$/) and not prev_lines[0].empty?
+          errors << linenum - 1
+        end
+        linenum += 1
+        prev_lines << line
+        prev_lines.shift
+      end
+    end
+    errors
+  end
+end
