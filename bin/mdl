@@ -1,88 +1,39 @@
 #!/usr/bin/env ruby
 require_relative '../lib/mdl'
 
-require 'optparse'
 require 'kramdown'
 
-options = {
-  :verbose => false,
-  :show_kramdown_warnings => false,
-  :tags => nil,
-  :rules => nil,
-  :style => "default"
-}
-optparse = OptionParser.new do |opts|
-  opts.banner = "Usage: #{$0} [options] FILE.md [FILE.md ...]"
-
-  opts.separator ""
-  opts.separator "Options:"
-
-  opts.on("-v", "--[no-]verbose", "Increase verbosity") do |v|
-    options[:verbose] = v
-  end
-
-  opts.on("-w", "--[no-]warnings", "Show kramdown warnings") do |v|
-    options[:show_kramdown_warnings] = v
-  end
-
-  opts.on("-t", "--tags TAG1,TAG2", Array,
-          "Only process rules with these tags") do |v|
-    options[:tags] = v.map { |t| t.to_sym }
-  end
-
-  opts.on("-r", "--rules RULE1,RULE2", Array, "Only process these rules") do |v|
-    options[:rules] = v
-  end
-
-  opts.on("-s", "--style STYLE", String, "Load the given style") do |v|
-    options[:style] = v
-  end
-
-  opts.on_tail("-h", "--help", "Show this message") do
-    puts opts
-    exit
-  end
-
-  opts.on_tail("--version", "Show version") do
-    puts MarkdownLint::VERSION
-    exit
-  end
-end
-optparse.parse!
-
-if ARGV.empty?
-  puts optparse
-  exit -1
-end
+cli = MarkdownLint::CLI.new
+cli.run
 
 rules = MarkdownLint::RuleSet.load_default
-unless options[:style].include?("/") or options[:style].end_with?(".rb")
-  options[:style] = File.expand_path(
-    "../../lib/mdl/styles/#{options[:style]}.rb", __FILE__)
+unless MarkdownLint::Config[:style].include?("/") or MarkdownLint::Config[:style].end_with?(".rb")
+  MarkdownLint::Config[:style] = File.expand_path(
+    "../../lib/mdl/styles/#{MarkdownLint::Config[:style]}.rb", __FILE__)
 end
-style = MarkdownLint::Style.load(options[:style], rules)
+style = MarkdownLint::Style.load(MarkdownLint::Config[:style], rules)
 rules.select! {|r| style.rules.include?(r)}
 
 status = 0
-ARGV.each do |filename|
-  puts "Checking #{filename}..." if options[:verbose]
+cli.cli_arguments.each do |filename|
+  puts "Checking #{filename}..." if MarkdownLint::Config[:verbose]
   doc = MarkdownLint::Doc.new_from_file(filename)
-  if options[:show_kramdown_warnings]
+  if MarkdownLint::Config[:show_kramdown_warnings]
     status = 2 if not doc.parsed.warnings.empty?
     doc.parsed.warnings.each do |w|
       puts "#{filename}: Kramdown Warning: #{w}"
     end
   end
   rules.sort.each do |id, rule|
-    if options[:rules] and not options[:rules].include?(id)
-      puts "Skipping rule #{id} (rule limit)" if options[:verbose]
+    if MarkdownLint::Config[:rules] and not MarkdownLint::Config[:rules].include?(id)
+      puts "Skipping rule #{id} (rule limit)" if MarkdownLint::Config[:verbose]
       next
     end
-    if options[:tags] and (rule.tags & options[:tags]).empty?
-      puts "Skipping rule #{id} (tag limit)" if options[:verbose]
+    if MarkdownLint::Config[:tags] and (rule.tags & MarkdownLint::Config[:tags]).empty?
+      puts "Skipping rule #{id} (tag limit)" if MarkdownLint::Config[:verbose]
       next
     end
-    puts "Processing rule #{id}" if options[:verbose]
+    puts "Processing rule #{id}" if MarkdownLint::Config[:verbose]
     error_lines = rule.check.call(doc)
     next if error_lines.nil? or error_lines.empty?
     status = 1
