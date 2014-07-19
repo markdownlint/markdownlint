@@ -436,7 +436,9 @@ Rationale: Aside from asthetic reasons, some parsers, including kramdown, will
 not parse headers that don't have a blank line before, and will parse them as
 regular text.
 
-## MD022 - Headers must start at the beginning of the line
+## MD023 - Headers must start at the beginning of the line
+
+Tags: headers, spaces
 
 This rule is triggered when a header is indented by one or more spaces:
 
