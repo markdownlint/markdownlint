@@ -333,3 +333,13 @@ rule "MD023", "Headers must start at the beginning of the line" do
     errors.sort
   end
 end
+
+rule "MD024", "Multiple headers with the same content" do
+  tags :headers
+  check do |doc|
+    header_content = Set.new
+    doc.find_type(:header).select do |h|
+      not header_content.add?(h[:raw_text])
+    end.map { |h| doc.element_linenumber(h) }
+  end
+end
