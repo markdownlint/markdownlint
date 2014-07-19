@@ -1,45 +1,10 @@
 #!/usr/bin/env ruby
-require_relative '../lib/mdl'
-
-require 'kramdown'
-
-cli = MarkdownLint::CLI.new
-cli.run
-
-rules = MarkdownLint::RuleSet.load_default
-unless MarkdownLint::Config[:style].include?("/") or MarkdownLint::Config[:style].end_with?(".rb")
-  MarkdownLint::Config[:style] = File.expand_path(
-    "../../lib/mdl/styles/#{MarkdownLint::Config[:style]}.rb", __FILE__)
+begin
+  require 'mdl'
+rescue LoadError
+  # For running in development without bundler
+  $: << File.expand_path("../lib", File.dirname(__FILE__))
+  require 'mdl'
 end
-style = MarkdownLint::Style.load(MarkdownLint::Config[:style], rules)
-rules.select! {|r| style.rules.include?(r)}
 
-status = 0
-cli.cli_arguments.each do |filename|
-  puts "Checking #{filename}..." if MarkdownLint::Config[:verbose]
-  doc = MarkdownLint::Doc.new_from_file(filename)
-  if MarkdownLint::Config[:show_kramdown_warnings]
-    status = 2 if not doc.parsed.warnings.empty?
-    doc.parsed.warnings.each do |w|
-      puts "#{filename}: Kramdown Warning: #{w}"
-    end
-  end
-  rules.sort.each do |id, rule|
-    if MarkdownLint::Config[:rules] and not MarkdownLint::Config[:rules].include?(id)
-      puts "Skipping rule #{id} (rule limit)" if MarkdownLint::Config[:verbose]
-      next
-    end
-    if MarkdownLint::Config[:tags] and (rule.tags & MarkdownLint::Config[:tags]).empty?
-      puts "Skipping rule #{id} (tag limit)" if MarkdownLint::Config[:verbose]
-      next
-    end
-    puts "Processing rule #{id}" if MarkdownLint::Config[:verbose]
-    error_lines = rule.check.call(doc)
-    next if error_lines.nil? or error_lines.empty?
-    status = 1
-    error_lines.each do |line|
-      puts "#{filename}:#{line}: #{id} #{rule.description}"
-    end
-  end
-end
-exit status
+MarkdownLint::run
