@@ -54,58 +54,58 @@ class TestRules < Minitest::Test
   testcases = {
     'empty_doc' => "",
     'headers_good' => %(
-      # Heading 1
+      # Heading 1 {MD016} {MD017}
 
-      ## Heading 2
+      ## Heading 2 {MD016} {MD017}
 
-      # Heading 3
+      # Heading 3 {MD016} {MD017}
     ),
     'headers_bad' => %(
-      # Header
+      # Header {MD016} {MD017}
 
-      ### {MD001} Header 3
+      ### Header 3 {MD001} {MD016} {MD017}
 
-      ## Header 2
+      ## Header 2 {MD016} {MD017}
 
-      #### {MD001} Header 4
+      #### Header 4 {MD001} {MD016} {MD017}
     ),
-    'first_header_good_ast' => %(
-      # Header
+    'first_header_good_atx' => %(
+      # Header {MD016} {MD017}
     ),
     'first_header_good_setext' => %(
-      Header
+      Header {MD015} {MD016}
       ======
     ),
-    'first_header_bad_ast' => %(
-      ## Header {MD002}
+    'first_header_bad_atx' => %(
+      ## Header {MD002} {MD016} {MD017}
     ),
     'first_header_bad_setext' => %(
-      Header {MD002}
+      Header {MD002} {MD015} {MD016}
       ----------------
     ),
-    'mixed_header_types_ast' => %(
-      # Header
+    'mixed_header_types_atx' => %(
+      # Header {MD016} {MD017}
 
-      ## Header {MD003} ##
+      ## Header {MD003} {MD015} {MD017} ##
 
-      Header {MD003}
+      Header {MD003} {MD015} {MD016}
       ----------------
     ),
-    'mixed_header_types_ast_closed' => %(
-      # Header #
+    'mixed_header_types_atx_closed' => %(
+      # Header {MD015} {MD017} #
 
-      ## Header {MD003}
+      ## Header {MD003} {MD016} {MD017}
 
-      Header {MD003}
+      Header {MD003} {MD015} {MD016}
       ----------------
     ),
     'mixed_header_types_setext' => %(
-      Header
+      Header {MD015} {MD016}
       ======
 
-      ## Header {MD003}
+      ## Header {MD003} {MD016} {MD017}
 
-      ## Header {MD003} ##
+      ## Header {MD003} {MD015} {MD017} ##
     ),
     'consistent_bullet_styles_asterisk' => %(
       * Item

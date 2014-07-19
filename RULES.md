@@ -280,3 +280,53 @@ Rationale: it is easier to copy and paste and less noisy if the dollar signs
 are omitted when they are not needed. See
 <http://www.cirosantilli.com/markdown-styleguide/#dollar-signs-in-shell-code>
 for more information.
+
+## MD015 - Use of non-atx style headers
+
+Tags: headers, atx, specific_style
+
+This rule enforces a specific header style to be used in a document (in this
+case, atx style headers). Use of other header styles will trigger the rule. If
+you enable one of the header style rules, you should pick only one of them.
+Alternatively, just enable MD003, which will enforce consistent header styles
+within a document.
+
+Example of ATX style headers:
+
+    # Header 1
+
+    ## Header 2
+
+## MD016 - Use of non-closed-atx style headers
+
+Tags: headers, atx_closed, specific_style
+
+This rule enforces a specific header style to be used in a document (in this
+case, closed atx style headers). Use of other header styles will trigger the
+rule. If you enable one of the header style rules, you should pick only one of
+them.  Alternatively, just enable MD003, which will enforce consistent header
+styles within a document.
+
+Example of closed atx style headers:
+
+    # Header 1 #
+
+    ## Header 2 ##
+
+## MD017 - Use of non-setext style headers
+
+Tags: headers, setext, specific_style
+
+This rule enforces a specific header style to be used in a document (in this
+case, setext style headers). Use of other header styles will trigger the
+rule. If you enable one of the header style rules, you should pick only one of
+them.  Alternatively, just enable MD003, which will enforce consistent header
+styles within a document.
+
+Example of setext style headers:
+
+    Header 1
+    ========
+
+    Header 2
+    --------

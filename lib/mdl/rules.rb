@@ -172,3 +172,45 @@ rule "MD014", "Dollar signs used before commands without showing output" do
     }.map{|e| doc.element_linenumber(e)}
   end
 end
+
+rule "MD015", "Use of non-atx style headers" do
+  tags :headers, :atx, :specific_style
+  check do |doc|
+    headers = doc.find_type_elements(:header)
+    if headers.empty?
+      nil
+    else
+      doc_style = :atx
+      headers.map { |h| doc.element_linenumber(h) \
+                    if doc.header_style(h) != doc_style }.compact
+    end
+  end
+end
+
+rule "MD016", "Use of non-closed-atx style headers" do
+  tags :headers, :atx_closed, :specific_style
+  check do |doc|
+    headers = doc.find_type_elements(:header)
+    if headers.empty?
+      nil
+    else
+      doc_style = :atx_closed
+      headers.map { |h| doc.element_linenumber(h) \
+                    if doc.header_style(h) != doc_style }.compact
+    end
+  end
+end
+
+rule "MD017", "Use of non-setext style headers" do
+  tags :headers, :setext, :specific_style
+  check do |doc|
+    headers = doc.find_type_elements(:header)
+    if headers.empty?
+      nil
+    else
+      doc_style = :setext
+      headers.map { |h| doc.element_linenumber(h) \
+                    if doc.header_style(h) != doc_style }.compact
+    end
+  end
+end
