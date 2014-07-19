@@ -330,3 +330,80 @@ Example of setext style headers:
 
     Header 2
     --------
+
+## MD018 - No space after hash on atx style header
+
+Tags: headers, atx, spaces
+
+This rule is triggered when when spaces are missing after the hash characters
+in an atx style header:
+
+    #Header 1
+
+    ##Header 2
+
+To fix this, separate the header text from the hash character by a single
+space:
+
+    # Header 1
+
+    ## Header 2
+
+## MD019 - Multiple spaces after hash on atx style header
+
+Tags: headers, atx, spaces
+
+This rule is triggered when when more than one space is used to separate the
+header text from the hash characters in an atx style header:
+
+    #  Header 1
+
+    ##  Header 2
+
+To fix this, separate the header text from the hash character by a single
+space:
+
+    # Header 1
+
+    ## Header 2
+
+## MD020 - No space inside hashes on closed atx style header
+
+Tags: headers, atx_closed, spaces
+
+This rule is triggered when when spaces are missing inside the hash characters
+in a closed atx style header:
+
+    #Header 1#
+
+    ##Header 2##
+
+To fix this, separate the header text from the hash character by a single
+space:
+
+    # Header 1 #
+
+    ## Header 2 ##
+
+Note: this rule will fire if either side of the header is missing spaces.
+
+## MD021 - Multiple spaces inside hashes on closed atx style header
+
+Tags: headers, atx_closed, spaces
+
+This rule is triggered when when more than one space is used to separate the
+header text from the hash characters in a closed atx style header:
+
+    #  Header 1  #
+
+    ##  Header 2  ##
+
+To fix this, separate the header text from the hash character by a single
+space:
+
+    # Header 1 #
+
+    ## Header 2 ##
+
+Note: this rule will fire if either side of the header contains multiple
+spaces.

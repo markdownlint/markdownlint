@@ -214,3 +214,43 @@ rule "MD017", "Use of non-setext style headers" do
     end
   end
 end
+
+rule "MD018", "No space after hash on atx style header" do
+  tags :headers, :atx, :spaces
+  check do |doc|
+    doc.find_type_elements(:header).select do |h|
+      doc.header_style(h) == :atx and doc.element_line(h).match(/^#+[^#\s]/)
+    end.map { |h| doc.element_linenumber(h) }
+  end
+end
+
+rule "MD019", "Multiple spaces after hash on atx style header" do
+  tags :headers, :atx, :spaces
+  check do |doc|
+    doc.find_type_elements(:header).select do |h|
+      doc.header_style(h) == :atx and doc.element_line(h).match(/^#+\s\s/)
+    end.map { |h| doc.element_linenumber(h) }
+  end
+end
+
+rule "MD020", "No space inside hashes on closed atx style header" do
+  tags :headers, :atx_closed, :spaces
+  check do |doc|
+    doc.find_type_elements(:header).select do |h|
+      doc.header_style(h) == :atx_closed \
+        and (doc.element_line(h).match(/^#+[^#\s]/) \
+             or doc.element_line(h).match(/[^#\s]#+$/))
+    end.map { |h| doc.element_linenumber(h) }
+  end
+end
+
+rule "MD021", "Multiple spaces inside hashes on closed atx style header" do
+  tags :headers, :atx_closed, :spaces
+  check do |doc|
+    doc.find_type_elements(:header).select do |h|
+      doc.header_style(h) == :atx_closed \
+        and (doc.element_line(h).match(/^#+\s\s/) \
+             or doc.element_line(h).match(/\s\s#+$/))
+    end.map { |h| doc.element_linenumber(h) }
+  end
+end

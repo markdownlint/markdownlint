@@ -107,6 +107,28 @@ class TestRules < Minitest::Test
 
       ## Header {MD003} {MD015} {MD017} ##
     ),
+    'atx_header_spacing' => %(
+      #Header 1 {MD018} {MD016} {MD017}
+
+      ##  Header 2 {MD019} {MD016} {MD017}
+
+      ##   Header 2 {MD019} {MD016} {MD017}
+    ),
+    'atx_closed_header_spacing' => %(
+      #Header1 {MD020} {MD015} {MD017} #
+
+      # Header 1 {MD020} {MD015} {MD017}#
+
+      #Header 1 {MD020} {MD015} {MD017}#
+
+      #  Header 1 {MD021} {MD015} {MD017} #
+
+      # Header 1 {MD021} {MD015} {MD017}  #
+
+      #  Header 1 {MD021} {MD015} {MD017}  #
+
+      #   Header 1 {MD021} {MD015} {MD017}   #
+    ),
     'consistent_bullet_styles_asterisk' => %(
       * Item
         * Item {MD007}
