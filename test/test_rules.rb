@@ -157,6 +157,17 @@ class TestRules < Minitest::Test
       Header 1 {MD015} {MD016}
       ========================
     ),
+    'headers_with_spaces_at_the_beginning' => %(
+      Some text
+
+       # Header 1 {MD023}
+
+       Setext style fully indented {MD023}
+       ===================================
+
+       Setext style title only indented {MD023} {MD015} {MD016}
+      =========================================================
+    ),
     'consistent_bullet_styles_asterisk' => %(
       * Item
         * Item {MD007}

@@ -294,6 +294,42 @@ rule "MD022", "Headers should be surrounded by blank lines" do
         prev_lines.shift
       end
     end
-    errors
+    errors.sort
+  end
+end
+
+rule "MD023", "Headers must start at the beginning of the line" do
+  tags :headers, :spaces
+  check do |doc|
+    errors = []
+    # The only type of header with spaces actually parsed as such is setext
+    # style where only the text is indented. We check for that first.
+    doc.find_type_elements(:header).each do |h|
+      errors << doc.element_linenumber(h) if doc.element_line(h).match(/^\s/)
+    end
+    # Next we have to look for things that aren't parsed as headers because
+    # they start with spaces.
+    doc.find_type_elements(:p).each do |p|
+      linenum = doc.element_linenumber(p)
+      text = p.children[0].value # Paragraphs will contain a single text child
+      lines = text.split("\n")
+      # Text blocks have whitespace stripped, so we need to get the 'real'
+      # first line just in case it started with whitespace.
+      lines[0] = doc.element_line(p)
+      prev_line = ""
+      lines.each do |line|
+        # First look for ATX style headers
+        if line.match(/^\s+\#{1,6}/)
+          errors << linenum
+        end
+        # Next, look for setext style
+        if line.match(/^\s+(-+|=+)\s*$/) and not prev_line.empty?
+          errors << linenum - 1
+        end
+        linenum += 1
+        prev_line = line
+      end
+    end
+    errors.sort
   end
 end
