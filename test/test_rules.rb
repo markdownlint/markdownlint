@@ -58,7 +58,7 @@ class TestRules < Minitest::Test
 
       ## Heading 2 {MD016} {MD017}
 
-      # Heading 3 {MD016} {MD017}
+      ## Heading 3 {MD016} {MD017}
     ),
     'headers_bad' => %(
       # Header {MD016} {MD017}
@@ -117,35 +117,35 @@ class TestRules < Minitest::Test
     'atx_closed_header_spacing' => %(
       #Header 1 {MD020} {MD015} {MD017} #
 
-      # Header 2 {MD020} {MD015} {MD017}#
+      ## Header 2 {MD020} {MD015} {MD017}##
 
-      #Header 3 {MD020} {MD015} {MD017}#
+      ##Header 3 {MD020} {MD015} {MD017}##
 
-      #  Header 4 {MD021} {MD015} {MD017} #
+      ##  Header 4 {MD021} {MD015} {MD017} ##
 
-      # Header 5 {MD021} {MD015} {MD017}  #
+      ## Header 5 {MD021} {MD015} {MD017}  ##
 
-      #  Header 6 {MD021} {MD015} {MD017}  #
+      ##  Header 6 {MD021} {MD015} {MD017}  ##
 
-      #   Header 7 {MD021} {MD015} {MD017}   #
+      ##   Header 7 {MD021} {MD015} {MD017}   ##
     ),
     'headers_surrounding_space_atx' => %(
       # Header 1 {MD016} {MD017}
 
-      # Header 2 {MD022} {MD016} {MD017}
+      ## Header 2 {MD022} {MD016} {MD017}
       Some text
-      # Header 3 {MD022}
+      ## Header 3 {MD022}
       Some text
-      # Header 4 {MD022}
+      ## Header 4 {MD022}
 
-      # Header 5 {MD016} {MD017}
+      ## Header 5 {MD016} {MD017}
     ),
     'headers_surrounding_space_setext' => %(
       Header 1 {MD015} {MD016}
       ========================
 
       Header 2 {MD022} {MD015} {MD016}
-      ================================
+      --------------------------------
       Some text
       Header 3 {MD022}
       ================
@@ -155,7 +155,7 @@ class TestRules < Minitest::Test
       Some text
 
       Header 5 {MD015} {MD016}
-      ========================
+      ------------------------
     ),
     'headers_with_spaces_at_the_beginning' => %(
       Some text
@@ -171,15 +171,27 @@ class TestRules < Minitest::Test
     'header_duplicate_content' => %(
       # Header 1 {MD016} {MD017}
 
-      # Header 2 {MD016} {MD017}
-
-      # Header 1 {MD016} {MD017}
-
       ## Header 2 {MD016} {MD017}
 
-      # Header 3 {MD016} {MD017}
+      ## Header 1 {MD016} {MD017}
+
+      ### Header 2 {MD016} {MD017}
+
+      ## Header 3 {MD016} {MD017}
 
       {MD024:5} {MD024:7}
+    ),
+    'header_multiple_toplevel' => %(
+      # Heading 1 {MD016} {MD017}
+
+      # Heading 2 {MD016} {MD017} {MD025}
+    ),
+    'header_mutliple_h1_no_toplevel' => %(
+      Some introductory text
+
+      # Heading 1 {MD016} {MD017}
+
+      # Heading 2 {MD016} {MD017}
     ),
     'consistent_bullet_styles_asterisk' => %(
       * Item

@@ -33,7 +33,7 @@ level at a time:
     ### Another Header 3
 
 
-## MD002 - First header should be a top level header
+## MD002 - First header should be a h1 header
 
 Tags: headers
 
@@ -475,3 +475,30 @@ To fix this, ensure that the content of each header is different:
 Rationale: Some markdown parses generate anchors for headers based on the
 header name, and having headers with the same content can cause problems with
 this.
+
+## MD025 - Multiple top level headers in the same document
+
+Tags: headers
+
+This rule is triggered when a top level header is in use (the first line of
+the file is a h1 header), and more than one h1 header is in use in the
+document:
+
+    # Top level header
+
+    # Another top level header
+
+To fix, structure your document so that there is a single h1 header that is
+the title for the document, and all later headers are h2 or lower level
+headers:
+
+    # Title
+
+    ## Header
+
+    ## Another header
+
+Rationale: A top level header is a h1 on the first line of the file, and
+serves as the title for the document. If this convention is in use, then there
+can not be more than one title for the document, and the entire document
+should be contained within this header.

@@ -14,7 +14,7 @@ rule "MD001", "Header levels should only increment by one level at a time" do
   end
 end
 
-rule "MD002", "First header should be a top level header" do
+rule "MD002", "First header should be a h1 header" do
   tags :headers
   check do |doc|
     first_header = doc.find_type(:header).first
@@ -341,5 +341,15 @@ rule "MD024", "Multiple headers with the same content" do
     doc.find_type(:header).select do |h|
       not header_content.add?(h[:raw_text])
     end.map { |h| doc.element_linenumber(h) }
+  end
+end
+
+rule "MD025", "Multiple top level headers in the same document" do
+  tags :headers
+  check do |doc|
+    headers = doc.find_type(:header).select { |h| h[:level] == 1 }
+    if not headers.empty? and doc.element_linenumber(headers[0]) == 1
+      headers[1..-1].map { |h| doc.element_linenumber(h) }
+    end
   end
 end
