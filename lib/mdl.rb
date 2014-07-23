@@ -17,7 +17,18 @@ module MarkdownLint
         "../../lib/mdl/styles/#{Config[:style]}.rb", __FILE__)
     end
     style = Style.load(Config[:style], rules)
+    # Style filter
     rules.select! {|r| style.rules.include?(r)}
+    # Rule option filter
+    rules.select! {|r| Config[:rules].include?(r) } if Config[:rules]
+    # Tag option filter
+    rules.select! {|r, v| not (v.tags & Config[:tags]).empty? } if Config[:tags]
+
+    if Config[:list_rules]
+      puts "Enabled rules:"
+      puts rules.keys
+      exit 0
+    end
 
     status = 0
     cli.cli_arguments.each do |filename|
@@ -30,14 +41,6 @@ module MarkdownLint
         end
       end
       rules.sort.each do |id, rule|
-        if Config[:rules] and not Config[:rules].include?(id)
-          puts "Skipping rule #{id} (rule limit)" if Config[:verbose]
-          next
-        end
-        if Config[:tags] and (rule.tags & Config[:tags]).empty?
-          puts "Skipping rule #{id} (tag limit)" if Config[:verbose]
-          next
-        end
         puts "Processing rule #{id}" if Config[:verbose]
         error_lines = rule.check.call(doc)
         next if error_lines.nil? or error_lines.empty?

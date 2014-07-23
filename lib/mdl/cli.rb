@@ -41,6 +41,12 @@ module MarkdownLint
       :long => '--style STYLE',
       :description => "Load the given style"
 
+    option :list_rules,
+      :short => '-l',
+      :long => '--list-rules',
+      :boolean => true,
+      :description => "Don't process any files, just list enabled rules"
+
     option :help,
       :on => :tail,
       :short => '-h',
@@ -69,7 +75,7 @@ module MarkdownLint
       MarkdownLint::Config.merge!(config)
 
       # We need at least one non-option argument
-      if cli_arguments.empty?
+      if cli_arguments.empty? and not config[:list_rules]
         puts opt_parser
         exit -1
       end
