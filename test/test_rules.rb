@@ -193,6 +193,19 @@ class TestRules < Minitest::Test
 
       # Heading 2 {MD016} {MD017}
     ),
+    'header_trailing_punctuation' => %(
+      # Heading 1 {MD016} {MD017} {MD026}.
+
+      ## Heading 2 {MD016} {MD017} {MD026},
+
+      ## Heading 3 {MD016} {MD017} {MD026}!
+
+      ## Heading 4 {MD016} {MD017} {MD026}:
+
+      ## Heading 5 {MD016} {MD017} {MD026};
+
+      ## Heading 6 {MD016} {MD017} {MD026}?
+    ),
     'consistent_bullet_styles_asterisk' => %(
       * Item
         * Item {MD007}

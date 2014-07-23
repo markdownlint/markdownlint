@@ -353,3 +353,11 @@ rule "MD025", "Multiple top level headers in the same document" do
     end
   end
 end
+
+rule "MD026", "Trailing punctuation in header" do
+  tags :headers
+  check do |doc|
+    doc.find_type(:header).select { |h| h[:raw_text].match(/[.,;:!?]$/) }.map {
+      |h| doc.element_linenumber(h) }
+  end
+end

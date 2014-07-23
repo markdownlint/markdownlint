@@ -502,3 +502,16 @@ Rationale: A top level header is a h1 on the first line of the file, and
 serves as the title for the document. If this convention is in use, then there
 can not be more than one title for the document, and the entire document
 should be contained within this header.
+
+## MD026 - Trailing punctuation in header
+
+Tags: headers
+
+This rule is triggered on any header that has a punctuation character as the
+last character in the line:
+
+    # This is a header.
+
+To fix this, remove any trailing punctuation:
+
+    # This is a header
