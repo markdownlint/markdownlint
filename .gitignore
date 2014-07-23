@@ -4,6 +4,7 @@ vendor/
 Gemfile.lock
 spec/reports
 tmp
+*.gem
 
 # Vim
 *.swp
