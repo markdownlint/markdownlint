@@ -277,7 +277,7 @@ rule "MD022", "Headers should be surrounded by blank lines" do
     # to check regular text and pick out headers ourselves too
     doc.find_type_elements(:p).each do |p|
       linenum = doc.element_linenumber(p)
-      text = p.children[0].value # Paragraphs will contain a single text child
+      text = p.children.select { |e| e.type == :text }.map {|e| e.value }.join
       lines = text.split("\n")
       prev_lines = ["", ""]
       lines.each do |line|
@@ -311,7 +311,7 @@ rule "MD023", "Headers must start at the beginning of the line" do
     # they start with spaces.
     doc.find_type_elements(:p).each do |p|
       linenum = doc.element_linenumber(p)
-      text = p.children[0].value # Paragraphs will contain a single text child
+      text = p.children.select { |e| e.type == :text }.map {|e| e.value }.join
       lines = text.split("\n")
       # Text blocks have whitespace stripped, so we need to get the 'real'
       # first line just in case it started with whitespace.
