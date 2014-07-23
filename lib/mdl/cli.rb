@@ -4,7 +4,7 @@ module MarkdownLint
   class CLI
     include Mixlib::CLI
 
-    banner "Usage: #{$0} [options] FILE.md [FILE.md ...]"
+    banner "Usage: #{File.basename($0)} [options] FILE.md [FILE.md ...]"
 
     option :config_file,
       :short => '-c',
