@@ -1,4 +1,4 @@
-[![Stories in Ready](https://badge.waffle.io/mivok/markdownlint.png?label=ready&title=Ready)](https://waffle.io/mivok/markdownlint)
+[![Issues on deck](https://badge.waffle.io/mivok/markdownlint.png?label=on deck&title=On Deck)](https://waffle.io/mivok/markdownlint)
 [![Travis build status](http://api.travis-ci.org/mivok/markdownlint.svg)](https://travis-ci.org/mivok/markdownlint)
 
 # Markdown lint tool
