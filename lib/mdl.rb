@@ -26,7 +26,13 @@ module MarkdownLint
 
     if Config[:list_rules]
       puts "Enabled rules:"
-      puts rules.keys
+        rules.each do |id, rule|
+          if Config[:verbose]
+            puts "#{id} (#{rule.tags.join(', ')}) - #{rule.description}"
+          else
+            puts "#{id} - #{rule.description}"
+          end
+        end
       exit 0
     end
 
