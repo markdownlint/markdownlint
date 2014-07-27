@@ -82,8 +82,8 @@ rule "MD006", "Consider starting bulleted lists at the beginning of the line" do
   end
 end
 
-rule "MD007", "Bullets must be indented by 4 spaces in multi-markdown" do
-  tags :bullet, :multimarkdown
+rule "MD007", "Consider 4 space indents for unordered lists" do
+  tags :bullet, :multimarkdown, :indentation
   check do |doc|
     indents = []
     errors = []
@@ -100,11 +100,8 @@ rule "MD007", "Bullets must be indented by 4 spaces in multi-markdown" do
   end
 end
 
-rule "MD008", "Consider 2 space indents for bulleted lists" do
-  # If not using multi-markdown, then indents for nested bulleted lists should
-  # be 2 spaces. This means that nested lists are in line with the start of
-  # the text. This rule is inconsistent with MD007.
-  tags :bullet, :not_multimarkdown
+rule "MD008", "Consider 2 space indents for unordered lists" do
+  tags :bullet, :not_multimarkdown, :indentation
   check do |doc|
     indents = []
     errors = []

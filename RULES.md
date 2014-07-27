@@ -132,16 +132,11 @@ or the tab key is used to indent. Starting a list 1 space in means that the
 indent of the first nested list is less than the indent of the second level (3
 characters if you use 4 space tabs, or 1 character if you use 2 space tabs).
 
-## MD007 - Bullets must be indented by 4 spaces in multi-markdown
+## MD007 - Consider 4 space indents for unordered lists
 
-Tags: bullet, multimarkdown
+Tags: bullet, multimarkdown, indentation
 
-This rule is triggered when list items are not indented by 4 spaces. This is a
-compatibility issue with multi-markdown parsers, which require a 4 space
-indents. See
-http://support.markedapp.com/discussions/problems/21-sub-lists-not-indenting
-for a description of the problem.
-
+This rule is triggered when list items are not indented by 4 spaces.
 Example:
 
     * List item
@@ -153,12 +148,20 @@ Corrected Example:
     * List item
         * Nested list item
 
-This rule is not enabled by default, and you do not have to enable it unless
-you need to be compatible with the multi-markdown parser.
+Rationale:
 
-## MD008 - Consider 2 space indents for bulleted lists
+Same indent as code blocks, simpler for editors to implement. See
+<http://www.cirosantilli.com/markdown-styleguide/#indented-lists> for more
+information.
 
-Tags: bullet, not)multimarkdown
+In addition, this is a compatibility issue with multi-markdown parsers, which
+require a 4 space indents. See
+<http://support.markedapp.com/discussions/problems/21-sub-lists-not-indenting>
+for a description of the problem.
+
+## MD008 - Consider 2 space indents for unordered lists
+
+Tags: bullet, not_multimarkdown, indentation
 
 This rule is triggered when list items are not indented by 2 spaces.
 
@@ -173,7 +176,8 @@ Corrected Example:
       * Nested list item indented by 2 spaces
 
 Rationale: indending by 2 spaces allows the content of a nested list to be in
-line with the start of the content of the parent list.
+line with the start of the content of the parent list when a single space is
+used after the list marker.
 
 ## MD009 - Trailing spaces
 
