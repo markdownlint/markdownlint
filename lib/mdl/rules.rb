@@ -308,11 +308,7 @@ rule "MD023", "Headers must start at the beginning of the line" do
     # they start with spaces.
     doc.find_type_elements(:p).each do |p|
       linenum = doc.element_linenumber(p)
-      text = p.children.select { |e| e.type == :text }.map {|e| e.value }.join
-      lines = text.split("\n")
-      # Text blocks have whitespace stripped, so we need to get the 'real'
-      # first line just in case it started with whitespace.
-      lines[0] = doc.element_line(p)
+      lines = doc.extract_text(p)
       prev_line = ""
       lines.each do |line|
         # First look for ATX style headers
@@ -356,5 +352,21 @@ rule "MD026", "Trailing punctuation in header" do
   check do |doc|
     doc.find_type(:header).select { |h| h[:raw_text].match(/[.,;:!?]$/) }.map {
       |h| doc.element_linenumber(h) }
+  end
+end
+
+rule "MD027", "Multiple spaces after blockquote symbol" do
+  tags :blockquote, :whitespace, :indentation
+  check do |doc|
+    errors = []
+    doc.find_type_elements(:blockquote).each do |e|
+      linenum = doc.element_linenumber(e)
+      lines = doc.extract_text(e, /^\s*> /)
+      lines.each do |line|
+        errors << linenum if line.start_with?(" ")
+        linenum += 1
+      end
+    end
+    errors
   end
 end

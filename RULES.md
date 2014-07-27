@@ -519,3 +519,18 @@ last character in the line:
 To fix this, remove any trailing punctuation:
 
     # This is a header
+
+## MD027 - Multiple spaces after blockquote symbol
+
+Tags: blockquote, whitespace, indentation
+
+This rule is triggered when blockquotes have more than one space after the
+blockquote (`>`) symbol:
+
+    >  This is a block quote with bad indentation
+    >  there should only be one.
+
+To fix, remove any extraneous space:
+
+    > This is a blockquote with correct
+    > indentation.

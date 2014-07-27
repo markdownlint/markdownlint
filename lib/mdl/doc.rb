@@ -167,6 +167,37 @@ module MarkdownLint
         |i| i[1]+1}
     end
 
+
+    ##
+    # Extracts the text from an element whose children consist of text
+    # elements and other things
+
+    def extract_text(element, prefix="")
+      quotes = {
+        :rdquo => '"',
+        :ldquo => '"',
+        :lsquo => "'",
+        :rsquo => "'"
+      }
+      # If anything goes amiss here, e.g. unknown type, then nil will be
+      # returned and we'll just not catch that part of the text, which seems
+      # like a sensible failure mode.
+      lines = element.children.map { |e|
+        if e.type == :text
+          e.value
+        elsif [:strong, :em, :p].include?(e.type)
+          extract_text(e, prefix).join("\n")
+        elsif e.type == :smart_quote
+          quotes[e.value]
+        end
+      }.join.split("\n")
+      # Text blocks have whitespace stripped, so we need to add it back in at
+      # the beginning. Because this might be in something like a blockquote,
+      # we optionally strip off a prefix given to the function.
+      lines[0] = element_line(element).sub(prefix, "")
+      lines
+    end
+
     private
 
     ##
