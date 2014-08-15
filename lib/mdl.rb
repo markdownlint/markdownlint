@@ -36,6 +36,21 @@ module MarkdownLint
       exit 0
     end
 
+    # Recurse into directories
+    cli.cli_arguments.each_with_index do |filename, i|
+      if Dir.exist?(filename)
+        pattern = "#{filename}/**/*.md" # This works for both Dir and ls-files
+        if Config[:git_recurse]
+          Dir.chdir(filename) do
+            cli.cli_arguments[i] = %x(git ls-files '*.md').split("\n")
+          end
+        else
+          cli.cli_arguments[i] = Dir["#{filename}/**/*.md"]
+        end
+      end
+    end
+    cli.cli_arguments.flatten!
+
     status = 0
     cli.cli_arguments.each do |filename|
       puts "Checking #{filename}..." if Config[:verbose]

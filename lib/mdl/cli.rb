@@ -4,7 +4,7 @@ module MarkdownLint
   class CLI
     include Mixlib::CLI
 
-    banner "Usage: #{File.basename($0)} [options] [FILE.md ...]"
+    banner "Usage: #{File.basename($0)} [options] [FILE.md|DIR ...]"
 
     option :config_file,
       :short => '-c',
@@ -46,6 +46,12 @@ module MarkdownLint
       :long => '--list-rules',
       :boolean => true,
       :description => "Don't process any files, just list enabled rules"
+
+    option :git_recurse,
+      :short => '-g',
+      :long => '--git-recurse',
+      :boolean => true,
+      :description => "Only process files known to git when given a directory"
 
     option :help,
       :on => :tail,
