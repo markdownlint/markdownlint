@@ -37,7 +37,11 @@ module MarkdownLint
     # Alternate 'constructor' passing in a filename
 
     def self.new_from_file(filename)
-      self.new(File.read(filename))
+      if filename == "-"
+        self.new(STDIN.read)
+      else
+        self.new(File.read(filename))
+      end
     end
 
     ##

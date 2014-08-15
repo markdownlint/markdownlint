@@ -40,6 +40,7 @@ module MarkdownLint
     cli.cli_arguments.each do |filename|
       puts "Checking #{filename}..." if Config[:verbose]
       doc = Doc.new_from_file(filename)
+      filename = '(stdin)' if filename == "-"
       if Config[:show_kramdown_warnings]
         status = 2 if not doc.parsed.warnings.empty?
         doc.parsed.warnings.each do |w|

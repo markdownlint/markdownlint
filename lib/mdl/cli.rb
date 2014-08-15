@@ -4,7 +4,7 @@ module MarkdownLint
   class CLI
     include Mixlib::CLI
 
-    banner "Usage: #{File.basename($0)} [options] FILE.md [FILE.md ...]"
+    banner "Usage: #{File.basename($0)} [options] [FILE.md ...]"
 
     option :config_file,
       :short => '-c',
@@ -74,10 +74,9 @@ module MarkdownLint
       # Put values in the config file
       MarkdownLint::Config.merge!(config)
 
-      # We need at least one non-option argument
+      # Read from stdin if we didn't provide a filename
       if cli_arguments.empty? and not config[:list_rules]
-        puts opt_parser
-        exit -1
+        cli_arguments << "-"
       end
     end
   end
