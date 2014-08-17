@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
-# Quick script for viewing getting at kramdown's view of a markdown file
+# Quick script for viewing getting at kramdown's and markdownlint's view of a
+# markdown file
 require 'mdl/doc'
 require 'pry'
 
