@@ -1,9 +1,10 @@
 #!/usr/bin/env ruby
 # Quick script for viewing getting at kramdown's view of a markdown file
-require 'kramdown'
+require 'mdl/doc'
 require 'pry'
 
-doc = Kramdown::Document.new(File.read(ARGV[0]))
-children = doc.root.children
+
+doc = MarkdownLint::Doc.new_from_file(ARGV[0])
+children = doc.parsed.root.children
 
 binding.pry
