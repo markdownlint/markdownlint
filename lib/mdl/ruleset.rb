@@ -1,10 +1,28 @@
 module MarkdownLint
   class Rule
-    attr_accessor :id, :description, :check, :tags
+    attr_accessor :id, :description
 
-    def initialize(id, description)
+    def initialize(id, description, block)
       @id, @description = id, description
       @tags = []
+      @params = {}
+      instance_eval &block
+    end
+
+
+    def check(&block)
+      @check = block unless block.nil?
+      @check
+    end
+
+    def tags(*t)
+      @tags = t.flatten.map {|i| i.to_sym} unless t.empty?
+      @tags
+    end
+
+    def params(p = nil)
+      @params.update(p) unless p.nil?
+      @params
     end
   end
 
@@ -13,17 +31,7 @@ module MarkdownLint
 
     def rule(id, description, &block)
       @rules = {} if @rules.nil?
-      @rules[id] = Rule.new(id, description)
-      @last_rule = id
-      yield self
-    end
-
-    def check(&block)
-      @rules[@last_rule].check = block
-    end
-
-    def tags(*t)
-      @rules[@last_rule].tags = t.flatten.map {|i| i.to_sym}
+      @rules[id] = Rule.new(id, description, block)
     end
 
     def self.load_default

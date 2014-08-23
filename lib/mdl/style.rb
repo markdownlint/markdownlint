@@ -12,16 +12,17 @@ module MarkdownLint
           @tagged_rules[t] << id
         end
       end
-      @all_rules = Set.new(all_rules.keys)
+      @all_rules = all_rules
       @rules = Set.new
     end
 
     def all
-      @rules.merge(@all_rules)
+      @rules.merge(@all_rules.keys)
     end
 
-    def rule(id)
+    def rule(id, params={})
       @rules << id
+      @all_rules[id].params(params)
     end
 
     def exclude_rule(id)
