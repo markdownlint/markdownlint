@@ -12,7 +12,8 @@ class TestRuledocs < Minitest::Test
   def load_ruledocs
     rules = {}
     curr_rule = nil
-    File.read('../RULES.md').split("\n").each do |l|
+    rules_file = File.expand_path('../../RULES.md', __FILE__)
+    File.read(rules_file).split("\n").each do |l|
       if l.match(/^## (MD\d+) - (.*)$/)
         rules[$1] = { :description => $2, :params => {} }
         curr_rule = $1
