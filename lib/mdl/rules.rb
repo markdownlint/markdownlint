@@ -22,31 +22,43 @@ rule "MD002", "First header should be a h1 header" do
   end
 end
 
-rule "MD003", "Mixed header styles" do
+rule "MD003", "Header style" do
   # Header styles are things like ### and adding underscores
   # See http://daringfireball.net/projects/markdown/syntax#header
-  tags :headers, :mixed
+  tags :headers
+  # :style can be one of :consistent, :atx, :atx_closed, :setext
+  params :style => :consistent
   check do |doc|
     headers = doc.find_type_elements(:header)
     if headers.empty?
       nil
     else
-      doc_style = doc.header_style(headers.first)
+      if @params[:style] == :consistent
+        doc_style = doc.header_style(headers.first)
+      else
+        doc_style = @params[:style]
+      end
       headers.map { |h| doc.element_linenumber(h) \
                     if doc.header_style(h) != doc_style }.compact
     end
   end
 end
 
-rule "MD004", "Mixed bullet styles" do
-  tags :bullet, :mixed
+rule "MD004", "Unordered list style" do
+  tags :bullet, :ul
+  # :style can be one of :consistent, :asterisk, :plus, :dash
+  params :style => :consistent
   check do |doc|
     bullets = doc.find_type_elements(:ul).map {|l|
       doc.find_type_elements(:li, false, l.children)}.flatten
     if bullets.empty?
       nil
     else
-      doc_style = doc.bullet_style(bullets.first)
+      if @params[:style] == :consistent
+        doc_style = doc.bullet_style(bullets.first)
+      else
+        doc_style = @params[:style]
+      end
       bullets.map { |b| doc.element_linenumber(b) \
                     if doc.bullet_style(b) != doc_style }.compact
     end
@@ -54,7 +66,7 @@ rule "MD004", "Mixed bullet styles" do
 end
 
 rule "MD005", "Inconsistent indentation for list items at the same level" do
-  tags :bullet, :indentation
+  tags :bullet, :ul, :indentation
   check do |doc|
     bullets = doc.find_type(:li)
     errors = []
@@ -75,15 +87,16 @@ end
 rule "MD006", "Consider starting bulleted lists at the beginning of the line" do
   # Starting at the beginning of the line means that indendation for each
   # bullet level can be identical.
-  tags :bullet, :indentation
+  tags :bullet, :ul, :indentation
   check do |doc|
     doc.find_type(:ul, false).select{
       |e| doc.indent_for(doc.element_line(e)) != 0 }.map{ |e| e[:location] }
   end
 end
 
-rule "MD007", "Consider 4 space indents for unordered lists" do
-  tags :bullet, :multimarkdown, :indentation
+rule "MD007", "Unordered list indentation" do
+  tags :bullet, :ul, :indentation
+  params :indent => 2
   check do |doc|
     indents = []
     errors = []
@@ -91,25 +104,7 @@ rule "MD007", "Consider 4 space indents for unordered lists" do
       |e| [doc.indent_for(doc.element_line(e)), doc.element_linenumber(e)] }
     curr_indent = indents[0][0] unless indents.empty?
     indents.each do |indent, linenum|
-      if indent > curr_indent and indent - curr_indent != 4
-        errors << linenum
-      end
-      curr_indent = indent
-    end
-    errors
-  end
-end
-
-rule "MD008", "Consider 2 space indents for unordered lists" do
-  tags :bullet, :not_multimarkdown, :indentation
-  check do |doc|
-    indents = []
-    errors = []
-    indents = doc.find_type(:ul).map {
-      |e| [doc.indent_for(doc.element_line(e)), doc.element_linenumber(e)] }
-    curr_indent = indents[0][0] unless indents.empty?
-    indents.each do |indent, linenum|
-      if indent > curr_indent and indent - curr_indent != 2
+      if indent > curr_indent and indent - curr_indent != @params[:indent]
         errors << linenum
       end
       curr_indent = indent
@@ -154,10 +149,11 @@ rule "MD012", "Multiple consecutive blank lines" do
   end
 end
 
-rule "MD013", "Line longer than 80 characters" do
+rule "MD013", "Line length" do
   tags :line_length
+  params :line_length => 80
   check do |doc|
-    doc.matching_lines(/^.{80}.*\s/)
+    doc.matching_lines(/^.{#{@params[:line_length]}}.*\s/)
   end
 end
 
@@ -167,48 +163,6 @@ rule "MD014", "Dollar signs used before commands without showing output" do
     doc.find_type_elements(:codeblock).select{
       |e| not e.value.split(/\n+/).map{|l| l.match(/^\$/)}.include?(nil)
     }.map{|e| doc.element_linenumber(e)}
-  end
-end
-
-rule "MD015", "Use of non-atx style headers" do
-  tags :headers, :atx, :specific_style
-  check do |doc|
-    headers = doc.find_type_elements(:header)
-    if headers.empty?
-      nil
-    else
-      doc_style = :atx
-      headers.map { |h| doc.element_linenumber(h) \
-                    if doc.header_style(h) != doc_style }.compact
-    end
-  end
-end
-
-rule "MD016", "Use of non-closed-atx style headers" do
-  tags :headers, :atx_closed, :specific_style
-  check do |doc|
-    headers = doc.find_type_elements(:header)
-    if headers.empty?
-      nil
-    else
-      doc_style = :atx_closed
-      headers.map { |h| doc.element_linenumber(h) \
-                    if doc.header_style(h) != doc_style }.compact
-    end
-  end
-end
-
-rule "MD017", "Use of non-setext style headers" do
-  tags :headers, :setext, :specific_style
-  check do |doc|
-    headers = doc.find_type_elements(:header)
-    if headers.empty?
-      nil
-    else
-      doc_style = :setext
-      headers.map { |h| doc.element_linenumber(h) \
-                    if doc.header_style(h) != doc_style }.compact
-    end
   end
 end
 

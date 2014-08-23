@@ -54,98 +54,98 @@ class TestRules < Minitest::Test
   testcases = {
     'empty_doc' => "",
     'headers_good' => %(
-      # Heading 1 {MD016} {MD017}
+      # Heading 1
 
-      ## Heading 2 {MD016} {MD017}
+      ## Heading 2
 
-      ## Heading 3 {MD016} {MD017}
+      ## Heading 3
     ),
     'headers_bad' => %(
-      # Header {MD016} {MD017}
+      # Header
 
-      ### Header 3 {MD001} {MD016} {MD017}
+      ### Header 3 {MD001}
 
-      ## Header 2 {MD016} {MD017}
+      ## Header 2
 
-      #### Header 4 {MD001} {MD016} {MD017}
+      #### Header 4 {MD001}
     ),
     'first_header_good_atx' => %(
-      # Header {MD016} {MD017}
+      # Header
     ),
     'first_header_good_setext' => %(
-      Header {MD015} {MD016}
+      Header
       ======
     ),
     'first_header_bad_atx' => %(
-      ## Header {MD002} {MD016} {MD017}
+      ## Header {MD002}
     ),
     'first_header_bad_setext' => %(
-      Header {MD002} {MD015} {MD016}
-      ----------------
+      Header {MD002}
+      --------------
     ),
     'mixed_header_types_atx' => %(
-      # Header {MD016} {MD017}
+      # Header
 
-      ## Header 2 {MD003} {MD015} {MD017} ##
+      ## Header 2 {MD003} ##
 
-      Header 3 {MD003} {MD015} {MD016}
+      Header 3 {MD003}
       ----------------
     ),
     'mixed_header_types_atx_closed' => %(
-      # Header 1 {MD015} {MD017} #
+      # Header 1 #
 
-      ## Header 2 {MD003} {MD016} {MD017}
+      ## Header 2 {MD003}
 
-      Header 3 {MD003} {MD015} {MD016}
+      Header 3 {MD003}
       ----------------
     ),
     'mixed_header_types_setext' => %(
-      Header 1 {MD015} {MD016}
-      ======
+      Header 1
+      ========
 
-      ## Header 2 {MD003} {MD016} {MD017}
+      ## Header 2 {MD003}
 
-      ## Header 3 {MD003} {MD015} {MD017} ##
+      ## Header 3 {MD003} ##
     ),
     'atx_header_spacing' => %(
-      #Header 1 {MD018} {MD016} {MD017}
+      #Header 1 {MD018}
 
-      ##  Header 2 {MD019} {MD016} {MD017}
+      ##  Header 2 {MD019}
 
-      ##   Header 3 {MD019} {MD016} {MD017}
+      ##   Header 3 {MD019}
     ),
     'atx_closed_header_spacing' => %(
-      #Header 1 {MD020} {MD015} {MD017} #
+      #Header 1 {MD020} #
 
-      ## Header 2 {MD020} {MD015} {MD017}##
+      ## Header 2 {MD020}##
 
-      ##Header 3 {MD020} {MD015} {MD017}##
+      ##Header 3 {MD020}##
 
-      ##  Header 4 {MD021} {MD015} {MD017} ##
+      ##  Header 4 {MD021} ##
 
-      ## Header 5 {MD021} {MD015} {MD017}  ##
+      ## Header 5 {MD021}  ##
 
-      ##  Header 6 {MD021} {MD015} {MD017}  ##
+      ##  Header 6 {MD021}  ##
 
-      ##   Header 7 {MD021} {MD015} {MD017}   ##
+      ##   Header 7 {MD021}   ##
     ),
     'headers_surrounding_space_atx' => %(
-      # Header 1 {MD016} {MD017}
+      # Header 1
 
-      ## Header 2 {MD022} {MD016} {MD017}
+      ## Header 2 {MD022}
       Some text
       ## Header 3 {MD022}
       Some text
       ## Header 4 {MD022}
 
-      ## Header 5 {MD016} {MD017}
+      ## Header 5
     ),
     'headers_surrounding_space_setext' => %(
-      Header 1 {MD015} {MD016}
-      ========================
+      Header 1
+      ========
 
-      Header 2 {MD022} {MD015} {MD016}
-      --------------------------------
+      Header 2 {MD022}
+      ----------------
       Some text
       Header 3 {MD022}
       ================
@@ -154,8 +154,8 @@ class TestRules < Minitest::Test
       ================
       Some text
 
-      Header 5 {MD015} {MD016}
-      ------------------------
+      Header 5
+      --------
     ),
     'headers_with_spaces_at_the_beginning' => %(
       Some text
@@ -165,80 +165,80 @@ class TestRules < Minitest::Test
        Setext style fully indented {MD023}
        ===================================
 
-       Setext style title only indented {MD023} {MD015} {MD016}
-      =========================================================
+       Setext style title only indented {MD023}
+      =========================================
     ),
     'header_duplicate_content' => %(
-      # Header 1 {MD016} {MD017}
+      # Header 1
 
-      ## Header 2 {MD016} {MD017}
+      ## Header 2
 
-      ## Header 1 {MD016} {MD017}
+      ## Header 1
 
-      ### Header 2 {MD016} {MD017}
+      ### Header 2
 
-      ## Header 3 {MD016} {MD017}
+      ## Header 3
 
       {MD024:5} {MD024:7}
     ),
     'header_multiple_toplevel' => %(
-      # Heading 1 {MD016} {MD017}
+      # Heading 1
 
-      # Heading 2 {MD016} {MD017} {MD025}
+      # Heading 2 {MD025}
     ),
     'header_mutliple_h1_no_toplevel' => %(
       Some introductory text
 
-      # Heading 1 {MD016} {MD017}
+      # Heading 1
 
-      # Heading 2 {MD016} {MD017}
+      # Heading 2
     ),
     'header_trailing_punctuation' => %(
-      # Heading 1 {MD016} {MD017} {MD026}.
+      # Heading 1 {MD026}.
 
-      ## Heading 2 {MD016} {MD017} {MD026},
+      ## Heading 2 {MD026},
 
-      ## Heading 3 {MD016} {MD017} {MD026}!
+      ## Heading 3 {MD026}!
 
-      ## Heading 4 {MD016} {MD017} {MD026}:
+      ## Heading 4 {MD026}:
 
-      ## Heading 5 {MD016} {MD017} {MD026};
+      ## Heading 5 {MD026};
 
-      ## Heading 6 {MD016} {MD017} {MD026}?
+      ## Heading 6 {MD026}?
     ),
     'consistent_bullet_styles_asterisk' => %(
       * Item
-        * Item {MD007}
+        * Item
         * Item
     ),
     'consistent_bullet_styles_plus' => %(
       + Item
-        + Item {MD007}
+        + Item
         + Item
     ),
     'consistent_bullet_styles_dash' => %(
       - Item
-        - Item {MD007}
+        - Item
         - Item
     ),
     'inconsistent_bullet_styles_asterisk' => %(
       * Item
-        + Item {MD004} {MD007}
+        + Item {MD004}
         - Item {MD004}
     ),
     'inconsistent_bullet_styles_plus' => %(
       + Item
-        * Item {MD004} {MD007}
+        * Item {MD004}
         - Item {MD004}
     ),
     'inconsistent_bullet_styles_dash' => %(
       - Item
-        * Item {MD004} {MD007}
+        * Item {MD004}
         + Item {MD004}
     ),
     'inconsistent_bullet_indent_same_level' => %(
       * Item
-          * Item {MD008}
+          * Item {MD007}
         * Item {MD005}
           * Item
     ),
@@ -246,9 +246,9 @@ class TestRules < Minitest::Test
       Some text
 
         * Item {MD006}
-          * Item {MD007}
           * Item
-            * Item {MD007}
+          * Item
+            * Item
           * Item
         * Item
         * Item
@@ -256,12 +256,12 @@ class TestRules < Minitest::Test
       Some more text
 
         * Item {MD006}
-          * Item {MD007}
+          * Item
     ),
     'bulleted_list_4_space_indent' => %(
       * Test X
-          * Test Y {MD008}
-              * Test Z {MD008}
+          * Test Y {MD007}
+              * Test Z {MD007}
     ),
     'whitespace issues' => %(
       Some text {MD009} 

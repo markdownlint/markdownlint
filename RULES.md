@@ -49,9 +49,11 @@ The first header in the document should be a h1 header:
 
     ## Then use a H2 for subsections
 
-## MD003 - Mixed header styles
+## MD003 - Header style
 
-Tags: headers, mixed
+Tags: headers
+
+Parameters: style
 
 This rule is triggered when different header styles (atx, setext, and 'closed'
 atx) are used in the same document:
@@ -69,26 +71,37 @@ Be consistent with the style of header used in a document:
 
     ## ATX style H2
 
-## MD004 - Mixed bullet styles
+Note: the configured header style can be a specific style to use (atx,
+atx_closed, setext), or simply require that the usage be consistent within the
+document.
 
-Tags: bullet, mixed
+## MD004 - Unordered list style
 
-This rule is triggered when different symbols are used in the same document
-for unordered list items:
+Tags: bullet, ul
+
+Parameters: style
+
+This rule is triggered when the symbols used in the document for unordered
+list items do not match the configured unordered list style:
 
     * Item 1
     + Item 2
     - Item 3
 
-Use the same symbol for list items throughout the document:
+To fix this issue, use the configured style for list items throughout the
+document:
 
     * Item 1
     * Item 2
     * Item 3
 
-## MD005 - Inconsistent indentation for bullets at the same level
+Note: the configured list style can be a specific symbol to use (asterisk,
+plus, dash), or simply require that the usage be consistent within the
+document.
 
-Tags: bullet, indentation
+## MD005 - Inconsistent indentation for list items at the same level
+
+Tags: bullet, ul, indentation
 
 This rule is triggered when list items are parsed as being at the same level,
 but don't have the same indentation:
@@ -108,7 +121,7 @@ for the list to fix it:
 
 ## MD006 - Consider starting bulleted lists at the beginning of the line
 
-Tags: bullet, indentation
+Tags: bullet, ul, indentation
 
 This rule is triggered when top level lists don't start at the beginning of a
 line:
@@ -132,38 +145,14 @@ or the tab key is used to indent. Starting a list 1 space in means that the
 indent of the first nested list is less than the indent of the second level (3
 characters if you use 4 space tabs, or 1 character if you use 2 space tabs).
 
-## MD007 - Consider 4 space indents for unordered lists
+## MD007 - Unordered list indentation
 
-Tags: bullet, multimarkdown, indentation
+Tags: bullet, ul, indentation
 
-This rule is triggered when list items are not indented by 4 spaces.
-Example:
+Parameters: indent
 
-    * List item
-      * Nested list item - this would be rendered as the same list item in
-        multi-markdown.
-
-Corrected Example:
-
-    * List item
-        * Nested list item
-
-Rationale:
-
-Same indent as code blocks, simpler for editors to implement. See
-<http://www.cirosantilli.com/markdown-styleguide/#indented-lists> for more
-information.
-
-In addition, this is a compatibility issue with multi-markdown parsers, which
-require a 4 space indents. See
-<http://support.markedapp.com/discussions/problems/21-sub-lists-not-indenting>
-for a description of the problem.
-
-## MD008 - Consider 2 space indents for unordered lists
-
-Tags: bullet, not_multimarkdown, indentation
-
-This rule is triggered when list items are not indented by 2 spaces.
+This rule is triggered when list items are not indented by the configured
+number of spaces (default: 2).
 
 Example:
 
@@ -175,9 +164,19 @@ Corrected Example:
     * List item
       * Nested list item indented by 2 spaces
 
-Rationale: indending by 2 spaces allows the content of a nested list to be in
-line with the start of the content of the parent list when a single space is
-used after the list marker.
+Rationale (2 space indent): indending by 2 spaces allows the content of a
+nested list to be in line with the start of the content of the parent list
+when a single space is used after the list marker.
+
+Rationale (4 space indent): Same indent as code blocks, simpler for editors to
+implement. See
+<http://www.cirosantilli.com/markdown-styleguide/#indented-lists> for more
+information.
+
+In addition, this is a compatibility issue with multi-markdown parsers, which
+require a 4 space indents. See
+<http://support.markedapp.com/discussions/problems/21-sub-lists-not-indenting>
+for a description of the problem.
 
 ## MD009 - Trailing spaces
 
@@ -241,15 +240,18 @@ To fix this, delete the offending lines:
 Note: this rule will not be triggered if there are multiple consecutive blank
 lines inside code blocks.
 
-## MD013 - Line longer than 80 character
+## MD013 - Line length
 
 Tags: line_length
 
-This rule is triggered when there are lines that are longer than 80
-characters. To fix this, split the line up into multiple lines.
+Parameters: line_length
 
-This rule has an exception where there is no whitespace after the 80th
-character. This allows you to still include items such as long URLs without
+This rule is triggered when there are lines that are longer than the
+configured line length (default: 80 characters). To fix this, split the line
+up into multiple lines.
+
+This rule has an exception where there is no whitespace beyond the configured
+line length. This allows you to still include items such as long URLs without
 being forced to break them in the middle.
 
 ## MD014 - Dollar signs used before commands without showing output
@@ -284,56 +286,6 @@ Rationale: it is easier to copy and paste and less noisy if the dollar signs
 are omitted when they are not needed. See
 <http://www.cirosantilli.com/markdown-styleguide/#dollar-signs-in-shell-code>
 for more information.
-
-## MD015 - Use of non-atx style headers
-
-Tags: headers, atx, specific_style
-
-This rule enforces a specific header style to be used in a document (in this
-case, atx style headers). Use of other header styles will trigger the rule. If
-you enable one of the header style rules, you should pick only one of them.
-Alternatively, just enable MD003, which will enforce consistent header styles
-within a document.
-
-Example of ATX style headers:
-
-    # Header 1
-
-    ## Header 2
-
-## MD016 - Use of non-closed-atx style headers
-
-Tags: headers, atx_closed, specific_style
-
-This rule enforces a specific header style to be used in a document (in this
-case, closed atx style headers). Use of other header styles will trigger the
-rule. If you enable one of the header style rules, you should pick only one of
-them.  Alternatively, just enable MD003, which will enforce consistent header
-styles within a document.
-
-Example of closed atx style headers:
-
-    # Header 1 #
-
-    ## Header 2 ##
-
-## MD017 - Use of non-setext style headers
-
-Tags: headers, setext, specific_style
-
-This rule enforces a specific header style to be used in a document (in this
-case, setext style headers). Use of other header styles will trigger the
-rule. If you enable one of the header style rules, you should pick only one of
-them.  Alternatively, just enable MD003, which will enforce consistent header
-styles within a document.
-
-Example of setext style headers:
-
-    Header 1
-    ========
-
-    Header 2
-    --------
 
 ## MD018 - No space after hash on atx style header
 
