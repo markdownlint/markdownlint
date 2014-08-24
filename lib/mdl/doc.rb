@@ -1,4 +1,5 @@
 require 'kramdown'
+require 'mdl/kramdown_parser'
 
 module MarkdownLint
   ##
