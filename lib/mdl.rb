@@ -1,6 +1,7 @@
 require 'mdl/cli'
 require 'mdl/config'
 require 'mdl/doc'
+require 'mdl/kramdown_parser'
 require 'mdl/ruleset'
 require 'mdl/style'
 require 'mdl/version'

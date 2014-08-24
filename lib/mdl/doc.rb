@@ -36,7 +36,7 @@ module MarkdownLint
       text.encode!("ASCII", invalid: :replace, undef: :replace, replace: '')
 
       @lines = text.split("\n")
-      @parsed = Kramdown::Document.new(text)
+      @parsed = Kramdown::Document.new(text, :input => 'MarkdownLint')
       @elements = @parsed.root.children
       add_levels(@elements)
     end
