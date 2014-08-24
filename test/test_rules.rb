@@ -2,10 +2,6 @@ require_relative 'setup_tests'
 
 class TestRules < Minitest::Test
 
-  def setup
-    @rules = MarkdownLint::RuleSet.load_default
-  end
-
   def get_expected_errors(lines)
     # Looks for lines tagged with {MD123} to signify that a rule is expected to
     # fire for this line. It also looks for lines tagged with {MD123:1} to
@@ -30,10 +26,20 @@ class TestRules < Minitest::Test
   end
 
   def do_lint(filename)
+    # Check for a test_case_style.rb style file for individual tests
+    style_file = filename.sub(/.md$/, '_style.rb')
+    if ! File.exist?(style_file)
+      style_file = 'all'
+    end
+
+    rules = MarkdownLint::RuleSet.load_default
+    style = MarkdownLint::Style.load(style_file, rules)
+    rules.select! {|r| style.rules.include?(r)}
+
     doc = MarkdownLint::Doc.new(File.read(filename))
     expected_errors = get_expected_errors(doc.lines)
     actual_errors = {}
-    @rules.sort.each do |id, rule|
+    rules.sort.each do |id, rule|
       error_lines = rule.check.call(doc)
       if error_lines and not error_lines.empty?
         actual_errors[id] = error_lines
