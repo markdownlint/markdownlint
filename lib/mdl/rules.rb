@@ -190,7 +190,7 @@ rule "MD020", "No space inside hashes on closed atx style header" do
     doc.find_type_elements(:header).select do |h|
       doc.header_style(h) == :atx_closed \
         and (doc.element_line(h).match(/^#+[^#\s]/) \
-             or doc.element_line(h).match(/[^#\s]#+$/))
+             or doc.element_line(h).match(/[^#\s\\]#+$/))
     end.map { |h| doc.element_linenumber(h) }
   end
 end
