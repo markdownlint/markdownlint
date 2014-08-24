@@ -463,6 +463,8 @@ should be contained within this header.
 
 Tags: headers
 
+Parameters: punctuation
+
 This rule is triggered on any header that has a punctuation character as the
 last character in the line:
 
@@ -471,6 +473,11 @@ last character in the line:
 To fix this, remove any trailing punctuation:
 
     # This is a header
+
+Note: The punctuation parameter can be used to specify what characters class
+as punctuation at the end of the header. For example, you can set it to
+`'.,;:!'` to allow headers with question marks in them, such as might be used
+in an FAQ.
 
 ## MD027 - Multiple spaces after blockquote symbol
 
