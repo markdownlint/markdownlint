@@ -326,3 +326,26 @@ rule "MD027", "Multiple spaces after blockquote symbol" do
     errors
   end
 end
+
+rule "MD028", "Blank line inside blockquote" do
+  tags :blockquote, :whitespace
+  check do |doc|
+    def check_blockquote(errors, elements)
+      prev = [nil, nil, nil]
+      elements.each do |e|
+        prev.shift
+        prev << e.type
+        if prev == [:blockquote, :blank, :blockquote]
+          # The current location is the start of the second blockquote, so the
+          # line before will be a blank line in between the two, or at least the
+          # lowest blank line if there are more than one.
+          errors << e.options[:location] - 1
+        end
+        check_blockquote(errors, e.children)
+      end
+    end
+    errors = []
+    check_blockquote(errors, doc.elements)
+    errors
+  end
+end
