@@ -10,7 +10,7 @@ class TestRuledocs < Minitest::Test
   end
 
   def load_ruledocs
-    rules = {}
+    rules = Hash.new({}) # Default to {} if no docs for the rule
     curr_rule = nil
     rules_file = File.expand_path('../../RULES.md', __FILE__)
     File.read(rules_file).split("\n").each do |l|
@@ -34,7 +34,7 @@ class TestRuledocs < Minitest::Test
       assert_equal r.tags, @ruledocs[id][:tags]
     end
     define_method("test_ruledoc_params_#{id}") do
-      assert_equal r.params.keys.sort, @ruledocs[id][:params].sort
+      assert_equal r.params.keys.sort, (@ruledocs[id][:params] || []).sort
     end
   end
 
