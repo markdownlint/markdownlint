@@ -526,3 +526,21 @@ blockquote symbol at the beginning of the blank line:
 Rationale: Some markdown parsers will treat two blockquotes separated by one
 or more blank lines as the same blockquote, while others will treat them as
 separate blockquotes.
+
+## MD029 - Ordered list items should start with '1.'
+
+Tags: ol
+
+This rule is triggered on ordered lists that do not use '1.' as the item
+prefix:
+
+    1. Do this.
+    2. Do that.
+    3. Done.
+
+To fix this, ensure that each list item is numbered with 1. When rendered,
+markdown will automatically number the items correctly:
+
+    1. Do this.
+    1. Do that.
+    1. Done.

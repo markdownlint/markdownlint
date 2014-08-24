@@ -349,3 +349,13 @@ rule "MD028", "Blank line inside blockquote" do
     errors
   end
 end
+
+rule "MD029", "Ordered list items should start with '1.'" do
+  tags :ol
+  check do |doc|
+    doc.find_type_elements(:ol).map { |l|
+      doc.find_type_elements(:li, false, l.children) }.flatten.map { |i|
+        doc.element_linenumber(i) \
+          unless doc.element_line(i).strip.start_with?('1. ') }.compact
+  end
+end
