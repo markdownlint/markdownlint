@@ -12,13 +12,7 @@ module MarkdownLint
     cli = MarkdownLint::CLI.new
     cli.run
     rules = RuleSet.load_default
-    unless Config[:style].include?("/") or Config[:style].end_with?(".rb")
-      Config[:style] = File.expand_path(
-        "../../lib/mdl/styles/#{Config[:style]}.rb", __FILE__)
-    end
     style = Style.load(Config[:style], rules)
-    # Style filter
-    rules.select! {|r| style.rules.include?(r)}
     # Rule option filter
     rules.select! {|r| Config[:rules].include?(r) } if Config[:rules]
     # Tag option filter

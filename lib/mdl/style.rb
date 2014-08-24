@@ -37,9 +37,13 @@ module MarkdownLint
       @rules.subtract(@tagged_rules[t])
     end
 
-    def self.load(style_file, all_rules)
-      style = new(all_rules)
+    def self.load(style_file, rules)
+      unless style_file.include?("/") or style_file.end_with?(".rb")
+        style_file = File.expand_path("../styles/#{style_file}.rb", __FILE__)
+      end
+      style = new(rules)
       style.instance_eval(File.read(style_file), style_file)
+      rules.select! {|r| style.rules.include?(r)}
       style
     end
   end
