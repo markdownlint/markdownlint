@@ -15,3 +15,8 @@ distinguish between command and output:
 
     $ cat bar
     baz
+
+The following code block uses variable names, and likewise shouldn't fire:
+
+    $foo = 'bar';
+    $baz = 'qux';
