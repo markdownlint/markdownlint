@@ -527,20 +527,24 @@ Rationale: Some markdown parsers will treat two blockquotes separated by one
 or more blank lines as the same blockquote, while others will treat them as
 separate blockquotes.
 
-## MD029 - Ordered list items should start with '1.'
+## MD029 - Ordered list item prefix
 
 Tags: ol
 
-This rule is triggered on ordered lists that do not use '1.' as the item
-prefix:
+Parameters: style
 
-    1. Do this.
-    2. Do that.
-    3. Done.
+This rule is triggered on ordered lists that do not either start with '1.' or
+do not have a prefix that increases in numerical order (depending on the
+configured style, which defaults to 'one').
 
-To fix this, ensure that each list item is numbered with 1. When rendered,
-markdown will automatically number the items correctly:
+Example valid list if the style is configured as 'one':
 
     1. Do this.
     1. Do that.
     1. Done.
+
+Example valid list if the style is configured as 'ordered':
+
+    1. Do this.
+    2. Do that.
+    3. Done.

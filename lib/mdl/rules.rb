@@ -350,12 +350,23 @@ rule "MD028", "Blank line inside blockquote" do
   end
 end
 
-rule "MD029", "Ordered list items should start with '1.'" do
+rule "MD029", "Ordered list item prefix" do
   tags :ol
+  # Style can be :one or :ordered
+  params :style => :one
   check do |doc|
-    doc.find_type_elements(:ol).map { |l|
-      doc.find_type_elements(:li, false, l.children) }.flatten.map { |i|
-        doc.element_linenumber(i) \
-          unless doc.element_line(i).strip.start_with?('1. ') }.compact
+    if params[:style] == :ordered
+      doc.find_type_elements(:ol).map { |l|
+        doc.find_type_elements(:li, false, l.children).map.with_index { |i, idx|
+          doc.element_linenumber(i) \
+            unless doc.element_line(i).strip.start_with?("#{idx+1}. ")
+        }
+      }.flatten.compact
+    elsif params[:style] == :one
+      doc.find_type_elements(:ol).map { |l|
+        doc.find_type_elements(:li, false, l.children) }.flatten.map { |i|
+          doc.element_linenumber(i) \
+            unless doc.element_line(i).strip.start_with?('1. ') }.compact
+    end
   end
 end
