@@ -370,3 +370,24 @@ rule "MD029", "Ordered list item prefix" do
     end
   end
 end
+
+rule "MD030", "Spaces after list markers" do
+  tags :ol, :ul, :whitespace
+  params :ul_single => 1, :ol_single => 1, :ul_multi => 1, :ol_multi => 1
+  check do |doc|
+    errors = []
+    doc.find_type_elements([:ul, :ol]).each do |l|
+      list_type = l.type.to_s
+      items = doc.find_type_elements(:li, false, l.children)
+      # The entire list is to use the multi-paragraph spacing rule if any of
+      # the items in it have multiple paragraphs/other block items.
+      srule = items.map { |i| i.children.length }.max > 1 ? "multi" : "single"
+      items.each do |i|
+        actual_spaces = doc.element_line(i).match(/^\s*\S+(\s+)/)[1].length
+        required_spaces = params["#{list_type}_#{srule}".to_sym]
+        errors << doc.element_linenumber(i) if required_spaces != actual_spaces
+      end
+    end
+    errors
+  end
+end
