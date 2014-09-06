@@ -130,7 +130,7 @@ end
 rule "MD011", "Reversed link syntax" do
   tags :links
   check do |doc|
-    doc.matching_lines(/\([^)]+\)\[[^\]]+\]/)
+    doc.matching_text_element_lines(/\([^)]+\)\[[^\]]+\]/)
   end
 end
 

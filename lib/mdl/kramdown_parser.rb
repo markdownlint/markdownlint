@@ -14,6 +14,14 @@ module Kramdown
         @block_parsers.insert(i, :codeblock_fenced_gfm)
       end
 
+      # Add location information to text elements
+      def add_text(text, tree = @tree, type = @text_type)
+        super
+        if tree.children.last
+          tree.children.last.options[:location] = @src.current_line_number
+        end
+      end
+
       # Regular kramdown parser, but with GFM style fenced code blocks
       FENCED_CODEBLOCK_MATCH = Kramdown::Parser::GFM::FENCED_CODEBLOCK_MATCH
     end

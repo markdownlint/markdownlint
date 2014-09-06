@@ -190,6 +190,21 @@ module MarkdownLint
         |i| i[1]+1}
     end
 
+    ##
+    # Returns line numbers for lines that match the given regular expression.
+    # Only considers text inside of 'text' elements (i.e. regular markdown
+    # text and not code/links or other elements).
+    def matching_text_element_lines(re)
+      matches = []
+      find_type_elements(:text).each do |e|
+        first_line = e.options[:location]
+        lines = e.value.split("\n")
+        lines.each_with_index do |l, i|
+          matches << first_line + i if re.match(l)
+        end
+      end
+      matches
+    end
 
     ##
     # Extracts the text from an element whose children consist of text
