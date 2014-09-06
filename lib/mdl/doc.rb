@@ -144,21 +144,25 @@ module MarkdownLint
     end
 
     ##
-    # Returns the bullet style for an unordered list - :asterisk, :plus,
-    # :dash, depending on which symbol is used to denote the list item. You
-    # can pass in either the element itself or an options hash here.
+    # Returns the list style for a list: :asterisk, :plus, :dash, :ordered or
+    # :ordered_paren depending on which symbol is used to denote the list
+    # item. You can pass in either the element itself or an options hash here.
 
-    def bullet_style(bullet)
-      if bullet.type != :li
-        raise "bullet_style called with non-bullet element"
+    def list_style(item)
+      if item.type != :li
+        raise "list_style called with non-list element"
       end
-      line = element_line(bullet).strip
+      line = element_line(item).strip
       if line.start_with?("*")
         :asterisk
       elsif line.start_with?("+")
         :plus
       elsif line.start_with?("-")
         :dash
+      elsif line.match("[0-9]+\.")
+        :ordered
+      elsif line.match("[0-9]+\)")
+        :ordered_paren
       else
         :unknown
       end

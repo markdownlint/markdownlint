@@ -55,12 +55,12 @@ rule "MD004", "Unordered list style" do
       nil
     else
       if @params[:style] == :consistent
-        doc_style = doc.bullet_style(bullets.first)
+        doc_style = doc.list_style(bullets.first)
       else
         doc_style = @params[:style]
       end
       bullets.map { |b| doc.element_linenumber(b) \
-                    if doc.bullet_style(b) != doc_style }.compact
+                    if doc.list_style(b) != doc_style }.compact
     end
   end
 end
