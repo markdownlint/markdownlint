@@ -72,13 +72,19 @@ module MarkdownLint
     # Find all elements of a given type, returning a list of the element
     # objects themselves.
     #
+    # Instead of a single type, a list of types can be provided instead to
+    # find all types.
+    #
     # If +nested+ is set to false, this returns only top level elements of a
     # given type.
 
     def find_type_elements(type, nested=true, elements=@elements)
       results = []
+      if type.class == Symbol
+        type = [type]
+      end
       elements.each do |e|
-        results.push(e) if e.type == type
+        results.push(e) if type.include?(e.type)
         if nested and not e.children.empty?
           results.concat(find_type_elements(type, nested, e.children))
         end
