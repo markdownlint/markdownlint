@@ -12,7 +12,7 @@ class TestRuledocs < Minitest::Test
   def load_ruledocs
     rules = Hash.new({}) # Default to {} if no docs for the rule
     curr_rule = nil
-    rules_file = File.expand_path('../../RULES.md', __FILE__)
+    rules_file = File.expand_path('../../docs/RULES.md', __FILE__)
     File.read(rules_file).split("\n").each do |l|
       if l.match(/^## (MD\d+) - (.*)$/)
         rules[$1] = { :description => $2, :params => {} }
