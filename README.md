@@ -13,7 +13,7 @@ simple to install and use.
 
 To install from rubygems, run:
 
-    gem install markdownlint
+    gem install mdl
 
 To install the latest development version from github:
 
