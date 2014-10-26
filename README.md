@@ -48,7 +48,8 @@ well as how to correct it:
     README.md:73: MD029 Ordered list item prefix
 
 Markdownlint has many more options you can pass on the command line, run
-`mdl --help` to see what they are.
+`mdl --help` to see what they are, or see the documentation on
+[configuring markdownlint](docs/configuration.md).
 
 ### Styles
 
