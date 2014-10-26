@@ -28,14 +28,6 @@ module MarkdownLint
     # Create a new document given a string containing the markdown source
 
     def initialize(text)
-      # Workaround for the following two issues:
-      #   https://github.com/mivok/markdownlint/issues/52
-      #   https://github.com/gettalong/kramdown/issues/158
-      # Unfortunately this forces all input text back into ascii, which may
-      # be problematic for any rules that make use of non-ascii characters, so
-      # we should remove this if it no longer becomes necessary to do so.
-      text.encode!("ASCII", invalid: :replace, undef: :replace, replace: '')
-
       @lines = text.split("\n")
       @parsed = Kramdown::Document.new(text, :input => 'MarkdownLint')
       @elements = @parsed.root.children
