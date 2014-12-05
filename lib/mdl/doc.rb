@@ -151,15 +151,15 @@ module MarkdownLint
         raise "list_style called with non-list element"
       end
       line = element_line(item).strip
-      if line.start_with?("*")
+      if line.start_with?('*')
         :asterisk
-      elsif line.start_with?("+")
+      elsif line.start_with?('+')
         :plus
-      elsif line.start_with?("-")
+      elsif line.start_with?('-')
         :dash
-      elsif line.match("[0-9]+\.")
+      elsif line.match('[0-9]+\.')
         :ordered
-      elsif line.match("[0-9]+\)")
+      elsif line.match('[0-9]+\)')
         :ordered_paren
       else
         :unknown
