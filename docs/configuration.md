@@ -65,3 +65,6 @@ might choose 72 characters, and another might have no line length limit at all
 * Command line: `-s style_name`, `--style style_name`
 * Config file: `style "style_name"`
 * Default: Use the style called 'default'
+
+Note: the value for `style_name` must either end with `.rb` or have `/` in it
+in order to tell `mdl` to look for a custom style, and not a built-in style.
