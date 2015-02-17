@@ -391,3 +391,24 @@ rule "MD030", "Spaces after list markers" do
     errors
   end
 end
+
+rule "MD031", "Fenced code blocks should be surrounded by blank lines" do
+  tags :code, :blank_lines
+  check do |doc|
+    errors = []
+    # Some parsers (including kramdown) have trouble detecting fenced code
+    # blocks without surrounding whitespace, so examine the lines directly.
+    in_code = false
+    lines = [ "" ] + doc.lines + [ "" ]
+    lines.each_with_index do |line, linenum|
+      if line.strip.match(/^(```|~~~)/)
+        in_code = !in_code
+        if (in_code and not lines[linenum - 1].empty?) or
+           (not in_code and not lines[linenum + 1].empty?)
+          errors << linenum
+        end
+      end
+    end
+    errors
+  end
+end

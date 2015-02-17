@@ -164,7 +164,7 @@ Corrected Example:
     * List item
       * Nested list item indented by 2 spaces
 
-Rationale (2 space indent): indending by 2 spaces allows the content of a
+Rationale (2 space indent): indenting by 2 spaces allows the content of a
 nested list to be in line with the start of the content of the parent list
 when a single space is used after the list marker.
 
@@ -189,7 +189,7 @@ find the line that is triggered and remove any trailing spaces from the end.
 
 Tags: whitespace, hard_tab
 
-This rule is triggered any any lines that contain hard tab characters instead
+This rule is triggered by any lines that contain hard tab characters instead
 of using spaces for indentation. To fix this, replace any hard tab characters
 with spaces instead.
 
@@ -291,7 +291,7 @@ for more information.
 
 Tags: headers, atx, spaces
 
-This rule is triggered when when spaces are missing after the hash characters
+This rule is triggered when spaces are missing after the hash characters
 in an atx style header:
 
     #Header 1
@@ -309,7 +309,7 @@ space:
 
 Tags: headers, atx, spaces
 
-This rule is triggered when when more than one space is used to separate the
+This rule is triggered when more than one space is used to separate the
 header text from the hash characters in an atx style header:
 
     #  Header 1
@@ -327,7 +327,7 @@ space:
 
 Tags: headers, atx_closed, spaces
 
-This rule is triggered when when spaces are missing inside the hash characters
+This rule is triggered when spaces are missing inside the hash characters
 in a closed atx style header:
 
     #Header 1#
@@ -347,7 +347,7 @@ Note: this rule will fire if either side of the header is missing spaces.
 
 Tags: headers, atx_closed, spaces
 
-This rule is triggered when when more than one space is used to separate the
+This rule is triggered when more than one space is used to separate the
 header text from the hash characters in a closed atx style header:
 
     #  Header 1  #
@@ -388,7 +388,7 @@ To fix this, ensure that all headers have a blank line both before and after
 
     ## Header 2
 
-Rationale: Aside from asthetic reasons, some parsers, including kramdown, will
+Rationale: Aside from aesthetic reasons, some parsers, including kramdown, will
 not parse headers that don't have a blank line before, and will parse them as
 regular text.
 
@@ -607,3 +607,38 @@ inside the list:
 
 To fix this, ensure the correct number of spaces are used after list marker
 for your selected document style.
+
+## MD031 - Fenced code blocks should be surrounded by blank lines
+
+Tags: code, blank_lines
+
+This rule is triggered when fenced code blocks are either not preceded or not
+followed by a blank line:
+
+    Some text
+    ```
+    Code block
+    ```
+
+    ```
+    Another code block
+    ```
+    Some more text
+
+To fix this, ensure that all fenced code blocks have a blank line both before
+and after (except where the block is at the beginning or end of the document):
+
+    Some text
+
+    ```
+    Code block
+    ```
+
+    ```
+    Another code block
+    ```
+
+    Some more text
+
+Rationale: Aside from aesthetic reasons, some parsers, including kramdown, will
+not parse fenced code blocks that don't have blank lines before and after them.
