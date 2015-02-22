@@ -412,3 +412,32 @@ rule "MD031", "Fenced code blocks should be surrounded by blank lines" do
     errors
   end
 end
+
+rule "MD032", "Lists should be surrounded by blank lines" do
+  tags :bullet, :ul, :ol, :blank_lines
+  check do |doc|
+    errors = []
+    # Some parsers (including kramdown) have trouble detecting lists
+    # without surrounding whitespace, so examine the lines directly.
+    in_list = false
+    in_code = false
+    prev_line = ""
+    doc.lines.each_with_index do |line, linenum|
+      if not in_code
+        list_marker = line.strip.match(/^([\*\+\-]|(\d+\.))\s/)
+        if list_marker and not in_list and not prev_line.match(/^($|\s)/)
+          errors << linenum + 1
+        elsif not list_marker and in_list and not line.match(/^($|\s)/)
+          errors << linenum
+        end
+        in_list = list_marker
+      end
+      if line.strip.match(/^(```|~~~)/)
+        in_code = !in_code
+        in_list = false
+      end
+      prev_line = line
+    end
+    errors.uniq
+  end
+end
