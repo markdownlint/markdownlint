@@ -20,3 +20,14 @@ The following code block uses variable names, and likewise shouldn't fire:
 
     $foo = 'bar';
     $baz = 'qux';
+
+The following code block doesn't have any dollar signs, and shouldn't fire:
+
+    ls foo
+    cat bar
+
+The following (fenced) code block doesn't have any content at all, and
+shouldn't fire:
+
+```
+```
