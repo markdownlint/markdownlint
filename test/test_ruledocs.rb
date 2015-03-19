@@ -19,7 +19,7 @@ class TestRuledocs < Minitest::Test
         curr_rule = $1
       elsif l.match(/^Tags: (.*)$/)
         rules[curr_rule][:tags] = $1.split(',').map{|i| i.strip.to_sym}
-      elsif l.match(/^Parameters: (.*)$/)
+      elsif l.match(/^Parameters: (.*)(\(.*\)?)$/)
         rules[curr_rule][:params] = $1.split(',').map{|i| i.strip.to_sym}
       end
     end
