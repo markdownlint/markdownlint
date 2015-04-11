@@ -115,8 +115,13 @@ end
 
 rule "MD009", "Trailing spaces" do
   tags :whitespace
+  params :br_spaces => 0
   check do |doc|
-    doc.matching_lines(/\s$/)
+    errors = doc.matching_lines(/\s$/)
+    if params[:br_spaces] > 1
+      errors -= doc.matching_lines(/\S\s{#{params[:br_spaces]}}$/)
+    end
+    errors
   end
 end
 

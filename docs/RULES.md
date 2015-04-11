@@ -182,8 +182,14 @@ for a description of the problem.
 
 Tags: whitespace
 
+Parameters: br_spaces (number; default: 0)
+
 This rule is triggered on any lines that end with whitespace. To fix this,
 find the line that is triggered and remove any trailing spaces from the end.
+
+The br_spaces parameter allows an exception to this rule for a specific amount
+of trailing spaces used to insert an explicit line break/br element. For
+example, set br_spaces to 2 to allow exactly 2 spaces at the end of a line.
 
 ## MD010 - Hard tabs
 
