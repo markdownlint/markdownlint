@@ -28,13 +28,13 @@ module MarkdownLint
       :short => '-t',
       :long => '--tags TAG1,TAG2',
       :description => 'Only process rules with these tags',
-      :proc => Proc.new { |v| v.split(',').map { |t| t.to_sym } }
+      :proc => Proc.new { |v| toggle_list(v, true) }
 
     option :rules,
       :short => '-r',
       :long => '--rules RULE1,RULE2',
       :description => 'Only process these rules',
-      :proc => Proc.new { |v| v.split(',') }
+      :proc => Proc.new { |v| toggle_list(v) }
 
     option :style,
       :short => '-s',
@@ -84,6 +84,17 @@ module MarkdownLint
       if cli_arguments.empty? and not config[:list_rules]
         cli_arguments << "-"
       end
+    end
+
+    def self.toggle_list(s, to_sym=false)
+      parts = s.split(',')
+      inc = parts.select{|p| not p.start_with?('~')}
+      exc = parts.select{|p| p.start_with?('~')}.map{|p| p[1..-1]}
+      if to_sym
+        inc.map!{|p| p.to_sym}
+        exc.map!{|p| p.to_sym}
+      end
+      {:include => inc, :exclude => exc}
     end
   end
 end

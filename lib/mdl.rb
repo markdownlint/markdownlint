@@ -15,9 +15,19 @@ module MarkdownLint
     rules = RuleSet.load_default
     style = Style.load(Config[:style], rules)
     # Rule option filter
-    rules.select! {|r| Config[:rules].include?(r) } if Config[:rules]
+    if Config[:rules]
+      rules.select! {|r| Config[:rules][:include].include?(r) } \
+        unless Config[:rules][:include].empty?
+      rules.select! {|r| not Config[:rules][:exclude].include?(r) } \
+        unless Config[:rules][:exclude].empty?
+    end
     # Tag option filter
-    rules.select! {|r, v| not (v.tags & Config[:tags]).empty? } if Config[:tags]
+    if Config[:tags]
+      rules.select! {|r, v| not (v.tags & Config[:tags][:include]).empty? } \
+        unless Config[:tags][:include].empty?
+      rules.select! {|r, v| (v.tags & Config[:tags][:exclude]).empty? } \
+        unless Config[:tags][:exclude].empty?
+    end
 
     if Config[:list_rules]
       puts "Enabled rules:"

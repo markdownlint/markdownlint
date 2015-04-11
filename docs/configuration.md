@@ -42,19 +42,23 @@ instead, and ignore any files git doesn't know about.
 
 Tags - Limit the rules mdl enables to those containing the provided tags.
 
-* Command line: `-t tag1,tag2`, `--tags tag1,tag2`
+* Command line: `-t tag1,tag2`, `--tags tag1,tag2`, `-t ~tag1,~tag2`
 * Config file: `tags "tag1", "tag2"`
 * Default: process all rules (no tag limit)
 
 Rules - Limit the rules mdl enables to those provided in this option.
 
-* Command line: `-r MD001,MD002`, `--rules MD001,MD002`
+* Command line: `-r MD001,MD002`, `--rules MD001,MD002`, `-r ~MD001,~MD002`
 * Config file: `rules "MD001", "MD002"`
 * Default: process all rules (no rule limit)
 
+If a rule or tag ID is preceded by a tilde (`~`), then it _disables_ the
+matching rules instead of enabling them, starting with all rules being enabled.
+
 Note: if both `--rules` and `--tags` are provided, then a given rule has to
 both be in the list of enabled rules, as well as be tagged with one of the
-tags provided with the `--tags` option.
+tags provided with the `--tags` option. Use the `-l/--list-rules` option to
+test this behavior.
 
 Style - Select which style mdl uses. A 'style' is a file containing a list of
 enabled/disable rules, as well as options for some rules that take them. For
