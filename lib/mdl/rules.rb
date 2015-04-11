@@ -442,3 +442,10 @@ rule "MD032", "Lists should be surrounded by blank lines" do
     errors.uniq
   end
 end
+
+rule "MD033", "Inline HTML" do
+  tags :html
+  check do |doc|
+    doc.element_linenumbers(doc.find_type(:html_element))
+  end
+end
