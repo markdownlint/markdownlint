@@ -85,6 +85,33 @@ module MarkdownLint
     end
 
     ##
+    # A variation on find_type_elements that allows you to skip drilling down
+    # into children of specific element types.
+    #
+    # Instead of a single type, a list of types can be provided instead to
+    # find all types.
+    #
+    # Unlike find_type_elements, this method will always search for nested
+    # elements, and skip the element types given to nested_except.
+
+    def find_type_elements_except(type, nested_except=[], elements=@elements)
+      results = []
+      if type.class == Symbol
+        type = [type]
+      end
+      if nested_except.class == Symbol
+        nested_except = [nested_except]
+      end
+      elements.each do |e|
+        results.push(e) if type.include?(e.type)
+        unless nested_except.include?(e.type) or e.children.empty?
+          results.concat(find_type_elements_except(type, nested_except, e.children))
+        end
+      end
+      results
+    end
+
+    ##
     # Returns the line number a given element is located on in the source
     # file. You can pass in either an element object or an options hash here.
 
@@ -186,9 +213,9 @@ module MarkdownLint
     # Returns line numbers for lines that match the given regular expression.
     # Only considers text inside of 'text' elements (i.e. regular markdown
     # text and not code/links or other elements).
-    def matching_text_element_lines(re)
+    def matching_text_element_lines(re, exclude_nested=[:a])
       matches = []
-      find_type_elements(:text).each do |e|
+      find_type_elements_except(:text, exclude_nested).each do |e|
         first_line = e.options[:location]
         lines = e.value.split("\n")
         lines.each_with_index do |l, i|

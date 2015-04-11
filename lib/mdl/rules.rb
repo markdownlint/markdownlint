@@ -449,3 +449,10 @@ rule "MD033", "Inline HTML" do
     doc.element_linenumbers(doc.find_type(:html_element))
   end
 end
+
+rule "MD034", "Bare URL used" do
+  tags :links, :url
+  check do |doc|
+    doc.matching_text_element_lines(/https?:\/\//)
+  end
+end
