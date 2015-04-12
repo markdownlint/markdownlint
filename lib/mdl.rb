@@ -13,7 +13,7 @@ module MarkdownLint
     cli = MarkdownLint::CLI.new
     cli.run
     rules = RuleSet.load_default
-    style = Style.load(Config[:style], rules)
+    Style.load(Config[:style], rules)
     # Rule option filter
     if Config[:rules]
       rules.select! {|r| Config[:rules][:include].include?(r) } \
@@ -44,7 +44,6 @@ module MarkdownLint
     # Recurse into directories
     cli.cli_arguments.each_with_index do |filename, i|
       if Dir.exist?(filename)
-        pattern = "#{filename}/**/*.md" # This works for both Dir and ls-files
         if Config[:git_recurse]
           Dir.chdir(filename) do
             cli.cli_arguments[i] = %x(git ls-files '*.md').split("\n")
