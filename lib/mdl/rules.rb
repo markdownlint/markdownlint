@@ -461,3 +461,21 @@ rule "MD034", "Bare URL used" do
     doc.matching_text_element_lines(/https?:\/\//)
   end
 end
+
+rule "MD035", "Horizontal rule style" do
+  tags :hr
+  params :style => :consistent
+  check do |doc|
+    hrs = doc.find_type(:hr)
+    if hrs.empty?
+      []
+    else
+      if params[:style] == :consistent
+        doc_style = doc.element_line(hrs[0])
+      else
+        doc_style = params[:style]
+      end
+      doc.element_linenumbers(hrs.select{|e| doc.element_line(e) != doc_style})
+    end
+  end
+end
