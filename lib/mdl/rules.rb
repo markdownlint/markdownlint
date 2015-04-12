@@ -479,3 +479,13 @@ rule "MD035", "Horizontal rule style" do
     end
   end
 end
+
+rule "MD036", "Emphasis used instead of a header" do
+  tags :headers, :emphasis
+  check do |doc|
+    # We are looking for a paragraph consisting entirely of emphasized
+    # (italic/bold) text.
+    doc.element_linenumbers(doc.find_type_elements(:p, false).select{|p|
+      p.children.length == 1 && [:em, :strong].include?(p.children[0].type)})
+  end
+end
