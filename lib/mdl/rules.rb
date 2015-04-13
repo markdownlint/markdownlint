@@ -500,3 +500,13 @@ rule "MD037", "Spaces inside emphasis markers" do
       doc.matching_text_element_lines(/(\*\*?|__?).+\s\1/)).sort
   end
 end
+
+rule "MD038", "Spaces inside code span elements" do
+  tags :whitespace, :code
+  check do |doc|
+    # We only want to check single line codespan elements and not fenced code
+    # block that happen to be parsed as code spans.
+    doc.element_linenumbers(doc.find_type_elements(:codespan).select{
+      |i| i.value.match(/(^\s|\s$)/) and not i.value.include?("\n")})
+  end
+end

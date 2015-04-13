@@ -799,7 +799,7 @@ It won't fire on emphasis used within regular text.
 
 Tags: whitespace, emphasis
 
-This rule is triggers when emphasis markers (bold, italic) are used, but they
+This rule is triggered when emphasis markers (bold, italic) are used, but they
 have spaces between the markers and the text:
 
     Here is some ** bold ** text.
@@ -824,3 +824,20 @@ Rationale: Emphasis is only parsed as such when the asterisks/underscores
 aren't completely surrounded by spaces. This rule attempts to detect where
 they were surrounded by spaces, but it appears that emphasized text was
 intended by the author.
+
+## MD038 - Spaces inside code span elements
+
+Tags: whitespace, code
+
+This rule is triggered on code span elements that have spaces right inside the
+backticks:
+
+    ` some text `
+
+    `some text `
+
+    ` some text`
+
+To fix this, remove the spaces inside the codespan markers:
+
+    `some text`
