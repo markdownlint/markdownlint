@@ -510,3 +510,12 @@ rule "MD038", "Spaces inside code span elements" do
       |i| i.value.match(/(^\s|\s$)/) and not i.value.include?("\n")})
   end
 end
+
+rule "MD039", "Spaces inside link text" do
+  tags :whitespace, :links
+  check do |doc|
+    doc.element_linenumbers(doc.find_type_elements(:a).select{|e|
+      e.children[0].value.start_with?(" ") or
+      e.children[0].value.end_with?(" ")})
+  end
+end

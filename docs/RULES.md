@@ -841,3 +841,15 @@ backticks:
 To fix this, remove the spaces inside the codespan markers:
 
     `some text`
+
+## MD039 - Spaces inside link text
+
+Tags: whitespace, links
+
+This rule is triggered on links that have spaces surrounding the link text:
+
+    [ a link ](http://www.example.com/)
+
+To fix this, remove the spaces surrounding the link text:
+
+    [a link](http://www.example.com/)
