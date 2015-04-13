@@ -519,3 +519,14 @@ rule "MD039", "Spaces inside link text" do
       e.children[0].value.end_with?(" ")})
   end
 end
+
+rule "MD040", "Fenced code blocks should have a language specified" do
+  tags :code, :language
+  check do |doc|
+    # Kramdown parses code blocks with language settings as code blocks with
+    # the class attribute set to language-languagename.
+    doc.element_linenumbers(doc.find_type_elements(:codeblock).select{|i|
+      not i.attr['class'].to_s.start_with?("language-") and
+        not doc.element_line(i).start_with?("    ")})
+  end
+end
