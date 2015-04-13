@@ -80,14 +80,25 @@ module MarkdownLint
       # Put values in the config file
       MarkdownLint::Config.merge!(config)
 
+      # Set the correct format for any rules/tags configuration loaded from
+      # the config file. Ideally this would probably be done as part of the
+      # config class itself rather than here.
+      MarkdownLint::Config[:rules] = CLI.toggle_list(
+        MarkdownLint::Config[:rules]) unless MarkdownLint::Config[:rules].nil?
+      MarkdownLint::Config[:tags] = CLI.toggle_list(
+        MarkdownLint::Config[:tags], true) \
+        unless MarkdownLint::Config[:tags].nil?
+
       # Read from stdin if we didn't provide a filename
       if cli_arguments.empty? and not config[:list_rules]
         cli_arguments << "-"
       end
     end
 
-    def self.toggle_list(s, to_sym=false)
-      parts = s.split(',')
+    def self.toggle_list(parts, to_sym=false)
+      if parts.class == String
+        parts = parts.split(',')
+      end
       inc = parts.select{|p| not p.start_with?('~')}
       exc = parts.select{|p| p.start_with?('~')}.map{|p| p[1..-1]}
       if to_sym
