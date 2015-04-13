@@ -496,7 +496,7 @@ rule "MD037", "Spaces inside emphasis markers" do
     # Kramdown doesn't parse emphasis with spaces, which means we can just
     # look for emphasis patterns inside regular text with spaces just inside
     # them.
-    doc.matching_text_element_lines(/(\*\*?|__?)\s.+\1/) | \
-      doc.matching_text_element_lines(/(\*\*?|__?).+\s\1/)
+    (doc.matching_text_element_lines(/(\*\*?|__?)\s.+\1/) | \
+      doc.matching_text_element_lines(/(\*\*?|__?).+\s\1/)).sort
   end
 end

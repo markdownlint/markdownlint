@@ -25,3 +25,7 @@ Mixed __ok strong__ and __ broken strong __ {MD037}
 Mixed *ok emphasis* **ok strong** * broken emphasis * {MD037}
 
 Multiple * broken emphasis * _ broken emphasis _ {MD037}
+
+One-sided *broken emphasis * {MD037}
+
+One-sided * broken emphasis* {MD037}
