@@ -489,3 +489,14 @@ rule "MD036", "Emphasis used instead of a header" do
       p.children.length == 1 && [:em, :strong].include?(p.children[0].type)})
   end
 end
+
+rule "MD037", "Spaces inside emphasis markers" do
+  tags :whitespace, :emphasis
+  check do |doc|
+    # Kramdown doesn't parse emphasis with spaces, which means we can just
+    # look for emphasis patterns inside regular text with spaces just inside
+    # them.
+    doc.matching_text_element_lines(/(\*\*?|__?)\s.+\1/) | \
+      doc.matching_text_element_lines(/(\*\*?|__?).+\s\1/)
+  end
+end
