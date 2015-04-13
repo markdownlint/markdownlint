@@ -29,3 +29,7 @@ Multiple * broken emphasis * _ broken emphasis _ {MD037}
 One-sided *broken emphasis * {MD037}
 
 One-sided * broken emphasis* {MD037}
+
+Don't _flag on _words with underscores before them.
+
+The same goes for words* with asterisks* after them.
