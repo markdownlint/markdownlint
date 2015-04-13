@@ -1,5 +1,19 @@
 # Change Log
 
+## [v0.2.1](https://github.com/mivok/markdownlint/tree/v0.2.1) (2015-04-13)
+
+[Full Changelog](https://github.com/mivok/markdownlint/compare/v0.2.0...v0.2.1)
+
+### Bugs fixed
+
+* Incorrect parsing of rules/tags specification in .mdlrc (#81)
+* Exception on image links with MD039 (#82)
+* MD037 flags on two words beginning with underscores on the same line. (#83)
+
+### Known issues
+
+* Exception on some lines with raw html list items in them (#83)
+
 ## [v0.2.0](https://github.com/mivok/markdownlint/tree/v0.2.0) (2015-04-13)
 
 [Full Changelog](https://github.com/mivok/markdownlint/compare/v0.1.0...v0.2.0)
