@@ -739,8 +739,8 @@ Tags: hr
 Parameters: style ("consistent", "---", "***", or other string specifying the
 horizontal rule; default "consistent")
 
-This rule is triggered when inconsistent styles of horizontal rules used in
-the document:
+This rule is triggered when inconsistent styles of horizontal rules are used
+in the document:
 
     ---
 
