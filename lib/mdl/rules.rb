@@ -38,8 +38,15 @@ rule "MD003", "Header style" do
       else
         doc_style = @params[:style]
       end
-      headers.map { |h| doc.element_linenumber(h) \
-                    if doc.header_style(h) != doc_style }.compact
+      if doc_style == :setext_with_atx
+        headers.map { |h| doc.element_linenumber(h) \
+                      unless doc.header_style(h) == :setext or \
+                        (doc.header_style(h) == :atx and \
+                         h.options[:level] > 2) }.compact
+      else
+        headers.map { |h| doc.element_linenumber(h) \
+                      if doc.header_style(h) != doc_style }.compact
+      end
     end
   end
 end
