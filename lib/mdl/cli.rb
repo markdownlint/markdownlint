@@ -53,6 +53,18 @@ module MarkdownLint
       :boolean => true,
       :description => "Only process files known to git when given a directory"
 
+    option :rulesets,
+      :short => '-u',
+      :long => '--rulesets RULESET1,RULESET2',
+      :proc => Proc.new { |v| v.split(',') },
+      :description => "Specify additional ruleset files to load"
+
+    option :no_default_ruleset,
+      :short => '-d',
+      :long => '--skip-default-ruleset',
+      :boolean => true,
+      :description => "Don't load the default markdownlint ruleset"
+
     option :help,
       :on => :tail,
       :short => '-h',

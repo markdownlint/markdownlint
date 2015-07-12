@@ -24,24 +24,27 @@ module MarkdownLint
       @params.update(p) unless p.nil?
       @params
     end
+
   end
 
   class RuleSet
     attr_reader :rules
 
+    def initialize
+      @rules = {}
+    end
+
     def rule(id, description, &block)
-      @rules = {} if @rules.nil?
       @rules[id] = Rule.new(id, description, block)
     end
 
-    def self.load_default
-      self.load(File.expand_path("../rules.rb", __FILE__))
+    def load(rules_file)
+      instance_eval(File.read(rules_file), rules_file)
+      @rules
     end
 
-    def self.load(rules_file)
-      ruleset = new
-      ruleset.instance_eval(File.read(rules_file), rules_file)
-      ruleset.rules
+    def load_default
+      load(File.expand_path("../rules.rb", __FILE__))
     end
   end
 end

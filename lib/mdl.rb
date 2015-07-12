@@ -12,7 +12,18 @@ module MarkdownLint
   def self.run
     cli = MarkdownLint::CLI.new
     cli.run
-    rules = RuleSet.load_default
+    ruleset = RuleSet.new
+    unless Config[:no_default_ruleset]
+      require 'pry'
+      binding.pry
+      ruleset.load_default
+    end
+    unless Config[:rulesets].nil?
+      Config[:rulesets].each do |r|
+        ruleset.load(r)
+      end
+    end
+    rules = ruleset.rules
     Style.load(Config[:style], rules)
     # Rule option filter
     if Config[:rules]
