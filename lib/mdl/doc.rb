@@ -217,6 +217,10 @@ module MarkdownLint
       matches = []
       find_type_elements_except(:text, exclude_nested).each do |e|
         first_line = e.options[:location]
+        # We'll error out if kramdown doesn't have location information for
+        # the current element. It's better to just not match in these cases
+        # rather than crash.
+        next if first_line.nil?
         lines = e.value.split("\n")
         lines.each_with_index do |l, i|
           matches << first_line + i if re.match(l)
