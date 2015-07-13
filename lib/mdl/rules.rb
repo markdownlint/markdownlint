@@ -29,17 +29,17 @@ rule "MD003", "Header style" do
   # :style can be one of :consistent, :atx, :atx_closed, :setext
   params :style => :consistent
   check do |doc|
-    headers = doc.find_type_elements(:header)
-    if headers.empty?
+    elements = doc.find_type_elements(:header)
+    if elements.empty?
       nil
     else
       if @params[:style] == :consistent
-        doc_style = doc.header_style(headers.first)
+        doc_style = doc.header_style(elements.first)
       else
         doc_style = @params[:style]
       end
-      headers.map { |h| doc.element_linenumber(h) \
-                    if doc.header_style(h) != doc_style }.compact
+      elements.map { |e| doc.element_linenumber(e) \
+                     if doc.header_style(e) != doc_style }.compact
     end
   end
 end
