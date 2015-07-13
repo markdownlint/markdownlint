@@ -39,7 +39,7 @@ rule "MD003", "Header style" do
         doc_style = @params[:style]
       end
       headers.map { |h| doc.element_linenumber(h) \
-                    if !doc.header_styles(h).include?(doc_style) }.compact
+                    if doc.header_style(h) != doc_style }.compact
     end
   end
 end

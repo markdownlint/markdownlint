@@ -147,39 +147,25 @@ module MarkdownLint
     end
 
     ##
-    # Returns all possible header 'styles' - :atx (hashes at the beginning),
-    # :atx_closed (atx header style, but with hashes at the end of the line
-    # also), :setext (underlined for first two levels, then like :atx). You can
-    # pass in the element object or an options hash here.
-
-    def header_styles(header)
-      if header.type != :header
-        raise "header_style called with non-header element"
-      end
-      line = element_line(header)
-      if line.start_with?("#")
-        if line.strip.end_with?("#")
-          [:atx_closed]
-        else
-          if line.match(/^#*/)[0].length > 2
-            [:atx, :setext]
-          else
-            [:atx]
-          end
-        end
-      else
-        [:setext]
-      end
-    end
-
-    ##
     # Returns the header 'style' - :atx (hashes at the beginning), :atx_closed
     # (atx header style, but with hashes at the end of the line also), :setext
     # (underlined). You can pass in the element object or an options hash
     # here.
 
     def header_style(header)
-        header_styles(header)[0]
+      if header.type != :header
+        raise "header_style called with non-header element"
+      end
+      line = element_line(header)
+      if line.start_with?("#")
+        if line.strip.end_with?("#")
+          :atx_closed
+        else
+          :atx
+        end
+      else
+        :setext
+      end
     end
 
     ##
