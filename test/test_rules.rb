@@ -29,7 +29,7 @@ class TestRules < Minitest::Test
     # Check for a test_case_style.rb style file for individual tests
     style_file = filename.sub(/.md$/, '_style.rb')
     if ! File.exist?(style_file)
-      style_file = 'all'
+      style_file = "#{File.dirname(filename)}/default_test_style.rb"
     end
 
     rules = MarkdownLint::RuleSet.load_default
