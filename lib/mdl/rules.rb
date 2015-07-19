@@ -531,3 +531,12 @@ rule "MD040", "Fenced code blocks should have a language specified" do
         not doc.element_line(i).start_with?("    ")})
   end
 end
+
+rule "MD041", "First line in file should be a top level header" do
+  tags :headers
+  check do |doc|
+    first_header = doc.find_type(:header).first
+    [1] if first_header.nil? or first_header[:location] != 1 \
+      or first_header[:level] != 1
+  end
+end
