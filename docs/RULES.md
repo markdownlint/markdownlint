@@ -53,7 +53,7 @@ The first header in the document should be a h1 header:
 
 Tags: headers
 
-Parameters: style ("consistent", "atx", "atx_closed", "setext"; default "consistent")
+Parameters: setext_with_atx, style ("consistent", "atx", "atx_closed", "setext"; default "consistent")
 
 This rule is triggered when different header styles (atx, setext, and 'closed'
 atx) are used in the same document:
@@ -70,6 +70,18 @@ Be consistent with the style of header used in a document:
     # ATX style H1
 
     ## ATX style H2
+
+By default, atx headers of level 3 or more are allowed in documents with setext
+style headers. This behavior can be disabled with the setext_with_atx
+parameter:
+
+    Setext style H1
+    ===============
+
+    Setext style H2
+    ---------------
+
+    ### ATX style H3
 
 Note: the configured header style can be a specific style to use (atx,
 atx_closed, setext), or simply require that the usage be consistent within the
