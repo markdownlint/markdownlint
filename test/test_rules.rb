@@ -32,7 +32,9 @@ class TestRules < Minitest::Test
       style_file = 'all'
     end
 
-    rules = MarkdownLint::RuleSet.load_default
+    ruleset = MarkdownLint::RuleSet.new
+    ruleset.load_default
+    rules = ruleset.rules
     style = MarkdownLint::Style.load(style_file, rules)
     rules.select! {|r| style.rules.include?(r)}
 

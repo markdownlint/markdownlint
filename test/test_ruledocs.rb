@@ -3,7 +3,9 @@ require_relative 'setup_tests'
 # Ensures there is documentation for every rule, and that the
 # descriptions/tags/etc in the rule match those in the documentation
 class TestRuledocs < Minitest::Test
-  @@rules = MarkdownLint::RuleSet.load_default
+  @@ruleset = MarkdownLint::RuleSet.new
+  @@ruleset.load_default
+  @@rules = @@ruleset.rules
 
   def setup
     @ruledocs = load_ruledocs

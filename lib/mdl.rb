@@ -9,13 +9,11 @@ require 'mdl/version'
 require 'kramdown'
 
 module MarkdownLint
-  def self.run
+  def self.run(argv=ARGV)
     cli = MarkdownLint::CLI.new
-    cli.run
+    cli.run(argv)
     ruleset = RuleSet.new
     unless Config[:no_default_ruleset]
-      require 'pry'
-      binding.pry
       ruleset.load_default
     end
     unless Config[:rulesets].nil?
