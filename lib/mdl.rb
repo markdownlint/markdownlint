@@ -9,10 +9,19 @@ require 'mdl/version'
 require 'kramdown'
 
 module MarkdownLint
-  def self.run
+  def self.run(argv=ARGV)
     cli = MarkdownLint::CLI.new
-    cli.run
-    rules = RuleSet.load_default
+    cli.run(argv)
+    ruleset = RuleSet.new
+    unless Config[:no_default_ruleset]
+      ruleset.load_default
+    end
+    unless Config[:rulesets].nil?
+      Config[:rulesets].each do |r|
+        ruleset.load(r)
+      end
+    end
+    rules = ruleset.rules
     Style.load(Config[:style], rules)
     # Rule option filter
     if Config[:rules]
