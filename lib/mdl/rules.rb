@@ -412,9 +412,12 @@ rule "MD031", "Fenced code blocks should be surrounded by blank lines" do
     # Some parsers (including kramdown) have trouble detecting fenced code
     # blocks without surrounding whitespace, so examine the lines directly.
     in_code = false
+    fence = nil
     lines = [ "" ] + doc.lines + [ "" ]
     lines.each_with_index do |line, linenum|
-      if line.strip.match(/^(```|~~~)/)
+      line.strip.match(/^(`{3,}|~{3,})/)
+      if $1 and (not in_code or $1.slice(0, fence.length) == fence)
+        fence = in_code ? nil : $1
         in_code = !in_code
         if (in_code and not lines[linenum - 1].empty?) or
            (not in_code and not lines[linenum + 1].empty?)
@@ -434,6 +437,7 @@ rule "MD032", "Lists should be surrounded by blank lines" do
     # without surrounding whitespace, so examine the lines directly.
     in_list = false
     in_code = false
+    fence = nil
     prev_line = ""
     doc.lines.each_with_index do |line, linenum|
       if not in_code
@@ -445,7 +449,9 @@ rule "MD032", "Lists should be surrounded by blank lines" do
         end
         in_list = list_marker
       end
-      if line.strip.match(/^(```|~~~)/)
+      line.strip.match(/^(`{3,}|~{3,})/)
+      if $1 and (not in_code or $1.slice(0, fence.length) == fence)
+        fence = in_code ? nil : $1
         in_code = !in_code
         in_list = false
       end
