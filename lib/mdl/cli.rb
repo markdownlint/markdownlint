@@ -110,6 +110,8 @@ module MarkdownLint
     def self.toggle_list(parts, to_sym=false)
       if parts.class == String
         parts = parts.split(',')
+      end
+      if parts.class == Array
         inc = parts.select{|p| not p.start_with?('~')}
         exc = parts.select{|p| p.start_with?('~')}.map{|p| p[1..-1]}
         if to_sym

@@ -109,4 +109,51 @@ class TestCli < Minitest::Test
     assert_rules_enabled(result, ["MD039"], true)
     assert_equal("", result[:stderr])
   end
+
+  def test_tag_inclusion_cli
+    result = run_cli("-t headers -l")
+    assert_equal(0, result[:status])
+    assert_equal("", result[:stderr])
+    assert_rules_enabled(result, ["MD001", "MD002", "MD003"])
+    assert_rules_disabled(result, ["MD004", "MD005", "MD006"])
+  end
+
+  def test_tag_exclusion_cli
+    result = run_cli("-t ~headers -l")
+    assert_equal(0, result[:status])
+    assert_equal("", result[:stderr])
+    assert_rules_disabled(result, ["MD001", "MD002", "MD003"])
+    assert_rules_enabled(result, ["MD004", "MD005", "MD006"])
+  end
+
+  def test_rule_inclusion_config
+    result = run_cli("-l", "", "mdlrc_enable_rules")
+    assert_equal(0, result[:status])
+    assert_equal("", result[:stderr])
+    assert_rules_enabled(result, ["MD001", "MD002"], true)
+  end
+
+  def test_rule_exclusion_config
+    result = run_cli("-l", "", "mdlrc_disable_rules")
+    assert_equal(0, result[:status])
+    assert_equal("", result[:stderr])
+    assert_rules_disabled(result, ["MD001", "MD002"])
+    assert_rules_enabled(result, ["MD003", "MD004"])
+  end
+
+  def test_tag_inclusion_config
+    result = run_cli("-l", "", "mdlrc_enable_tags")
+    assert_equal(0, result[:status])
+    assert_equal("", result[:stderr])
+    assert_rules_enabled(result, ["MD001", "MD002", "MD009", "MD010"])
+    assert_rules_disabled(result, ["MD004", "MD005"])
+  end
+
+  def test_tag_exclusion_config
+    result = run_cli("-l", "", "mdlrc_disable_tags")
+    assert_equal(0, result[:status])
+    assert_equal("", result[:stderr])
+    assert_rules_enabled(result, ["MD004", "MD030", "MD032"])
+    assert_rules_disabled(result, ["MD001", "MD005"])
+  end
 end
