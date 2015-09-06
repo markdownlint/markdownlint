@@ -1,5 +1,6 @@
 require_relative 'setup_tests'
 require 'open3'
+require 'set'
 
 class TestCli < Minitest::Test
   def run_cli(args, stdin = "", mdlrc="default_mdlrc")
@@ -14,6 +15,32 @@ class TestCli < Minitest::Test
     result
   end
 
+  def assert_rules_enabled(result, rules, only_these_rules=false)
+    # Asserts that the given rules are enabled given the output of mdl -l
+    # If only_these_rules is set, then it asserts that the given rules and no
+    # others are enabled.
+    lines = result[:stdout].split("\n")
+    assert_equal("Enabled rules:", lines.first)
+    lines.shift
+    rules = rules.to_set
+    enabled_rules = lines.map{ |l| l.split(" ").first }.to_set
+    if only_these_rules
+      assert_equal(rules, enabled_rules)
+    else
+      assert_equal(Set.new, rules - enabled_rules)
+    end
+  end
+
+  def assert_rules_disabled(result, rules)
+    # Asserts that the given rules are _not_ enabled given the output of mdl -l
+    lines = result[:stdout].split("\n")
+    assert_equal("Enabled rules:", lines.first)
+    lines.shift
+    rules = rules.to_set
+    enabled_rules = lines.map{ |l| l.split(" ").first }.to_set
+    assert_equal(Set.new, rules & enabled_rules)
+  end
+
   def test_help_text
     result = run_cli("--help")
     assert_match(/Usage: \S+ \[options\]/, result[:stdout])
@@ -22,19 +49,19 @@ class TestCli < Minitest::Test
 
   def test_default_ruleset_loading
     result = run_cli("-l")
-    assert_match(/^Enabled rules:\nMD001/, result[:stdout])
+    assert_rules_enabled(result, ["MD001"])
   end
 
   def test_skipping_default_ruleset_loading
     result = run_cli("-ld")
-    assert_match(/^Enabled rules:\n$/, result[:stdout])
+    assert_rules_enabled(result, [], true)
   end
 
   def test_custom_ruleset_loading
     my_ruleset = File.expand_path("../fixtures/my_ruleset.rb", __FILE__)
     result = run_cli("-ldu #{my_ruleset}")
     assert_equal(0, result[:status])
-    assert_match(/^Enabled rules:\nMY001 -/, result[:stdout])
+    assert_rules_enabled(result, ["MY001"], true)
     assert_equal("", result[:stderr])
   end
 
@@ -58,21 +85,20 @@ class TestCli < Minitest::Test
     my_ruleset = File.expand_path("../fixtures/my_ruleset.rb", __FILE__)
     result = run_cli("-lu #{my_ruleset}")
     assert_equal(0, result[:status])
-    assert_match(/^Enabled rules:\nMD001 -.*/, result[:stdout])
-    assert_match(/MY001 -.*$/, result[:stdout])
+    assert_rules_enabled(result, ["MD001", "MY001"])
     assert_equal("", result[:stderr])
   end
 
   def test_rule_inclusion_cli
     result = run_cli("-r MD001 -l")
     assert_equal(0, result[:status])
-    assert_match(/^Enabled rules:\nMD001 -[^\n]+\n$/, result[:stdout])
+    assert_rules_enabled(result, ["MD001"], true)
     assert_equal("", result[:stderr])
   end
 
   def test_rule_exclusion_cli
     result = run_cli("-r ~MD001 -l")
-    assert_match(/^Enabled rules:\nMD002 -/, result[:stdout])
+    assert_rules_disabled(result, ["MD001"])
     assert_equal(0, result[:status])
     assert_equal("", result[:stderr])
   end
@@ -80,7 +106,7 @@ class TestCli < Minitest::Test
   def test_rule_inclusion_with_exclusion_cli
     result = run_cli("-r ~MD001,MD039 -l")
     assert_equal(0, result[:status])
-    assert_match(/^Enabled rules:\nMD039 -/, result[:stdout])
+    assert_rules_enabled(result, ["MD039"], true)
     assert_equal("", result[:stderr])
   end
 end
