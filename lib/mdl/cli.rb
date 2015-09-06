@@ -110,14 +110,18 @@ module MarkdownLint
     def self.toggle_list(parts, to_sym=false)
       if parts.class == String
         parts = parts.split(',')
+        inc = parts.select{|p| not p.start_with?('~')}
+        exc = parts.select{|p| p.start_with?('~')}.map{|p| p[1..-1]}
+        if to_sym
+          inc.map!{|p| p.to_sym}
+          exc.map!{|p| p.to_sym}
+        end
+        {:include => inc, :exclude => exc}
+      else
+        # We already converted the string into a list of include/exclude
+        # pairs, so just return as is
+        parts
       end
-      inc = parts.select{|p| not p.start_with?('~')}
-      exc = parts.select{|p| p.start_with?('~')}.map{|p| p[1..-1]}
-      if to_sym
-        inc.map!{|p| p.to_sym}
-        exc.map!{|p| p.to_sym}
-      end
-      {:include => inc, :exclude => exc}
     end
   end
 end

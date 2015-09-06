@@ -2,11 +2,13 @@ require_relative 'setup_tests'
 require 'open3'
 
 class TestCli < Minitest::Test
-  def run_cli(args, stdin = "")
+  def run_cli(args, stdin = "", mdlrc="default_mdlrc")
     mdl_script = File.expand_path("../../bin/mdl", __FILE__)
+    # Load the mdlrc file from the text/fixtures/ directory
+    mdlrc = File.expand_path("../fixtures/#{mdlrc}", __FILE__)
     result = {}
     result[:stdout], result[:stderr], result[:status] = \
-      Open3.capture3(*(%W{bundle exec #{mdl_script}} + args.split),
+      Open3.capture3(*(%W{bundle exec #{mdl_script} -c #{mdlrc}} + args.split),
                     :stdin_data => stdin)
     result[:status] = result[:status].exitstatus
     result
@@ -58,6 +60,27 @@ class TestCli < Minitest::Test
     assert_equal(0, result[:status])
     assert_match(/^Enabled rules:\nMD001 -.*/, result[:stdout])
     assert_match(/MY001 -.*$/, result[:stdout])
+    assert_equal("", result[:stderr])
+  end
+
+  def test_rule_inclusion_cli
+    result = run_cli("-r MD001 -l")
+    assert_equal(0, result[:status])
+    assert_match(/^Enabled rules:\nMD001 -[^\n]+\n$/, result[:stdout])
+    assert_equal("", result[:stderr])
+  end
+
+  def test_rule_exclusion_cli
+    result = run_cli("-r ~MD001 -l")
+    assert_match(/^Enabled rules:\nMD002 -/, result[:stdout])
+    assert_equal(0, result[:status])
+    assert_equal("", result[:stderr])
+  end
+
+  def test_rule_inclusion_with_exclusion_cli
+    result = run_cli("-r ~MD001,MD039 -l")
+    assert_equal(0, result[:status])
+    assert_match(/^Enabled rules:\nMD039 -/, result[:stdout])
     assert_equal("", result[:stderr])
   end
 end
