@@ -246,7 +246,7 @@ module MarkdownLint
       lines = element.children.map { |e|
         if e.type == :text
           e.value
-        elsif [:strong, :em, :p].include?(e.type)
+        elsif [:strong, :em, :p, :codespan].include?(e.type)
           extract_text(e, prefix).join("\n")
         elsif e.type == :smart_quote
           quotes[e.value]
