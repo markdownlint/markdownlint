@@ -26,6 +26,7 @@
 * MD037 crashes on <li> with underscores (#83)
 * Regression introducted in v0.2.1 - ignoring rules/tags on the command line
   caused a crash (#108)
+* MD027 false positive when line starts with a backtick (#105)
 
 ### Merged pull requests
 
