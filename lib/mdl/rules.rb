@@ -1,5 +1,6 @@
 rule "MD001", "Header levels should only increment by one level at a time" do
   tags :headers
+  aliases 'header-indent'
   check do |doc|
     headers = doc.find_type(:header)
     old_level = nil
@@ -16,6 +17,7 @@ end
 
 rule "MD002", "First header should be a h1 header" do
   tags :headers
+  aliases 'first-header-h1'
   check do |doc|
     first_header = doc.find_type(:header).first
     [first_header[:location]] if first_header and first_header[:level] != 1
@@ -26,6 +28,7 @@ rule "MD003", "Header style" do
   # Header styles are things like ### and adding underscores
   # See http://daringfireball.net/projects/markdown/syntax#header
   tags :headers
+  aliases 'header-style'
   # :style can be one of :consistent, :atx, :atx_closed, :setext
   params :style => :consistent
   check do |doc|
@@ -53,6 +56,7 @@ end
 
 rule "MD004", "Unordered list style" do
   tags :bullet, :ul
+  aliases 'ul-style'
   # :style can be one of :consistent, :asterisk, :plus, :dash
   params :style => :consistent
   check do |doc|
@@ -74,6 +78,7 @@ end
 
 rule "MD005", "Inconsistent indentation for list items at the same level" do
   tags :bullet, :ul, :indentation
+  aliases 'list-indent'
   check do |doc|
     bullets = doc.find_type(:li)
     errors = []
@@ -95,6 +100,7 @@ rule "MD006", "Consider starting bulleted lists at the beginning of the line" do
   # Starting at the beginning of the line means that indendation for each
   # bullet level can be identical.
   tags :bullet, :ul, :indentation
+  aliases 'ul-start-left'
   check do |doc|
     doc.find_type(:ul, false).select{
       |e| doc.indent_for(doc.element_line(e)) != 0 }.map{ |e| e[:location] }
@@ -103,6 +109,7 @@ end
 
 rule "MD007", "Unordered list indentation" do
   tags :bullet, :ul, :indentation
+  aliases 'ul-indent'
   params :indent => 2
   check do |doc|
     indents = []
@@ -122,6 +129,7 @@ end
 
 rule "MD009", "Trailing spaces" do
   tags :whitespace
+  aliases 'no-trailing-spaces'
   params :br_spaces => 0
   check do |doc|
     errors = doc.matching_lines(/\s$/)
@@ -134,6 +142,7 @@ end
 
 rule "MD010", "Hard tabs" do
   tags :whitespace, :hard_tab
+  aliases 'no-hard-tabs'
   check do |doc|
     doc.matching_lines(/\t/)
   end
@@ -141,6 +150,7 @@ end
 
 rule "MD011", "Reversed link syntax" do
   tags :links
+  aliases 'no-reversed-links'
   check do |doc|
     doc.matching_text_element_lines(/\([^)]+\)\[[^\]]+\]/)
   end
@@ -148,6 +158,7 @@ end
 
 rule "MD012", "Multiple consecutive blank lines" do
   tags :whitespace, :blank_lines
+  aliases 'no-multiple-blanks'
   check do |doc|
     # Every line in the document that is part of a code block. Blank lines
     # inside of a code block are acceptable.
@@ -163,6 +174,7 @@ end
 
 rule "MD013", "Line length" do
   tags :line_length
+  aliases 'line-length'
   params :line_length => 80, :code_blocks => true, :tables => true
   check do |doc|
     # Every line in the document that is part of a code block.
@@ -186,6 +198,7 @@ end
 
 rule "MD014", "Dollar signs used before commands without showing output" do
   tags :code
+  aliases 'commands-show-output'
   check do |doc|
     doc.find_type_elements(:codeblock).select{
       |e| not e.value.empty? and
@@ -196,6 +209,7 @@ end
 
 rule "MD018", "No space after hash on atx style header" do
   tags :headers, :atx, :spaces
+  aliases 'no-missing-space-atx'
   check do |doc|
     doc.find_type_elements(:header).select do |h|
       doc.header_style(h) == :atx and doc.element_line(h).match(/^#+[^#\s]/)
@@ -205,6 +219,7 @@ end
 
 rule "MD019", "Multiple spaces after hash on atx style header" do
   tags :headers, :atx, :spaces
+  aliases 'no-multiple-space-atx'
   check do |doc|
     doc.find_type_elements(:header).select do |h|
       doc.header_style(h) == :atx and doc.element_line(h).match(/^#+\s\s/)
@@ -214,6 +229,7 @@ end
 
 rule "MD020", "No space inside hashes on closed atx style header" do
   tags :headers, :atx_closed, :spaces
+  aliases 'no-missing-space-closed-atx'
   check do |doc|
     doc.find_type_elements(:header).select do |h|
       doc.header_style(h) == :atx_closed \
@@ -225,6 +241,7 @@ end
 
 rule "MD021", "Multiple spaces inside hashes on closed atx style header" do
   tags :headers, :atx_closed, :spaces
+  aliases 'no-multiple-space-closed-atx'
   check do |doc|
     doc.find_type_elements(:header).select do |h|
       doc.header_style(h) == :atx_closed \
@@ -236,6 +253,7 @@ end
 
 rule "MD022", "Headers should be surrounded by blank lines" do
   tags :headers, :blank_lines
+  aliases 'blanks-around-headers'
   check do |doc|
     errors = []
     doc.find_type_elements(:header).each do |h|
@@ -279,6 +297,7 @@ end
 
 rule "MD023", "Headers must start at the beginning of the line" do
   tags :headers, :spaces
+  aliases 'header-start-left'
   check do |doc|
     errors = []
     # The only type of header with spaces actually parsed as such is setext
@@ -311,6 +330,7 @@ end
 
 rule "MD024", "Multiple headers with the same content" do
   tags :headers
+  aliases 'no-duplicate-header'
   check do |doc|
     header_content = Set.new
     doc.find_type(:header).select do |h|
@@ -321,6 +341,7 @@ end
 
 rule "MD025", "Multiple top level headers in the same document" do
   tags :headers
+  aliases 'single-h1'
   check do |doc|
     headers = doc.find_type(:header).select { |h| h[:level] == 1 }
     if not headers.empty? and doc.element_linenumber(headers[0]) == 1
@@ -331,6 +352,7 @@ end
 
 rule "MD026", "Trailing punctuation in header" do
   tags :headers
+  aliases 'no-trailing-punctuation'
   params :punctuation => '.,;:!?'
   check do |doc|
     doc.find_type(:header).select {
@@ -341,6 +363,7 @@ end
 
 rule "MD027", "Multiple spaces after blockquote symbol" do
   tags :blockquote, :whitespace, :indentation
+  aliases 'no-multiple-space-blockquote'
   check do |doc|
     errors = []
     doc.find_type_elements(:blockquote).each do |e|
@@ -357,6 +380,7 @@ end
 
 rule "MD028", "Blank line inside blockquote" do
   tags :blockquote, :whitespace
+  aliases 'no-blanks-blockquote'
   check do |doc|
     def check_blockquote(errors, elements)
       prev = [nil, nil, nil]
@@ -380,6 +404,7 @@ end
 
 rule "MD029", "Ordered list item prefix" do
   tags :ol
+  aliases 'ol-prefix'
   # Style can be :one or :ordered
   params :style => :one
   check do |doc|
@@ -401,6 +426,7 @@ end
 
 rule "MD030", "Spaces after list markers" do
   tags :ol, :ul, :whitespace
+  aliases 'list-marker-space'
   params :ul_single => 1, :ol_single => 1, :ul_multi => 1, :ol_multi => 1
   check do |doc|
     errors = []
@@ -422,6 +448,7 @@ end
 
 rule "MD031", "Fenced code blocks should be surrounded by blank lines" do
   tags :code, :blank_lines
+  aliases 'blanks-around-fences'
   check do |doc|
     errors = []
     # Some parsers (including kramdown) have trouble detecting fenced code
@@ -446,6 +473,7 @@ end
 
 rule "MD032", "Lists should be surrounded by blank lines" do
   tags :bullet, :ul, :ol, :blank_lines
+  aliases 'blanks-around-lists'
   check do |doc|
     errors = []
     # Some parsers (including kramdown) have trouble detecting lists
@@ -478,6 +506,7 @@ end
 
 rule "MD033", "Inline HTML" do
   tags :html
+  aliases 'no-inline-html'
   check do |doc|
     doc.element_linenumbers(doc.find_type(:html_element))
   end
@@ -485,6 +514,7 @@ end
 
 rule "MD034", "Bare URL used" do
   tags :links, :url
+  aliases 'no-bare-urls'
   check do |doc|
     doc.matching_text_element_lines(/https?:\/\//)
   end
@@ -492,6 +522,7 @@ end
 
 rule "MD035", "Horizontal rule style" do
   tags :hr
+  aliases 'hr-style'
   params :style => :consistent
   check do |doc|
     hrs = doc.find_type(:hr)
@@ -510,6 +541,7 @@ end
 
 rule "MD036", "Emphasis used instead of a header" do
   tags :headers, :emphasis
+  aliases 'no-emphasis-as-header'
   check do |doc|
     # We are looking for a paragraph consisting entirely of emphasized
     # (italic/bold) text.
@@ -520,6 +552,7 @@ end
 
 rule "MD037", "Spaces inside emphasis markers" do
   tags :whitespace, :emphasis
+  aliases 'no-space-in-emphasis'
   check do |doc|
     # Kramdown doesn't parse emphasis with spaces, which means we can just
     # look for emphasis patterns inside regular text with spaces just inside
@@ -531,6 +564,7 @@ end
 
 rule "MD038", "Spaces inside code span elements" do
   tags :whitespace, :code
+  aliases 'no-space-in-code'
   check do |doc|
     # We only want to check single line codespan elements and not fenced code
     # block that happen to be parsed as code spans.
@@ -541,6 +575,7 @@ end
 
 rule "MD039", "Spaces inside link text" do
   tags :whitespace, :links
+  aliases 'no-space-in-links'
   check do |doc|
     doc.element_linenumbers(doc.find_type_elements(:a).select{|e|
       e.children[0].type == :text and
@@ -551,6 +586,7 @@ end
 
 rule "MD040", "Fenced code blocks should have a language specified" do
   tags :code, :language
+  aliases 'fenced-code-language'
   check do |doc|
     # Kramdown parses code blocks with language settings as code blocks with
     # the class attribute set to language-languagename.
@@ -562,6 +598,7 @@ end
 
 rule "MD041", "First line in file should be a top level header" do
   tags :headers
+  aliases 'first-line-h1'
   check do |doc|
     first_header = doc.find_type(:header).first
     [1] if first_header.nil? or first_header[:location] != 1 \

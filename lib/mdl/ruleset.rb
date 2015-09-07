@@ -4,6 +4,7 @@ module MarkdownLint
 
     def initialize(id, description, block)
       @id, @description = id, description
+      @aliases = []
       @tags = []
       @params = {}
       instance_eval &block
@@ -18,6 +19,11 @@ module MarkdownLint
     def tags(*t)
       @tags = t.flatten.map {|i| i.to_sym} unless t.empty?
       @tags
+    end
+
+    def aliases(*a)
+      @aliases.concat(a)
+      @aliases
     end
 
     def params(p = nil)

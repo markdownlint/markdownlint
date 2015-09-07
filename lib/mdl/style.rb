@@ -6,10 +6,14 @@ module MarkdownLint
 
     def initialize(all_rules)
       @tagged_rules = {}
+      @aliases = {}
       all_rules.each do |id, r|
         r.tags.each do |t|
           @tagged_rules[t] ||= Set.new
           @tagged_rules[t] << id
+        end
+        r.aliases.each do |a|
+          @aliases[a] = id
         end
       end
       @all_rules = all_rules
@@ -21,11 +25,13 @@ module MarkdownLint
     end
 
     def rule(id, params={})
+      id = @aliases[id] if @aliases[id]
       @rules << id
       @all_rules[id].params(params)
     end
 
     def exclude_rule(id)
+      id = @aliases[id] if @aliases[id]
       @rules.delete(id)
     end
 

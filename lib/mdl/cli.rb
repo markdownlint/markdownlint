@@ -8,6 +8,12 @@ module MarkdownLint
 
     banner "Usage: #{File.basename($0)} [options] [FILE.md|DIR ...]"
 
+    option :show_aliases,
+      :short => '-a',
+      :long => '--[no-]show-aliases',
+      :description => 'Show rule alias instead of rule ID when viewing rules',
+      :boolean => true
+
     option :config_file,
       :short => '-c',
       :long => '--config FILE',

@@ -25,9 +25,11 @@ module MarkdownLint
     Style.load(Config[:style], rules)
     # Rule option filter
     if Config[:rules]
-      rules.select! {|r| Config[:rules][:include].include?(r) } \
+      rules.select! {|r, v| Config[:rules][:include].include?(r) or
+                     !(Config[:rules][:include] & v.aliases).empty? } \
         unless Config[:rules][:include].empty?
-      rules.select! {|r| not Config[:rules][:exclude].include?(r) } \
+      rules.select! {|r, v| not Config[:rules][:exclude].include?(r) and
+                     (Config[:rules][:exclude] & v.aliases).empty? } \
         unless Config[:rules][:exclude].empty?
     end
     # Tag option filter
@@ -42,7 +44,9 @@ module MarkdownLint
       puts "Enabled rules:"
         rules.each do |id, rule|
           if Config[:verbose]
-            puts "#{id} (#{rule.tags.join(', ')}) - #{rule.description}"
+            puts "#{id} (#{rule.aliases.join(', ')}) [#{rule.tags.join(', ')}] - #{rule.description}"
+          elsif Config[:show_aliases]
+            puts "#{rule.aliases.first || id} - #{rule.description}"
           else
             puts "#{id} - #{rule.description}"
           end
@@ -81,7 +85,11 @@ module MarkdownLint
         next if error_lines.nil? or error_lines.empty?
         status = 1
         error_lines.each do |line|
-          puts "#{filename}:#{line}: #{id} #{rule.description}"
+          if Config[:show_aliases]
+            puts "#{filename}:#{line}: #{rule.aliases.first || id} #{rule.description}"
+          else
+            puts "#{filename}:#{line}: #{id} #{rule.description}"
+          end
         end
       end
     end
