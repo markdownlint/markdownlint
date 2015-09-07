@@ -1,5 +1,39 @@
 # Change Log
 
+## [v0.3.0](https://github.com/mivok/markdownlint/tree/v0.3.0) (Unreleased)
+
+[Full Changelog](https://github.com/mivok/markdownlint/compare/v0.2.1...v0.3.0)
+
+### Rules added/changed
+
+* MD041 - First line in file should be a top level header
+* MD003 - An additional header style, setext_with_atx, was added to require
+  setext style headers for levels 1 and 2, but allow atx style headers for
+  levels 3 and above (i.e. header levels that can't be expressed with setext
+  style headers)
+
+### Enhancements implemented
+
+* You can now load your own custom rules with the `-u` option. See
+  [rules.rb](https://github.com/mivok/markdownlint/blob/master/lib/mdl/rules.rb)
+  for an example of what a rules file looks like. Use the `-d` option if you
+  don't want to load markdownlint's default ruleset.
+
+### Bugs fixed
+
+* Crash with MD034 and pipe character (#93, #97)
+* MD031 failed on nested code blocks (#100, #109)
+* MD037 crashes on <li> with underscores (#83)
+* Regression introducted in v0.2.1 - ignoring rules/tags on the command line
+  caused a crash (#108)
+
+### Merged pull requests
+
+* [Add support for nested code fences to MD031/MD032 - David
+  Anson](https://github.com/mivok/markdownlint/pull/109)
+* [Add missing word to description of MD035 in RULES.md - David
+  Anson](https://github.com/mivok/markdownlint/pull/86)
+
 ## [v0.2.1](https://github.com/mivok/markdownlint/tree/v0.2.1) (2015-04-13)
 
 [Full Changelog](https://github.com/mivok/markdownlint/compare/v0.2.0...v0.2.1)
