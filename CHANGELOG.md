@@ -18,6 +18,10 @@
   [rules.rb](https://github.com/mivok/markdownlint/blob/master/lib/mdl/rules.rb)
   for an example of what a rules file looks like. Use the `-d` option if you
   don't want to load markdownlint's default ruleset.
+* You can now refer to rules by human-readable/writable aliases, such as
+  'ul-style' instead of 'MD004'. See RULES.md for a list of the rule aliases.
+  You can pass the `-a` option to display rule aliases instead of MDxxx rule
+  IDs.
 
 ### Bugs fixed
 
