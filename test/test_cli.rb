@@ -61,7 +61,7 @@ class TestCli < Minitest::Test
   def test_show_alias_rule_list
     result = run_cli("-al")
     assert_ran_ok(result)
-    assert_rules_enabled(result, ["header-indent"])
+    assert_rules_enabled(result, ["header-increment"])
   end
 
   def test_show_alias_processing_file
@@ -184,13 +184,13 @@ class TestCli < Minitest::Test
   end
 
   def test_rule_inclusion_alias_cli
-    result = run_cli("-l -r header-indent")
+    result = run_cli("-l -r header-increment")
     assert_ran_ok(result)
     assert_rules_enabled(result, ["MD001"], true)
   end
 
   def test_rule_exclusion_alias_cli
-    result = run_cli("-l -r ~header-indent")
+    result = run_cli("-l -r ~header-increment")
     assert_ran_ok(result)
     assert_rules_disabled(result, ["MD001"])
     assert_rules_enabled(result, ["MD002"])

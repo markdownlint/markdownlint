@@ -8,7 +8,7 @@ versions of the examples.
 
 Tags: headers
 
-Aliases: header-indent
+Aliases: header-increment
 
 This rule is triggered when you skip header levels in a markdown document, for
 example:

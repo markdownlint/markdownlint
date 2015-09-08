@@ -1,6 +1,6 @@
 rule "MD001", "Header levels should only increment by one level at a time" do
   tags :headers
-  aliases 'header-indent'
+  aliases 'header-increment'
   check do |doc|
     headers = doc.find_type(:header)
     old_level = nil
