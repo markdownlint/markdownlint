@@ -21,6 +21,8 @@ class TestRuledocs < Minitest::Test
         curr_rule = $1
       elsif l.match(/^Tags: (.*)$/)
         rules[curr_rule][:tags] = $1.split(',').map{|i| i.strip.to_sym}
+      elsif l.match(/^Aliases: (.*)$/)
+        rules[curr_rule][:aliases] = $1.split(',').map{|i| i.strip}
       elsif l.match(/^Parameters: (.*)(\(.*\)?)$/)
         rules[curr_rule][:params] = $1.split(',').map{|i| i.strip.to_sym}
       end
@@ -34,6 +36,9 @@ class TestRuledocs < Minitest::Test
     end
     define_method("test_ruledoc_tags_#{id}") do
       assert_equal r.tags, @ruledocs[id][:tags]
+    end
+    define_method("test_ruledoc_aliases_#{id}") do
+      assert_equal r.aliases, @ruledocs[id][:aliases]
     end
     define_method("test_ruledoc_params_#{id}") do
       assert_equal r.params.keys.sort, (@ruledocs[id][:params] || []).sort
