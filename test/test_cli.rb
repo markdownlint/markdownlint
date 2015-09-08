@@ -41,6 +41,11 @@ class TestCli < Minitest::Test
     assert_equal(Set.new, rules & enabled_rules)
   end
 
+  def assert_ran_ok(result)
+    assert_equal(0, result[:status])
+    assert_equal("", result[:stderr])
+  end
+
   def test_help_text
     result = run_cli("--help")
     assert_match(/Usage: \S+ \[options\]/, result[:stdout])
@@ -49,7 +54,21 @@ class TestCli < Minitest::Test
 
   def test_default_ruleset_loading
     result = run_cli("-l")
+    assert_ran_ok(result)
     assert_rules_enabled(result, ["MD001"])
+  end
+
+  def test_show_alias_rule_list
+    result = run_cli("-al")
+    assert_ran_ok(result)
+    assert_rules_enabled(result, ["header-indent"])
+  end
+
+  def test_show_alias_processing_file
+    result = run_cli("-a -r MD002", "## header2")
+    assert_equal(1, result[:status])
+    assert_equal("", result[:stderr])
+    assert_match(/^\(stdin\):1: first-header-h1/, result[:stdout])
   end
 
   def test_skipping_default_ruleset_loading
@@ -60,17 +79,24 @@ class TestCli < Minitest::Test
   def test_custom_ruleset_loading
     my_ruleset = File.expand_path("../fixtures/my_ruleset.rb", __FILE__)
     result = run_cli("-ldu #{my_ruleset}")
-    assert_equal(0, result[:status])
     assert_rules_enabled(result, ["MY001"], true)
-    assert_equal("", result[:stderr])
+    assert_ran_ok(result)
+  end
+
+  def test_show_alias_rule_without_alias
+    # Tests that when -a is given, but the rule doesn't have an alias, it
+    # prints the rule ID instead.
+    my_ruleset = File.expand_path("../fixtures/my_ruleset.rb", __FILE__)
+    result = run_cli("-ladu #{my_ruleset}")
+    assert_rules_enabled(result, ["MY001"], true)
+    assert_ran_ok(result)
   end
 
   def test_custom_ruleset_processing_success
     my_ruleset = File.expand_path("../fixtures/my_ruleset.rb", __FILE__)
     result = run_cli("-du #{my_ruleset}", "Hello World")
     assert_equal("", result[:stdout])
-    assert_equal("", result[:stderr])
-    assert_equal(0, result[:status])
+    assert_ran_ok(result)
   end
 
   def test_custom_ruleset_processing_failure
@@ -81,79 +107,92 @@ class TestCli < Minitest::Test
     assert_equal("", result[:stderr])
   end
 
+  def test_custom_ruleset_processing_failure_with_show_alias
+    # The custom rule doesn't have an alias, so the output should be identical
+    # to that without show_alias enabled.
+    my_ruleset = File.expand_path("../fixtures/my_ruleset.rb", __FILE__)
+    result = run_cli("-dau #{my_ruleset}", "Goodbye world")
+    assert_equal(1, result[:status])
+    assert_match(/^\(stdin\):1: MY001/, result[:stdout])
+    assert_equal("", result[:stderr])
+  end
+
   def test_custom_ruleset_loading_with_default
     my_ruleset = File.expand_path("../fixtures/my_ruleset.rb", __FILE__)
     result = run_cli("-lu #{my_ruleset}")
-    assert_equal(0, result[:status])
     assert_rules_enabled(result, ["MD001", "MY001"])
-    assert_equal("", result[:stderr])
+    assert_ran_ok(result)
   end
 
   def test_rule_inclusion_cli
     result = run_cli("-r MD001 -l")
-    assert_equal(0, result[:status])
     assert_rules_enabled(result, ["MD001"], true)
-    assert_equal("", result[:stderr])
+    assert_ran_ok(result)
   end
 
   def test_rule_exclusion_cli
     result = run_cli("-r ~MD001 -l")
     assert_rules_disabled(result, ["MD001"])
-    assert_equal(0, result[:status])
-    assert_equal("", result[:stderr])
+    assert_ran_ok(result)
   end
 
   def test_rule_inclusion_with_exclusion_cli
     result = run_cli("-r ~MD001,MD039 -l")
-    assert_equal(0, result[:status])
     assert_rules_enabled(result, ["MD039"], true)
-    assert_equal("", result[:stderr])
+    assert_ran_ok(result)
   end
 
   def test_tag_inclusion_cli
     result = run_cli("-t headers -l")
-    assert_equal(0, result[:status])
-    assert_equal("", result[:stderr])
     assert_rules_enabled(result, ["MD001", "MD002", "MD003"])
     assert_rules_disabled(result, ["MD004", "MD005", "MD006"])
+    assert_ran_ok(result)
   end
 
   def test_tag_exclusion_cli
     result = run_cli("-t ~headers -l")
-    assert_equal(0, result[:status])
-    assert_equal("", result[:stderr])
+    assert_ran_ok(result)
     assert_rules_disabled(result, ["MD001", "MD002", "MD003"])
     assert_rules_enabled(result, ["MD004", "MD005", "MD006"])
   end
 
   def test_rule_inclusion_config
     result = run_cli("-l", "", "mdlrc_enable_rules")
-    assert_equal(0, result[:status])
-    assert_equal("", result[:stderr])
+    assert_ran_ok(result)
     assert_rules_enabled(result, ["MD001", "MD002"], true)
   end
 
   def test_rule_exclusion_config
     result = run_cli("-l", "", "mdlrc_disable_rules")
-    assert_equal(0, result[:status])
-    assert_equal("", result[:stderr])
+    assert_ran_ok(result)
     assert_rules_disabled(result, ["MD001", "MD002"])
     assert_rules_enabled(result, ["MD003", "MD004"])
   end
 
   def test_tag_inclusion_config
     result = run_cli("-l", "", "mdlrc_enable_tags")
-    assert_equal(0, result[:status])
-    assert_equal("", result[:stderr])
+    assert_ran_ok(result)
     assert_rules_enabled(result, ["MD001", "MD002", "MD009", "MD010"])
     assert_rules_disabled(result, ["MD004", "MD005"])
   end
 
   def test_tag_exclusion_config
     result = run_cli("-l", "", "mdlrc_disable_tags")
-    assert_equal(0, result[:status])
-    assert_equal("", result[:stderr])
+    assert_ran_ok(result)
     assert_rules_enabled(result, ["MD004", "MD030", "MD032"])
     assert_rules_disabled(result, ["MD001", "MD005"])
+  end
+
+  def test_rule_inclusion_alias_cli
+    result = run_cli("-l -r header-indent")
+    assert_ran_ok(result)
+    assert_rules_enabled(result, ["MD001"], true)
+  end
+
+  def test_rule_exclusion_alias_cli
+    result = run_cli("-l -r ~header-indent")
+    assert_ran_ok(result)
+    assert_rules_disabled(result, ["MD001"])
+    assert_rules_enabled(result, ["MD002"])
   end
 end
