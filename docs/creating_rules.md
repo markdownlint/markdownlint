@@ -5,6 +5,7 @@ like:
 
     rule "MD000", "Rule description" do
       tags :foo, :bar
+      aliases 'rule-name'
       params :style => :foo
       check do |doc|
         # check code goes here
@@ -25,6 +26,12 @@ used by a user to limit which rules are checks. For example, if your rule
 checks whitespace usage in a document, you can add the `:whitespace` tag, and
 users who don't care about whitespace can exclude that tag on the command line
 or in style files.
+
+You can also specify aliases for the rule, which can be used to refer to the
+rule with a human-readable name rather than MD000. To do this, add then with
+the 'aliases' directive. Whenever you refer to a rule, such as for
+including/excluding in the configuration or in style files, you can use an
+alias for the rule instead of its ID.
 
 After that, any parameters the rule takes are specified. If your rule checks
 for a specific number of things, or if you can envision multiple variants of

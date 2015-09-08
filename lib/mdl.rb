@@ -13,7 +13,7 @@ module MarkdownLint
     cli = MarkdownLint::CLI.new
     cli.run(argv)
     ruleset = RuleSet.new
-    unless Config[:no_default_ruleset]
+    unless Config[:skip_default_ruleset]
       ruleset.load_default
     end
     unless Config[:rulesets].nil?

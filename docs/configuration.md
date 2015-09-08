@@ -73,3 +73,17 @@ might choose 72 characters, and another might have no line length limit at all
 
 Note: the value for `style_name` must either end with `.rb` or have `/` in it
 in order to tell `mdl` to look for a custom style, and not a built-in style.
+
+Rulesets - Load a custom ruleset file. This option allows you to load custom
+rules in addition to those included with markdownlint.
+
+* Command line: `-u ruleset.rb,ruleset2.rb`, `--rules ruleset.rb,ruleset2.rb`
+* Config file: `rulesets 'ruleset.rb', 'ruleset2.rb'`
+* Default: Don't load any additional rulesets
+
+No default ruleset - Skip loading the default ruleset file included with
+markdownlint. Use this option if you only want to load custom rulesets.
+
+* Command line: `-d`, `--skip-default-ruleset`
+* Config file: `skip_default_ruleset true`
+* Default: Load the default ruleset.
