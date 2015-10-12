@@ -1,7 +1,8 @@
 # Mdl configuration
 
 Markdownlint has several options you can configure both on the command line,
-or in markdownlint's configuration file: `.mdlrc` in your home directory.
+or in markdownlint's configuration file: `.mdlrc`, first looked for from the
+working directory, then in your home directory.
 While markdownlint will work perfectly well out of the box, this page
 documents some of the options you can change to suit your needs.
 
