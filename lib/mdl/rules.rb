@@ -163,14 +163,23 @@ end
 
 rule "MD013", "Line length" do
   tags :line_length
-  params :line_length => 80, :code_blocks => true
+  params :line_length => 80, :code_blocks => true, :tables => true
   check do |doc|
     # Every line in the document that is part of a code block.
     codeblock_lines = doc.find_type_elements(:codeblock).map{
       |e| (doc.element_linenumber(e)..
            doc.element_linenumber(e) + e.value.count('\n') - 1).to_a }.flatten
+    # Every line in the document that is part of a table.
+    locations = doc.elements
+                .map { |e| [e.options[:location], e] }
+                .reject { |l, _| l.nil? }
+    table_lines = locations.map.with_index {
+      |(l, e), i| (i + 1 < locations.size ?
+                   (l..locations[i+1].first - 1) :
+                   (l..doc.lines.count)).to_a if e.type == :table }.flatten
     overlines = doc.matching_lines(/^.{#{@params[:line_length]}}.*\s/)
     overlines -= codeblock_lines unless params[:code_blocks]
+    overlines -= table_lines unless params[:tables]
     overlines
   end
 end

@@ -266,7 +266,7 @@ lines inside code blocks.
 
 Tags: line_length
 
-Parameters: line_length, code_blocks (number; default 80, boolean; default true)
+Parameters: line_length, code_blocks, tables (number; default 80, boolean; default true)
 
 This rule is triggered when there are lines that are longer than the
 configured line length (default: 80 characters). To fix this, split the line
