@@ -4,13 +4,15 @@ module MarkdownLint
   class CLI
     include Mixlib::CLI
 
+    CONFIG_FILE = '.mdlrc'
+
     banner "Usage: #{File.basename($0)} [options] [FILE.md|DIR ...]"
 
     option :config_file,
       :short => '-c',
       :long => '--config FILE',
       :description => 'The configuration file to use',
-      :default => '~/.mdlrc'
+      :default => "~/#{CONFIG_FILE}"
 
     option :verbose,
       :short => '-v',
@@ -85,8 +87,10 @@ module MarkdownLint
 
     def run(argv=ARGV)
       parse_options(argv)
+
       # Load the config file if it's present
-      filename = File.expand_path(config[:config_file])
+      filename = CLI.probe_config_file(config[:config_file]) ||
+        File.expand_path(config[:config_file])
       MarkdownLint::Config.from_file(filename) if File.exists?(filename)
 
       # Put values in the config file
@@ -123,6 +127,21 @@ module MarkdownLint
         # We already converted the string into a list of include/exclude
         # pairs, so just return as is
         parts
+      end
+    end
+
+    def self.probe_config_file(path)
+      # Probe up only for plain filenames
+      return unless path == File.basename(path)
+
+      # Look for a file up from the working dir
+      current = Dir.pwd
+      loop do
+        candidate = File.join(current, CONFIG_FILE)
+        break candidate if File.exists?(candidate)
+
+        last, current = current, File.dirname(current)
+        break if current == last
       end
     end
   end
