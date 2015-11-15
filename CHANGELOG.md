@@ -11,6 +11,8 @@
   setext style headers for levels 1 and 2, but allow atx style headers for
   levels 3 and above (i.e. header levels that can't be expressed with setext
   style headers)
+* MD013 - You now have the option to exclude code blocks and tables from the
+  line length limit check.
 
 ### Enhancements implemented
 
@@ -38,6 +40,10 @@
   Anson](https://github.com/mivok/markdownlint/pull/109)
 * [Add missing word to description of MD035 in RULES.md - David
   Anson](https://github.com/mivok/markdownlint/pull/86)
+* [Probe for .mdlrc in current and parent directories - Loic
+  Nageleisen](https://github.com/mivok/markdownlint/pull/111)
+* [MD013: allow excluding code blocks and tables - Loic
+  Nageleisen](https://github.com/mivok/markdownlint/pull/112)
 
 ## [v0.2.1](https://github.com/mivok/markdownlint/tree/v0.2.1) (2015-04-13)
 
