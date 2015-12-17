@@ -18,6 +18,5 @@ RUN git clone https://github.com/mivok/markdownlint \
 RUN mkdir /inputfiles
 WORKDIR /inputfiles
 
-# Ignore rule MD013 Line length
 ENTRYPOINT [ "mdl" ]
 CMD [ "/inputfiles" ]
