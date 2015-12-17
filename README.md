@@ -22,6 +22,10 @@ To install the latest development version from github:
     cd markdownlint
     rake install
 
+To install in a docker container:
+
+   docker build --tag=markdownlint .
+
 ## Usage
 
 To have markdownlint check your markdown files, simply run `mdl` with the
@@ -52,6 +56,16 @@ Markdownlint has many more options you can pass on the command line, run
 `mdl --help` to see what they are, or see the documentation on
 [configuring markdownlint](docs/configuration.md).
 
+### Docker usage
+
+To check markdown files in your current directory simply run:
+
+    docker run -v ${PWD}:/inputfiles markdownlint
+
+To check specific file:
+
+   docker run -v ${PWD}:/inputfiles markdownlint README.md
+
 ### Styles
 
 Not everyone writes markdown in the same way, and there are multiple flavors
@@ -74,7 +88,7 @@ For more information on creating style files, see the
 
 ## Contributing
 
-1. Fork it ( http://github.com/mivok/markdownlint/fork )
+1. Fork it (`http://github.com/mivok/markdownlint/fork`)
 1. Create your feature branch (`git checkout -b my-new-feature`)
 1. Commit your changes (`git commit -am 'Add some feature'`)
 1. Push to the branch (`git push origin my-new-feature`)
