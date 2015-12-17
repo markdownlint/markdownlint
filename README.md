@@ -24,7 +24,7 @@ To install the latest development version from github:
 
 To install in a docker container:
 
-   docker build --tag=markdownlint .
+    docker build --tag=markdownlint .
 
 ## Usage
 
@@ -64,7 +64,7 @@ To check markdown files in your current directory simply run:
 
 To check specific file:
 
-   docker run -v ${PWD}:/inputfiles markdownlint README.md
+    docker run -v ${PWD}:/inputfiles markdownlint README.md
 
 ### Styles
 
