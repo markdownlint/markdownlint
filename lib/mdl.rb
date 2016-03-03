@@ -59,10 +59,10 @@ module MarkdownLint
       if Dir.exist?(filename)
         if Config[:git_recurse]
           Dir.chdir(filename) do
-            cli.cli_arguments[i] = %x(git ls-files '*.md').split("\n")
+            cli.cli_arguments[i] = %x(git ls-files '*.md' '*.markdown').split("\n")
           end
         else
-          cli.cli_arguments[i] = Dir["#{filename}/**/*.md"]
+          cli.cli_arguments[i] = Dir["#{filename}/**/*.{md,markdown}"]
         end
       end
     end
