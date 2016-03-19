@@ -1,6 +1,6 @@
 # Change Log
 
-## [v0.3.0](https://github.com/mivok/markdownlint/tree/v0.3.0) (Unreleased)
+## [v0.3.0](https://github.com/mivok/markdownlint/tree/v0.3.0) (2016-03-19)
 
 [Full Changelog](https://github.com/mivok/markdownlint/compare/v0.2.1...v0.3.0)
 
