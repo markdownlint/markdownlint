@@ -195,4 +195,11 @@ class TestCli < Minitest::Test
     assert_rules_disabled(result, ["MD001"])
     assert_rules_enabled(result, ["MD002"])
   end
+
+  def test_directory_scanning
+    path = File.expand_path("./fixtures/dir_with_md_and_markdown", File.dirname(__FILE__))
+    result = run_cli("#{path}")
+    files_with_issues = result[:stdout].split("\n").map { |l| l.split(":")[0] }.sort
+    assert_equal(files_with_issues, ["#{path}/bar.markdown", "#{path}/foo.md"])
+  end
 end
