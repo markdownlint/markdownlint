@@ -18,7 +18,7 @@ module MarkdownLint
       :short => '-c',
       :long => '--config FILE',
       :description => 'The configuration file to use',
-      :default => "~/#{CONFIG_FILE}"
+      :default => "#{CONFIG_FILE}"
 
     option :verbose,
       :short => '-v',
@@ -95,9 +95,18 @@ module MarkdownLint
       parse_options(argv)
 
       # Load the config file if it's present
-      filename = CLI.probe_config_file(config[:config_file]) ||
-        File.expand_path(config[:config_file])
-      MarkdownLint::Config.from_file(filename) if File.exists?(filename)
+      filename = CLI.probe_config_file(config[:config_file])
+      # Only fall back to ~/.mdlrc if we are using the default value for -c
+      if filename.nil? and config[:config_file] == CONFIG_FILE
+        filename = File.expand_path("~/#{CONFIG_FILE}")
+      end
+
+      if not filename.nil? and File.exist?(filename)
+        MarkdownLint::Config.from_file(filename)
+        if config[:verbose]
+          puts "Loaded config from #{filename}"
+        end
+      end
 
       # Put values in the config file
       MarkdownLint::Config.merge!(config)
@@ -138,17 +147,16 @@ module MarkdownLint
 
     def self.probe_config_file(path)
       # Probe up only for plain filenames
-      return unless path == File.basename(path)
+      if path != File.basename(path)
+        return File.expand_path(path)
+      end
 
       # Look for a file up from the working dir
-      current = Dir.pwd
-      loop do
-        candidate = File.join(current, CONFIG_FILE)
-        break candidate if File.exists?(candidate)
-
-        last, current = current, File.dirname(current)
-        break if current == last
+      Pathname.new(path).ascend do |p|
+        config_file = p.join(CONFIG_FILE)
+        return config_file if File.exist?(CONFIG_FILE)
       end
+      nil
     end
   end
 end
