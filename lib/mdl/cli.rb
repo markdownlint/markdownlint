@@ -1,4 +1,5 @@
 require 'mixlib/cli'
+require 'pathname'
 
 module MarkdownLint
   class CLI
