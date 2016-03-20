@@ -1,5 +1,13 @@
 # Change Log
 
+## [v0.3.1](https://github.com/mivok/markdownlint/tree/v0.3.1) (2016-03-20)
+
+[Full Changelog](https://github.com/mivok/markdownlint/compare/v0.3.0...v0.3.1)
+
+### Bugs fixed
+
+* Fix error on starting mdl
+
 ## [v0.3.0](https://github.com/mivok/markdownlint/tree/v0.3.0) (2016-03-19)
 
 [Full Changelog](https://github.com/mivok/markdownlint/compare/v0.2.1...v0.3.0)
