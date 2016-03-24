@@ -7,20 +7,22 @@
 A tool to check markdown files and flag style issues.
 
 ## Installation
-
 Markdownlint is written in ruby and is distributed as a rubygem. As long as
 you have a relatively up to date ruby on your system, markdownlint will be
-simple to install and use.
+simple to install and use. You have 2 options to install it
 
-To install from rubygems, run:
+1) To install from rubygems, run:
 
     gem install mdl
-
-To install the latest development version from github:
+    
+2) To install the latest development version from github:
 
     git clone https://github.com/mivok/markdownlint
     cd markdownlint
     rake install
+    
+    
+Note that you will need [rake](https://github.com/ruby/rake) (`gem install rake`) and [bundler](https://github.com/bundler/bundler) (`gem install bundler`) in order to build from source.
 
 ## Usage
 
