@@ -1,10 +1,15 @@
 require_relative 'setup_tests'
 require 'open3'
 require 'set'
+require 'fileutils'
 
 class TestCli < Minitest::Test
   def run_cli_with_rc_flag(args, stdin = "", mdlrc="default_mdlrc")
     run_cli("bundle exec #{mdl_script} -c #{fixture_rc(mdlrc)} #{args}", stdin)
+  end
+
+  def run_cli_without_rc_flag(args, stdin = "")
+    run_cli("bundle exec #{mdl_script} #{args}", stdin)
   end
 
   def run_cli(command, stdin)
@@ -175,6 +180,22 @@ class TestCli < Minitest::Test
     assert_ran_ok(result)
     assert_rules_disabled(result, ["MD001", "MD002"])
     assert_rules_enabled(result, ["MD003", "MD004"])
+  end
+
+  def test_mdlrc_loading_from_current_dir_by_default
+    with_mdlrc("mdlrc_disable_rules") do
+      result = run_cli_without_rc_flag("-l", "")
+      assert_ran_ok(result)
+      assert_rules_disabled(result, ["MD001", "MD002"])
+      assert_rules_enabled(result, ["MD003", "MD004"])
+    end
+  end
+
+  def with_mdlrc(filename)
+    FileUtils.cp(fixture_rc(filename), ".mdlrc")
+    yield
+  ensure
+    File.delete(".mdlrc")
   end
 
   def test_tag_inclusion_config
