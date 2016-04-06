@@ -4,15 +4,23 @@ require 'set'
 
 class TestCli < Minitest::Test
   def run_cli_with_rc_flag(args, stdin = "", mdlrc="default_mdlrc")
-    mdl_script = File.expand_path("../../bin/mdl", __FILE__)
-    # Load the mdlrc file from the text/fixtures/ directory
-    mdlrc = File.expand_path("../fixtures/#{mdlrc}", __FILE__)
+    run_cli("bundle exec #{mdl_script} -c #{fixture_rc(mdlrc)} #{args}", stdin)
+  end
+
+  def run_cli(command, stdin)
     result = {}
     result[:stdout], result[:stderr], result[:status] = \
-      Open3.capture3(*(%W{bundle exec #{mdl_script} -c #{mdlrc}} + args.split),
-                    :stdin_data => stdin)
+      Open3.capture3(*command.split, :stdin_data => stdin)
     result[:status] = result[:status].exitstatus
     result
+  end
+
+  def mdl_script
+    File.expand_path("../../bin/mdl", __FILE__)
+  end
+
+  def fixture_rc(filename)
+    File.expand_path("../fixtures/#{filename}", __FILE__)
   end
 
   def assert_rules_enabled(result, rules, only_these_rules=false)
