@@ -148,11 +148,7 @@ module MarkdownLint
 
     def self.probe_config_file(path)
       expanded_path = File.expand_path(path)
-
-      # Probe up only for plain filenames
-      if path != File.basename(path)
-        return expanded_path
-      end
+      return expanded_path if File.exist?(expanded_path)
 
       # Look for a file up from the working dir
       Pathname.new(expanded_path).ascend do |p|
