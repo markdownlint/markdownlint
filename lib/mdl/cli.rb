@@ -155,7 +155,7 @@ module MarkdownLint
         next unless p.directory?
 
         config_file = p.join(CONFIG_FILE)
-        return config_file if File.exist?(CONFIG_FILE)
+        return config_file if File.exist?(config_file)
       end
       nil
     end
