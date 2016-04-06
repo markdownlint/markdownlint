@@ -147,13 +147,15 @@ module MarkdownLint
     end
 
     def self.probe_config_file(path)
+      expanded_path = File.expand_path(path)
+
       # Probe up only for plain filenames
       if path != File.basename(path)
-        return File.expand_path(path)
+        return expanded_path
       end
 
       # Look for a file up from the working dir
-      Pathname.new(path).ascend do |p|
+      Pathname.new(expanded_path).ascend do |p|
         config_file = p.join(CONFIG_FILE)
         return config_file if File.exist?(CONFIG_FILE)
       end
