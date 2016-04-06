@@ -152,6 +152,8 @@ module MarkdownLint
 
       # Look for a file up from the working dir
       Pathname.new(expanded_path).ascend do |p|
+        next unless p.directory?
+
         config_file = p.join(CONFIG_FILE)
         return config_file if File.exist?(CONFIG_FILE)
       end
