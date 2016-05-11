@@ -133,9 +133,11 @@ class TestCli < Minitest::Test
   end
 
   def test_mdlrc_loading_from_current_dir_by_default
-    with_mdlrc("mdlrc_disable_rules") do
-      result = run_cli_without_rc_flag("-l")
-      assert_correctly_disabled(result)
+    inside_tmp_dir do |dir|
+      with_mdlrc("mdlrc_disable_rules", dir) do
+        result = run_cli_without_rc_flag("-l")
+        assert_correctly_disabled(result)
+      end
     end
   end
 
@@ -218,6 +220,12 @@ class TestCli < Minitest::Test
 
   def default_rc_file
     fixture_rc("default_mdlrc")
+  end
+
+  def inside_tmp_dir(base_dir = Dir.tmpdir)
+    Dir.mktmpdir(nil, base_dir) do |dir|
+      Dir.chdir(dir) { yield(dir) }
+    end
   end
 
   def assert_rules_enabled(result, rules, only_these_rules=false)
