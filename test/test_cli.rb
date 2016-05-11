@@ -255,10 +255,11 @@ class TestCli < Minitest::Test
     assert_equal("", result[:stderr])
   end
 
-  def with_mdlrc(filename)
-    FileUtils.cp(fixture_rc(filename), ".mdlrc")
+  def with_mdlrc(filename, dest_dir = Dir.pwd)
+    rc_path = File.join(dest_dir, ".mdlrc")
+    FileUtils.cp(fixture_rc(filename), rc_path)
     yield
   ensure
-    File.delete(".mdlrc")
+    File.delete(rc_path)
   end
 end
