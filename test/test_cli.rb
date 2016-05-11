@@ -129,17 +129,13 @@ class TestCli < Minitest::Test
 
   def test_rule_exclusion_config
     result = run_cli_with_custom_rc_file("-l", "mdlrc_disable_rules")
-    assert_ran_ok(result)
-    assert_rules_disabled(result, ["MD001", "MD002"])
-    assert_rules_enabled(result, ["MD003", "MD004"])
+    assert_correctly_disabled(result)
   end
 
   def test_mdlrc_loading_from_current_dir_by_default
     with_mdlrc("mdlrc_disable_rules") do
       result = run_cli_without_rc_flag("-l")
-      assert_ran_ok(result)
-      assert_rules_disabled(result, ["MD001", "MD002"])
-      assert_rules_enabled(result, ["MD003", "MD004"])
+      assert_correctly_disabled(result)
     end
   end
 
@@ -253,6 +249,12 @@ class TestCli < Minitest::Test
   def assert_ran_ok(result)
     assert_equal(0, result[:status])
     assert_equal("", result[:stderr])
+  end
+
+  def assert_correctly_disabled(result)
+    assert_ran_ok(result)
+    assert_rules_disabled(result, ["MD001", "MD002"])
+    assert_rules_enabled(result, ["MD003", "MD004"])
   end
 
   def with_mdlrc(filename, dest_dir = Dir.pwd)
