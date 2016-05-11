@@ -141,6 +141,17 @@ class TestCli < Minitest::Test
     end
   end
 
+  def test_mdlrc_loading_ascends_until_it_finds_an_rc_file
+    Dir.mktmpdir do |parent_dir|
+      inside_tmp_dir(parent_dir) do
+        with_mdlrc("mdlrc_disable_rules", parent_dir) do
+          result = run_cli_without_rc_flag("-l")
+          assert_correctly_disabled(result)
+        end
+      end
+    end
+  end
+
   def test_tag_inclusion_config
     result = run_cli_with_custom_rc_file("-l", "mdlrc_enable_tags")
     assert_ran_ok(result)

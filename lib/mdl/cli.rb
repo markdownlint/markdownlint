@@ -104,7 +104,7 @@ module MarkdownLint
       end
 
       if not filename.nil? and File.exist?(filename)
-        MarkdownLint::Config.from_file(filename)
+        MarkdownLint::Config.from_file(filename.to_s)
         if config[:verbose]
           puts "Loaded config from #{filename}"
         end
