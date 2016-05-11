@@ -97,6 +97,7 @@ module MarkdownLint
 
       # Load the config file if it's present
       filename = CLI.probe_config_file(config[:config_file])
+
       # Only fall back to ~/.mdlrc if we are using the default value for -c
       if filename.nil? and config[:config_file] == CONFIG_FILE
         filename = File.expand_path("~/#{CONFIG_FILE}")
