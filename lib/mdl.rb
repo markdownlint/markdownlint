@@ -71,7 +71,9 @@ module MarkdownLint
     status = 0
     cli.cli_arguments.each do |filename|
       puts "Checking #{filename}..." if Config[:verbose]
-      doc = Doc.new_from_file(filename)
+      ignore_front_matter = (Config[:ignore_front_matter] == true)? true: false;
+      doc = Doc.new_from_file(filename, ignore_front_matter)
+      line_offset = doc.offset
       filename = '(stdin)' if filename == "-"
       if Config[:show_kramdown_warnings]
         status = 2 if not doc.parsed.warnings.empty?
@@ -85,6 +87,7 @@ module MarkdownLint
         next if error_lines.nil? or error_lines.empty?
         status = 1
         error_lines.each do |line|
+          line += line_offset
           if Config[:show_aliases]
             puts "#{filename}:#{line}: #{rule.aliases.first || id} #{rule.description}"
           else

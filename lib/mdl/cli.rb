@@ -27,6 +27,12 @@ module MarkdownLint
       :description => 'Increase verbosity',
       :boolean => true
 
+    option :ignore_front_matter,
+      :short => '-i',
+      :long => '--ignore-front-matter',
+      :boolean => true,
+      :description => 'Ignore YAML front matter'
+
     option :show_kramdown_warnings,
       :short => '-w',
       :long => '--[no-]warnings',

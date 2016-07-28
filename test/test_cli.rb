@@ -231,4 +231,10 @@ class TestCli < Minitest::Test
     files_with_issues = result[:stdout].split("\n").map { |l| l.split(":")[0] }.sort
     assert_equal(files_with_issues, ["#{path}/bar.markdown", "#{path}/foo.md"])
   end
+
+  def test_ignore_front_matter
+    path = File.expand_path("./fixtures/front_matter", File.dirname(__FILE__))
+    result = run_cli_with_rc_flag("-i -r MD001,MD041,MD034 #{path}")
+    assert_equal(result[:stdout], "#{path}/jekyll_post.md:16: MD001 Header levels should only increment by one level at a time\n")
+  end
 end
