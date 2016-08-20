@@ -173,17 +173,17 @@ class TestCli < Minitest::Test
   private
 
   def run_cli_with_rc_flag(args, stdin = "", mdlrc="default_mdlrc")
-    run_cli("bundle exec #{mdl_script} -c #{fixture_rc(mdlrc)} #{args}", stdin)
+    run_cli("#{mdl_script} -c #{fixture_rc(mdlrc)} #{args}", stdin)
   end
 
   def run_cli_without_rc_flag(args, stdin = "")
-    run_cli("bundle exec #{mdl_script} #{args}", stdin)
+    run_cli("#{mdl_script} #{args}", stdin)
   end
 
   def run_cli(command, stdin)
     result = {}
     result[:stdout], result[:stderr], result[:status] = \
-      Open3.capture3(*command.split, :stdin_data => stdin)
+      Open3.capture3("bundle", "exec", *command.split, :stdin_data => stdin)
     result[:status] = result[:status].exitstatus
     result
   end
