@@ -4,61 +4,6 @@ require 'set'
 require 'fileutils'
 
 class TestCli < Minitest::Test
-  def run_cli_with_rc_flag(args, stdin = "", mdlrc="default_mdlrc")
-    run_cli("bundle exec #{mdl_script} -c #{fixture_rc(mdlrc)} #{args}", stdin)
-  end
-
-  def run_cli_without_rc_flag(args, stdin = "")
-    run_cli("bundle exec #{mdl_script} #{args}", stdin)
-  end
-
-  def run_cli(command, stdin)
-    result = {}
-    result[:stdout], result[:stderr], result[:status] = \
-      Open3.capture3(*command.split, :stdin_data => stdin)
-    result[:status] = result[:status].exitstatus
-    result
-  end
-
-  def mdl_script
-    File.expand_path("../../bin/mdl", __FILE__)
-  end
-
-  def fixture_rc(filename)
-    File.expand_path("../fixtures/#{filename}", __FILE__)
-  end
-
-  def assert_rules_enabled(result, rules, only_these_rules=false)
-    # Asserts that the given rules are enabled given the output of mdl -l
-    # If only_these_rules is set, then it asserts that the given rules and no
-    # others are enabled.
-    lines = result[:stdout].split("\n")
-    assert_equal("Enabled rules:", lines.first)
-    lines.shift
-    rules = rules.to_set
-    enabled_rules = lines.map{ |l| l.split(" ").first }.to_set
-    if only_these_rules
-      assert_equal(rules, enabled_rules)
-    else
-      assert_equal(Set.new, rules - enabled_rules)
-    end
-  end
-
-  def assert_rules_disabled(result, rules)
-    # Asserts that the given rules are _not_ enabled given the output of mdl -l
-    lines = result[:stdout].split("\n")
-    assert_equal("Enabled rules:", lines.first)
-    lines.shift
-    rules = rules.to_set
-    enabled_rules = lines.map{ |l| l.split(" ").first }.to_set
-    assert_equal(Set.new, rules & enabled_rules)
-  end
-
-  def assert_ran_ok(result)
-    assert_equal(0, result[:status])
-    assert_equal("", result[:stderr])
-  end
-
   def test_help_text
     result = run_cli_with_rc_flag("--help")
     assert_match(/Usage: \S+ \[options\]/, result[:stdout])
@@ -191,13 +136,6 @@ class TestCli < Minitest::Test
     end
   end
 
-  def with_mdlrc(filename)
-    FileUtils.cp(fixture_rc(filename), ".mdlrc")
-    yield
-  ensure
-    File.delete(".mdlrc")
-  end
-
   def test_tag_inclusion_config
     result = run_cli_with_rc_flag("-l", "", "mdlrc_enable_tags")
     assert_ran_ok(result)
@@ -230,5 +168,69 @@ class TestCli < Minitest::Test
     result = run_cli_with_rc_flag("#{path}")
     files_with_issues = result[:stdout].split("\n").map { |l| l.split(":")[0] }.sort
     assert_equal(files_with_issues, ["#{path}/bar.markdown", "#{path}/foo.md"])
+  end
+
+  private
+
+  def run_cli_with_rc_flag(args, stdin = "", mdlrc="default_mdlrc")
+    run_cli("bundle exec #{mdl_script} -c #{fixture_rc(mdlrc)} #{args}", stdin)
+  end
+
+  def run_cli_without_rc_flag(args, stdin = "")
+    run_cli("bundle exec #{mdl_script} #{args}", stdin)
+  end
+
+  def run_cli(command, stdin)
+    result = {}
+    result[:stdout], result[:stderr], result[:status] = \
+      Open3.capture3(*command.split, :stdin_data => stdin)
+    result[:status] = result[:status].exitstatus
+    result
+  end
+
+  def mdl_script
+    File.expand_path("../../bin/mdl", __FILE__)
+  end
+
+  def fixture_rc(filename)
+    File.expand_path("../fixtures/#{filename}", __FILE__)
+  end
+
+  def assert_rules_enabled(result, rules, only_these_rules=false)
+    # Asserts that the given rules are enabled given the output of mdl -l
+    # If only_these_rules is set, then it asserts that the given rules and no
+    # others are enabled.
+    lines = result[:stdout].split("\n")
+    assert_equal("Enabled rules:", lines.first)
+    lines.shift
+    rules = rules.to_set
+    enabled_rules = lines.map{ |l| l.split(" ").first }.to_set
+    if only_these_rules
+      assert_equal(rules, enabled_rules)
+    else
+      assert_equal(Set.new, rules - enabled_rules)
+    end
+  end
+
+  def assert_rules_disabled(result, rules)
+    # Asserts that the given rules are _not_ enabled given the output of mdl -l
+    lines = result[:stdout].split("\n")
+    assert_equal("Enabled rules:", lines.first)
+    lines.shift
+    rules = rules.to_set
+    enabled_rules = lines.map{ |l| l.split(" ").first }.to_set
+    assert_equal(Set.new, rules & enabled_rules)
+  end
+
+  def assert_ran_ok(result)
+    assert_equal(0, result[:status])
+    assert_equal("", result[:stderr])
+  end
+
+  def with_mdlrc(filename)
+    FileUtils.cp(fixture_rc(filename), ".mdlrc")
+    yield
+  ensure
+    File.delete(".mdlrc")
   end
 end
