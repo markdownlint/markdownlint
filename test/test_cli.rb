@@ -115,13 +115,13 @@ class TestCli < Minitest::Test
   end
 
   def test_rule_inclusion_config
-    result = run_cli("-l", "mdlrc_enable_rules")
+    result = run_cli_with_custom_rc_file("-l", "mdlrc_enable_rules")
     assert_ran_ok(result)
     assert_rules_enabled(result, ["MD001", "MD002"], true)
   end
 
   def test_rule_exclusion_config
-    result = run_cli("-l", "mdlrc_disable_rules")
+    result = run_cli_with_custom_rc_file("-l", "mdlrc_disable_rules")
     assert_ran_ok(result)
     assert_rules_disabled(result, ["MD001", "MD002"])
     assert_rules_enabled(result, ["MD003", "MD004"])
@@ -137,14 +137,14 @@ class TestCli < Minitest::Test
   end
 
   def test_tag_inclusion_config
-    result = run_cli("-l", "mdlrc_enable_tags")
+    result = run_cli_with_custom_rc_file("-l", "mdlrc_enable_tags")
     assert_ran_ok(result)
     assert_rules_enabled(result, ["MD001", "MD002", "MD009", "MD010"])
     assert_rules_disabled(result, ["MD004", "MD005"])
   end
 
   def test_tag_exclusion_config
-    result = run_cli("-l", "mdlrc_disable_tags")
+    result = run_cli_with_custom_rc_file("-l", "mdlrc_disable_tags")
     assert_ran_ok(result)
     assert_rules_enabled(result, ["MD004", "MD030", "MD032"])
     assert_rules_disabled(result, ["MD001", "MD005"])
@@ -173,15 +173,19 @@ class TestCli < Minitest::Test
   private
 
   def run_cli_with_input(args, stdin)
-    run_cmd("#{mdl_script} -c #{fixture_rc("default_mdlrc")} #{args}", stdin)
+    run_cmd("#{mdl_script} -c #{default_rc_file} #{args}", stdin)
   end
 
   def run_cli_without_rc_flag(args)
     run_cmd("#{mdl_script} #{args}", "")
   end
 
-  def run_cli(args, mdlrc="default_mdlrc")
-    run_cmd("#{mdl_script} -c #{fixture_rc(mdlrc)} #{args}", "")
+  def run_cli(args)
+    run_cmd("#{mdl_script} -c #{default_rc_file} #{args}", "")
+  end
+
+  def run_cli_with_custom_rc_file(args, filename)
+    run_cmd("#{mdl_script} -c #{fixture_rc(filename)} #{args}", "")
   end
 
   def run_cmd(command, stdin)
@@ -198,6 +202,10 @@ class TestCli < Minitest::Test
 
   def fixture_rc(filename)
     File.expand_path("../fixtures/#{filename}", __FILE__)
+  end
+
+  def default_rc_file
+    fixture_rc("default_mdlrc")
   end
 
   def assert_rules_enabled(result, rules, only_these_rules=false)
