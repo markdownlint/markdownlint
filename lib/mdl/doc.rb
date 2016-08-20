@@ -41,7 +41,7 @@ module MarkdownLint
       if filename == "-"
         self.new(STDIN.read)
       else
-        self.new(File.read(filename))
+        self.new(File.read(filename, encoding: 'UTF-8'))
       end
     end
 

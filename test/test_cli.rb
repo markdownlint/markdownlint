@@ -29,6 +29,13 @@ class TestCli < Minitest::Test
     assert_match(/^\(stdin\):1: first-header-h1/, result[:stdout])
   end
 
+  def test_running_on_unicode_input
+    result = run_cli_with_file_and_ascii_env("## header2 🚀")
+    assert_equal(1, result[:status])
+    assert_equal("", result[:stderr])
+    assert_match(/MD002 First header should be a h1 header/, result[:stdout])
+  end
+
   def test_skipping_default_ruleset_loading
     result = run_cli("-ld")
     assert_rules_enabled(result, [], true)
@@ -186,6 +193,15 @@ class TestCli < Minitest::Test
 
   def run_cli_with_custom_rc_file(args, filename)
     run_cmd("#{mdl_script} -c #{fixture_rc(filename)} #{args}", "")
+  end
+
+  def run_cli_with_file_and_ascii_env(content)
+    Tempfile.create('foo') do |f|
+      f.write(content)
+      f.close
+
+      run_cmd("ruby -E ASCII #{mdl_script} -c #{default_rc_file} #{f.path}", "")
+    end
   end
 
   def run_cmd(command, stdin)
