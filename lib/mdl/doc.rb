@@ -27,7 +27,14 @@ module MarkdownLint
     ##
     # Create a new document given a string containing the markdown source
 
-    def initialize(text)
+    def initialize(text, ignore_front_matter = false)
+      regex = /^---([\s\S]+?)---\n/
+      if ignore_front_matter and regex.match(text)
+        @offset = regex.match(text).to_s.split("\n").length
+        text.sub!(regex,'')
+      else
+        @offset = 0
+      end
       @lines = text.split("\n")
       @parsed = Kramdown::Document.new(text, :input => 'MarkdownLint')
       @elements = @parsed.root.children
@@ -37,12 +44,20 @@ module MarkdownLint
     ##
     # Alternate 'constructor' passing in a filename
 
-    def self.new_from_file(filename)
+    def self.new_from_file(filename, ignore_front_matter = false)
       if filename == "-"
-        self.new(STDIN.read)
+        self.new(STDIN.read, ignore_front_matter)
       else
-        self.new(File.read(filename, encoding: 'UTF-8'))
+        self.new(File.read(filename, encoding: 'UTF-8'), ignore_front_matter)
       end
+    end
+
+    ##
+    # Returns the line number offset which is greater than zero when the
+    # markdown file contains YAML front matter that should be ignored.
+
+    def offset
+      @offset
     end
 
     ##

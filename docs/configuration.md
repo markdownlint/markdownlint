@@ -39,6 +39,16 @@ instead, and ignore any files git doesn't know about.
 * Config file: `git_recurse true`
 * Default: false
 
+Ignore YAML front matter - if this option is enabled markdownlint will ignore
+content within valid
+[YAML front matter](https://jekyllrb.com/docs/frontmatter/). Reported line
+numbers will still match the file contents but markdownlint will consider the
+line following front matter to be the first line.
+
+* Command line: `-i`, `--ignore-front-matter`
+* Config file: `ignore-front-matter true`
+* Default: false
+
 ### Specifying which rules mdl processes
 
 Tags - Limit the rules mdl enables to those containing the provided tags.
