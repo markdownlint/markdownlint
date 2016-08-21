@@ -1,7 +1,9 @@
 language: ruby
-rvm:
-  - "1.9.2"
-  - "2.1.0"
-  - "2.1.6"
-  - "2.3.0"
-  - jruby-19mode # JRuby in 1.9 mode
+
+matrix:
+  include:
+    - rvm: 2.1.10
+    - rvm: 2.2.5
+    - rvm: 2.3.1
+    - rvm: jruby-9.1.2.0
+      env: JRUBY_OPTS="--dev"
