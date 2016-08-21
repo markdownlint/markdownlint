@@ -33,7 +33,8 @@ class TestCli < Minitest::Test
     result = run_cli_with_file_and_ascii_env("## header2 🚀")
     assert_equal(1, result[:status])
     assert_equal("", result[:stderr])
-    assert_match(/MD002 First header should be a h1 header/, result[:stdout])
+    assert_match(/MD002 First header should be a top level header/,
+                 result[:stdout])
   end
 
   def test_skipping_default_ruleset_loading
