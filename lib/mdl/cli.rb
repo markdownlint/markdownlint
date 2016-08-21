@@ -29,7 +29,7 @@ module MarkdownLint
 
     option :ignore_front_matter,
       :short => '-i',
-      :long => '--ignore-front-matter',
+      :long => '--[no-]ignore-front-matter',
       :boolean => true,
       :description => 'Ignore YAML front matter'
 

@@ -25,10 +25,16 @@ module MarkdownLint
     attr_reader :elements
 
     ##
+    # The line number offset which is greater than zero when the
+    # markdown file contains YAML front matter that should be ignored.
+
+    attr_reader :offset
+
+    ##
     # Create a new document given a string containing the markdown source
 
     def initialize(text, ignore_front_matter = false)
-      regex = /^---([\s\S]+?)---\n/
+      regex = /^---\n(.*?)---\n/m
       if ignore_front_matter and regex.match(text)
         @offset = regex.match(text).to_s.split("\n").length
         text.sub!(regex,'')
@@ -50,14 +56,6 @@ module MarkdownLint
       else
         self.new(File.read(filename, encoding: 'UTF-8'), ignore_front_matter)
       end
-    end
-
-    ##
-    # Returns the line number offset which is greater than zero when the
-    # markdown file contains YAML front matter that should be ignored.
-
-    def offset
-      @offset
     end
 
     ##
