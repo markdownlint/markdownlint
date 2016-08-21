@@ -15,12 +15,13 @@ rule "MD001", "Header levels should only increment by one level at a time" do
   end
 end
 
-rule "MD002", "First header should be a h1 header" do
+rule "MD002", "First header should be a top level header" do
   tags :headers
   aliases 'first-header-h1'
+  params :level => 1
   check do |doc|
     first_header = doc.find_type(:header).first
-    [first_header[:location]] if first_header and first_header[:level] != 1
+    [first_header[:location]] if first_header and first_header[:level] != @params[:level]
   end
 end
 
@@ -342,8 +343,9 @@ end
 rule "MD025", "Multiple top level headers in the same document" do
   tags :headers
   aliases 'single-h1'
+  params :level => 1
   check do |doc|
-    headers = doc.find_type(:header).select { |h| h[:level] == 1 }
+    headers = doc.find_type(:header).select { |h| h[:level] == params[:level] }
     if not headers.empty? and doc.element_linenumber(headers[0]) == 1
       headers[1..-1].map { |h| doc.element_linenumber(h) }
     end
@@ -599,9 +601,10 @@ end
 rule "MD041", "First line in file should be a top level header" do
   tags :headers
   aliases 'first-line-h1'
+  params :level => 1
   check do |doc|
     first_header = doc.find_type(:header).first
     [1] if first_header.nil? or first_header[:location] != 1 \
-      or first_header[:level] != 1
+      or first_header[:level] != params[:level]
   end
 end
