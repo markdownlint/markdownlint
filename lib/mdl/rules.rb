@@ -273,7 +273,7 @@ rule "MD022", "Headers should be surrounded by blank lines" do
     # Kramdown requires that headers start on a block boundary, so in most
     # cases it won't pick up a header without a blank line before it. We need
     # to check regular text and pick out headers ourselves too
-    doc.find_type_elements(:p).each do |p|
+    doc.find_type_elements(:p, false).each do |p|
       linenum = doc.element_linenumber(p)
       text = p.children.select { |e| e.type == :text }.map {|e| e.value }.join
       lines = text.split("\n")
@@ -308,7 +308,7 @@ rule "MD023", "Headers must start at the beginning of the line" do
     end
     # Next we have to look for things that aren't parsed as headers because
     # they start with spaces.
-    doc.find_type_elements(:p).each do |p|
+    doc.find_type_elements(:p, false).each do |p|
       linenum = doc.element_linenumber(p)
       lines = doc.extract_text(p)
       prev_line = ""
