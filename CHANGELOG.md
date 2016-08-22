@@ -1,6 +1,6 @@
 # Change Log
 
-## [Unreleased]
+## [v0.4.0] (2016-08-22)
 
 ### Added
 
@@ -18,7 +18,7 @@
 * Fix erroneous triggering of MD022/MD023 in some cases (#144)
 * Detect codeblock lines correctly when ignoring them (#141)
 
-## [0.3.1] (2016-03-20)
+## [v0.3.1] (2016-03-20)
 
 ### Fixed
 
@@ -156,6 +156,7 @@
 * MD030 - Spaces after list markers
 
 [Unreleased]: https://github.com/mivok/markdownlint/tree/master
+[v0.4.0]: https://github.com/mivok/markdownlint/tree/v0.4.0
 [v0.3.1]: https://github.com/mivok/markdownlint/tree/v0.3.1
 [v0.3.0]: https://github.com/mivok/markdownlint/tree/v0.3.0
 [v0.2.1]: https://github.com/mivok/markdownlint/tree/v0.2.1
