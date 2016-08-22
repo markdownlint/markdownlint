@@ -1,28 +1,34 @@
 # Change Log
 
-## [v0.3.1](https://github.com/mivok/markdownlint/tree/v0.3.1) (2016-03-20)
+## [Unreleased]
 
-[Full Changelog](https://github.com/mivok/markdownlint/compare/v0.3.0...v0.3.1)
+### Added
 
-### Bugs fixed
+* Ignore yaml front matter option (#130, #143)
+
+### Changed
+
+* Allow top level header rules (MD002, MD025, MD041) to be configurable (#142)
+
+### Fixed
+
+* Read UTF-8 files correctly even if locale is set to C (#135, #146, #147,
+  #148)
+* Fix issues loading .mdlrc file (#126, #129, #133, #148)
+
+## [0.3.1] (2016-03-20)
+
+### Fixed
 
 * Fix error on starting mdl
 
-## [v0.3.0](https://github.com/mivok/markdownlint/tree/v0.3.0) (2016-03-19)
+## [v0.3.0] (2016-03-19)
 
-[Full Changelog](https://github.com/mivok/markdownlint/compare/v0.2.1...v0.3.0)
-
-### Rules added/changed
+### Rules added
 
 * MD041 - First line in file should be a top level header
-* MD003 - An additional header style, setext_with_atx, was added to require
-  setext style headers for levels 1 and 2, but allow atx style headers for
-  levels 3 and above (i.e. header levels that can't be expressed with setext
-  style headers)
-* MD013 - You now have the option to exclude code blocks and tables from the
-  line length limit check.
 
-### Enhancements implemented
+### Added
 
 * You can now load your own custom rules with the `-u` option. See
   [rules.rb](https://github.com/mivok/markdownlint/blob/master/lib/mdl/rules.rb)
@@ -33,7 +39,16 @@
   You can pass the `-a` option to display rule aliases instead of MDxxx rule
   IDs.
 
-### Bugs fixed
+### Changed
+
+* MD003 - An additional header style, setext_with_atx, was added to require
+  setext style headers for levels 1 and 2, but allow atx style headers for
+  levels 3 and above (i.e. header levels that can't be expressed with setext
+  style headers)
+* MD013 - You now have the option to exclude code blocks and tables from the
+  line length limit check.
+
+### Fixed
 
 * Crash with MD034 and pipe character (#93, #97)
 * MD031 failed on nested code blocks (#100, #109)
@@ -53,11 +68,9 @@
 * [MD013: allow excluding code blocks and tables - Loic
   Nageleisen](https://github.com/mivok/markdownlint/pull/112)
 
-## [v0.2.1](https://github.com/mivok/markdownlint/tree/v0.2.1) (2015-04-13)
+## [v0.2.1] (2015-04-13)
 
-[Full Changelog](https://github.com/mivok/markdownlint/compare/v0.2.0...v0.2.1)
-
-### Bugs fixed
+### Fixed
 
 * Incorrect parsing of rules/tags specification in .mdlrc (#81)
 * Exception on image links with MD039 (#82)
@@ -67,9 +80,7 @@
 
 * Exception on some lines with raw html list items in them (#83)
 
-## [v0.2.0](https://github.com/mivok/markdownlint/tree/v0.2.0) (2015-04-13)
-
-[Full Changelog](https://github.com/mivok/markdownlint/compare/v0.1.0...v0.2.0)
+## [v0.2.0] (2015-04-13)
 
 ### Rules added
 
@@ -82,7 +93,7 @@
 * MD039 - Spaces inside link text
 * MD040 - Fenced code blocks should have a language specified
 
-## Enhancements implemented
+## Added
 
 * Trailing spaces rule should allow an excemption for deliberate <br/\>
   insertion.
@@ -93,16 +104,14 @@
 
 * [Add parameter (value and default) information to rule documentation. - David Anson](https://github.com/mivok/markdownlint/pull/76)
 
-## [v0.1.0](https://github.com/mivok/markdownlint/tree/v0.1.0) (2015-02-22)
-
-[Full Changelog](https://github.com/mivok/markdownlint/compare/v0.0.1...v0.1.0)
+## [v0.1.0] (2015-02-22)
 
 ### Rules added
 
 * MD031 - Fenced code blocks should be surrounded by blank lines
 * MD032 - Lists should be surrounded by blank lines
 
-### Bugs fixed
+### Fixed
 
 * MD014 triggers when it shouldn't
 
@@ -113,7 +122,7 @@
 * [Clarify how to specify your own style - mjankowski](https://github.com/mivok/markdownlint/pull/65)
 * [Use single quotes to prevent early escaping - highb](https://github.com/mivok/markdownlint/pull/64)
 
-## [v0.0.1](https://github.com/mivok/markdownlint/tree/v0.0.1) (2014-09-07)
+## [v0.0.1] (2014-09-07)
 
 ### Rules added
 
@@ -143,3 +152,11 @@
 * MD028 - Blank line inside blockquote
 * MD029 - Ordered list item prefix
 * MD030 - Spaces after list markers
+
+[Unreleased]: https://github.com/mivok/markdownlint/tree/master
+[v0.3.1]: https://github.com/mivok/markdownlint/tree/v0.3.1
+[v0.3.0]: https://github.com/mivok/markdownlint/tree/v0.3.0
+[v0.2.1]: https://github.com/mivok/markdownlint/tree/v0.2.1
+[v0.2.0]: https://github.com/mivok/markdownlint/tree/v0.2.0
+[v0.1.0]: https://github.com/mivok/markdownlint/tree/v0.1.0
+[v0.0.1]: https://github.com/mivok/markdownlint/tree/v0.0.1

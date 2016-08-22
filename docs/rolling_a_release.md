@@ -14,28 +14,36 @@ branch.
 
 Update the changelog:
 
-* Add a new header and 'full changelog' link for the new release:
+* Add a new header and link for the new release, replacing any 'Unreleased'
+  header.
 
-        ## [v0.2.0](https://github.com/mivok/markdownlint/tree/v0.2.0) (2015-04-13)
+        ## [v0.2.0] (2015-04-13)
 
-        [Full Changelog](https://github.com/mivok/markdownlint/compare/v0.1.0...v0.2.0)
+        This goes at the bottom:
 
-* Add an 'Rules added' section, listing every new rule added for this version.
+        [v0.2.0]: https://github.com/mivok/markdownlint/tree/v0.2.0
+
+* Changelog entries can and should be added in an 'Unreleased' section as
+  commits are made. However, the following steps can be performed before each
+  release to catch anything that was missed.
+* Add a 'Rules added' section, listing every new rule added for this version.
   * Use `git diff v0.1.0..v0.2.0 docs/RULES.md | grep '## MD'` to discover
     what these are.
 * Search for closed issues:
   * Go to <https://github.com/mivok/markdownlint/issues>
-  * Search for `is:closed closed:>1900-01-01`, changing the date to the date
+  * Search for `closed:>1900-01-01`, changing the date to the date
     of the last release.
   * From this list of issues, make sections for:
-    * Enhancements implemented
-    * Bugs fixed
-* Search for merged pull requests:
-  * Search for `is:pull-request  merged:>1900-01-01`
-  * Add an entry for each merged pull request:
-    * `[Title - author](https://github.com/mivok/markdownlint/pull/NN)`
+    * Added - for new features
+    * Changed - for changes in existing functionality
+    * Deprecated - for once-stable features removed in upcoming releases
+    * Removed - for deprecated features removed in this release
+    * Fixed - for any bug fixes
+    * Security - for any security issues
 
 Next, run `rake release`. This will:
 
 * Tag vX.Y.Z in git and push it.
 * Upload the new gem to rubygems.org
+
+Finally, add a new 'Unreleased' section to the changelog for the next release.
