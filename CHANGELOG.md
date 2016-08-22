@@ -16,6 +16,7 @@
   #148)
 * Fix issues loading .mdlrc file (#126, #129, #133, #148)
 * Fix erroneous triggering of MD022/MD023 in some cases (#144)
+* Detect codeblock lines correctly when ignoring them (#141)
 
 ## [0.3.1] (2016-03-20)
 

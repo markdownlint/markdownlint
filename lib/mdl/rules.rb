@@ -165,7 +165,7 @@ rule "MD012", "Multiple consecutive blank lines" do
     # inside of a code block are acceptable.
     codeblock_lines = doc.find_type_elements(:codeblock).map{
       |e| (doc.element_linenumber(e)..
-           doc.element_linenumber(e) + e.value.count('\n') - 1).to_a }.flatten
+           doc.element_linenumber(e) + e.value.lines.count).to_a }.flatten
     blank_lines = doc.matching_lines(/^\s*$/)
     cons_blank_lines = blank_lines.each_cons(2).select{
       |p, n| n - p == 1}.map{|p, n| n}
@@ -181,7 +181,7 @@ rule "MD013", "Line length" do
     # Every line in the document that is part of a code block.
     codeblock_lines = doc.find_type_elements(:codeblock).map{
       |e| (doc.element_linenumber(e)..
-           doc.element_linenumber(e) + e.value.count('\n') - 1).to_a }.flatten
+           doc.element_linenumber(e) + e.value.lines.count).to_a }.flatten
     # Every line in the document that is part of a table.
     locations = doc.elements
                 .map { |e| [e.options[:location], e] }
