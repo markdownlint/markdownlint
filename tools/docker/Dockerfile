@@ -5,7 +5,7 @@ MAINTAINER Mark Harrison <mark@mivok.net>
 RUN apk update && \
     apk add --no-cache ruby && \
     gem install --no-rdoc --no-ri mdl && \
-    mkdir /inputfiles
+    mkdir /data
 
 WORKDIR /data
 
