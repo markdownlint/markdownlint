@@ -856,6 +856,8 @@ is allowed.
 
 Tags: headers, emphasis
 
+Parameters: punctuation (string; default ".,;:!?")
+
 Aliases: no-emphasis-as-header
 
 This check looks for instances where emphasized (i.e. bold or italic) text is
@@ -880,8 +882,11 @@ sections:
 
     Consectetur adipiscing elit, sed do eiusmod.
 
-Note: this rule looks for paragraphs that consist entirely of emphasized text.
-It won't fire on emphasis used within regular text.
+Note: this rule looks for single line paragraphs that consist entirely of
+emphasized text.  It won't fire on emphasis used within regular text,
+multi-line emphasized paragraphs, and paragraphs ending in punctuation.
+Similarly to rule MD026, you can configure what characters are recognized as
+punctuation.
 
 ## MD037 - Spaces inside emphasis markers
 

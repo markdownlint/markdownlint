@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+### Changed
+
+* MD036 - Ignore multi-line emphasized paragraphs, and emphasized paragraphs
+  that end in punctuation (#140)
+
 ## [v0.4.0] (2016-08-22)
 
 ### Added

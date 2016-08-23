@@ -246,7 +246,7 @@ module MarkdownLint
     # Extracts the text from an element whose children consist of text
     # elements and other things
 
-    def extract_text(element, prefix="")
+    def extract_text(element, prefix="", restore_whitespace = true)
       quotes = {
         :rdquo => '"',
         :ldquo => '"',
@@ -260,7 +260,7 @@ module MarkdownLint
         if e.type == :text
           e.value
         elsif [:strong, :em, :p, :codespan].include?(e.type)
-          extract_text(e, prefix).join("\n")
+          extract_text(e, prefix, restore_whitespace).join("\n")
         elsif e.type == :smart_quote
           quotes[e.value]
         end
@@ -268,7 +268,9 @@ module MarkdownLint
       # Text blocks have whitespace stripped, so we need to add it back in at
       # the beginning. Because this might be in something like a blockquote,
       # we optionally strip off a prefix given to the function.
-      lines[0] = element_line(element).sub(prefix, "")
+      if restore_whitespace
+        lines[0] = element_line(element).sub(prefix, "")
+      end
       lines
     end
 

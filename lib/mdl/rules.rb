@@ -544,11 +544,20 @@ end
 rule "MD036", "Emphasis used instead of a header" do
   tags :headers, :emphasis
   aliases 'no-emphasis-as-header'
+  params :punctuation => '.,;:!?'
   check do |doc|
     # We are looking for a paragraph consisting entirely of emphasized
     # (italic/bold) text.
-    doc.element_linenumbers(doc.find_type_elements(:p, false).select{|p|
-      p.children.length == 1 && [:em, :strong].include?(p.children[0].type)})
+    errors = []
+    doc.find_type_elements(:p, false).each do |p|
+      next if p.children.length > 1
+      next unless [:em, :strong].include?(p.children[0].type)
+      lines = doc.extract_text(p.children[0], "", false)
+      next if lines.length > 1
+      next if lines[0].match(/[#{params[:punctuation]}]$/)
+      errors << doc.element_linenumber(p)
+    end
+    errors
   end
 end
 
