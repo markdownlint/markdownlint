@@ -183,14 +183,21 @@ class TestCli < Minitest::Test
   def test_directory_scanning
     path = File.expand_path("./fixtures/dir_with_md_and_markdown", File.dirname(__FILE__))
     result = run_cli("#{path}")
-    files_with_issues = result[:stdout].split("\n").map { |l| l.split(":")[0] }.sort
+    lines_output = result[:stdout].lines
+    interested_lines = lines_output[0..(lines_output.count - 3)]
+    files_with_issues = interested_lines.map { |l| l.split(":")[0] }.sort
     assert_equal(files_with_issues, ["#{path}/bar.markdown", "#{path}/foo.md"])
   end
 
   def test_ignore_front_matter
     path = File.expand_path("./fixtures/front_matter", File.dirname(__FILE__))
     result = run_cli("-i -r MD001,MD041,MD034 #{path}")
-    assert_equal(result[:stdout], "#{path}/jekyll_post.md:16: MD001 Header levels should only increment by one level at a time\n")
+
+    expected = \
+      "#{path}/jekyll_post.md:16: MD001 Header levels should only increment by one level at a time"\
+      "\n\nA detailed description of the rules is available at https://github.com/mivok/markdownlint/blob/master/docs/RULES.md\n"
+
+    assert_equal(result[:stdout], expected)
   end
 
   private
