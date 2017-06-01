@@ -62,7 +62,7 @@
 * Crash with MD034 and pipe character (#93, #97)
 * MD031 failed on nested code blocks (#100, #109)
 * MD037 crashes on <li> with underscores (#83)
-* Regression introducted in v0.2.1 - ignoring rules/tags on the command line
+* Regression introduced in v0.2.1 - ignoring rules/tags on the command line
   caused a crash (#108)
 * MD027 false positive when line starts with a backtick (#105)
 
