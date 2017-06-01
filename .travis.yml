@@ -1,3 +1,5 @@
+sudo: false
+dist: trusty
 language: ruby
 
 matrix:
