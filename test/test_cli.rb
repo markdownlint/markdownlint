@@ -195,7 +195,7 @@ class TestCli < Minitest::Test
 
     expected = \
       "#{path}/jekyll_post.md:16: MD001 Header levels should only increment by one level at a time"\
-      "\n\nA detailed description of the rules is available at https://github.com/mivok/markdownlint/blob/master/docs/RULES.md\n"
+      "\n\nA detailed description of the rules is available at https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md\n"
 
     assert_equal(result[:stdout], expected)
   end

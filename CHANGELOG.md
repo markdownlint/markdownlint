@@ -40,7 +40,7 @@
 ### Added
 
 * You can now load your own custom rules with the `-u` option. See
-  [rules.rb](https://github.com/mivok/markdownlint/blob/master/lib/mdl/rules.rb)
+  [rules.rb](https://github.com/markdownlint/markdownlint/blob/master/lib/mdl/rules.rb)
   for an example of what a rules file looks like. Use the `-d` option if you
   don't want to load markdownlint's default ruleset.
 * You can now refer to rules by human-readable/writable aliases, such as
@@ -69,13 +69,13 @@
 ### Merged pull requests
 
 * [Add support for nested code fences to MD031/MD032 - David
-  Anson](https://github.com/mivok/markdownlint/pull/109)
+  Anson](https://github.com/markdownlint/markdownlint/pull/109)
 * [Add missing word to description of MD035 in RULES.md - David
-  Anson](https://github.com/mivok/markdownlint/pull/86)
+  Anson](https://github.com/markdownlint/markdownlint/pull/86)
 * [Probe for .mdlrc in current and parent directories - Loic
-  Nageleisen](https://github.com/mivok/markdownlint/pull/111)
+  Nageleisen](https://github.com/markdownlint/markdownlint/pull/111)
 * [MD013: allow excluding code blocks and tables - Loic
-  Nageleisen](https://github.com/mivok/markdownlint/pull/112)
+  Nageleisen](https://github.com/markdownlint/markdownlint/pull/112)
 
 ## [v0.2.1] (2015-04-13)
 
@@ -111,7 +111,7 @@
 
 ### Merged pull requests
 
-* [Add parameter (value and default) information to rule documentation. - David Anson](https://github.com/mivok/markdownlint/pull/76)
+* [Add parameter (value and default) information to rule documentation. - David Anson](https://github.com/markdownlint/markdownlint/pull/76)
 
 ## [v0.1.0] (2015-02-22)
 
@@ -126,10 +126,10 @@
 
 ### Merged pull requests
 
-* [MD032 - Lists should be surrounded by blank lines - David Anson](https://github.com/mivok/markdownlint/pull/70)
-* [MD031 - Fenced code blocks should be surrounded by blank lines - David Anson](https://github.com/mivok/markdownlint/pull/68)
-* [Clarify how to specify your own style - mjankowski](https://github.com/mivok/markdownlint/pull/65)
-* [Use single quotes to prevent early escaping - highb](https://github.com/mivok/markdownlint/pull/64)
+* [MD032 - Lists should be surrounded by blank lines - David Anson](https://github.com/markdownlint/markdownlint/pull/70)
+* [MD031 - Fenced code blocks should be surrounded by blank lines - David Anson](https://github.com/markdownlint/markdownlint/pull/68)
+* [Clarify how to specify your own style - mjankowski](https://github.com/markdownlint/markdownlint/pull/65)
+* [Use single quotes to prevent early escaping - highb](https://github.com/markdownlint/markdownlint/pull/64)
 
 ## [v0.0.1] (2014-09-07)
 
@@ -162,11 +162,11 @@
 * MD029 - Ordered list item prefix
 * MD030 - Spaces after list markers
 
-[Unreleased]: https://github.com/mivok/markdownlint/tree/master
-[v0.4.0]: https://github.com/mivok/markdownlint/tree/v0.4.0
-[v0.3.1]: https://github.com/mivok/markdownlint/tree/v0.3.1
-[v0.3.0]: https://github.com/mivok/markdownlint/tree/v0.3.0
-[v0.2.1]: https://github.com/mivok/markdownlint/tree/v0.2.1
-[v0.2.0]: https://github.com/mivok/markdownlint/tree/v0.2.0
-[v0.1.0]: https://github.com/mivok/markdownlint/tree/v0.1.0
-[v0.0.1]: https://github.com/mivok/markdownlint/tree/v0.0.1
+[Unreleased]: https://github.com/markdownlint/markdownlint/tree/master
+[v0.4.0]: https://github.com/markdownlint/markdownlint/tree/v0.4.0
+[v0.3.1]: https://github.com/markdownlint/markdownlint/tree/v0.3.1
+[v0.3.0]: https://github.com/markdownlint/markdownlint/tree/v0.3.0
+[v0.2.1]: https://github.com/markdownlint/markdownlint/tree/v0.2.1
+[v0.2.0]: https://github.com/markdownlint/markdownlint/tree/v0.2.0
+[v0.1.0]: https://github.com/markdownlint/markdownlint/tree/v0.1.0
+[v0.0.1]: https://github.com/markdownlint/markdownlint/tree/v0.0.1

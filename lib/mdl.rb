@@ -97,7 +97,7 @@ module MarkdownLint
 
     if status != 0
       puts "\nA detailed description of the rules is available at "\
-           "https://github.com/mivok/markdownlint/blob/master/docs/RULES.md"
+           "https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md"
     end
     exit status
   end

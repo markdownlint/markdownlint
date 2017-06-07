@@ -18,7 +18,7 @@ To install from rubygems, run:
 
 To install the latest development version from github:
 
-    git clone https://github.com/mivok/markdownlint
+    git clone https://github.com/markdownlint/markdownlint
     cd markdownlint
     rake install
 
@@ -79,7 +79,7 @@ For more information on creating style files, see the
 
 ## Contributing
 
-1. Fork it ( <http://github.com/mivok/markdownlint/fork> )
+1. Fork it ( <http://github.com/markdownlint/markdownlint/fork> )
 1. Create your feature branch (`git checkout -b my-new-feature`)
 1. Commit your changes (`git commit -am 'Add some feature'`)
 1. Push to the branch (`git push origin my-new-feature`)
