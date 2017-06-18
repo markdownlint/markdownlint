@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["mark@mivok.net"]
   spec.summary       = %q{Markdown lint tool}
   spec.description   = %q{Style checker/lint tool for markdown files}
-  spec.homepage      = "http://github.com/mivok/markdownlint"
+  spec.homepage      = "http://github.com/markdownlint/markdownlint"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")

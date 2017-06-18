@@ -21,7 +21,7 @@ Update the changelog:
 
         This goes at the bottom:
 
-        [v0.2.0]: https://github.com/mivok/markdownlint/tree/v0.2.0
+        [v0.2.0]: https://github.com/markdownlint/markdownlint/tree/v0.2.0
 
 * Changelog entries can and should be added in an 'Unreleased' section as
   commits are made. However, the following steps can be performed before each
@@ -30,7 +30,7 @@ Update the changelog:
   * Use `git diff v0.1.0..v0.2.0 docs/RULES.md | grep '## MD'` to discover
     what these are.
 * Search for closed issues:
-  * Go to <https://github.com/mivok/markdownlint/issues>
+  * Go to <https://github.com/markdownlint/markdownlint/issues>
   * Search for `closed:>1900-01-01`, changing the date to the date
     of the last release.
   * From this list of issues, make sections for:
