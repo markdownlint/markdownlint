@@ -303,7 +303,7 @@ rule "MD023", "Headers must start at the beginning of the line" do
     errors = []
     # The only type of header with spaces actually parsed as such is setext
     # style where only the text is indented. We check for that first.
-    doc.find_type_elements(:header).each do |h|
+    doc.find_type_elements(:header, false).each do |h|
       errors << doc.element_linenumber(h) if doc.element_line(h).match(/^\s/)
     end
     # Next we have to look for things that aren't parsed as headers because
