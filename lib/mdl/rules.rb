@@ -33,7 +33,7 @@ rule "MD003", "Header style" do
   # :style can be one of :consistent, :atx, :atx_closed, :setext
   params :style => :consistent
   check do |doc|
-    headers = doc.find_type_elements(:header)
+    headers = doc.find_type_elements(:header, false)
     if headers.empty?
       nil
     else
@@ -257,7 +257,7 @@ rule "MD022", "Headers should be surrounded by blank lines" do
   aliases 'blanks-around-headers'
   check do |doc|
     errors = []
-    doc.find_type_elements(:header).each do |h|
+    doc.find_type_elements(:header, false).each do |h|
       header_bad = false
       linenum = doc.element_linenumber(h)
       # Check previous line
@@ -303,7 +303,7 @@ rule "MD023", "Headers must start at the beginning of the line" do
     errors = []
     # The only type of header with spaces actually parsed as such is setext
     # style where only the text is indented. We check for that first.
-    doc.find_type_elements(:header).each do |h|
+    doc.find_type_elements(:header, false).each do |h|
       errors << doc.element_linenumber(h) if doc.element_line(h).match(/^\s/)
     end
     # Next we have to look for things that aren't parsed as headers because
@@ -345,7 +345,7 @@ rule "MD025", "Multiple top level headers in the same document" do
   aliases 'single-h1'
   params :level => 1
   check do |doc|
-    headers = doc.find_type(:header).select { |h| h[:level] == params[:level] }
+    headers = doc.find_type(:header, false).select { |h| h[:level] == params[:level] }
     if not headers.empty? and doc.element_linenumber(headers[0]) == 1
       headers[1..-1].map { |h| doc.element_linenumber(h) }
     end

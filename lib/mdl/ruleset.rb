@@ -7,7 +7,7 @@ module MarkdownLint
       @aliases = []
       @tags = []
       @params = {}
-      instance_eval &block
+      instance_eval(&block)
     end
 
 
