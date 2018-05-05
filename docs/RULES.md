@@ -485,6 +485,8 @@ Tags: headers
 
 Aliases: no-duplicate-header
 
+Parameters: allow_different_nesting (boolean; default true)
+
 This rule is triggered if there are multiple headers in the document that have
 the same text:
 
@@ -501,6 +503,21 @@ To fix this, ensure that the content of each header is different:
 Rationale: Some markdown parses generate anchors for headers based on the
 header name, and having headers with the same content can cause problems with
 this.
+
+If the parameter `allow_different_nesting` is set to `true`, header duplication
+under different nesting is allowed, like it usually happens in change logs:
+
+    # Change log
+
+    ## 2.0.0
+
+    ### Bug fixes
+
+    ### Features
+
+    ## 1.0.0
+
+    ### Bug fixes
 
 ## MD025 - Multiple top level headers in the same document
 

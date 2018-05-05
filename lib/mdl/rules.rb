@@ -332,11 +332,42 @@ end
 rule "MD024", "Multiple headers with the same content" do
   tags :headers
   aliases 'no-duplicate-header'
+  params :allow_different_nesting => true
   check do |doc|
-    header_content = Set.new
-    doc.find_type(:header).select do |h|
-      not header_content.add?(h[:raw_text])
-    end.map { |h| doc.element_linenumber(h) }
+    headers = doc.find_type(:header)
+    allow_different_nesting = params[:allow_different_nesting]
+
+    duplicates = headers.select do |h|
+      headers.any? do |e|
+        e[:location] < h[:location] &&
+          e[:raw_text] == h[:raw_text] &&
+          (allow_different_nesting == false || e[:level] != h[:level])
+      end
+    end.to_set
+
+    if allow_different_nesting
+      same_nesting_duplicates = Set.new
+      stack = []
+      current_level = 0
+      doc.find_type(:header).each do |header|
+        level = header[:level]
+        text = header[:raw_text]
+
+        if current_level > level
+          stack.pop
+        elsif current_level < level
+          stack.push([text])
+        else
+          same_nesting_duplicates.add(header) if stack.last.include?(text)
+        end
+
+        current_level = level
+      end
+
+      duplicates += same_nesting_duplicates
+    end
+
+    duplicates.map { |h| doc.element_linenumber(h) }
   end
 end
 
