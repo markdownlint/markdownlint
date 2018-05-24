@@ -14,5 +14,5 @@ matrix:
     - rvm: 2.2.7
     - rvm: 2.3.4
     - rmv: 2.4.1
-    - rvm: jruby-9.1.9.0
+    - rvm: jruby-9.1.17.0
       env: JRUBY_OPTS="--dev"
