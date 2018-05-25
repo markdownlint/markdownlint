@@ -1,5 +1,5 @@
 [![Issues on deck](https://badge.waffle.io/mivok/markdownlint.png?label=on%20deck&title=On%20Deck)](https://waffle.io/mivok/markdownlint)
-[![Travis build status](http://api.travis-ci.org/mivok/markdownlint.svg)](https://travis-ci.org/mivok/markdownlint)
+[![Travis build status](http://api.travis-ci.org/markdownlint/markdownlint.svg)](https://travis-ci.org/markdownlint/markdownlint)
 [![Gem Version](https://badge.fury.io/rb/mdl.svg)](http://badge.fury.io/rb/mdl)
 
 # Markdown lint tool
