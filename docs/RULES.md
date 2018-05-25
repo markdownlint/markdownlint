@@ -485,7 +485,7 @@ Tags: headers
 
 Aliases: no-duplicate-header
 
-Parameters: allow_different_nesting (boolean; default true)
+Parameters: allow_different_nesting (boolean; default false)
 
 This rule is triggered if there are multiple headers in the document that have
 the same text:

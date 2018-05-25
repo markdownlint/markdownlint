@@ -332,7 +332,7 @@ end
 rule "MD024", "Multiple headers with the same content" do
   tags :headers
   aliases 'no-duplicate-header'
-  params :allow_different_nesting => true
+  params :allow_different_nesting => false
   check do |doc|
     headers = doc.find_type(:header)
     allow_different_nesting = params[:allow_different_nesting]
