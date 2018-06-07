@@ -651,8 +651,9 @@ rule "MD041", "First line in file should be a top level header" do
   end
 end
 
-rule 'MD042', 'Code blocks style' do
+rule "MD046", "Code block style" do
   tags :code
+  aliases 'code-block-style'
   params :style => :fenced
   check do |doc|
     doc.element_linenumbers(
