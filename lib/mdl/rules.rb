@@ -650,3 +650,19 @@ rule "MD041", "First line in file should be a top level header" do
       or first_header[:level] != params[:level]
   end
 end
+
+rule 'MD042', 'Code blocks style' do
+  tags :code
+  params :style => :fenced
+  check do |doc|
+    doc.element_linenumbers(
+      doc.find_type_elements(:codeblock).select do |i|
+        if @params[:style] == :fenced
+          doc.element_line(i).start_with?("    ")
+        else
+          !doc.element_line(i).start_with?("    ")
+        end
+      end
+    )
+  end
+end
