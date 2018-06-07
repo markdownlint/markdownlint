@@ -1023,7 +1023,7 @@ Tags: code
 
 Aliases: code-block-style
 
-Parameters: style ("fenced", "indented", default "fenced")
+Parameters: style ("fenced", "indented", "consistent", default "fenced")
 
 This rule is truggered what a different code block style is used than the
 configured one. For example, in the default configuration this triggers:

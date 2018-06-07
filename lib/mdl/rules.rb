@@ -656,8 +656,17 @@ rule "MD046", "Code block style" do
   aliases 'code-block-style'
   params :style => :fenced
   check do |doc|
+    style = @params[:style]
     doc.element_linenumbers(
       doc.find_type_elements(:codeblock).select do |i|
+        # for consistent we determine the first one
+        if style == :consistent
+          if doc.element_line(i).start_with?("    ")
+            style = :indented
+          else
+            style = :fenced
+          end
+        end
         if @params[:style] == :fenced
           doc.element_line(i).start_with?("    ")
         else
