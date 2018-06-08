@@ -98,6 +98,12 @@ module MarkdownLint
       :proc => Proc.new { puts MarkdownLint::VERSION },
       :exit => 0
 
+    option :json,
+      :short => '-j',
+      :long => '--json',
+      :description => "JSON output",
+      :boolean => true
+
     def run(argv=ARGV)
       parse_options(argv)
 
