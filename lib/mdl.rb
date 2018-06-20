@@ -6,6 +6,7 @@ require 'mdl/ruleset'
 require 'mdl/style'
 require 'mdl/version'
 
+require 'json'
 require 'kramdown'
 
 module MarkdownLint
@@ -69,6 +70,7 @@ module MarkdownLint
     cli.cli_arguments.flatten!
 
     status = 0
+    results = []
     cli.cli_arguments.each do |filename|
       puts "Checking #{filename}..." if Config[:verbose]
       doc = Doc.new_from_file(filename, Config[:ignore_front_matter])
@@ -86,7 +88,15 @@ module MarkdownLint
         status = 1
         error_lines.each do |line|
           line += doc.offset # Correct line numbers for any yaml front matter
-          if Config[:show_aliases]
+          if Config[:json]
+            results << {
+              'filename' => filename,
+              'line' => line,
+              'rule' => id,
+              'aliases' => rule.aliases,
+              'description' => rule.description,
+            }
+          elsif Config[:show_aliases]
             puts "#{filename}:#{line}: #{rule.aliases.first || id} #{rule.description}"
           else
             puts "#{filename}:#{line}: #{id} #{rule.description}"
@@ -95,7 +105,9 @@ module MarkdownLint
       end
     end
 
-    if status != 0
+    if Config[:json]
+      puts JSON.generate(results)
+    elsif status != 0
       puts "\nA detailed description of the rules is available at "\
            "https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md"
     end
