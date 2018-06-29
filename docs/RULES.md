@@ -1016,3 +1016,32 @@ To fix this, add a header to the top of your file:
 
 Note: The `level` parameter can be used to change the top level (ex: to h2) in
 cases where an h1 is added externally.
+
+## MD046 - Code block style
+
+Tags: code
+
+Aliases: code-block-style
+
+Parameters: style ("fenced", "indented", "consistent", default "fenced")
+
+This rule is truggered what a different code block style is used than the
+configured one. For example, in the default configuration this triggers:
+
+    Some text.
+
+        Code block
+
+    Some more text.
+
+To fix this, used fenced code blocks:
+
+    Some text.
+
+    ```ruby
+    Code block
+    ```
+
+    Some more text.
+
+Or the reverse for the `indented` style.
