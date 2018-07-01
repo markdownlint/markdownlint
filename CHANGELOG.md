@@ -4,8 +4,23 @@
 
 ### Changed
 
+## [v0.5.0]
+
+### Added
+
+* Add md042 to enforce code block style
+* JSON formatter/output
+
+### Changed
+
+* PR #200: allow different nesting on headers duplication check
 * MD036 - Ignore multi-line emphasized paragraphs, and emphasized paragraphs
   that end in punctuation (#140)
+
+### Fixed
+
+* PR #168: fix issue numbers false positives
+* Fix issue #102: lint MD039 checking for nodes inside link text
 
 ## [v0.4.0] (2016-08-22)
 
