@@ -1026,7 +1026,8 @@ Aliases: code-block-style
 Parameters: style ("fenced", "indented", "consistent", default "fenced")
 
 This rule is triggered when a different code block style is used than the
-configured one. For example, in the default configuration this triggers:
+configured one. For example, in the default configuration this rule is triggered
+for the following document:
 
     Some text.
 
@@ -1044,4 +1045,4 @@ To fix this, used fenced code blocks:
 
     Some more text.
 
-Or the reverse for the `indented` style.
+The reverse is true if the rule is configured to use the `indented` style.
