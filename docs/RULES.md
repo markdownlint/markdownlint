@@ -1025,7 +1025,7 @@ Aliases: code-block-style
 
 Parameters: style ("fenced", "indented", "consistent", default "fenced")
 
-This rule is truggered what a different code block style is used than the
+This rule is triggered when a different code block style is used than the
 configured one. For example, in the default configuration this triggers:
 
     Some text.
