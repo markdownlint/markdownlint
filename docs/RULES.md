@@ -1008,9 +1008,9 @@ header:
 
 To fix this, add a header to the top of your file:
 
-    ```
     # File with header
 
+    ```
     This is a file with a top level header
     ```
 
