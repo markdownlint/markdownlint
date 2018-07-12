@@ -621,6 +621,7 @@ rule "MD039", "Spaces inside link text" do
   check do |doc|
     doc.element_linenumbers(
       doc.find_type_elements(:a).select{|e|
+      next if e.children.empty?
       e.children.first.type == :text && e.children.last.type == :text and (
         e.children.first.value.start_with?(" ") or
         e.children.last.value.end_with?(" "))}
