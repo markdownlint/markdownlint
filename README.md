@@ -77,6 +77,12 @@ configured in a style file.
 For more information on creating style files, see the
 [creating styles](docs/creating_styles.md) document.
 
+## Related projects
+
+- [markdownlint](https://github.com/DavidAnson/markdownlint) and 
+  [markdownlint-cli](https://github.com/igorshubovych/markdownlint-cli) for
+  Node.js
+
 ## Contributing
 
 1. Fork it ( <http://github.com/markdownlint/markdownlint/fork> )
