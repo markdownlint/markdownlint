@@ -38,3 +38,5 @@ not trigger the rule.
 detected as a header because it's on multiple lines**
 
 **This also shouldn't be detected as a header as it ends in punctuation.**
+
+**[This as well since it is a link](https://example.com)**

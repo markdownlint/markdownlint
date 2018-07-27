@@ -585,6 +585,7 @@ rule "MD036", "Emphasis used instead of a header" do
       next unless [:em, :strong].include?(p.children[0].type)
       lines = doc.extract_text(p.children[0], "", false)
       next if lines.length > 1
+      next if lines.empty?
       next if lines[0].match(/[#{params[:punctuation]}]$/)
       errors << doc.element_linenumber(p)
     end
