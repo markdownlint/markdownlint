@@ -1,6 +1,4 @@
 
-<!-- vim-markdown-toc GFM -->
-
 * [Rules](#rules)
     * [MD001 - Header levels should only increment by one level at a time](#md001---header-levels-should-only-increment-by-one-level-at-a-time)
     * [MD002 - First header should be a top level header](#md002---first-header-should-be-a-top-level-header)
@@ -40,8 +38,6 @@
     * [MD040 - Fenced code blocks should have a language specified](#md040---fenced-code-blocks-should-have-a-language-specified)
     * [MD041 - First line in file should be a top level header](#md041---first-line-in-file-should-be-a-top-level-header)
     * [MD046 - Code block style](#md046---code-block-style)
-
-<!-- vim-markdown-toc -->
 
 # Rules
 
