@@ -1,4 +1,3 @@
-sudo: false
 dist: trusty
 language: ruby
 
@@ -15,9 +14,10 @@ notifications:
 
 matrix:
   include:
-    - rvm: 2.3.4
-    - rvm: 2.4.1
-    - rvm: 2.5.1
-#    - rvm: jruby-9.1.9.0
-#      env: JRUBY_OPTS="--dev"
-#    - rvm: jruby-9.2.0.0
+    - rvm: 2.3.8
+    - rvm: 2.4.5
+    - rvm: 2.5.3
+    - rvm: 2.6.1
+    - rvm: jruby-9.1.17.0
+      env: JRUBY_OPTS="--dev"
+    - rvm: jruby-9.2.6.0
