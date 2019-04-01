@@ -15,7 +15,7 @@ notifications:
 matrix:
   include:
     - rvm: 2.3.8
-    - rvm: 2.4.5
+    - rvm: 2.4.6
     - rvm: 2.5.3
     - rvm: 2.6.1
     - rvm: jruby-9.1.17.0
