@@ -15,9 +15,9 @@ notifications:
 
 matrix:
   include:
-    - rvm: 2.3.4
-    - rvm: 2.4.1
-    - rvm: 2.5.1
+    - rvm: 2.4.6
+    - rvm: 2.5.5
+    - rvm: 2.6.2
 #    - rvm: jruby-9.1.9.0
 #      env: JRUBY_OPTS="--dev"
 #    - rvm: jruby-9.2.0.0
