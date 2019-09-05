@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'kramdown', '~> 1.12', '>= 1.12.0'
   spec.add_dependency 'mixlib-config', '~> 2.2', '>= 2.2.1'
-  spec.add_dependency 'mixlib-cli', '~> 1.7', '>= 1.7.0'
+  spec.add_dependency 'mixlib-cli', '~> 2.1', '>= 2.1.1'
 
   spec.add_development_dependency 'bundler', ['>= 1.12', '< 3']
   spec.add_development_dependency 'rake', '~> 11.2'
