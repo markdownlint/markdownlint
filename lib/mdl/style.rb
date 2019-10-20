@@ -25,7 +25,13 @@ module MarkdownLint
     end
 
     def rule(id, params={})
+      if block_given?
+        raise "'rule' does not take a block. Should this definition go in a ruleset instead?"
+      end
       id = @aliases[id] if @aliases[id]
+      unless @all_rules[id]
+        raise "No such rule: #{id}"
+      end
       @rules << id
       @all_rules[id].params(params)
     end

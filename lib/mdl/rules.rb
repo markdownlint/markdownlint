@@ -621,10 +621,10 @@ rule "MD039", "Spaces inside link text" do
   aliases 'no-space-in-links'
   check do |doc|
     doc.element_linenumbers(
-      doc.find_type_elements(:a).select{|e|
-      e.children.first.type == :text && e.children.last.type == :text and (
-        e.children.first.value.start_with?(" ") or
-        e.children.last.value.end_with?(" "))}
+      doc.find_type_elements(:a).reject{|e|e.children.empty?}.select{|e|
+        e.children.first.type == :text && e.children.last.type == :text and (
+          e.children.first.value.start_with?(" ") or
+          e.children.last.value.end_with?(" "))}
     )
   end
 end

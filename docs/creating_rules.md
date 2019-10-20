@@ -3,7 +3,7 @@
 Rules are written in ruby, using a rule DSL for defining rules. A rule looks
 like:
 
-    rule "MD000", "Rule description" do
+    rule "MY000", "Rule description" do
       tags :foo, :bar
       aliases 'rule-name'
       params :style => :foo

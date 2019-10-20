@@ -1,3 +1,5 @@
+[](http://bar/)
+
 [foo](http://bar/)
 
 ["foo"](http:/bar/)
