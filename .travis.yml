@@ -1,23 +1,12 @@
-sudo: false
-dist: trusty
+dist: bionic
 language: ruby
 
 notifications:
   email: false
-
-# Temporary disable of jruby testing. There are problems on travis-ci
-# currently with this. See:
-#
-#   https://github.com/travis-ci/travis-ci/issues/9826
-#
-# before_install:
-#  - unset _JAVA_OPTIONS
 
 matrix:
   include:
     - rvm: 2.4.6
     - rvm: 2.5.5
     - rvm: 2.6.2
-#    - rvm: jruby-9.1.9.0
-#      env: JRUBY_OPTS="--dev"
-#    - rvm: jruby-9.2.0.0
+    - rvm: jruby-9.2.8.0
