@@ -1,7 +1,7 @@
 # Mdl configuration
 
 Markdownlint has several options you can configure both on the command line,
-or in markdownlint's configuration file: `.mdlrc`, first looked for from the
+or in markdownlint's configuration file: `.mdlrc`, first looked for in the
 working directory, then in your home directory.
 While markdownlint will work perfectly well out of the box, this page
 documents some of the options you can change to suit your needs.
@@ -39,7 +39,7 @@ instead, and ignore any files git doesn't know about.
 * Config file: `git_recurse true`
 * Default: false
 
-Ignore YAML front matter - if this option is enabled markdownlint will ignore
+Ignore YAML front matter - If this option is enabled markdownlint will ignore
 content within valid
 [YAML front matter](https://jekyllrb.com/docs/frontmatter/). Reported line
 numbers will still match the file contents but markdownlint will consider the
@@ -66,7 +66,7 @@ Rules - Limit the rules mdl enables to those provided in this option.
 If a rule or tag ID is preceded by a tilde (`~`), then it _disables_ the
 matching rules instead of enabling them, starting with all rules being enabled.
 
-Note: if both `--rules` and `--tags` are provided, then a given rule has to
+Note: If both `--rules` and `--tags` are provided, then a given rule has to
 both be in the list of enabled rules, as well as be tagged with one of the
 tags provided with the `--tags` option. Use the `-l/--list-rules` option to
 test this behavior.
@@ -81,7 +81,7 @@ might choose 72 characters, and another might have no line length limit at all
 * Config file: `style "style_name"`
 * Default: Use the style called 'default'
 
-Note: the value for `style_name` must either end with `.rb` or have `/` in it
+Note: The value for `style_name` must either end with `.rb` or have `/` in it
 in order to tell `mdl` to look for a custom style, and not a built-in style.
 
 Rulesets - Load a custom ruleset file. This option allows you to load custom
