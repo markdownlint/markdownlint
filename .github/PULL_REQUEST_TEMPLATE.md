@@ -1,5 +1,3 @@
-<!--- Provide a short summary of your changes in the title above -->
-
 ## Description
 <!--- Describe your changes in detail, what problems does it solve? See [How to Write a Git Commit Message](https://chris.beams.io/posts/git-commit/) for tips on writing a good commit message -->
 
@@ -21,9 +19,7 @@
 - [ ] I have read the [**CONTRIBUTING**](https://github.com/markdownlint/markdownlint/blob/master/CONTRIBUTING.md) document.
 - [ ] Used the same coding conventions as the rest of the project
 - [ ] Wrote [good commit messages](https://chris.beams.io/posts/git-commit/)
-- [ ] Commit message starts with `[Fix #issue-number]` if there is a corresponding open GitHub issue
 - [ ] Feature branch is up-to-date with `master`, if not - rebase it
-- [ ] All [related commits squashed together](http://gitready.com/advanced/2009/02/10/squashing-commits-with-rebase.html)
 - [ ] Added tests for all new/changed functionality, including tests for positive and negative scenarios
 - [ ] Added an entry to the [Changelog](https://github.com/markdownlint/markdownlint/blob/master/CHANGELOG.md) if the new code introduces user-observable changes. See [Changelog entry format](https://github.com/markdownlint/markdownlint/blob/master/CONTRIBUTING.md#changelog-entry-format)
 - [ ] The PR relates to *only* one subject with a clear title and description in grammatically correct, complete sentences
