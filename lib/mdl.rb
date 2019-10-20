@@ -6,7 +6,6 @@ require 'mdl/ruleset'
 require 'mdl/style'
 require 'mdl/version'
 
-require 'json'
 require 'kramdown'
 
 module MarkdownLint
@@ -89,6 +88,7 @@ module MarkdownLint
         error_lines.each do |line|
           line += doc.offset # Correct line numbers for any yaml front matter
           if Config[:json]
+            require 'json'
             results << {
               'filename' => filename,
               'line' => line,
