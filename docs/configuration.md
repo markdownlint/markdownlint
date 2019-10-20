@@ -46,7 +46,7 @@ numbers will still match the file contents but markdownlint will consider the
 line following front matter to be the first line.
 
 * Command line: `-i`, `--ignore-front-matter`
-* Config file: `ignore-front-matter true`
+* Config file: `ignore_front_matter true`
 * Default: false
 
 ### Specifying which rules mdl processes
