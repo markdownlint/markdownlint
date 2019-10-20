@@ -20,7 +20,8 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = '>= 1.9.2'
 
-  spec.add_dependency 'kramdown', '~> 1.12', '>= 1.12.0'
+  spec.add_dependency 'kramdown', '~> 2.0'
+  spec.add_dependency 'kramdown-parser-gfm', '~> 1.0'
   spec.add_dependency 'mixlib-config', '~> 2.2', '>= 2.2.1'
   spec.add_dependency 'mixlib-cli', '~> 2.1', '>= 2.1.1'
 
