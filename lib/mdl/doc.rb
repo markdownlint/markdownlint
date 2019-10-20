@@ -34,7 +34,7 @@ module MarkdownLint
     # Create a new document given a string containing the markdown source
 
     def initialize(text, ignore_front_matter = false)
-      regex = /^---\n(.*?)---\n/m
+      regex = /^---\n(.*?)---\n\n?/m
       if ignore_front_matter and regex.match(text)
         @offset = regex.match(text).to_s.split("\n").length
         text.sub!(regex,'')
