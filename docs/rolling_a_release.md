@@ -4,7 +4,7 @@ Bump the version. Markdownlint uses semantic versioning. From
 <http://semver.org/>:
 
 * Major version for backwards-incompatible changes
-* Minor version functionality added in a backwards-compatible manner
+* Minor version for functionality added in a backwards-compatible manner
 * Patch version for backwards-compatible bug fixes
 * Exception: Versions < 1.0 may introduce backwards-incompatible changes in a
   minor version.

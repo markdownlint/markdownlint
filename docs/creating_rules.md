@@ -46,7 +46,7 @@ for your check.
 
 ## Document objects
 
-The check takes a single parameter `'doc'`, which is an object containing a
+The check takes a single parameter `doc`, which is an object containing a
 representation of the markdown document along with several helper functions
 used for making rules. The [doc.rb](../lib/mdl/doc.rb) file is documented
 using rdoc, and you will want to take a look there to see all the methods you
