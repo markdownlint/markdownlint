@@ -1,10 +1,29 @@
 # Change Log
 
-## [Unreleased]
+## [v0.6.0] (2019-10-19)
+
+### Added
+
+* There are now CONTRIBUTING.md and MAINTAINERS.md docs
+* There is now a `.pre-commit-hooks.yaml` for those who want to use pre-commit.com
 
 ### Changed
 
-## [v0.5.0]
+* PR #248: Ignore blank line after front matter
+* PR #231: Only import JSON when necessary (#223)
+* PR #265: Use newere mixlib-cli
+* PR #246: Nicer error message when activating nonexistent rule
+* PR #241: Fix documentation on `ignore_front_matter`
+* PR #245: Update docs to use "MY" prefix for custom rule example
+* PR #256: Fix crash in MD039 when the link text is empty
+* PR #229: Reference Node.js markdownlint
+* PR #232: Added table of contents to RULES.md for easier navigation
+* PR #219: Fix typos in MD046 docs
+* PR #222: Fixed MD036 crash
+
+### Removed
+
+## [v0.5.0] (2018-07-01)
 
 ### Added
 
@@ -178,6 +197,8 @@
 * MD030 - Spaces after list markers
 
 [Unreleased]: https://github.com/markdownlint/markdownlint/tree/master
+[v0.6.0]: https://github.com/markdownlint/markdownlint/tree/v0.6.0
+[v0.5.0]: https://github.com/markdownlint/markdownlint/tree/v0.5.0
 [v0.4.0]: https://github.com/markdownlint/markdownlint/tree/v0.4.0
 [v0.3.1]: https://github.com/markdownlint/markdownlint/tree/v0.3.1
 [v0.3.0]: https://github.com/markdownlint/markdownlint/tree/v0.3.0
