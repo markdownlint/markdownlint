@@ -1,5 +1,7 @@
 # Change Log
 
+## [Unreleased]
+
 ## [v0.6.0] (2019-10-19)
 
 ### Added
