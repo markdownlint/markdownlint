@@ -43,7 +43,9 @@ Update the changelog:
 
 Next, run `rake release`. This will:
 
-* Tag vX.Y.Z in git and push it.
+* Tag vX.Y.Z in git
 * Upload the new gem to rubygems.org
+
+Then `git push --tags upstream` to push the tag.
 
 Finally, add a new 'Unreleased' section to the changelog for the next release.
