@@ -29,7 +29,7 @@ module MarkdownLint
         raise "'rule' does not take a block. Should this definition go in a ruleset instead?"
       end
       id = @aliases[id] if @aliases[id]
-      if @all_rules[id].nil?
+      unless @all_rules[id]
         raise "No such rule: #{id}"
       end
       @rules << id
