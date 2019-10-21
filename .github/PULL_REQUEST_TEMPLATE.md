@@ -17,7 +17,6 @@
 <!--- Go over all the following points, and put an `x` in all the boxes that apply. -->
 <!--- If you're unsure about any of these, don't hesitate to ask. We're here to help! -->
 - [ ] I have read the [**CONTRIBUTING**](https://github.com/markdownlint/markdownlint/blob/master/CONTRIBUTING.md) document.
-- [ ] Used the same coding conventions as the rest of the project
 - [ ] Wrote [good commit messages](https://chris.beams.io/posts/git-commit/)
 - [ ] Feature branch is up-to-date with `master`, if not - rebase it
 - [ ] Added tests for all new/changed functionality, including tests for positive and negative scenarios
