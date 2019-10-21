@@ -52,17 +52,6 @@ Markdownlint strives to ensure high quality for the project. In order to promote
 * **Tests:** To ensure high quality code and protect against future regressions, we require tests for all new/changed functionality in Markdownlint. Test positive and negative scenarios, try to break the new code now.
 * **Green CI Tests:** We use [Travis CI](https://travis-ci.org/markdownlint/markdownlint) to test all pull requests. We require these test runs to succeed on every pull request before being merged.
 
-Before submitting the Pull Request, make sure the following are checked:
-
-* Used the same coding conventions as the rest of the project
-* Wrote [good commit messages](https://chris.beams.io/posts/git-commit/)
-* Feature branch is up-to-date with `master`, if not - rebase it
-* Added tests for all new/changed functionality, including tests for positive and negative scenarios
-* Added an entry to the [Changelog](https://github.com/markdownlint/markdownlint/blob/master/CHANGELOG.md) if the new code introduces user-observable changes. See [Changelog entry format](https://github.com/markdownlint/markdownlint/blob/master/CONTRIBUTING.md#changelog-entry-format)
-* The PR relates to *only* one subject with a clear title and description in grammatically correct, complete sentences
-
-See [this article](https://help.github.com/articles/about-pull-requests/) if you're not familiar with GitHub Pull Requests.
-
 ### Changelog entry format
 
 Here are a few examples:
