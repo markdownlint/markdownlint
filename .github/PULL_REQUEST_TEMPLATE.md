@@ -20,5 +20,4 @@
 - [ ] Wrote [good commit messages](https://chris.beams.io/posts/git-commit/)
 - [ ] Feature branch is up-to-date with `master`, if not - rebase it
 - [ ] Added tests for all new/changed functionality, including tests for positive and negative scenarios
-- [ ] Added an entry to the [Changelog](https://github.com/markdownlint/markdownlint/blob/master/CHANGELOG.md) if the new code introduces user-observable changes. See [Changelog entry format](https://github.com/markdownlint/markdownlint/blob/master/CONTRIBUTING.md#changelog-entry-format)
 - [ ] The PR relates to *only* one subject with a clear title and description in grammatically correct, complete sentences

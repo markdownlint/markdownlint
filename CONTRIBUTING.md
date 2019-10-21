@@ -52,24 +52,6 @@ Markdownlint strives to ensure high quality for the project. In order to promote
 * **Tests:** To ensure high quality code and protect against future regressions, we require tests for all new/changed functionality in Markdownlint. Test positive and negative scenarios, try to break the new code now.
 * **Green CI Tests:** We use [Travis CI](https://travis-ci.org/markdownlint/markdownlint) to test all pull requests. We require these test runs to succeed on every pull request before being merged.
 
-### Changelog entry format
-
-Here are a few examples:
-
-```
-* [#248](https://github.com/markdownlint/markdownlint/pull/248): Ignore blank line after front matter, closes [#247](https://github.com/markdownlint/markdownlint/issues/247) ([@apjanke][])
-* [#222](https://github.com/markdownlint/markdownlint/pull/222): Fixes MD036 NoMethodError, closes [#211](https://github.com/markdownlint/markdownlint/issues/211) ([@copperwalls][])
-* [#204](https://github.com/markdownlint/markdownlint/pull/204): New Rule MD046: Enforce a code block style ([@jaymzh][])
-```
-
-* Mark it up in [Markdown syntax](https://guides.github.com/features/mastering-markdown/)
-* The entry line should start with `* ` (an asterisk and a space)
-* Include a link to related GitHub pull request(s), as `[#204](https://github.com/markdownlint/markdownlint/pull/204): `
-* Describe the brief of the change. The sentence should end with a punctuation.
-* If the change has a related GitHub issue (e.g. a bug fix for a reported issue), indicate the impact on the issue and put a link to the issue like `closes [#247](https://github.com/markdownlint/markdownlint/issues/247) `
-* At the end of the entry, add an implicit link to your GitHub user page as `([@username][])`.
-* If this is your first contribution to the Markdownlint project, add a link definition for the implicit link to the bottom of the changelog as `[@username]: https://github.com/username`.
-
 ### Code Review Process
 
 Code review takes place in GitHub pull requests. See [this article](https://help.github.com/articles/about-pull-requests/) if you're not familiar with GitHub Pull Requests.
