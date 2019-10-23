@@ -516,6 +516,7 @@ rule "MD032", "Lists should be surrounded by blank lines" do
     fence = nil
     prev_line = ""
     doc.lines.each_with_index do |line, linenum|
+      next if line.strip == '{:toc}'
       if not in_code
         list_marker = line.strip.match(/^([\*\+\-]|(\d+\.))\s/)
         if list_marker and not in_list and not prev_line.match(/^($|\s)/)
