@@ -18,15 +18,15 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.required_ruby_version = '>= 1.9.2'
+  spec.required_ruby_version = '>= 2.4'
 
   spec.add_dependency 'kramdown', '~> 2.0'
   spec.add_dependency 'kramdown-parser-gfm', '~> 1.0'
-  spec.add_dependency 'mixlib-config', '~> 2.2', '>= 2.2.1'
+  spec.add_dependency 'mixlib-config', '>= 2.2.1', '< 4'
   spec.add_dependency 'mixlib-cli', '~> 2.1', '>= 2.1.1'
 
   spec.add_development_dependency 'bundler', '>= 1.12', '< 3'
-  spec.add_development_dependency 'rake', '~> 11.2'
+  spec.add_development_dependency 'rake', '>= 11.2', '< 14'
   spec.add_development_dependency 'minitest', '~> 5.9'
   spec.add_development_dependency 'pry', '~> 0.10'
 end
