@@ -1,6 +1,13 @@
 # Change Log
 
-## [Unreleased]
+## [v0.7.0] (2019-10-24)
+
+### Added
+
+* Pull request and issue templates for users and contributors
+* Move to kramdown 2
+* Handle Kramdown TOC
+* Loosen various dependencies and move minimum ruby version to 2.4
 
 ## [v0.6.0] (2019-10-19)
 
@@ -199,6 +206,7 @@
 * MD030 - Spaces after list markers
 
 [Unreleased]: https://github.com/markdownlint/markdownlint/tree/master
+[v0.7.0]: https://github.com/markdownlint/markdownlint/tree/v0.7.0
 [v0.6.0]: https://github.com/markdownlint/markdownlint/tree/v0.6.0
 [v0.5.0]: https://github.com/markdownlint/markdownlint/tree/v0.5.0
 [v0.4.0]: https://github.com/markdownlint/markdownlint/tree/v0.4.0
