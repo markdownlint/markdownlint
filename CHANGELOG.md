@@ -1,5 +1,15 @@
 # Change Log
 
+## [v0.8.0] (2019-11-08)
+
+### Changed
+
+* PR #282: Don't ship test / example files in the gem artifact
+
+### Fixed
+
+* PR #238: Handle newlines on Windows better
+
 ## [v0.7.0] (2019-10-24)
 
 ### Added
@@ -206,6 +216,7 @@
 * MD030 - Spaces after list markers
 
 [Unreleased]: https://github.com/markdownlint/markdownlint/tree/master
+[v0.8.0]: https://github.com/markdownlint/markdownlint/tree/v0.8.0
 [v0.7.0]: https://github.com/markdownlint/markdownlint/tree/v0.7.0
 [v0.6.0]: https://github.com/markdownlint/markdownlint/tree/v0.6.0
 [v0.5.0]: https://github.com/markdownlint/markdownlint/tree/v0.5.0
