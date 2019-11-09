@@ -41,7 +41,7 @@ module MarkdownLint
       else
         @offset = 0
       end
-      @lines = text.split("\n")
+      @lines = text.split(/\R/)
       @parsed = Kramdown::Document.new(text, :input => 'MarkdownLint')
       @elements = @parsed.root.children
       add_levels(@elements)
