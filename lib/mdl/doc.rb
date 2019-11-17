@@ -190,7 +190,7 @@ module MarkdownLint
       if item.type != :li
         raise "list_style called with non-list element"
       end
-      line = element_line(item).strip
+      line = element_line(item).strip.gsub(/^> /,'')
       if line.start_with?('*')
         :asterisk
       elsif line.start_with?('+')
