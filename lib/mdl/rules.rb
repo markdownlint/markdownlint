@@ -470,7 +470,7 @@ rule "MD030", "Spaces after list markers" do
       # the items in it have multiple paragraphs/other block items.
       srule = items.map { |i| i.children.length }.max > 1 ? "multi" : "single"
       items.each do |i|
-        actual_spaces = doc.element_line(i).match(/^\s*\S+(\s+)/)[1].length
+        actual_spaces = doc.element_line(i).gsub(/^> /,'').match(/^\s*\S+(\s+)/)[1].length
         required_spaces = params["#{list_type}_#{srule}".to_sym]
         errors << doc.element_linenumber(i) if required_spaces != actual_spaces
       end
