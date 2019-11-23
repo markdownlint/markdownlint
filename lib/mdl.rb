@@ -106,6 +106,7 @@ module MarkdownLint
     end
 
     if Config[:json]
+      require 'json'
       puts JSON.generate(results)
     elsif status != 0
       puts "\nA detailed description of the rules is available at "\
