@@ -191,7 +191,10 @@ class TestCli < Minitest::Test
 
   def test_ignore_front_matter
     path = File.expand_path("./fixtures/front_matter", File.dirname(__FILE__))
-    result = run_cli("-i -r MD001,MD041,MD034 #{path}")
+    files = ['jekyll_post.md', 'jekyll_post_2.md'].map do |f|
+      File.join(path, f)
+    end.join(' ')
+    result = run_cli("-i -r MD001,MD041,MD034 #{files}")
 
     expected = \
       "#{path}/jekyll_post.md:16: MD001 Header levels should only increment by one level at a time\n"\
