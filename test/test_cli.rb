@@ -2,12 +2,27 @@ require_relative 'setup_tests'
 require 'open3'
 require 'set'
 require 'fileutils'
+require 'json'
 
 class TestCli < Minitest::Test
   def test_help_text
     result = run_cli("--help")
     assert_match(/Usage: \S+ \[options\]/, result[:stdout])
     assert_equal(0, result[:status])
+  end
+
+  def test_json_output
+    result = run_cli_with_input("-j", "# header")
+    assert_ran_ok(result)
+    assert_equal("[]\n", result[:stdout])
+  end
+
+  def test_json_output_with_matches
+    result = run_cli_with_input("-j -r MD002", "## header2")
+    assert_equal(1, result[:status])
+    assert_equal("", result[:stderr])
+    d = JSON.parse(result[:stdout])
+    assert_match(d[0]["rule"], "MD002")
   end
 
   def test_default_ruleset_loading
