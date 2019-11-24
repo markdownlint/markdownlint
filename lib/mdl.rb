@@ -88,7 +88,6 @@ module MarkdownLint
         error_lines.each do |line|
           line += doc.offset # Correct line numbers for any yaml front matter
           if Config[:json]
-            require 'json'
             results << {
               'filename' => filename,
               'line' => line,
@@ -106,6 +105,7 @@ module MarkdownLint
     end
 
     if Config[:json]
+      require 'json'
       puts JSON.generate(results)
     elsif status != 0
       puts "\nA detailed description of the rules is available at "\
