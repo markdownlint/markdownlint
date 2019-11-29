@@ -17,6 +17,8 @@ class TestCli < Minitest::Test
     assert_ran_ok(result)
     expected_results = File.read(File.expand_path("../fixtures/junit_single_pass.xml", __FILE__))
     assert_equal(expected_results, result[:stdout])
+    d = Nokogiri::XML(result[:stdout])
+    assert_equal("0", d.search("[failures]").first.attributes['failures'].value)
   end
 
   def test_junit_xml_output_with_matches
@@ -25,6 +27,7 @@ class TestCli < Minitest::Test
     assert_equal("", result[:stderr])
     d = Nokogiri::XML(result[:stdout])
     refute_empty(d.search("[type=MD024]"))
+    assert_equal("1", d.search("[failures]").first.attributes['failures'].value)
   end
 
   def test_json_output

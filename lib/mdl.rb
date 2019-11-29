@@ -121,7 +121,7 @@ module MarkdownLint
       output << %{<?xml version="1.0" encoding="UTF-8"?>\n}
       output << %{<testsuite}
       output << %{ name="mdl"}
-      output << %{ failures="0"}
+      output << %{ failures="#{results.count}"}
       output << %{>\n}
       results.each do |result|
         output << %{<testcase}
