@@ -11,6 +11,13 @@ class TestCli < Minitest::Test
     assert_equal(0, result[:status])
   end
 
+  def test_junit_xml_output
+    result = run_cli_with_input("-x", "# header\n\n## header the second")
+    assert_ran_ok(result)
+    expected_results = File.read(File.expand_path("../fixtures/junit_single_pass.xml", __FILE__))
+    assert_equal(expected_results, result[:stdout])
+  end
+
   def test_json_output
     result = run_cli_with_input('-j', "# header\n")
     assert_ran_ok(result)

@@ -116,6 +116,15 @@ module MarkdownLint
     if Config[:json]
       require 'json'
       puts JSON.generate(results)
+    elsif Config[:junit]
+      output = ""
+      output << %{<?xml version="1.0" encoding="UTF-8"?>\n}
+      output << %{<testsuite}
+      output << %{ name="mdl"}
+      output << %{ failures="0"}
+      output << %{>\n}
+      output << %{</testsuite>\n}
+      puts output
     elsif status != 0
       puts "\nA detailed description of the rules is available at " +
            'https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md'

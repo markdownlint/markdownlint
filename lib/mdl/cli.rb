@@ -2,7 +2,6 @@ require 'mixlib/cli'
 require 'pathname'
 
 module MarkdownLint
-  # Our Mixlib::CLI class
   class CLI
     include Mixlib::CLI
 
@@ -106,6 +105,12 @@ module MarkdownLint
            :long => '--json',
            :description => 'JSON output',
            :boolean => true
+
+    option :junit,
+      :short => '-x',
+      :long => '--xml',
+      :description => "Junit Xml output",
+      :boolean => true
 
     def run(argv = ARGV)
       parse_options(argv)
