@@ -95,7 +95,7 @@ module MarkdownLint
         status = 1
         error_lines.each do |line|
           line += doc.offset # Correct line numbers for any yaml front matter
-          if Config[:json]
+          if Config[:json] || Config[:junit]
             results << {
               'filename' => filename,
               'line' => line,
@@ -123,6 +123,20 @@ module MarkdownLint
       output << %{ name="mdl"}
       output << %{ failures="0"}
       output << %{>\n}
+      results.each do |result|
+        output << %{<testcase}
+        output << %{ name="#{result['filename']}"}
+        output << %{ file="#{result['filename']}"}
+        output << %{>}
+          output << %{<failure}
+          output << %{ message="#{result['aliases'].first}"}
+          output << %{ type="#{result['rule']}"}
+          output << %{>\n}
+          output << %{#{result['filename']}:#{result['line']}: #{result['rule']} #{result['description']}\n\n}
+          output << %{A detailed description of the rules is available at https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md\n}
+          output << %{</failure>}
+        output << %{</testcase>\n}
+      end
       output << %{</testsuite>\n}
       puts output
     elsif status != 0

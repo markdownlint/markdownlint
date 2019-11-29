@@ -3,6 +3,7 @@ require 'open3'
 require 'set'
 require 'fileutils'
 require 'json'
+require 'nokogiri'
 
 class TestCli < Minitest::Test
   def test_help_text
@@ -16,6 +17,14 @@ class TestCli < Minitest::Test
     assert_ran_ok(result)
     expected_results = File.read(File.expand_path("../fixtures/junit_single_pass.xml", __FILE__))
     assert_equal(expected_results, result[:stdout])
+  end
+
+  def test_junit_xml_output_with_matches
+    result = run_cli_with_input("-x", "# header\n\n## header")
+    assert_equal(1, result[:status])
+    assert_equal("", result[:stderr])
+    d = Nokogiri::XML(result[:stdout])
+    refute_empty(d.search("[type=MD024]"))
   end
 
   def test_json_output
