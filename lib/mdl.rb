@@ -124,15 +124,16 @@ module MarkdownLint
       output << %{ failures="#{results.count}"}
       output << %{>\n}
       results.each do |result|
+        rule_or_alias = Config[:show_aliases] ? result['aliases'].first : result['rule']
         output << %{<testcase}
-        output << %{ name="#{result['filename']}"}
+        output << %{ name="#{result['filename']}:#{result['line']}: #{rule_or_alias} #{result['description']}"}
         output << %{ file="#{result['filename']}"}
         output << %{>}
           output << %{<failure}
           output << %{ message="#{result['aliases'].first}"}
           output << %{ type="#{result['rule']}"}
           output << %{>\n}
-          output << %{#{result['filename']}:#{result['line']}: #{result['rule']} #{result['description']}\n\n}
+          output << %{#{result['filename']}:#{result['line']}: #{rule_or_alias} #{result['description']}\n\n}
           output << %{A detailed description of the rules is available at https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md\n}
           output << %{</failure>}
         output << %{</testcase>\n}

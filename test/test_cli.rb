@@ -27,8 +27,20 @@ class TestCli < Minitest::Test
     assert_equal("", result[:stderr])
     d = Nokogiri::XML(result[:stdout])
     refute_empty(d.search("[type=MD024]"))
+    refute_empty(d.search("[name='(stdin):3: MD024 Multiple headers with the same content']"))
     assert_equal("1", d.search("[failures]").first.attributes['failures'].value)
   end
+
+  def test_junit_xml_output_with_matches_show_alias
+    result = run_cli_with_input("-xa", "# header\n\n## header")
+    assert_equal(1, result[:status])
+    assert_equal("", result[:stderr])
+    d = Nokogiri::XML(result[:stdout])
+    refute_empty(d.search("[type=MD024]"))
+    refute_empty(d.search("[name='(stdin):3: no-duplicate-header Multiple headers with the same content']"))
+    assert_equal("1", d.search("[failures]").first.attributes['failures'].value)
+  end
+
 
   def test_json_output
     result = run_cli_with_input('-j', "# header\n")
