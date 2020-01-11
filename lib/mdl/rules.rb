@@ -669,8 +669,22 @@ rule "MD046", "Code block style" do
             style = :fenced
           end
         end
-        if @params[:style] == :fenced
-          doc.element_line(i).start_with?("    ")
+        if style == :fenced
+          # if our parent is a list or a codeblock, we need to ignore
+          # its spaces, plus 4 more
+          parent = i.options[:parent]
+          ignored_spaces = 0
+          if parent
+            parent.options.delete(:children)
+            parent.options.delete(:parent)
+            if [:li, :codeblock].include?(parent.type)
+              linenum = doc.element_linenumbers([parent]).first
+              indent = doc.indent_for(doc.lines[linenum - 1])
+              ignored_spaces = indent + 4
+            end
+          end
+          start = ' ' * ignored_spaces
+          doc.element_line(i).start_with?("#{start}    ")
         else
           !doc.element_line(i).start_with?("    ")
         end

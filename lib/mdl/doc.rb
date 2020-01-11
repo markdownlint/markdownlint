@@ -44,7 +44,7 @@ module MarkdownLint
       @lines = text.split(/\R/)
       @parsed = Kramdown::Document.new(text, :input => 'MarkdownLint')
       @elements = @parsed.root.children
-      add_levels(@elements)
+      add_annotations(@elements)
     end
 
     ##
@@ -277,12 +277,14 @@ module MarkdownLint
     private
 
     ##
-    # Adds a 'level' option to all elements to show how nested they are
+    # Adds a 'level' and 'parent' option to all elements to show how nested they
+    # are
 
-    def add_levels(elements, level=1)
+    def add_annotations(elements, level=1, parent=nil)
       elements.each do |e|
         e.options[:element_level] = level
-        add_levels(e.children, level+1)
+        e.options[:parent] = parent
+        add_annotations(e.children, level+1, e)
       end
     end
 
