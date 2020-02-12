@@ -1,10 +1,10 @@
-require 'mdl/cli'
-require 'mdl/config'
-require 'mdl/doc'
-require 'mdl/kramdown_parser'
-require 'mdl/ruleset'
-require 'mdl/style'
-require 'mdl/version'
+require_relative 'mdl/cli'
+require_relative 'mdl/config'
+require_relative 'mdl/doc'
+require_relative 'mdl/kramdown_parser'
+require_relative 'mdl/ruleset'
+require_relative 'mdl/style'
+require_relative 'mdl/version'
 
 require 'kramdown'
 
