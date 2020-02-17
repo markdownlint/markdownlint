@@ -50,9 +50,23 @@ module MarkdownLint
     end
 
     def self.load(style_file, rules)
-      unless style_file.include?("/") or style_file.end_with?(".rb")
-        style_file = File.expand_path("../styles/#{style_file}.rb", __FILE__)
+      unless style_file.include?("/") || style_file.end_with?(".rb")
+        tmp = File.expand_path("../styles/#{style_file}.rb", __FILE__)
+        unless File.exist?(tmp)
+          STDERR.puts "#{style_file} does not appear to be a built-in style." +
+            " If you meant to pass in your own style file, it must contain" +
+            " a '/' or end in '.rb'. See https://github.com/markdownlint/" +
+            "markdownlint/blob/master/docs/configuration.md"
+          exit(1)
+        end
+        style_file = tmp
       end
+
+      unless File.exist?(style_file)
+        STDERR.puts "Style '#{style_file}' does not exist."
+        exit(1)
+      end
+
       style = new(rules)
       style.instance_eval(File.read(style_file), style_file)
       rules.select! {|r| style.rules.include?(r)}
