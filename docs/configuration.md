@@ -84,6 +84,11 @@ might choose 72 characters, and another might have no line length limit at all
 Note: The value for `style_name` must either end with `.rb` or have `/` in it
 in order to tell `mdl` to look for a custom style, and not a built-in style.
 
+Note: When setting `style` in `mdlrc`, it is highly recommended that either a
+fully-qualified path be used, or that the relative values be passed in a form
+like `File.join(File.dirname(__FILE__), '.mdl.style')` so that the value is
+relative to the `mdlrc` and not the path the user happens to be in.
+
 Rulesets - Load a custom ruleset file. This option allows you to load custom
 rules in addition to those included with markdownlint.
 
