@@ -1,5 +1,19 @@
 # Change Log
 
+## [v0.9.0] (2020-02-21)
+
+### Changed
+
+* PR #302: Better error messages on missing styles
+* PR #297: Use require_relative to speed up requires
+* PR #155: Bumped alpine version in the Dockerfile
+
+### Fixed
+
+* PR #286: Fix crash in --json
+* PR #293: Handle codeblocks that are nested
+* PR #284: Fix handling of blockquoted list items
+
 ## [v0.8.0] (2019-11-08)
 
 ### Changed
@@ -216,6 +230,7 @@
 * MD030 - Spaces after list markers
 
 [Unreleased]: https://github.com/markdownlint/markdownlint/tree/master
+[v0.9.0]: https://github.com/markdownlint/markdownlint/tree/v0.9.0
 [v0.8.0]: https://github.com/markdownlint/markdownlint/tree/v0.8.0
 [v0.7.0]: https://github.com/markdownlint/markdownlint/tree/v0.7.0
 [v0.6.0]: https://github.com/markdownlint/markdownlint/tree/v0.6.0
