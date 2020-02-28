@@ -3,7 +3,7 @@ RUN echo "mdl:x:1000:mdl" >> /etc/group && \
     echo "mdl:x:1000:1000:mdl,,,:/home/mdl:/sbin/nologin" >> /etc/passwd && \
     apk add --update --no-cache \
     ruby && \
-    gem install mdl && \
+    gem install mdl --no-document && \
     mkdir /data
 WORKDIR /data
 USER mdl:mdl
