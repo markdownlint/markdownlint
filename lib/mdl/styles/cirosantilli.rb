@@ -1,4 +1,4 @@
-# Enforce the style guide at http://www.cirosantilli.com/markdown-styleguide
+# Enforce the style guide at https://cirosantilli.com/markdown-style-guide
 all
 rule 'MD003', :style => :atx
 rule 'MD004', :style => :dash

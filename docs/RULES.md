@@ -238,7 +238,7 @@ when a single space is used after the list marker.
 
 Rationale (4 space indent): Same indent as code blocks, simpler for editors to
 implement. See
-<http://www.cirosantilli.com/markdown-styleguide/#indented-lists> for more
+<https://cirosantilli.com/markdown-style-guide#spaces-before-list-marker> for more
 information.
 
 In addition, this is a compatibility issue with multi-markdown parsers, which
@@ -381,7 +381,7 @@ typed commands and command output, as in the following example:
 
 Rationale: it is easier to copy and paste and less noisy if the dollar signs
 are omitted when they are not needed. See
-<http://www.cirosantilli.com/markdown-styleguide/#dollar-signs-in-shell-code>
+<https://cirosantilli.com/markdown-style-guide#dollar-signs-in-shell-code>
 for more information.
 
 ## MD018 - No space after hash on atx style header
@@ -724,7 +724,7 @@ of every item in the list consists of a single paragraph, or multiple
 paragraphs (including sub-lists and code blocks).
 
 For example, the style guide at
-<http://www.cirosantilli.com/markdown-styleguide/#spaces-after-marker>
+<https://cirosantilli.com/markdown-style-guide#spaces-after-list-marker>
 specifies that 1 space after the list marker should be used if every item in
 the list fits within a single paragraph, but to use 2 or 3 spaces (for ordered
 and unordered lists respectively) if there are multiple paragraphs of content
