@@ -176,7 +176,7 @@ end
 rule "MD013", "Line length" do
   tags :line_length
   aliases 'line-length'
-  params :line_length => 80, :code_blocks => true, :tables => true, :hard_wrap => true
+  params :line_length => 80, :code_blocks => true, :tables => true, :style => :wrapped
   check do |doc|
     # Every line in the document that is part of a code block.
     codeblock_lines = doc.find_type_elements(:codeblock).map{
@@ -190,11 +190,11 @@ rule "MD013", "Line length" do
       |(l, e), i| (i + 1 < locations.size ?
                    (l..locations[i+1].first - 1) :
                    (l..doc.lines.count)).to_a if e.type == :table }.flatten
-    if params[:hard_wrap]
+    if params[:style] == :wrapped
       violation_lines = doc.matching_lines(/^.{#{@params[:line_length]}}.*\s/)
       violation_lines -= codeblock_lines unless params[:code_blocks]
       violation_lines -= table_lines unless params[:tables]
-    else
+    elsif params[:style] == :not_wrapped
       violation_lines = []
       doc.lines.each_with_index do |text, linenum|
         next_line = doc.lines[linenum + 1]
