@@ -191,29 +191,29 @@ rule "MD013", "Line length" do
                    (l..locations[i+1].first - 1) :
                    (l..doc.lines.count)).to_a if e.type == :table }.flatten
     if params[:hard_wrap]
-      overlines = doc.matching_lines(/^.{#{@params[:line_length]}}.*\s/)
-      overlines -= codeblock_lines unless params[:code_blocks]
-      overlines -= table_lines unless params[:tables]
+      violation_lines = doc.matching_lines(/^.{#{@params[:line_length]}}.*\s/)
+      violation_lines -= codeblock_lines unless params[:code_blocks]
+      violation_lines -= table_lines unless params[:tables]
     else
-      overlines = []
+      violation_lines = []
       doc.lines.each_with_index do |text, linenum|
         next_line = doc.lines[linenum + 1]
         
         if text.match(/.*[^\s]$/) and not next_line.nil? and not next_line.empty?
-          overlines << linenum + 1
+          violation_lines << linenum + 1
         end
       end
-      overlines -= codeblock_lines
-      overlines -= table_lines
-      overlines -= doc.find_type_elements(:header).map { |h| doc.element_linenumber(h) }
-      overlines -= doc.find_type_elements(:ul)
+      violation_lines -= codeblock_lines
+      violation_lines -= table_lines
+      violation_lines -= doc.find_type_elements(:header).map { |h| doc.element_linenumber(h) }
+      violation_lines -= doc.find_type_elements(:ul)
                       .map { |l| doc.find_type_elements(:li, true, l.children) }
                       .flatten.map { |i| doc.element_linenumber(i) }
-      overlines -= doc.find_type_elements(:ol)
+      violation_lines -= doc.find_type_elements(:ol)
                     .map { |l| doc.find_type_elements(:li, true, l.children) }
                     .flatten.map { |i| doc.element_linenumber(i) }
     end
-    overlines
+    violation_lines
 end
 end
 
