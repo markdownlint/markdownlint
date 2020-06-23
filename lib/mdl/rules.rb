@@ -212,6 +212,8 @@ rule "MD013", "Line length" do
       violation_lines -= doc.find_type_elements(:ol)
                     .map { |l| doc.find_type_elements(:li, true, l.children) }
                     .flatten.map { |i| doc.element_linenumber(i) }
+    else
+      raise "Line break style specified was not valid. Got '#{params[:style]}' but expected one of: 'wrapped', 'not_wrapped'."
     end
     violation_lines
 end
