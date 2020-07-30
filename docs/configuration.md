@@ -102,3 +102,20 @@ markdownlint. Use this option if you only want to load custom rulesets.
 * Command line: `-d`, `--skip-default-ruleset`
 * Config file: `skip_default_ruleset true`
 * Default: Load the default ruleset.
+
+## Creating your own .mdlrc files
+
+You can configure `mdl` using your own `.mdlrc` file. You can specify and command-line option in this file.
+
+In particular you can specify a `style` file, where you you have configured any rules. Here's a simple example that just points to a style file:
+
+```
+style "#{File.dirname(__FILE__)}/{your_markdown_rule_file_path}.rb"
+```
+
+As commented, this path is relative to .mdlrc file.
+You can find a basic example of .mdlrc file [here](../example/.mdlrc_example).
+
+Then you should create your new [rule](creating_rules.md) or [style](creating_styles.md).
+
+You can find a basic example of new style file [here](../example/new_style_example.rb).
