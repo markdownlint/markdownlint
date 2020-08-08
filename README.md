@@ -1,4 +1,4 @@
-[![Lint](https://github.com/markdownlint/markdownlint/workflows/CI/badge.svg)](https://github.com/markdownlint/markdownlint/actions?query=workflow%3ACI)
+[![Continuous Integration](https://github.com/markdownlint/markdownlint/workflows/Continuous%20Integration/badge.svg)](https://github.com/markdownlint/markdownlint/actions?query=workflow%3A%22Continuous+Integration%22)
 [![Gem Version](https://badge.fury.io/rb/mdl.svg)](http://badge.fury.io/rb/mdl)
 
 # Markdown lint tool
