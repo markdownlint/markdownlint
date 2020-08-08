@@ -3,16 +3,18 @@
 Rules are written in ruby, using a rule DSL for defining rules. A rule looks
 like:
 
-    rule "MY000", "Rule description" do
-      tags :foo, :bar
-      aliases 'rule-name'
-      params :style => :foo
-      check do |doc|
-        # check code goes here
-        # return a list of line numbers that break the rule, or an empty list
-        # (or nil) if there are no problems.
-      end
-    end
+```ruby
+rule "MY000", "Rule description" do
+  tags :foo, :bar
+  aliases 'rule-name'
+  params :style => :foo
+  check do |doc|
+    # check code goes here
+    # return a list of line numbers that break the rule, or an empty list
+    # (or nil) if there are no problems.
+  end
+end
+```
 
 The first line specifies the rule name and description. By convention, built
 in markdownlint rules use the prefix 'MD' followed by a number to identify

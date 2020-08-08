@@ -4,7 +4,6 @@ require_relative 'kramdown_parser'
 module MarkdownLint
   ##
   # Representation of the markdown document passed to rule checks
-
   class Doc
     ##
     # A list of raw markdown source lines. Note that the list is 0-indexed,
@@ -12,32 +11,26 @@ module MarkdownLint
     # subtract 1 from a line number to get the correct line. The element_line*
     # methods take care of this for you.
 
-    attr_reader :lines
+    attr_reader :lines, :parsed, :elements, :offset
 
     ##
     # A Kramdown::Document object containing the parsed markdown document.
 
-    attr_reader :parsed
-
     ##
     # A list of top level Kramdown::Element objects from the parsed document.
-
-    attr_reader :elements
 
     ##
     # The line number offset which is greater than zero when the
     # markdown file contains YAML front matter that should be ignored.
-
-    attr_reader :offset
 
     ##
     # Create a new document given a string containing the markdown source
 
     def initialize(text, ignore_front_matter = false)
       regex = /^---\n(.*?)---\n\n?/m
-      if ignore_front_matter and regex.match(text)
+      if ignore_front_matter && regex.match(text)
         @offset = regex.match(text).to_s.split("\n").length
-        text.sub!(regex,'')
+        text.sub!(regex, '')
       else
         @offset = 0
       end
@@ -51,10 +44,10 @@ module MarkdownLint
     # Alternate 'constructor' passing in a filename
 
     def self.new_from_file(filename, ignore_front_matter = false)
-      if filename == "-"
-        self.new(STDIN.read, ignore_front_matter)
+      if filename == '-'
+        new($stdin.read, ignore_front_matter)
       else
-        self.new(File.read(filename, encoding: 'UTF-8'), ignore_front_matter)
+        new(File.read(filename, :encoding => 'UTF-8'), ignore_front_matter)
       end
     end
 
@@ -69,8 +62,8 @@ module MarkdownLint
     # If +nested+ is set to false, this returns only top level elements of a
     # given type.
 
-    def find_type(type, nested=true)
-      find_type_elements(type, nested).map { |e| e.options }
+    def find_type(type, nested = true)
+      find_type_elements(type, nested).map(&:options)
     end
 
     ##
@@ -83,14 +76,12 @@ module MarkdownLint
     # If +nested+ is set to false, this returns only top level elements of a
     # given type.
 
-    def find_type_elements(type, nested=true, elements=@elements)
+    def find_type_elements(type, nested = true, elements = @elements)
       results = []
-      if type.class == Symbol
-        type = [type]
-      end
+      type = [type] if type.class == Symbol
       elements.each do |e|
         results.push(e) if type.include?(e.type)
-        if nested and not e.children.empty?
+        if nested && !e.children.empty?
           results.concat(find_type_elements(type, nested, e.children))
         end
       end
@@ -107,19 +98,19 @@ module MarkdownLint
     # Unlike find_type_elements, this method will always search for nested
     # elements, and skip the element types given to nested_except.
 
-    def find_type_elements_except(type, nested_except=[], elements=@elements)
+    def find_type_elements_except(
+      type, nested_except = [], elements = @elements
+    )
       results = []
-      if type.class == Symbol
-        type = [type]
-      end
-      if nested_except.class == Symbol
-        nested_except = [nested_except]
-      end
+      type = [type] if type.class == Symbol
+      nested_except = [nested_except] if nested_except.class == Symbol
       elements.each do |e|
         results.push(e) if type.include?(e.type)
-        unless nested_except.include?(e.type) or e.children.empty?
-          results.concat(find_type_elements_except(type, nested_except, e.children))
-        end
+        next if nested_except.include?(e.type) || e.children.empty?
+
+        results.concat(
+          find_type_elements_except(type, nested_except, e.children),
+        )
       end
       results
     end
@@ -167,11 +158,12 @@ module MarkdownLint
 
     def header_style(header)
       if header.type != :header
-        raise "header_style called with non-header element"
+        raise 'header_style called with non-header element'
       end
+
       line = element_line(header)
-      if line.start_with?("#")
-        if line.strip.end_with?("#")
+      if line.start_with?('#')
+        if line.strip.end_with?('#')
           :atx_closed
         else
           :atx
@@ -187,10 +179,9 @@ module MarkdownLint
     # item. You can pass in either the element itself or an options hash here.
 
     def list_style(item)
-      if item.type != :li
-        raise "list_style called with non-list element"
-      end
-      line = element_line(item).strip.gsub(/^>\s+/,'')
+      raise 'list_style called with non-list element' if item.type != :li
+
+      line = element_line(item).strip.gsub(/^>\s+/, '')
       if line.start_with?('*')
         :asterisk
       elsif line.start_with?('+')
@@ -211,22 +202,24 @@ module MarkdownLint
     # indent of 8 spaces. You need to pass in the raw string here.
 
     def indent_for(line)
-      return line.match(/^\s*/)[0].gsub("\t", " " * 8).length
+      line.match(/^\s*/)[0].gsub("\t", ' ' * 8).length
     end
 
     ##
     # Returns line numbers for lines that match the given regular expression
 
-    def matching_lines(re)
-      @lines.each_with_index.select{|text, linenum| re.match(text)}.map{
-        |i| i[1]+1}
+    def matching_lines(regex)
+      @lines.each_with_index.select { |text, _linenum| regex.match(text) }
+            .map do |i|
+              i[1] + 1
+            end
     end
 
     ##
     # Returns line numbers for lines that match the given regular expression.
     # Only considers text inside of 'text' elements (i.e. regular markdown
     # text and not code/links or other elements).
-    def matching_text_element_lines(re, exclude_nested=[:a])
+    def matching_text_element_lines(regex, exclude_nested = [:a])
       matches = []
       find_type_elements_except(:text, exclude_nested).each do |e|
         first_line = e.options[:location]
@@ -234,9 +227,10 @@ module MarkdownLint
         # the current element. It's better to just not match in these cases
         # rather than crash.
         next if first_line.nil?
+
         lines = e.value.split("\n")
         lines.each_with_index do |l, i|
-          matches << first_line + i if re.match(l)
+          matches << first_line + i if regex.match(l)
         end
       end
       matches
@@ -246,31 +240,29 @@ module MarkdownLint
     # Extracts the text from an element whose children consist of text
     # elements and other things
 
-    def extract_text(element, prefix="", restore_whitespace = true)
+    def extract_text(element, prefix = '', restore_whitespace = true)
       quotes = {
         :rdquo => '"',
         :ldquo => '"',
         :lsquo => "'",
-        :rsquo => "'"
+        :rsquo => "'",
       }
       # If anything goes amiss here, e.g. unknown type, then nil will be
       # returned and we'll just not catch that part of the text, which seems
       # like a sensible failure mode.
-      lines = element.children.map { |e|
+      lines = element.children.map do |e|
         if e.type == :text
           e.value
-        elsif [:strong, :em, :p, :codespan].include?(e.type)
+        elsif %i{strong em p codespan}.include?(e.type)
           extract_text(e, prefix, restore_whitespace).join("\n")
         elsif e.type == :smart_quote
           quotes[e.value]
         end
-      }.join.split("\n")
+      end.join.split("\n")
       # Text blocks have whitespace stripped, so we need to add it back in at
       # the beginning. Because this might be in something like a blockquote,
       # we optionally strip off a prefix given to the function.
-      if restore_whitespace
-        lines[0] = element_line(element).sub(prefix, "")
-      end
+      lines[0] = element_line(element).sub(prefix, '') if restore_whitespace
       lines
     end
 
@@ -280,13 +272,12 @@ module MarkdownLint
     # Adds a 'level' and 'parent' option to all elements to show how nested they
     # are
 
-    def add_annotations(elements, level=1, parent=nil)
+    def add_annotations(elements, level = 1, parent = nil)
       elements.each do |e|
         e.options[:element_level] = level
         e.options[:parent] = parent
-        add_annotations(e.children, level+1, e)
+        add_annotations(e.children, level + 1, e)
       end
     end
-
   end
 end

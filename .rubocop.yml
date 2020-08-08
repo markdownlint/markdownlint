@@ -1,0 +1,68 @@
+AllCops:
+  TargetRubyVersion: 2.4
+  NewCops: enable
+  Exclude:
+    - 'omnibus/bin/*'
+
+Layout/LineLength:
+  Max: 80
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: never
+
+Style/LineEndConcatenation:
+  Enabled: false
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma
+
+Style/HashSyntax:
+  EnforcedStyle: hash_rockets
+
+Style/PercentLiteralDelimiters:
+  PreferredDelimiters:
+    default: '{}'
+    '%i': '{}'
+    '%I': '{}'
+    '%w': '{}'
+    '%W': '{}'
+    '%r': '{}'
+
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: comma
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/ModuleLength:
+  Enabled: false
+
+Style/OptionalBooleanParameter:
+  Enabled: false
+
+# once we have a customizable line-end concat,
+# then this will be be useful
+Style/StringConcatenation:
+  Enabled: false
+
+# we do this a lot. it's very rubyish
+Style/MultilineBlockChain:
+  Enabled: false
+
+Style/NumericPredicate:
+  Enabled: false

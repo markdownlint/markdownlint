@@ -1,6 +1,7 @@
 require 'set'
 
 module MarkdownLint
+  # defines a style
   class Style
     attr_reader :rules
 
@@ -24,14 +25,15 @@ module MarkdownLint
       @rules.merge(@all_rules.keys)
     end
 
-    def rule(id, params={})
+    def rule(id, params = {})
       if block_given?
-        raise "'rule' does not take a block. Should this definition go in a ruleset instead?"
+        raise '"rule" does not take a block. Should this definition go in a ' +
+              'ruleset instead?'
       end
+
       id = @aliases[id] if @aliases[id]
-      unless @all_rules[id]
-        raise "No such rule: #{id}"
-      end
+      raise "No such rule: #{id}" unless @all_rules[id]
+
       @rules << id
       @all_rules[id].params(params)
     end
@@ -41,35 +43,35 @@ module MarkdownLint
       @rules.delete(id)
     end
 
-    def tag(t)
-      @rules.merge(@tagged_rules[t])
+    def tag(tag)
+      @rules.merge(@tagged_rules[tag])
     end
 
-    def exclude_tag(t)
-      @rules.subtract(@tagged_rules[t])
+    def exclude_tag(tag)
+      @rules.subtract(@tagged_rules[tag])
     end
 
     def self.load(style_file, rules)
-      unless style_file.include?("/") || style_file.end_with?(".rb")
+      unless style_file.include?('/') || style_file.end_with?('.rb')
         tmp = File.expand_path("../styles/#{style_file}.rb", __FILE__)
         unless File.exist?(tmp)
-          STDERR.puts "#{style_file} does not appear to be a built-in style." +
-            " If you meant to pass in your own style file, it must contain" +
-            " a '/' or end in '.rb'. See https://github.com/markdownlint/" +
-            "markdownlint/blob/master/docs/configuration.md"
+          warn "#{style_file} does not appear to be a built-in style." +
+               ' If you meant to pass in your own style file, it must contain' +
+               " a '/' or end in '.rb'. See https://github.com/markdownlint/" +
+               'markdownlint/blob/master/docs/configuration.md'
           exit(1)
         end
         style_file = tmp
       end
 
       unless File.exist?(style_file)
-        STDERR.puts "Style '#{style_file}' does not exist."
+        warn "Style '#{style_file}' does not exist."
         exit(1)
       end
 
       style = new(rules)
       style.instance_eval(File.read(style_file), style_file)
-      rules.select! {|r| style.rules.include?(r)}
+      rules.select! { |r| style.rules.include?(r) }
       style
     end
   end

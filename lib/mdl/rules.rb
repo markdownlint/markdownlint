@@ -1,4 +1,4 @@
-rule "MD001", "Header levels should only increment by one level at a time" do
+rule 'MD001', 'Header levels should only increment by one level at a time' do
   tags :headers
   aliases 'header-increment'
   check do |doc|
@@ -6,26 +6,26 @@ rule "MD001", "Header levels should only increment by one level at a time" do
     old_level = nil
     errors = []
     headers.each do |h|
-      if old_level and h[:level] > old_level + 1
-        errors << h[:location]
-      end
+      errors << h[:location] if old_level && (h[:level] > old_level + 1)
       old_level = h[:level]
     end
     errors
   end
 end
 
-rule "MD002", "First header should be a top level header" do
+rule 'MD002', 'First header should be a top level header' do
   tags :headers
   aliases 'first-header-h1'
   params :level => 1
   check do |doc|
     first_header = doc.find_type(:header).first
-    [first_header[:location]] if first_header and first_header[:level] != @params[:level]
+    if first_header && (first_header[:level] != @params[:level])
+      [first_header[:location]]
+    end
   end
 end
 
-rule "MD003", "Header style" do
+rule 'MD003', 'Header style' do
   # Header styles are things like ### and adding underscores
   # See http://daringfireball.net/projects/markdown/syntax#header
   tags :headers
@@ -37,47 +37,54 @@ rule "MD003", "Header style" do
     if headers.empty?
       nil
     else
-      if @params[:style] == :consistent
-        doc_style = doc.header_style(headers.first)
-      else
-        doc_style = @params[:style]
-      end
+      doc_style = if @params[:style] == :consistent
+                    doc.header_style(headers.first)
+                  else
+                    @params[:style]
+                  end
       if doc_style == :setext_with_atx
-        headers.map { |h| doc.element_linenumber(h) \
-                      unless doc.header_style(h) == :setext or \
-                        (doc.header_style(h) == :atx and \
-                         h.options[:level] > 2) }.compact
+        headers.map do |h|
+          doc.element_linenumber(h) \
+                      unless (doc.header_style(h) == :setext) || \
+                             ((doc.header_style(h) == :atx) && \
+                              (h.options[:level] > 2))
+        end.compact
       else
-        headers.map { |h| doc.element_linenumber(h) \
-                      if doc.header_style(h) != doc_style }.compact
+        headers.map do |h|
+          doc.element_linenumber(h) \
+                      if doc.header_style(h) != doc_style
+        end.compact
       end
     end
   end
 end
 
-rule "MD004", "Unordered list style" do
+rule 'MD004', 'Unordered list style' do
   tags :bullet, :ul
   aliases 'ul-style'
   # :style can be one of :consistent, :asterisk, :plus, :dash
   params :style => :consistent
   check do |doc|
-    bullets = doc.find_type_elements(:ul).map {|l|
-      doc.find_type_elements(:li, false, l.children)}.flatten
+    bullets = doc.find_type_elements(:ul).map do |l|
+      doc.find_type_elements(:li, false, l.children)
+    end.flatten
     if bullets.empty?
       nil
     else
-      if @params[:style] == :consistent
-        doc_style = doc.list_style(bullets.first)
-      else
-        doc_style = @params[:style]
-      end
-      bullets.map { |b| doc.element_linenumber(b) \
-                    if doc.list_style(b) != doc_style }.compact
+      doc_style = if @params[:style] == :consistent
+                    doc.list_style(bullets.first)
+                  else
+                    @params[:style]
+                  end
+      bullets.map do |b|
+        doc.element_linenumber(b) \
+                    if doc.list_style(b) != doc_style
+      end.compact
     end
   end
 end
 
-rule "MD005", "Inconsistent indentation for list items at the same level" do
+rule 'MD005', 'Inconsistent indentation for list items at the same level' do
   tags :bullet, :ul, :indentation
   aliases 'list-indent'
   check do |doc|
@@ -97,29 +104,30 @@ rule "MD005", "Inconsistent indentation for list items at the same level" do
   end
 end
 
-rule "MD006", "Consider starting bulleted lists at the beginning of the line" do
+rule 'MD006', 'Consider starting bulleted lists at the beginning of the line' do
   # Starting at the beginning of the line means that indendation for each
   # bullet level can be identical.
   tags :bullet, :ul, :indentation
   aliases 'ul-start-left'
   check do |doc|
-    doc.find_type(:ul, false).select{
-      |e| doc.indent_for(doc.element_line(e)) != 0 }.map{ |e| e[:location] }
+    doc.find_type(:ul, false).reject do |e|
+      doc.indent_for(doc.element_line(e)) == 0
+    end.map { |e| e[:location] }
   end
 end
 
-rule "MD007", "Unordered list indentation" do
+rule 'MD007', 'Unordered list indentation' do
   tags :bullet, :ul, :indentation
   aliases 'ul-indent'
   params :indent => 2
   check do |doc|
-    indents = []
     errors = []
-    indents = doc.find_type(:ul).map {
-      |e| [doc.indent_for(doc.element_line(e)), doc.element_linenumber(e)] }
+    indents = doc.find_type(:ul).map do |e|
+      [doc.indent_for(doc.element_line(e)), doc.element_linenumber(e)]
+    end
     curr_indent = indents[0][0] unless indents.empty?
     indents.each do |indent, linenum|
-      if indent > curr_indent and indent - curr_indent != @params[:indent]
+      if (indent > curr_indent) && (indent - curr_indent != @params[:indent])
         errors << linenum
       end
       curr_indent = indent
@@ -128,7 +136,7 @@ rule "MD007", "Unordered list indentation" do
   end
 end
 
-rule "MD009", "Trailing spaces" do
+rule 'MD009', 'Trailing spaces' do
   tags :whitespace
   aliases 'no-trailing-spaces'
   params :br_spaces => 0
@@ -141,7 +149,7 @@ rule "MD009", "Trailing spaces" do
   end
 end
 
-rule "MD010", "Hard tabs" do
+rule 'MD010', 'Hard tabs' do
   tags :whitespace, :hard_tab
   aliases 'no-hard-tabs'
   check do |doc|
@@ -149,7 +157,7 @@ rule "MD010", "Hard tabs" do
   end
 end
 
-rule "MD011", "Reversed link syntax" do
+rule 'MD011', 'Reversed link syntax' do
   tags :links
   aliases 'no-reversed-links'
   check do |doc|
@@ -157,39 +165,47 @@ rule "MD011", "Reversed link syntax" do
   end
 end
 
-rule "MD012", "Multiple consecutive blank lines" do
+rule 'MD012', 'Multiple consecutive blank lines' do
   tags :whitespace, :blank_lines
   aliases 'no-multiple-blanks'
   check do |doc|
     # Every line in the document that is part of a code block. Blank lines
     # inside of a code block are acceptable.
-    codeblock_lines = doc.find_type_elements(:codeblock).map{
-      |e| (doc.element_linenumber(e)..
-           doc.element_linenumber(e) + e.value.lines.count).to_a }.flatten
+    codeblock_lines = doc.find_type_elements(:codeblock).map do |e|
+      (doc.element_linenumber(e)..
+               doc.element_linenumber(e) + e.value.lines.count).to_a
+    end.flatten
     blank_lines = doc.matching_lines(/^\s*$/)
-    cons_blank_lines = blank_lines.each_cons(2).select{
-      |p, n| n - p == 1}.map{|p, n| n}
+    cons_blank_lines = blank_lines.each_cons(2).select do |p, n|
+                         n - p == 1
+                       end.map { |_p, n| n }
     cons_blank_lines - codeblock_lines
   end
 end
 
-rule "MD013", "Line length" do
+rule 'MD013', 'Line length' do
   tags :line_length
   aliases 'line-length'
   params :line_length => 80, :code_blocks => true, :tables => true
   check do |doc|
     # Every line in the document that is part of a code block.
-    codeblock_lines = doc.find_type_elements(:codeblock).map{
-      |e| (doc.element_linenumber(e)..
-           doc.element_linenumber(e) + e.value.lines.count).to_a }.flatten
+    codeblock_lines = doc.find_type_elements(:codeblock).map do |e|
+      (doc.element_linenumber(e)..
+               doc.element_linenumber(e) + e.value.lines.count).to_a
+    end.flatten
     # Every line in the document that is part of a table.
     locations = doc.elements
-                .map { |e| [e.options[:location], e] }
-                .reject { |l, _| l.nil? }
-    table_lines = locations.map.with_index {
-      |(l, e), i| (i + 1 < locations.size ?
-                   (l..locations[i+1].first - 1) :
-                   (l..doc.lines.count)).to_a if e.type == :table }.flatten
+                   .map { |e| [e.options[:location], e] }
+                   .reject { |l, _| l.nil? }
+    table_lines = locations.map.with_index do |(l, e), i|
+      if e.type == :table
+        if i + 1 < locations.size
+          (l..locations[i + 1].first - 1).to_a
+        else
+          (l..doc.lines.count).to_a
+        end
+      end
+    end.flatten
     overlines = doc.matching_lines(/^.{#{@params[:line_length]}}.*\s/)
     overlines -= codeblock_lines unless params[:code_blocks]
     overlines -= table_lines unless params[:tables]
@@ -197,18 +213,18 @@ rule "MD013", "Line length" do
   end
 end
 
-rule "MD014", "Dollar signs used before commands without showing output" do
+rule 'MD014', 'Dollar signs used before commands without showing output' do
   tags :code
   aliases 'commands-show-output'
   check do |doc|
-    doc.find_type_elements(:codeblock).select{
-      |e| not e.value.empty? and
-      not e.value.split(/\n+/).map{|l| l.match(/^\$\s/)}.include?(nil)
-    }.map{|e| doc.element_linenumber(e)}
+    doc.find_type_elements(:codeblock).select do |e|
+      !e.value.empty? and
+        !e.value.split(/\n+/).map { |l| l.match(/^\$\s/) }.include?(nil)
+    end.map { |e| doc.element_linenumber(e) }
   end
 end
 
-rule "MD018", "No space after hash on atx style header" do
+rule 'MD018', 'No space after hash on atx style header' do
   tags :headers, :atx, :spaces
   aliases 'no-missing-space-atx'
   check do |doc|
@@ -218,7 +234,7 @@ rule "MD018", "No space after hash on atx style header" do
   end
 end
 
-rule "MD019", "Multiple spaces after hash on atx style header" do
+rule 'MD019', 'Multiple spaces after hash on atx style header' do
   tags :headers, :atx, :spaces
   aliases 'no-multiple-space-atx'
   check do |doc|
@@ -228,7 +244,7 @@ rule "MD019", "Multiple spaces after hash on atx style header" do
   end
 end
 
-rule "MD020", "No space inside hashes on closed atx style header" do
+rule 'MD020', 'No space inside hashes on closed atx style header' do
   tags :headers, :atx_closed, :spaces
   aliases 'no-missing-space-closed-atx'
   check do |doc|
@@ -240,7 +256,7 @@ rule "MD020", "No space inside hashes on closed atx style header" do
   end
 end
 
-rule "MD021", "Multiple spaces inside hashes on closed atx style header" do
+rule 'MD021', 'Multiple spaces inside hashes on closed atx style header' do
   tags :headers, :atx_closed, :spaces
   aliases 'no-multiple-space-closed-atx'
   check do |doc|
@@ -252,7 +268,7 @@ rule "MD021", "Multiple spaces inside hashes on closed atx style header" do
   end
 end
 
-rule "MD022", "Headers should be surrounded by blank lines" do
+rule 'MD022', 'Headers should be surrounded by blank lines' do
   tags :headers, :blank_lines
   aliases 'blanks-around-headers'
   check do |doc|
@@ -261,13 +277,11 @@ rule "MD022", "Headers should be surrounded by blank lines" do
       header_bad = false
       linenum = doc.element_linenumber(h)
       # Check previous line
-      if linenum > 1 and not doc.lines[linenum - 2].empty?
-        header_bad = true
-      end
+      header_bad = true if (linenum > 1) && !doc.lines[linenum - 2].empty?
       # Check next line
       next_line_idx = doc.header_style(h) == :setext ? linenum + 1 : linenum
       next_line = doc.lines[next_line_idx]
-      header_bad = true if not next_line.nil? and not next_line.empty?
+      header_bad = true if !next_line.nil? && !next_line.empty?
       errors << linenum if header_bad
     end
     # Kramdown requires that headers start on a block boundary, so in most
@@ -275,16 +289,14 @@ rule "MD022", "Headers should be surrounded by blank lines" do
     # to check regular text and pick out headers ourselves too
     doc.find_type_elements(:p, false).each do |p|
       linenum = doc.element_linenumber(p)
-      text = p.children.select { |e| e.type == :text }.map {|e| e.value }.join
+      text = p.children.select { |e| e.type == :text }.map(&:value).join
       lines = text.split("\n")
-      prev_lines = ["", ""]
+      prev_lines = ['', '']
       lines.each do |line|
         # First look for ATX style headers without blank lines before
-        if line.match(/^\#{1,6}/) and not prev_lines[1].empty?
-          errors << linenum
-        end
+        errors << linenum if line.match(/^\#{1,6}/) && !prev_lines[1].empty?
         # Next, look for setext style
-        if line.match(/^(-+|=+)\s*$/) and not prev_lines[0].empty?
+        if line.match(/^(-+|=+)\s*$/) && !prev_lines[0].empty?
           errors << linenum - 1
         end
         linenum += 1
@@ -296,7 +308,7 @@ rule "MD022", "Headers should be surrounded by blank lines" do
   end
 end
 
-rule "MD023", "Headers must start at the beginning of the line" do
+rule 'MD023', 'Headers must start at the beginning of the line' do
   tags :headers, :spaces
   aliases 'header-start-left'
   check do |doc|
@@ -311,14 +323,12 @@ rule "MD023", "Headers must start at the beginning of the line" do
     doc.find_type_elements(:p, false).each do |p|
       linenum = doc.element_linenumber(p)
       lines = doc.extract_text(p)
-      prev_line = ""
+      prev_line = ''
       lines.each do |line|
         # First look for ATX style headers
-        if line.match(/^\s+\#{1,6}/)
-          errors << linenum
-        end
+        errors << linenum if line.match(/^\s+\#{1,6}/)
         # Next, look for setext style
-        if line.match(/^\s+(-+|=+)\s*$/) and not prev_line.empty?
+        if line.match(/^\s+(-+|=+)\s*$/) && !prev_line.empty?
           errors << linenum - 1
         end
         linenum += 1
@@ -329,7 +339,7 @@ rule "MD023", "Headers must start at the beginning of the line" do
   end
 end
 
-rule "MD024", "Multiple headers with the same content" do
+rule 'MD024', 'Multiple headers with the same content' do
   tags :headers
   aliases 'no-duplicate-header'
   params :allow_different_nesting => false
@@ -357,8 +367,8 @@ rule "MD024", "Multiple headers with the same content" do
           stack.pop
         elsif current_level < level
           stack.push([text])
-        else
-          same_nesting_duplicates.add(header) if stack.last.include?(text)
+        elsif stack.last.include?(text)
+          same_nesting_duplicates.add(header)
         end
 
         current_level = level
@@ -371,30 +381,34 @@ rule "MD024", "Multiple headers with the same content" do
   end
 end
 
-rule "MD025", "Multiple top level headers in the same document" do
+rule 'MD025', 'Multiple top level headers in the same document' do
   tags :headers
   aliases 'single-h1'
   params :level => 1
   check do |doc|
-    headers = doc.find_type(:header, false).select { |h| h[:level] == params[:level] }
-    if not headers.empty? and doc.element_linenumber(headers[0]) == 1
+    headers = doc.find_type(:header, false).select do |h|
+      h[:level] == params[:level]
+    end
+    if !headers.empty? && (doc.element_linenumber(headers[0]) == 1)
       headers[1..-1].map { |h| doc.element_linenumber(h) }
     end
   end
 end
 
-rule "MD026", "Trailing punctuation in header" do
+rule 'MD026', 'Trailing punctuation in header' do
   tags :headers
   aliases 'no-trailing-punctuation'
   params :punctuation => '.,;:!?'
   check do |doc|
-    doc.find_type(:header).select {
-      |h| h[:raw_text].match(/[#{params[:punctuation]}]$/) }.map {
-      |h| doc.element_linenumber(h) }
+    doc.find_type(:header).select do |h|
+      h[:raw_text].match(/[#{params[:punctuation]}]$/)
+    end.map do |h|
+      doc.element_linenumber(h)
+    end
   end
 end
 
-rule "MD027", "Multiple spaces after blockquote symbol" do
+rule 'MD027', 'Multiple spaces after blockquote symbol' do
   tags :blockquote, :whitespace, :indentation
   aliases 'no-multiple-space-blockquote'
   check do |doc|
@@ -403,7 +417,7 @@ rule "MD027", "Multiple spaces after blockquote symbol" do
       linenum = doc.element_linenumber(e)
       lines = doc.extract_text(e, /^\s*> /)
       lines.each do |line|
-        errors << linenum if line.start_with?(" ")
+        errors << linenum if line.start_with?(' ')
         linenum += 1
       end
     end
@@ -411,7 +425,7 @@ rule "MD027", "Multiple spaces after blockquote symbol" do
   end
 end
 
-rule "MD028", "Blank line inside blockquote" do
+rule 'MD028', 'Blank line inside blockquote' do
   tags :blockquote, :whitespace
   aliases 'no-blanks-blockquote'
   check do |doc|
@@ -420,7 +434,7 @@ rule "MD028", "Blank line inside blockquote" do
       elements.each do |e|
         prev.shift
         prev << e.type
-        if prev == [:blockquote, :blank, :blockquote]
+        if prev == %i{blockquote blank blockquote}
           # The current location is the start of the second blockquote, so the
           # line before will be a blank line in between the two, or at least the
           # lowest blank line if there are more than one.
@@ -435,42 +449,49 @@ rule "MD028", "Blank line inside blockquote" do
   end
 end
 
-rule "MD029", "Ordered list item prefix" do
+rule 'MD029', 'Ordered list item prefix' do
   tags :ol
   aliases 'ol-prefix'
   # Style can be :one or :ordered
   params :style => :one
   check do |doc|
-    if params[:style] == :ordered
-      doc.find_type_elements(:ol).map { |l|
-        doc.find_type_elements(:li, false, l.children).map.with_index { |i, idx|
-          doc.element_linenumber(i) \
-            unless doc.element_line(i).strip.start_with?("#{idx+1}. ")
-        }
-      }.flatten.compact
-    elsif params[:style] == :one
-      doc.find_type_elements(:ol).map { |l|
-        doc.find_type_elements(:li, false, l.children) }.flatten.map { |i|
-          doc.element_linenumber(i) \
-            unless doc.element_line(i).strip.start_with?('1. ') }.compact
+    case params[:style]
+    when :ordered
+      doc.find_type_elements(:ol).map do |l|
+        doc.find_type_elements(:li, false, l.children)
+           .map.with_index do |i, idx|
+          unless doc.element_line(i).strip.start_with?("#{idx + 1}. ")
+            doc.element_linenumber(i)
+          end
+        end
+      end.flatten.compact
+    when :one
+      doc.find_type_elements(:ol).map do |l|
+        doc.find_type_elements(:li, false, l.children)
+      end.flatten.map do |i|
+        unless doc.element_line(i).strip.start_with?('1. ')
+          doc.element_linenumber(i)
+        end
+      end.compact
     end
   end
 end
 
-rule "MD030", "Spaces after list markers" do
+rule 'MD030', 'Spaces after list markers' do
   tags :ol, :ul, :whitespace
   aliases 'list-marker-space'
   params :ul_single => 1, :ol_single => 1, :ul_multi => 1, :ol_multi => 1
   check do |doc|
     errors = []
-    doc.find_type_elements([:ul, :ol]).each do |l|
+    doc.find_type_elements(%i{ul ol}).each do |l|
       list_type = l.type.to_s
       items = doc.find_type_elements(:li, false, l.children)
       # The entire list is to use the multi-paragraph spacing rule if any of
       # the items in it have multiple paragraphs/other block items.
-      srule = items.map { |i| i.children.length }.max > 1 ? "multi" : "single"
+      srule = items.map { |i| i.children.length }.max > 1 ? 'multi' : 'single'
       items.each do |i|
-        actual_spaces = doc.element_line(i).gsub(/^> /,'').match(/^\s*\S+(\s+)/)[1].length
+        actual_spaces = doc.element_line(i).gsub(/^> /, '')
+                           .match(/^\s*\S+(\s+)/)[1].length
         required_spaces = params["#{list_type}_#{srule}".to_sym]
         errors << doc.element_linenumber(i) if required_spaces != actual_spaces
       end
@@ -479,7 +500,7 @@ rule "MD030", "Spaces after list markers" do
   end
 end
 
-rule "MD031", "Fenced code blocks should be surrounded by blank lines" do
+rule 'MD031', 'Fenced code blocks should be surrounded by blank lines' do
   tags :code, :blank_lines
   aliases 'blanks-around-fences'
   check do |doc|
@@ -488,23 +509,29 @@ rule "MD031", "Fenced code blocks should be surrounded by blank lines" do
     # blocks without surrounding whitespace, so examine the lines directly.
     in_code = false
     fence = nil
-    lines = [ "" ] + doc.lines + [ "" ]
+    lines = [''] + doc.lines + ['']
     lines.each_with_index do |line, linenum|
       line.strip.match(/^(`{3,}|~{3,})/)
-      if $1 and (not in_code or $1.slice(0, fence.length) == fence)
-        fence = in_code ? nil : $1
-        in_code = !in_code
-        if (in_code and not lines[linenum - 1].empty?) or
-           (not in_code and not lines[linenum + 1].empty?)
-          errors << linenum
-        end
+      unless Regexp.last_match(1) &&
+             (
+               !in_code ||
+               (Regexp.last_match(1).slice(0, fence.length) == fence)
+             )
+        next
+      end
+
+      fence = in_code ? nil : Regexp.last_match(1)
+      in_code = !in_code
+      if (in_code && !lines[linenum - 1].empty?) ||
+         (!in_code && !lines[linenum + 1].empty?)
+        errors << linenum
       end
     end
     errors
   end
 end
 
-rule "MD032", "Lists should be surrounded by blank lines" do
+rule 'MD032', 'Lists should be surrounded by blank lines' do
   tags :bullet, :ul, :ol, :blank_lines
   aliases 'blanks-around-lists'
   check do |doc|
@@ -514,21 +541,24 @@ rule "MD032", "Lists should be surrounded by blank lines" do
     in_list = false
     in_code = false
     fence = nil
-    prev_line = ""
+    prev_line = ''
     doc.lines.each_with_index do |line, linenum|
       next if line.strip == '{:toc}'
-      if not in_code
-        list_marker = line.strip.match(/^([\*\+\-]|(\d+\.))\s/)
-        if list_marker and not in_list and not prev_line.match(/^($|\s)/)
+
+      unless in_code
+        list_marker = line.strip.match(/^([*+\-]|(\d+\.))\s/)
+        if list_marker && !in_list && !prev_line.match(/^($|\s)/)
           errors << linenum + 1
-        elsif not list_marker and in_list and not line.match(/^($|\s)/)
+        elsif !list_marker && in_list && !line.match(/^($|\s)/)
           errors << linenum
         end
         in_list = list_marker
       end
       line.strip.match(/^(`{3,}|~{3,})/)
-      if $1 and (not in_code or $1.slice(0, fence.length) == fence)
-        fence = in_code ? nil : $1
+      if Regexp.last_match(1) && (
+          !in_code || (Regexp.last_match(1).slice(0, fence.length) == fence)
+        )
+        fence = in_code ? nil : Regexp.last_match(1)
         in_code = !in_code
         in_list = false
       end
@@ -538,7 +568,7 @@ rule "MD032", "Lists should be surrounded by blank lines" do
   end
 end
 
-rule "MD033", "Inline HTML" do
+rule 'MD033', 'Inline HTML' do
   tags :html
   aliases 'no-inline-html'
   check do |doc|
@@ -546,15 +576,15 @@ rule "MD033", "Inline HTML" do
   end
 end
 
-rule "MD034", "Bare URL used" do
+rule 'MD034', 'Bare URL used' do
   tags :links, :url
   aliases 'no-bare-urls'
   check do |doc|
-    doc.matching_text_element_lines(/https?:\/\//)
+    doc.matching_text_element_lines(%r{https?://})
   end
 end
 
-rule "MD035", "Horizontal rule style" do
+rule 'MD035', 'Horizontal rule style' do
   tags :hr
   aliases 'hr-style'
   params :style => :consistent
@@ -563,17 +593,19 @@ rule "MD035", "Horizontal rule style" do
     if hrs.empty?
       []
     else
-      if params[:style] == :consistent
-        doc_style = doc.element_line(hrs[0])
-      else
-        doc_style = params[:style]
-      end
-      doc.element_linenumbers(hrs.select{|e| doc.element_line(e) != doc_style})
+      doc_style = if params[:style] == :consistent
+                    doc.element_line(hrs[0])
+                  else
+                    params[:style]
+                  end
+      doc.element_linenumbers(
+        hrs.reject { |e| doc.element_line(e) == doc_style },
+      )
     end
   end
 end
 
-rule "MD036", "Emphasis used instead of a header" do
+rule 'MD036', 'Emphasis used instead of a header' do
   tags :headers, :emphasis
   aliases 'no-emphasis-as-header'
   params :punctuation => '.,;:!?'
@@ -583,18 +615,20 @@ rule "MD036", "Emphasis used instead of a header" do
     errors = []
     doc.find_type_elements(:p, false).each do |p|
       next if p.children.length > 1
-      next unless [:em, :strong].include?(p.children[0].type)
-      lines = doc.extract_text(p.children[0], "", false)
+      next unless %i{em strong}.include?(p.children[0].type)
+
+      lines = doc.extract_text(p.children[0], '', false)
       next if lines.length > 1
       next if lines.empty?
       next if lines[0].match(/[#{params[:punctuation]}]$/)
+
       errors << doc.element_linenumber(p)
     end
     errors
   end
 end
 
-rule "MD037", "Spaces inside emphasis markers" do
+rule 'MD037', 'Spaces inside emphasis markers' do
   tags :whitespace, :emphasis
   aliases 'no-space-in-emphasis'
   check do |doc|
@@ -606,54 +640,59 @@ rule "MD037", "Spaces inside emphasis markers" do
   end
 end
 
-rule "MD038", "Spaces inside code span elements" do
+rule 'MD038', 'Spaces inside code span elements' do
   tags :whitespace, :code
   aliases 'no-space-in-code'
   check do |doc|
     # We only want to check single line codespan elements and not fenced code
     # block that happen to be parsed as code spans.
-    doc.element_linenumbers(doc.find_type_elements(:codespan).select{
-      |i| i.value.match(/(^\s|\s$)/) and not i.value.include?("\n")})
-  end
-end
-
-rule "MD039", "Spaces inside link text" do
-  tags :whitespace, :links
-  aliases 'no-space-in-links'
-  check do |doc|
     doc.element_linenumbers(
-      doc.find_type_elements(:a).reject{|e|e.children.empty?}.select{|e|
-        e.children.first.type == :text && e.children.last.type == :text and (
-          e.children.first.value.start_with?(" ") or
-          e.children.last.value.end_with?(" "))}
+      doc.find_type_elements(:codespan).select do |i|
+        i.value.match(/(^\s|\s$)/) and !i.value.include?("\n")
+      end,
     )
   end
 end
 
-rule "MD040", "Fenced code blocks should have a language specified" do
+rule 'MD039', 'Spaces inside link text' do
+  tags :whitespace, :links
+  aliases 'no-space-in-links'
+  check do |doc|
+    doc.element_linenumbers(
+      doc.find_type_elements(:a).reject { |e| e.children.empty? }.select do |e|
+        e.children.first.type == :text && e.children.last.type == :text and (
+          e.children.first.value.start_with?(' ') or
+          e.children.last.value.end_with?(' '))
+      end,
+    )
+  end
+end
+
+rule 'MD040', 'Fenced code blocks should have a language specified' do
   tags :code, :language
   aliases 'fenced-code-language'
   check do |doc|
     # Kramdown parses code blocks with language settings as code blocks with
     # the class attribute set to language-languagename.
-    doc.element_linenumbers(doc.find_type_elements(:codeblock).select{|i|
-      not i.attr['class'].to_s.start_with?("language-") and
-        not doc.element_line(i).start_with?("    ")})
+    doc.element_linenumbers(doc.find_type_elements(:codeblock).select do |i|
+                              !i.attr['class'].to_s.start_with?('language-') and
+                                !doc.element_line(i).start_with?('    ')
+                            end)
   end
 end
 
-rule "MD041", "First line in file should be a top level header" do
+rule 'MD041', 'First line in file should be a top level header' do
   tags :headers
   aliases 'first-line-h1'
   params :level => 1
   check do |doc|
     first_header = doc.find_type(:header).first
-    [1] if first_header.nil? or first_header[:location] != 1 \
-      or first_header[:level] != params[:level]
+    [1] if first_header.nil? || (first_header[:location] != 1) \
+      || (first_header[:level] != params[:level])
   end
 end
 
-rule "MD046", "Code block style" do
+rule 'MD046', 'Code block style' do
   tags :code
   aliases 'code-block-style'
   params :style => :fenced
@@ -663,11 +702,11 @@ rule "MD046", "Code block style" do
       doc.find_type_elements(:codeblock).select do |i|
         # for consistent we determine the first one
         if style == :consistent
-          if doc.element_line(i).start_with?("    ")
-            style = :indented
-          else
-            style = :fenced
-          end
+          style = if doc.element_line(i).start_with?('    ')
+                    :indented
+                  else
+                    :fenced
+                  end
         end
         if style == :fenced
           # if our parent is a list or a codeblock, we need to ignore
@@ -677,7 +716,7 @@ rule "MD046", "Code block style" do
           if parent
             parent.options.delete(:children)
             parent.options.delete(:parent)
-            if [:li, :codeblock].include?(parent.type)
+            if %i{li codeblock}.include?(parent.type)
               linenum = doc.element_linenumbers([parent]).first
               indent = doc.indent_for(doc.lines[linenum - 1])
               ignored_spaces = indent + 4
@@ -686,9 +725,9 @@ rule "MD046", "Code block style" do
           start = ' ' * ignored_spaces
           doc.element_line(i).start_with?("#{start}    ")
         else
-          !doc.element_line(i).start_with?("    ")
+          !doc.element_line(i).start_with?('    ')
         end
-      end
+      end,
     )
   end
 end
