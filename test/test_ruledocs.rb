@@ -2,6 +2,7 @@ require_relative 'setup_tests'
 
 # Ensures there is documentation for every rule, and that the
 # descriptions/tags/etc in the rule match those in the documentation
+# rubocop:disable Style/ClassVars
 class TestRuledocs < Minitest::Test
   @@ruleset = MarkdownLint::RuleSet.new
   @@ruleset.load_default
@@ -14,17 +15,25 @@ class TestRuledocs < Minitest::Test
   def load_ruledocs
     rules = Hash.new({}) # Default to {} if no docs for the rule
     curr_rule = nil
-    rules_file = File.expand_path('../../docs/RULES.md', __FILE__)
+    rules_file = File.expand_path('../docs/RULES.md', __dir__)
     File.read(rules_file).split("\n").each do |l|
-      if l.match(/^## (MD\d+) - (.*)$/)
-        rules[$1] = { :description => $2, :params => {} }
-        curr_rule = $1
-      elsif l.match(/^Tags: (.*)$/)
-        rules[curr_rule][:tags] = $1.split(',').map{|i| i.strip.to_sym}
-      elsif l.match(/^Aliases: (.*)$/)
-        rules[curr_rule][:aliases] = $1.split(',').map{|i| i.strip}
-      elsif l.match(/^Parameters: (.*)(\(.*\)?)$/)
-        rules[curr_rule][:params] = $1.split(',').map{|i| i.strip.to_sym}
+      case l
+      when /^## (MD\d+) - (.*)$/
+        rules[Regexp.last_match(1)] = {
+          :description => Regexp.last_match(2), :params => {}
+        }
+        curr_rule = Regexp.last_match(1)
+      when /^Tags: (.*)$/
+        rules[curr_rule][:tags] = Regexp.last_match(1).split(',').map do |i|
+          i.strip.to_sym
+        end
+      when /^Aliases: (.*)$/
+        rules[curr_rule][:aliases] = Regexp.last_match(1).split(',')
+                                           .map(&:strip)
+      when /^Parameters: (.*)(\(.*\)?)$/
+        rules[curr_rule][:params] = Regexp.last_match(1).split(',').map do |i|
+          i.strip.to_sym
+        end
       end
     end
     rules
@@ -50,3 +59,4 @@ class TestRuledocs < Minitest::Test
     assert_equal @@rules.keys, @ruledocs.keys
   end
 end
+# rubocop:enable Style/ClassVars

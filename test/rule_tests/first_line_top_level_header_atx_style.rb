@@ -1,2 +1,2 @@
 # Only test MD041 here
-rule "MD041"
+rule 'MD041'

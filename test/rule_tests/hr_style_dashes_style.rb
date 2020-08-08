@@ -1,3 +1,3 @@
 all
-rule "MD035", :style => "---"
-exclude_rule "MD041"
+rule 'MD035', :style => '---'
+exclude_rule 'MD041'

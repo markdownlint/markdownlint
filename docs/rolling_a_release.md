@@ -17,11 +17,13 @@ Update the changelog:
 * Add a new header and link for the new release, replacing any 'Unreleased'
   header.
 
-        ## [v0.2.0] (2015-04-13)
+```markdown
+## [v0.2.0] (2015-04-13)
 
-        This goes at the bottom:
+This goes at the bottom:
 
-        [v0.2.0]: https://github.com/markdownlint/markdownlint/tree/v0.2.0
+[v0.2.0]: https://github.com/markdownlint/markdownlint/tree/v0.2.0
+```
 
 * Changelog entries can and should be added in an 'Unreleased' section as
   commits are made. However, the following steps can be performed before each

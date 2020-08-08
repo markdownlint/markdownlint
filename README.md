@@ -13,14 +13,17 @@ simple to install and use. You have 2 options to install it:
 
 To install from rubygems, run:
 
-    gem install mdl
+```shell
+gem install mdl
+```
 
 To install the latest development version from github:
 
-    git clone https://github.com/markdownlint/markdownlint
-    cd markdownlint
-    rake install
-
+```shell
+git clone https://github.com/markdownlint/markdownlint
+cd markdownlint
+rake install
+```
 
 Note that you will need [rake](https://github.com/ruby/rake)
 (`gem install rake`) and [bundler](https://github.com/bundler/bundler)
@@ -31,26 +34,34 @@ Note that you will need [rake](https://github.com/ruby/rake)
 To have markdownlint check your markdown files, simply run `mdl` with the
 filenames as a parameter:
 
-    mdl README.md
+```shell
+mdl README.md
+```
 
 Markdownlint can also take a directory, and it will scan all markdown files
 within the directory (and nested directories):
 
-    mdl docs/
+```shell
+mdl docs/
+```
 
 If you don't specify a filename, markdownlint will use stdin:
 
-    cat foo.md | mdl
+```shell
+cat foo.md | mdl
+```
 
 Markdownlint will output a list of issues it finds, and the line number where
 the issue is. See [RULES.md](docs/RULES.md) for information on each issue, as
 well as how to correct it:
 
-    README.md:1: MD013 Line length
-    README.md:70: MD029 Ordered list item prefix
-    README.md:71: MD029 Ordered list item prefix
-    README.md:72: MD029 Ordered list item prefix
-    README.md:73: MD029 Ordered list item prefix
+```shell
+README.md:1: MD013 Line length
+README.md:70: MD029 Ordered list item prefix
+README.md:71: MD029 Ordered list item prefix
+README.md:72: MD029 Ordered list item prefix
+README.md:73: MD029 Ordered list item prefix
+```
 
 Markdownlint has many more options you can pass on the command line, run
 `mdl --help` to see what they are, or see the documentation on
@@ -78,7 +89,7 @@ For more information on creating style files, see the
 
 ## Related projects
 
-- [markdownlint](https://github.com/DavidAnson/markdownlint) and 
+- [markdownlint](https://github.com/DavidAnson/markdownlint) and
   [markdownlint-cli](https://github.com/igorshubovych/markdownlint-cli) for
   Node.js
 

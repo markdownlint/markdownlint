@@ -15,6 +15,6 @@ end
 doc = MarkdownLint::Doc.new(text)
 headers = doc.find_type(:header)
 bad_headers = headers.select do |e|
-   doc.element_line(e).nil? || ! doc.element_line(e).include?(e[:raw_text])
+  doc.element_line(e).nil? || !doc.element_line(e).include?(e[:raw_text])
 end
 pp bad_headers

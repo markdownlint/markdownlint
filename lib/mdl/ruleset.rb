@@ -1,38 +1,39 @@
 module MarkdownLint
+  # defines a single rule
   class Rule
     attr_accessor :id, :description
 
     def initialize(id, description, block)
-      @id, @description = id, description
+      @id = id
+      @description = description
       @aliases = []
       @tags = []
       @params = {}
       instance_eval(&block)
     end
 
-
     def check(&block)
       @check = block unless block.nil?
       @check
     end
 
-    def tags(*t)
-      @tags = t.flatten.map {|i| i.to_sym} unless t.empty?
+    def tags(*tags)
+      @tags = tags.flatten.map(&:to_sym) unless tags.empty?
       @tags
     end
 
-    def aliases(*a)
-      @aliases.concat(a)
+    def aliases(*aliases)
+      @aliases.concat(aliases)
       @aliases
     end
 
-    def params(p = nil)
-      @params.update(p) unless p.nil?
+    def params(params = nil)
+      @params.update(params) unless params.nil?
       @params
     end
-
   end
 
+  # defines a ruleset
   class RuleSet
     attr_reader :rules
 
@@ -50,7 +51,7 @@ module MarkdownLint
     end
 
     def load_default
-      load(File.expand_path("../rules.rb", __FILE__))
+      load(File.expand_path('rules.rb', __dir__))
     end
   end
 end

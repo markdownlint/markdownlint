@@ -5,8 +5,8 @@ require 'kramdown/parser/gfm'
 
 module Kramdown
   module Parser
+    # modified parser class - see comment above
     class MarkdownLint < Kramdown::Parser::Kramdown
-
       def initialize(source, options)
         super
         i = @block_parsers.index(:codeblock_fenced)
