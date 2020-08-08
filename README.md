@@ -1,4 +1,4 @@
-[![Travis build status](http://api.travis-ci.org/markdownlint/markdownlint.svg)](https://travis-ci.org/markdownlint/markdownlint)
+[![Lint](https://github.com/markdownlint/markdownlint/workflows/CI/badge.svg)](https://github.com/markdownlint/markdownlint/actions?query=workflow%3ACI)
 [![Gem Version](https://badge.fury.io/rb/mdl.svg)](http://badge.fury.io/rb/mdl)
 
 # Markdown lint tool
