@@ -1,5 +1,18 @@
 # Change Log
 
+## [v0.10.0] (2020-08-08)
+
+### Added
+
+* More examples of mdlrc and style files
+* Added CI for Rubocop and Markdownlint on our own repo
+
+### Fixed
+
+* Update Dockerfile to work with modern mdl
+* Update minimum version of kramdown for security advisory
+* Update minimum version of rubocop for security advisory
+
 ## [v0.9.0] (2020-02-21)
 
 ### Changed
@@ -230,6 +243,7 @@
 * MD030 - Spaces after list markers
 
 [Unreleased]: https://github.com/markdownlint/markdownlint/tree/master
+[v0.10.0]: https://github.com/markdownlint/markdownlint/tree/v0.10.0
 [v0.9.0]: https://github.com/markdownlint/markdownlint/tree/v0.9.0
 [v0.8.0]: https://github.com/markdownlint/markdownlint/tree/v0.8.0
 [v0.7.0]: https://github.com/markdownlint/markdownlint/tree/v0.7.0
