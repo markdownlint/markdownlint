@@ -66,7 +66,7 @@ module MarkdownLint
           Dir.chdir(filename) do
             cli.cli_arguments[i] =
               Mixlib::ShellOut.new("git ls-files '*.md' '*.markdown'")
-                              .run_command.stdout.lines
+                              .run_command.stdout.lines.map(&:strip)
           end
         else
           cli.cli_arguments[i] = Dir["#{filename}/**/*.{md,markdown}"]
