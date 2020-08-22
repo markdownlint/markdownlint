@@ -1,5 +1,12 @@
 # Change Log
 
+## [v0.11.0] (2020-08-22)
+
+### Fixed
+
+* Fixed crash when using `-g`
+* Fixed missing dependencies in docker image
+
 ## [v0.10.0] (2020-08-08)
 
 ### Added
@@ -243,6 +250,7 @@
 * MD030 - Spaces after list markers
 
 [Unreleased]: https://github.com/markdownlint/markdownlint/tree/master
+[v0.11.0]: https://github.com/markdownlint/markdownlint/tree/v0.10.0
 [v0.10.0]: https://github.com/markdownlint/markdownlint/tree/v0.10.0
 [v0.9.0]: https://github.com/markdownlint/markdownlint/tree/v0.9.0
 [v0.8.0]: https://github.com/markdownlint/markdownlint/tree/v0.8.0
