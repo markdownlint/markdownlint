@@ -50,4 +50,6 @@ Next, run `rake release`. This will:
 
 Then `git push --tags upstream` to push the tag.
 
+Build and push a docker image per the docs in tools/docker/README.md
+
 Finally, add a new 'Unreleased' section to the changelog for the next release.
