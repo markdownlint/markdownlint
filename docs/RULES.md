@@ -141,7 +141,7 @@ Tags: bullet, ul
 
 Aliases: ul-style
 
-Parameters: style ("consistent", "asterisk", "plus", "dash"; default "consistent")
+Parameters: style (`:consistent`, `:asterisk`, `:plus`, `:dash`; default `:consistent`)
 
 This rule is triggered when the symbols used in the document for unordered
 list items do not match the configured unordered list style:
