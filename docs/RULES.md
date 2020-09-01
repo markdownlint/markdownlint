@@ -102,7 +102,7 @@ Tags: headers
 
 Aliases: header-style
 
-Parameters: style ("consistent", "atx", "atx_closed", "setext", "setext_with_atx"; default "consistent")
+Parameters: style (`:consistent`, `:atx`, `:atx_closed`, `:setext`, `:setext_with_atx`; default `:consistent`)
 
 This rule is triggered when different header styles (atx, setext, and 'closed'
 atx) are used in the same document:
@@ -141,7 +141,7 @@ Tags: bullet, ul
 
 Aliases: ul-style
 
-Parameters: style ("consistent", "asterisk", "plus", "dash"; default "consistent")
+Parameters: style (`:consistent`, `:asterisk`, `:plus`, `:dash`; default `:consistent`)
 
 This rule is triggered when the symbols used in the document for unordered
 list items do not match the configured unordered list style:
@@ -332,7 +332,7 @@ lines inside code blocks.
 Tags: line_length
 
 Aliases: line-length
-Parameters: line_length, code_blocks, tables (number; default 80, boolean; default true)
+Parameters: line_length, code_blocks, tables (number; default 80, boolean; default true, boolean; default true)
 
 This rule is triggered when there are lines that are longer than the
 configured line length (default: 80 characters). To fix this, split the line
@@ -674,7 +674,7 @@ Tags: ol
 
 Aliases: ol-prefix
 
-Parameters: style ("one", "ordered"; default "one")
+Parameters: style (`:one`, `:ordered`; default `:one`)
 
 This rule is triggered on ordered lists that do not either start with '1.' or
 do not have a prefix that increases in numerical order (depending on the
@@ -880,8 +880,8 @@ Tags: hr
 
 Aliases: hr-style
 
-Parameters: style ("consistent", "---", "***", or other string specifying the
-horizontal rule; default "consistent")
+Parameters: style (`:consistent`, "---", "***", or other string specifying the
+horizontal rule; default `:consistent`)
 
 This rule is triggered when inconsistent styles of horizontal rules are used
 in the document:
@@ -1064,7 +1064,7 @@ Tags: code
 
 Aliases: code-block-style
 
-Parameters: style ("fenced", "indented", "consistent", default "fenced")
+Parameters: style (`:fenced`, `:indented`, `:consistent`, default `:fenced`)
 
 This rule is triggered when a different code block style is used than the
 configured one. For example, in the default configuration this rule is triggered
