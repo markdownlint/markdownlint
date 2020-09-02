@@ -11,7 +11,7 @@ module MarkdownLint
     # subtract 1 from a line number to get the correct line. The element_line*
     # methods take care of this for you.
 
-    attr_reader :raw_text, :lines, :parsed, :elements, :offset
+    attr_reader :lines, :parsed, :elements, :offset
 
     ##
     # A Kramdown::Document object containing the parsed markdown document.
@@ -27,7 +27,6 @@ module MarkdownLint
     # Create a new document given a string containing the markdown source
 
     def initialize(text, ignore_front_matter = false)
-      @raw_text = text
       regex = /^---\n(.*?)---\n\n?/m
       if ignore_front_matter && regex.match(text)
         @offset = regex.match(text).to_s.split("\n").length
@@ -35,7 +34,7 @@ module MarkdownLint
       else
         @offset = 0
       end
-      @lines = text.split(/\R/)
+      @lines = text.split(/\R/, -1)
       @parsed = Kramdown::Document.new(text, :input => 'MarkdownLint')
       @elements = @parsed.root.children
       add_annotations(@elements)
