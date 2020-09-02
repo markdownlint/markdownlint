@@ -34,7 +34,9 @@ module MarkdownLint
       else
         @offset = 0
       end
-      @lines = text.split(/\R/)
+      # The -1 is to cause split to preserve an extra entry in the array so we
+      # can tell if there's a final newline in the file or not.
+      @lines = text.split(/\R/, -1)
       @parsed = Kramdown::Document.new(text, :input => 'MarkdownLint')
       @elements = @parsed.root.children
       add_annotations(@elements)
