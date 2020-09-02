@@ -38,6 +38,7 @@
     * [MD040 - Fenced code blocks should have a language specified](#md040---fenced-code-blocks-should-have-a-language-specified)
     * [MD041 - First line in file should be a top level header](#md041---first-line-in-file-should-be-a-top-level-header)
     * [MD046 - Code block style](#md046---code-block-style)
+    * [MD047 - File should end with a blank line](#md047---file-should-end-with-a-blank-line)
 
 # Rules
 
@@ -1087,3 +1088,28 @@ To fix this, used fenced code blocks:
     Some more text.
 
 The reverse is true if the rule is configured to use the `indented` style.
+
+## MD047 - File should end with a blank line
+
+Tags: blank_lines
+
+Aliases: file-should-end-with-blank-line
+
+This rule is triggered if the last line of the file is not empty.
+
+For example, if the end of a file is represented by `<EOF>`, this file does not end with a blank line:
+
+    ```
+    # File header
+
+    This is the file's last line of actual text<EOF>
+    ```
+
+To fix this, add a blank line at the end of your file:
+
+    ```
+    # File header
+
+    This is the file's last line of actual text
+    <EOF>
+    ```

@@ -9,3 +9,6 @@ rule 'MD035', :style => '---'
 # Inline HTML - this isn't forbidden by the style guide, and raw HTML use is
 # explicitly mentioned in the 'email automatic links' section.
 exclude_rule 'MD033'
+
+# File should end with a blank line - this isn't forbidden by the style guide
+exclude_rule 'MD047'

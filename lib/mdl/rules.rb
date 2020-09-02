@@ -731,3 +731,15 @@ rule 'MD046', 'Code block style' do
     )
   end
 end
+
+rule 'MD047', 'File should end with a blank line' do
+  tags :blank_lines
+  aliases 'file-should-end-with-blank-line'
+  check do |doc|
+    error_lines = []
+    if !doc.lines[-1].empty?
+      error_lines.push(doc.lines.length)
+    end
+    error_lines
+  end
+end
