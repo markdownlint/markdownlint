@@ -10,5 +10,6 @@ rule 'MD035', :style => '---'
 # explicitly mentioned in the 'email automatic links' section.
 exclude_rule 'MD033'
 
-# File should end with a single newline character - this isn't forbidden by the style guide
+# File should end with a single newline character
+# this isn't forbidden by the style guide
 exclude_rule 'MD047'
