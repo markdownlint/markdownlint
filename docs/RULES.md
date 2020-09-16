@@ -38,7 +38,7 @@
     * [MD040 - Fenced code blocks should have a language specified](#md040---fenced-code-blocks-should-have-a-language-specified)
     * [MD041 - First line in file should be a top level header](#md041---first-line-in-file-should-be-a-top-level-header)
     * [MD046 - Code block style](#md046---code-block-style)
-    * [MD047 - File should end with a blank line](#md047---file-should-end-with-a-blank-line)
+    * [MD047 - File should end with a single newline character](#md047---file-should-end-with-a-single-newline-character)
 
 # Rules
 
@@ -1089,27 +1089,30 @@ To fix this, used fenced code blocks:
 
 The reverse is true if the rule is configured to use the `indented` style.
 
-## MD047 - File should end with a blank line
+## MD047 - File should end with a single newline character
 
 Tags: blank_lines
 
-Aliases: file-should-end-with-blank-line
+Aliases: single-trailing-newline
 
-This rule is triggered if the last line of the file is not empty.
+This rule is triggered when there is not a single newline character at the end of a file.
 
-For example, if the end of a file is represented by `<EOF>`, this file does not end with a blank line:
+Example that triggers the rule:
 
-    ```
-    # File header
+```markdown
+# Heading
 
-    This is the file's last line of actual text<EOF>
-    ```
+This file ends without a newline.[EOF]
+```
 
-To fix this, add a blank line at the end of your file:
+To fix the violation, add a newline character to the end of the file:
 
-    ```
-    # File header
+```markdown
+# Heading
 
-    This is the file's last line of actual text
-    <EOF>
-    ```
+This file ends with a newline.
+[EOF]
+```
+
+Rationale: Some programs have trouble with files that do not end with a newline.
+More information: <https://unix.stackexchange.com/questions/18743/whats-the-point-in-adding-a-new-line-to-the-end-of-a-file>.

@@ -732,9 +732,9 @@ rule 'MD046', 'Code block style' do
   end
 end
 
-rule 'MD047', 'File should end with a blank line' do
+rule 'MD047', 'File should end with a single newline character' do
   tags :blank_lines
-  aliases 'file-should-end-with-blank-line'
+  aliases 'single-trailing-newline'
   check do |doc|
     error_lines = []
     error_lines.push(doc.lines.length) unless doc.lines[-1].empty?
