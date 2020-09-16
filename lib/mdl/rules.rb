@@ -737,7 +737,8 @@ rule 'MD047', 'File should end with a single newline character' do
   aliases 'single-trailing-newline'
   check do |doc|
     error_lines = []
-    error_lines.push(doc.lines.length) unless doc.lines[-1].empty?
+    last_line = doc.lines[-1]
+    error_lines.push(doc.lines.length) unless last_line.nil? || last_line.empty?
     error_lines
   end
 end
