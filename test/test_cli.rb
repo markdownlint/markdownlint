@@ -226,7 +226,8 @@ class TestCli < Minitest::Test
 
   def test_file_ends_with_single_newline_character_good
     result = run_cli_with_file_and_ascii_env(
-      "# Top level header\n\nTop level header content\n")
+      "# Top level header\n\nTop level header content\n",
+    )
     assert_equal(0, result[:status])
     assert_equal('', result[:stderr])
     assert_match('', result[:stdout])
@@ -234,7 +235,8 @@ class TestCli < Minitest::Test
 
   def test_file_ends_with_single_newline_character_bad
     result = run_cli_with_file_and_ascii_env(
-      "# Top level header\n\nTop level header content")
+      "# Top level header\n\nTop level header content",
+    )
     assert_equal(1, result[:status])
     assert_equal('', result[:stderr])
     assert_match(/MD047 File should end with a single newline character/,
