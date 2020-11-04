@@ -5,8 +5,7 @@ FROM alpine:3.11.3
 # So we will statically list it here.
 # However, etc builds local bindings, which means you *also* need a long
 # list of build tools
-RUN echo "mdl:x:1000:mdl" >> /etc/group && \
-    echo "mdl:x:1000:1000:mdl,,,:/home/mdl:/sbin/nologin" >> /etc/passwd && \
+RUN adduser -h /home/mdl -s /sbin/nologin -D -g mdl mdl && \
     apk add --update --no-cache ruby-dev cmake gcc libtool g++ make && \
     gem install etc mdl --no-document && \
     mkdir /data
