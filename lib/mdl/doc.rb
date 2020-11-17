@@ -80,7 +80,7 @@ module MarkdownLint
 
     def find_type_elements(type, nested = true, elements = @elements)
       results = []
-      type = [type] if type.class == Symbol
+      type = [type] if type.instance_of?(Symbol)
       elements.each do |e|
         results.push(e) if type.include?(e.type)
         if nested && !e.children.empty?
@@ -104,8 +104,8 @@ module MarkdownLint
       type, nested_except = [], elements = @elements
     )
       results = []
-      type = [type] if type.class == Symbol
-      nested_except = [nested_except] if nested_except.class == Symbol
+      type = [type] if type.instance_of?(Symbol)
+      nested_except = [nested_except] if nested_except.instance_of?(Symbol)
       elements.each do |e|
         results.push(e) if type.include?(e.type)
         next if nested_except.include?(e.type) || e.children.empty?
