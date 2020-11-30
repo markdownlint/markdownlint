@@ -285,7 +285,7 @@ class TestCli < Minitest::Test
     assert_equal('Enabled rules:', lines.first)
     lines.shift
     rules = rules.to_set
-    enabled_rules = lines.map { |l| l.split(' ').first }.to_set
+    enabled_rules = lines.map { |l| l.split.first }.to_set
     if only_these_rules
       assert_equal(rules, enabled_rules)
     else
@@ -299,7 +299,7 @@ class TestCli < Minitest::Test
     assert_equal('Enabled rules:', lines.first)
     lines.shift
     rules = rules.to_set
-    enabled_rules = lines.map { |l| l.split(' ').first }.to_set
+    enabled_rules = lines.map { |l| l.split.first }.to_set
     assert_equal(Set.new, rules & enabled_rules)
   end
 
