@@ -107,7 +107,7 @@ markdownlint. Use this option if you only want to load custom rulesets.
 
 You can configure `mdl` using your own `.mdlrc` file. You can specify and command-line option in this file.
 
-In particular you can specify a `style` file, where you you have configured any rules. Here's a simple example that just points to a style file:
+In particular you can specify a `style` file, where you have configured any rules. Here's a simple example that just points to a style file:
 
 ```
 style "#{File.dirname(__FILE__)}/{your_markdown_rule_file_path}.rb"
