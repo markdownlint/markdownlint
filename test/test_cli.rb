@@ -225,8 +225,8 @@ class TestCli < Minitest::Test
   end
 
   def test_graceful_not_found
-    file_path = "a/file/that/does/not/exist.md"
-    dir_path = "a/folder/that/does/not/exist"
+    file_path = 'a/file/that/does/not/exist.md'
+    dir_path = 'a/folder/that/does/not/exist'
 
     file_result = run_cli(file_path)
     dir_result = run_cli(dir_path)
@@ -235,8 +235,8 @@ class TestCli < Minitest::Test
     dir_expected = "Errno::ENOENT: No such file or directory - #{dir_path}"
 
     # No normal output
-    assert_equal("", file_result[:stdout])
-    assert_equal("", dir_result[:stdout])
+    assert_equal('', file_result[:stdout])
+    assert_equal('', dir_result[:stdout])
 
     # Statuses are 1
     assert_equal(1, file_result[:status])
