@@ -48,8 +48,10 @@ module MarkdownLint
     def self.new_from_file(filename, ignore_front_matter = false)
       if filename == '-'
         new($stdin.read, ignore_front_matter)
-      else
+      elsif File.exist?(filename)
         new(File.read(filename, :encoding => 'UTF-8'), ignore_front_matter)
+      else
+        raise Errno::ENOENT, filename, []
       end
     end
 
