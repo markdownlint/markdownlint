@@ -234,7 +234,7 @@ class TestCli < Minitest::Test
     file_expected = "Errno::ENOENT: No such file or directory - #{file_path}"
     dir_expected = "Errno::ENOENT: No such file or directory - #{dir_path}"
 
-    # No normal output
+    # No stdout
     assert_equal('', file_result[:stdout])
     assert_equal('', dir_result[:stdout])
 
@@ -242,13 +242,9 @@ class TestCli < Minitest::Test
     assert_equal(1, file_result[:status])
     assert_equal(1, file_result[:status])
 
-    # Stderr has no more than 3 lines (one for bundler, one for error msg, +1)
-    assert file_result[:stderr].split("\n").size <= 3
-    assert dir_result[:stderr].split("\n").size <= 3
-
-    # Check error message is correct
-    assert_equal(file_expected, file_result[:stderr].split("\n")[1])
-    assert_equal(dir_expected, dir_result[:stderr].split("\n")[1])
+    # Check error message is expected
+    assert_equal(file_expected, file_result[:stderr])
+    assert_equal(dir_expected, dir_result[:stderr])
   end
 
   private

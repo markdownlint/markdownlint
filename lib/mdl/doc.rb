@@ -43,7 +43,8 @@ module MarkdownLint
     end
 
     ##
-    # Alternate 'constructor' passing in a filename
+    # Alternate 'constructor' passing in a filename. Exists with 1 if file
+    # doesn't exist
 
     def self.new_from_file(filename, ignore_front_matter = false)
       if filename == '-'
@@ -51,7 +52,8 @@ module MarkdownLint
       elsif File.exist?(filename)
         new(File.read(filename, :encoding => 'UTF-8'), ignore_front_matter)
       else
-        raise Errno::ENOENT, filename, []
+        $stderr << "#{Errno::ENOENT}: No such file or directory - #{filename}"
+        exit 1
       end
     end
 
