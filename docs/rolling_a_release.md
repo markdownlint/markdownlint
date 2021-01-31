@@ -9,8 +9,7 @@ Bump the version. Markdownlint uses semantic versioning. From
 * Exception: Versions < 1.0 may introduce backwards-incompatible changes in a
   minor version.
 
-To bump the version, edit `lib/mdl/version.rb` and commit to the master
-branch.
+To bump the version, edit `lib/mdl/version.rb` and commit to the master branch.
 
 Update the changelog:
 
@@ -29,19 +28,19 @@ This goes at the bottom:
   commits are made. However, the following steps can be performed before each
   release to catch anything that was missed.
 * Add a 'Rules added' section, listing every new rule added for this version.
-  * Use `git diff v0.1.0..v0.2.0 docs/RULES.md | grep '## MD'` to discover
-    what these are.
+   * Use `git diff v0.1.0..v0.2.0 docs/RULES.md | grep '## MD'` to discover
+     what these are.
 * Search for closed issues:
-  * Go to <https://github.com/markdownlint/markdownlint/issues>
-  * Search for `closed:>1900-01-01`, changing the date to the date
-    of the last release.
-  * From this list of issues, make sections for:
-    * Added - for new features
-    * Changed - for changes in existing functionality
-    * Deprecated - for once-stable features removed in upcoming releases
-    * Removed - for deprecated features removed in this release
-    * Fixed - for any bug fixes
-    * Security - for any security issues
+   * Go to <https://github.com/markdownlint/markdownlint/issues>
+   * Search for `closed:>1900-01-01`, changing the date to the date
+     of the last release.
+   * From this list of issues, make sections for:
+      * Added - for new features
+      * Changed - for changes in existing functionality
+      * Deprecated - for once-stable features removed in upcoming releases
+      * Removed - for deprecated features removed in this release
+      * Fixed - for any bug fixes
+      * Security - for any security issues
 
 Next, run `rake release`. This will:
 

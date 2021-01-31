@@ -9,9 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@main
     - name: Lint Markdown
-      uses: actionshub/markdownlint@1.2.0
+      uses: actionshub/markdownlint@main
+      with:
+        filesToIgnoreRegex: '((test|example|bin)\/.*|docs\/RULES.md)'
   ruby:
     strategy:
       fail-fast: false
