@@ -218,7 +218,7 @@ Tags: bullet, ul, indentation
 
 Aliases: ul-indent
 
-Parameters: indent (number; default 2)
+Parameters: indent (number; default 3)
 
 This rule is triggered when list items are not indented by the configured
 number of spaces (default: 2).
@@ -233,9 +233,13 @@ Corrected Example:
     * List item
       * Nested list item indented by 2 spaces
 
-Rationale (2 space indent): indenting by 2 spaces allows the content of a
-nested list to be in line with the start of the content of the parent list
-when a single space is used after the list marker.
+Rationale (3 space indent): This matches the minimum possible indentation
+for _ordered_ lists (i.e Kramdown won't parse anything less than 3 spaces
+as a sublist on OLs), and since MD0005 requires consistent indentation
+across lists, anything less than three on this rule will cause a violation
+of MD005 if you have both kinds of lists in the same document.
+
+This means if you want to set this to 2, you'll need to disable MD005.
 
 Rationale (4 space indent): Same indent as code blocks, simpler for editors to
 implement. See

@@ -119,7 +119,8 @@ end
 rule 'MD007', 'Unordered list indentation' do
   tags :bullet, :ul, :indentation
   aliases 'ul-indent'
-  params :indent => 2
+  # Do not default to < 3, see PR#373 or the comments in RULES.md
+  params :indent => 3
   check do |doc|
     errors = []
     indents = doc.find_type(:ul).map do |e|

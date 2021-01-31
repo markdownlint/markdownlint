@@ -1,5 +1,11 @@
 # Change Log
 
+## Unreleased
+
+### Changed
+
+* Changed the default for MD007 to 3 spaces to match minimum spaces for ordered lists
+
 ## [v0.11.0] (2020-08-22)
 
 ### Fixed
