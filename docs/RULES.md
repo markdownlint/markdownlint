@@ -142,7 +142,7 @@ Tags: bullet, ul
 
 Aliases: ul-style
 
-Parameters: style (`:consistent`, `:asterisk`, `:plus`, `:dash`; default `:consistent`)
+Parameters: style (`:consistent`, `:asterisk`, `:plus`, `:dash`, `:sublist`; default `:consistent`)
 
 This rule is triggered when the symbols used in the document for unordered
 list items do not match the configured unordered list style:
@@ -160,7 +160,36 @@ document:
 
 Note: the configured list style can be a specific symbol to use (asterisk,
 plus, dash), or simply require that the usage be consistent within the
-document.
+document (consistent) or within a level (sublist).
+
+For sublist, each level must be consistent within a document, even if they
+are separate lists. So this is allowed:
+
+    * Item 1
+    * Item 2
+      - Item 2a
+        + Item 2a1
+      - Item 2b
+    * Item 3
+
+    Other stuff
+
+    * Item 1
+    * Item 2
+
+But this is not allowed:
+
+    * Item 1
+    * Item 2
+      - Item 2a
+        + Item 2a1
+      - Item 2b
+    * Item 3
+
+    Other stuff
+
+    - Item 1
+    - Item 2
 
 ## MD005 - Inconsistent indentation for list items at the same level
 
