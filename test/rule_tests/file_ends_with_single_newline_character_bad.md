@@ -1,3 +1,3 @@
-# File not ending with empty line
+# File not ending with a single newline character
 
-This file does not end with an empty line{MD047}
+This file does not end with a single newline character{MD047}
