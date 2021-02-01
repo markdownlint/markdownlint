@@ -12,13 +12,13 @@ class TestCli < Minitest::Test
   end
 
   def test_json_output
-    result = run_cli_with_input('-j', '# header')
+    result = run_cli_with_input('-j', "# header\n")
     assert_ran_ok(result)
     assert_equal("[]\n", result[:stdout])
   end
 
   def test_json_output_with_matches
-    result = run_cli_with_input('-j -r MD002', '## header2')
+    result = run_cli_with_input('-j -r MD002', "## header2\n")
     assert_equal(1, result[:status])
     assert_equal('', result[:stderr])
     d = JSON.parse(result[:stdout])
@@ -38,14 +38,14 @@ class TestCli < Minitest::Test
   end
 
   def test_show_alias_processing_file
-    result = run_cli_with_input('-a -r MD002', '## header2')
+    result = run_cli_with_input('-a -r MD002', "## header2\n")
     assert_equal(1, result[:status])
     assert_equal('', result[:stderr])
     assert_match(/^\(stdin\):1: first-header-h1/, result[:stdout])
   end
 
   def test_running_on_unicode_input
-    result = run_cli_with_file_and_ascii_env('## header2 🚀')
+    result = run_cli_with_file_and_ascii_env("## header2 🚀\n")
     assert_equal(1, result[:status])
     assert_equal('', result[:stderr])
     assert_match(/MD002 First header should be a top level header/,
