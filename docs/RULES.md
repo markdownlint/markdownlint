@@ -38,6 +38,7 @@
     * [MD040 - Fenced code blocks should have a language specified](#md040---fenced-code-blocks-should-have-a-language-specified)
     * [MD041 - First line in file should be a top level header](#md041---first-line-in-file-should-be-a-top-level-header)
     * [MD046 - Code block style](#md046---code-block-style)
+    * [MD047 - File should end with a single newline character](#md047---file-should-end-with-a-single-newline-character)
 
 # Rules
 
@@ -1087,3 +1088,31 @@ To fix this, used fenced code blocks:
     Some more text.
 
 The reverse is true if the rule is configured to use the `indented` style.
+
+## MD047 - File should end with a single newline character
+
+Tags: blank_lines
+
+Aliases: single-trailing-newline
+
+This rule is triggered when there is not a single newline character at the end of a file.
+
+Example that triggers the rule:
+
+```markdown
+# Heading
+
+This file ends without a newline.[EOF]
+```
+
+To fix the violation, add a newline character to the end of the file:
+
+```markdown
+# Heading
+
+This file ends with a newline.
+[EOF]
+```
+
+Rationale: Some programs have trouble with files that do not end with a newline.
+More information: <https://unix.stackexchange.com/questions/18743/whats-the-point-in-adding-a-new-line-to-the-end-of-a-file>.

@@ -731,3 +731,14 @@ rule 'MD046', 'Code block style' do
     )
   end
 end
+
+rule 'MD047', 'File should end with a single newline character' do
+  tags :blank_lines
+  aliases 'single-trailing-newline'
+  check do |doc|
+    error_lines = []
+    last_line = doc.lines[-1]
+    error_lines.push(doc.lines.length) unless last_line.nil? || last_line.empty?
+    error_lines
+  end
+end
