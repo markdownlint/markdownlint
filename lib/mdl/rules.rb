@@ -62,7 +62,7 @@ end
 rule 'MD004', 'Unordered list style' do
   tags :bullet, :ul
   aliases 'ul-style'
-  # :style can be one of :consistent, :asterisk, :plus, :dash
+  # :style can be one of :consistent, :asterisk, :plus, :dash, :sublist
   params :style => :consistent
   check do |doc|
     bullets = doc.find_type_elements(:ul).map do |l|
@@ -71,15 +71,30 @@ rule 'MD004', 'Unordered list style' do
     if bullets.empty?
       nil
     else
-      doc_style = if @params[:style] == :consistent
+      doc_style = case @params[:style]
+                  when :consistent
                     doc.list_style(bullets.first)
+                  when :sublist
+                    {}
                   else
                     @params[:style]
                   end
-      bullets.map do |b|
-        doc.element_linenumber(b) \
-                    if doc.list_style(b) != doc_style
-      end.compact
+      results = []
+      bullets.each do |b|
+        if @params[:style] == :sublist
+          level = b.options[:element_level]
+          if doc_style[level]
+            if doc_style[level] != doc.list_style(b)
+              results << doc.element_linenumber(b)
+            end
+          else
+            doc_style[level] = doc.list_style(b)
+          end
+        elsif doc.list_style(b) != doc_style
+          results << doc.element_linenumber(b)
+        end
+      end
+      results.compact
     end
   end
 end
