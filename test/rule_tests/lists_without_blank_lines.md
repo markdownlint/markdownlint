@@ -25,15 +25,15 @@ text
 text
 
 * list
-  * list
-    * list
+   * list
+      * list
 
 text
 
 * list
   with hanging indent
-  * list
-    with hanging indent
+   * list
+     with hanging indent
 * list
   with hanging indent
 
