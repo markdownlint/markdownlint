@@ -224,6 +224,19 @@ class TestCli < Minitest::Test
     assert_equal(result[:stdout], expected)
   end
 
+  def test_unprintable_chars
+    path = File.expand_path(
+      './fixtures/unprintable_chars',
+      File.dirname(__FILE__),
+    )
+    files = (1..3).map do |i|
+      File.join(path, "test#{i}")
+    end.join(' ')
+    result = run_cli(files)
+
+    assert_equal(result[:stdout], '')
+  end
+
   private
 
   def run_cli_with_input(args, stdin)
