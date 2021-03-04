@@ -16,10 +16,10 @@ rule "MY000", "Rule description" do
 end
 ```
 
-The first line specifies the rule name and description. By convention, built
-in markdownlint rules use the prefix 'MD' followed by a number to identify
-rules. Any custom rules should use an alternate prefix to avoid conflicting
-with current or future rules. The description is simply a short description
+The first line specifies the rule name and description. By convention, built in
+markdownlint rules use the prefix 'MD' followed by a number to identify rules.
+Any custom rules should use an alternate prefix to avoid conflicting with
+current or future rules. The description is simply a short description
 explaining what the rule is checking, which will be printed alongside the rule
 name when rules are triggered.
 
@@ -38,27 +38,27 @@ alias for the rule instead of its ID.
 After that, any parameters the rule takes are specified. If your rule checks
 for a specific number of things, or if you can envision multiple variants of
 the same rule, then you should add parameters to allow your rule to be
-customized in a style file. Any parameters specified here are accessible
-inside the check itself using `params[:foo]`.
+customized in a style file. Any parameters specified here are accessible inside
+the check itself using `params[:foo]`.
 
-Finally, the check itself is specified. This is simply a ruby block that
-should return a list of line numbers for any issues found. If no line numbers
-are found, you can either return an empty list, or nil, whichever is easiest
-for your check.
+Finally, the check itself is specified. This is simply a ruby block that should
+return a list of line numbers for any issues found. If no line numbers are
+found, you can either return an empty list, or nil, whichever is easiest for
+your check.
 
 ## Document objects
 
 The check takes a single parameter `doc`, which is an object containing a
 representation of the markdown document along with several helper functions
-used for making rules. The [doc.rb](../lib/mdl/doc.rb) file is documented
-using rdoc, and you will want to take a look there to see all the methods you
-can use, as well as look at some of the existing rules, but a quick summary is
-as follows:
+used for making rules. The [doc.rb](../lib/mdl/doc.rb) file is documented using
+rdoc, and you will want to take a look there to see all the methods you can
+use, as well as look at some of the existing rules, but a quick summary is as
+follows:
 
 * `doc` - Object containing a representation of the markdown document
 * `doc.lines` - The raw markdown file as an array of lines
-  * You can also look up a line given an element with
-    `doc.element_line(element)`
+   * You can also look up a line given an element with
+     `doc.element_line(element)`
 * `doc.parsed` - The kramdown internal representation of the doc. Most of the
   time you will want to interact with the parsed version of the document
   rather than looking at `doc.lines`.
@@ -86,7 +86,7 @@ parsed by kramdown. Kramdown's representation of the document is as a tree of
   text elements containing their contents instead.
 * element.children - A list of the element's child elements.
 * element.options - A hash containing:
-  * `:location` - line number of element
-  * `:element_level` - A value filled in by markdownlint to denote the nesting
-    level of the element, i.e. how deep in the tree is it.
-  * Other options that are element type specific.
+   * `:location` - line number of element
+   * `:element_level` - A value filled in by markdownlint to denote the nesting
+     level of the element, i.e. how deep in the tree is it.
+   * Other options that are element type specific.

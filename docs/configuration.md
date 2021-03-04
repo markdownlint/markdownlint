@@ -1,10 +1,10 @@
 # Mdl configuration
 
-Markdownlint has several options you can configure both on the command line,
-or in markdownlint's configuration file: `.mdlrc`, first looked for in the
-working directory, then in your home directory.
-While markdownlint will work perfectly well out of the box, this page
-documents some of the options you can change to suit your needs.
+Markdownlint has several options you can configure both on the command line, or
+in markdownlint's configuration file: `.mdlrc`, first looked for in the working
+directory, then in your home directory.  While markdownlint will work perfectly
+well out of the box, this page documents some of the options you can change to
+suit your needs.
 
 In general, anything you pass on the command line can also be put into
 `~/.mdlrc` with the same option. For example, if you pass `--style foo` on the
@@ -31,19 +31,19 @@ behavior.
 * Default: true
 
 Recurse using files known to git - When mdl is given a directory name on the
-command line, it will recurse into that directory looking for markdown files
-to process. If this option is enabled, it will use git to look for files
-instead, and ignore any files git doesn't know about.
+command line, it will recurse into that directory looking for markdown files to
+process. If this option is enabled, it will use git to look for files instead,
+and ignore any files git doesn't know about.
 
 * Command line: `-g`, `--git-recurse`
 * Config file: `git_recurse true`
 * Default: false
 
 Ignore YAML front matter - If this option is enabled markdownlint will ignore
-content within valid
-[YAML front matter](https://jekyllrb.com/docs/frontmatter/). Reported line
-numbers will still match the file contents but markdownlint will consider the
-line following front matter to be the first line.
+content within valid [YAML front
+matter](https://jekyllrb.com/docs/frontmatter/). Reported line numbers will
+still match the file contents but markdownlint will consider the line following
+front matter to be the first line.
 
 * Command line: `-i`, `--ignore-front-matter`
 * Config file: `ignore_front_matter true`
@@ -67,9 +67,9 @@ If a rule or tag ID is preceded by a tilde (`~`), then it _disables_ the
 matching rules instead of enabling them, starting with all rules being enabled.
 
 Note: If both `--rules` and `--tags` are provided, then a given rule has to
-both be in the list of enabled rules, as well as be tagged with one of the
-tags provided with the `--tags` option. Use the `-l/--list-rules` option to
-test this behavior.
+both be in the list of enabled rules, as well as be tagged with one of the tags
+provided with the `--tags` option. Use the `-l/--list-rules` option to test
+this behavior.
 
 Style - Select which style mdl uses. A 'style' is a file containing a list of
 enabled/disable rules, as well as options for some rules that take them. For
@@ -105,17 +105,21 @@ markdownlint. Use this option if you only want to load custom rulesets.
 
 ## Creating your own .mdlrc files
 
-You can configure `mdl` using your own `.mdlrc` file. You can specify and command-line option in this file.
+You can configure `mdl` using your own `.mdlrc` file. You can specify and
+command-line option in this file.
 
-In particular you can specify a `style` file, where you have configured any rules. Here's a simple example that just points to a style file:
+In particular you can specify a `style` file, where you have configured any
+rules. Here's a simple example that just points to a style file:
 
-```
+```ruby
 style "#{File.dirname(__FILE__)}/{your_markdown_rule_file_path}.rb"
 ```
 
-As commented, this path is relative to .mdlrc file.
-You can find a basic example of .mdlrc file [here](../example/.mdlrc_example).
+As commented, this path is relative to .mdlrc file.  You can find a basic
+example of .mdlrc file [here](../example/.mdlrc_example).
 
-Then you should create your new [rule](creating_rules.md) or [style](creating_styles.md).
+Then you should create your new [rule](creating_rules.md) or
+[style](creating_styles.md).
 
-You can find a basic example of new style file [here](../example/new_style_example.rb).
+You can find a basic example of new style file
+[here](../example/new_style_example.rb).

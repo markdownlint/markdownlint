@@ -1,7 +1,7 @@
+# Markdown lint tool
+
 [![Continuous Integration](https://github.com/markdownlint/markdownlint/workflows/Continuous%20Integration/badge.svg)](https://github.com/markdownlint/markdownlint/actions?query=workflow%3A%22Continuous+Integration%22)
 [![Gem Version](https://badge.fury.io/rb/mdl.svg)](http://badge.fury.io/rb/mdl)
-
-# Markdown lint tool
 
 A tool to check markdown files and flag style issues.
 
