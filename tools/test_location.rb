@@ -10,7 +10,7 @@ text = File.read(ARGV[0])
 unless ARGV[1].nil?
   # If we provide a second argument, then start the document from line N of
   # the original file.
-  text = text.split("\n")[ARGV[1].to_i - 1..-1].join("\n")
+  text = text.split("\n")[ARGV[1].to_i - 1..].join("\n")
 end
 doc = MarkdownLint::Doc.new(text)
 headers = doc.find_type(:header)

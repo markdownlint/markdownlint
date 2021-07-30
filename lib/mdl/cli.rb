@@ -148,7 +148,7 @@ module MarkdownLint
       parts = parts.split(',') if parts.instance_of?(String)
       if parts.instance_of?(Array)
         inc = parts.reject { |p| p.start_with?('~') }
-        exc = parts.select { |p| p.start_with?('~') }.map { |p| p[1..-1] }
+        exc = parts.select { |p| p.start_with?('~') }.map { |p| p[1..] }
         if to_sym
           inc.map!(&:to_sym)
           exc.map!(&:to_sym)
