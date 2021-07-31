@@ -234,7 +234,7 @@ rule 'MD014', 'Dollar signs used before commands without showing output' do
   aliases 'commands-show-output'
   check do |doc|
     doc.find_type_elements(:codeblock).select do |e|
-      !e.value.empty? and
+      !e.value.empty? &&
         !e.value.split(/\n+/).map { |l| l.match(/^\$\s/) }.include?(nil)
     end.map { |e| doc.element_linenumber(e) }
   end
@@ -245,7 +245,7 @@ rule 'MD018', 'No space after hash on atx style header' do
   aliases 'no-missing-space-atx'
   check do |doc|
     doc.find_type_elements(:header).select do |h|
-      doc.header_style(h) == :atx and doc.element_line(h).match(/^#+[^#\s]/)
+      doc.header_style(h) == :atx && doc.element_line(h).match(/^#+[^#\s]/)
     end.map { |h| doc.element_linenumber(h) }
   end
 end
@@ -255,7 +255,7 @@ rule 'MD019', 'Multiple spaces after hash on atx style header' do
   aliases 'no-multiple-space-atx'
   check do |doc|
     doc.find_type_elements(:header).select do |h|
-      doc.header_style(h) == :atx and doc.element_line(h).match(/^#+\s\s/)
+      doc.header_style(h) == :atx && doc.element_line(h).match(/^#+\s\s/)
     end.map { |h| doc.element_linenumber(h) }
   end
 end
@@ -266,8 +266,8 @@ rule 'MD020', 'No space inside hashes on closed atx style header' do
   check do |doc|
     doc.find_type_elements(:header).select do |h|
       doc.header_style(h) == :atx_closed \
-        and (doc.element_line(h).match(/^#+[^#\s]/) \
-             or doc.element_line(h).match(/[^#\s\\]#+$/))
+        && (doc.element_line(h).match(/^#+[^#\s]/) \
+             || doc.element_line(h).match(/[^#\s\\]#+$/))
     end.map { |h| doc.element_linenumber(h) }
   end
 end
@@ -278,8 +278,8 @@ rule 'MD021', 'Multiple spaces inside hashes on closed atx style header' do
   check do |doc|
     doc.find_type_elements(:header).select do |h|
       doc.header_style(h) == :atx_closed \
-        and (doc.element_line(h).match(/^#+\s\s/) \
-             or doc.element_line(h).match(/\s\s#+$/))
+        && (doc.element_line(h).match(/^#+\s\s/) \
+             || doc.element_line(h).match(/\s\s#+$/))
     end.map { |h| doc.element_linenumber(h) }
   end
 end
@@ -406,7 +406,7 @@ rule 'MD025', 'Multiple top level headers in the same document' do
       h[:level] == params[:level]
     end
     if !headers.empty? && (doc.element_linenumber(headers[0]) == 1)
-      headers[1..-1].map { |h| doc.element_linenumber(h) }
+      headers[1..].map { |h| doc.element_linenumber(h) }
     end
   end
 end
@@ -669,7 +669,7 @@ rule 'MD038', 'Spaces inside code span elements' do
     # block that happen to be parsed as code spans.
     doc.element_linenumbers(
       doc.find_type_elements(:codespan).select do |i|
-        i.value.match(/(^\s|\s$)/) and !i.value.include?("\n")
+        i.value.match(/(^\s|\s$)/) && !i.value.include?("\n")
       end,
     )
   end
@@ -681,8 +681,8 @@ rule 'MD039', 'Spaces inside link text' do
   check do |doc|
     doc.element_linenumbers(
       doc.find_type_elements(:a).reject { |e| e.children.empty? }.select do |e|
-        e.children.first.type == :text && e.children.last.type == :text and (
-          e.children.first.value.start_with?(' ') or
+        e.children.first.type == :text && e.children.last.type == :text && (
+          e.children.first.value.start_with?(' ') ||
           e.children.last.value.end_with?(' '))
       end,
     )
@@ -696,7 +696,7 @@ rule 'MD040', 'Fenced code blocks should have a language specified' do
     # Kramdown parses code blocks with language settings as code blocks with
     # the class attribute set to language-languagename.
     doc.element_linenumbers(doc.find_type_elements(:codeblock).select do |i|
-                              !i.attr['class'].to_s.start_with?('language-') and
+                              !i.attr['class'].to_s.start_with?('language-') &&
                                 !doc.element_line(i).start_with?('    ')
                             end)
   end
