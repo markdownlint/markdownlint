@@ -232,7 +232,7 @@ module MarkdownLint
 
         lines = e.value.split("\n")
         lines.each_with_index do |l, i|
-          matches << first_line + i if regex.match(l)
+          matches << (first_line + i) if regex.match(l)
         end
       end
       matches

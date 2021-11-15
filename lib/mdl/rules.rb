@@ -313,7 +313,7 @@ rule 'MD022', 'Headers should be surrounded by blank lines' do
         errors << linenum if line.match(/^\#{1,6}/) && !prev_lines[1].empty?
         # Next, look for setext style
         if line.match(/^(-+|=+)\s*$/) && !prev_lines[0].empty?
-          errors << linenum - 1
+          errors << (linenum - 1)
         end
         linenum += 1
         prev_lines << line
@@ -345,7 +345,7 @@ rule 'MD023', 'Headers must start at the beginning of the line' do
         errors << linenum if line.match(/^\s+\#{1,6}/)
         # Next, look for setext style
         if line.match(/^\s+(-+|=+)\s*$/) && !prev_line.empty?
-          errors << linenum - 1
+          errors << (linenum - 1)
         end
         linenum += 1
         prev_line = line
@@ -454,7 +454,7 @@ rule 'MD028', 'Blank line inside blockquote' do
           # The current location is the start of the second blockquote, so the
           # line before will be a blank line in between the two, or at least the
           # lowest blank line if there are more than one.
-          errors << e.options[:location] - 1
+          errors << (e.options[:location] - 1)
         end
         check_blockquote(errors, e.children)
       end
@@ -569,7 +569,7 @@ rule 'MD032', 'Lists should be surrounded by blank lines' do
       unless in_code
         list_marker = line.strip.match(/^([*+\-]|(\d+\.))\s/)
         if list_marker && !in_list && !prev_line.match(/^($|\s)/)
-          errors << linenum + 1
+          errors << (linenum + 1)
         elsif !list_marker && in_list && !line.match(/^($|\s)/)
           errors << linenum
         end
