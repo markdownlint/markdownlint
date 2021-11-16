@@ -366,6 +366,7 @@ lines inside code blocks.
 Tags: line_length
 
 Aliases: line-length
+
 Parameters: line_length, code_blocks, tables (number; default 80, boolean; default true, boolean; default true)
 
 This rule is triggered when there are lines that are longer than the

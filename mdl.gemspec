@@ -11,6 +11,7 @@ Gem::Specification.new do |spec|
   spec.description = 'Style checker/lint tool for markdown files'
   spec.homepage = 'http://github.com/markdownlint/markdownlint'
   spec.license = 'MIT'
+  spec.metadata['rubygems_mfa_required'] = 'true'
 
   spec.files = %w{LICENSE.txt Gemfile} + Dir.glob('*.gemspec') +
                Dir.glob('lib/**/*')
