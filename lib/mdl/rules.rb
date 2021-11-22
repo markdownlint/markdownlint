@@ -168,7 +168,7 @@ end
 rule 'MD010', 'Hard tabs' do
   tags :whitespace, :hard_tab, :code_blocks
   aliases 'no-hard-tabs'
-  params :code_blocks => false
+  params :code_blocks => true
   check do |doc|
     # Every line in the document that is part of a code block. Blank lines
     # inside of a code block are acceptable.
