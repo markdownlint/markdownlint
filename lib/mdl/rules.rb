@@ -166,7 +166,7 @@ rule 'MD009', 'Trailing spaces' do
 end
 
 rule 'MD010', 'Hard tabs' do
-  tags :whitespace, :hard_tab, :code_blocks
+  tags :whitespace, :hard_tab
   aliases 'no-hard-tabs'
   params :code_blocks => true
   check do |doc|
