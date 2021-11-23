@@ -180,7 +180,6 @@ rule 'MD010', 'Hard tabs' do
     # Check for lines with hard tab
     hard_tab_lines = doc.matching_lines(/\t/)
     # Remove lines with hard tabs, if they stem from codeblock
-    # code_blocks parameter is
     hard_tab_lines -= codeblock_lines unless params[:code_blocks]
     hard_tab_lines
   end
