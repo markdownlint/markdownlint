@@ -5,7 +5,7 @@
 ### Changed
 
 * Changed the default for MD007 to 3 spaces to match minimum spaces for ordered lists
-* Added option `:code_blocks` to rule MD010. If set to false, hard tabs in code blocks
+* Added option `:ignore_code_blocks` to rule MD010. If set to true, hard tabs in code blocks
   will be ignored.
 
 ## [v0.11.0] (2020-08-22)
