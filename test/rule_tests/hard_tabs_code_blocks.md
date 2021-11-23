@@ -2,6 +2,4 @@
 	text after hard tab
 ```
 
-	text after illegal hard tab {MD010}
-
-Test	text {MD010}
+Text before hard tab	text after hard tab {MD010}
