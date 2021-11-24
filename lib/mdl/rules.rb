@@ -168,8 +168,20 @@ end
 rule 'MD010', 'Hard tabs' do
   tags :whitespace, :hard_tab
   aliases 'no-hard-tabs'
+  params :ignore_code_blocks => false
   check do |doc|
-    doc.matching_lines(/\t/)
+    # Every line in the document that is part of a code block. Blank lines
+    # inside of a code block are acceptable.
+    codeblock_lines = doc.find_type_elements(:codeblock).map do |e|
+      (doc.element_linenumber(e)..
+               doc.element_linenumber(e) + e.value.lines.count).to_a
+    end.flatten
+
+    # Check for lines with hard tab
+    hard_tab_lines = doc.matching_lines(/\t/)
+    # Remove lines with hard tabs, if they stem from codeblock
+    hard_tab_lines -= codeblock_lines if params[:ignore_code_blocks]
+    hard_tab_lines
   end
 end
 

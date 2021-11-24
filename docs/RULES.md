@@ -306,6 +306,8 @@ Tags: whitespace, hard_tab
 
 Aliases: no-hard-tabs
 
+Parameters: ignore_code_blocks (boolean; default false)
+
 This rule is triggered by any lines that contain hard tab characters instead
 of using spaces for indentation. To fix this, replace any hard tab characters
 with spaces instead.
@@ -321,6 +323,9 @@ Corrected example:
     Some text
 
         * Spaces used to indent the list item instead
+
+You have the option to exclude this rule for code blocks. To do this, set the
+`ignore_code_blocks` parameter to true.
 
 ## MD011 - Reversed link syntax
 
