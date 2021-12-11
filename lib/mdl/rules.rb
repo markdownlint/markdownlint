@@ -235,7 +235,9 @@ rule 'MD013', 'Line length' do
       end
     end.flatten
     overlines = doc.matching_lines(/^.{#{@params[:line_length]}}.*\s/)
-    overlines -= codeblock_lines unless ( params[:code_blocks] or !params[:ignore_code_blocks] )
+    if !params[:code_blocks] || params[:ignore_code_blocks]
+      overlines -= codeblock_lines
+    end
     overlines -= table_lines unless params[:tables]
     overlines
   end
