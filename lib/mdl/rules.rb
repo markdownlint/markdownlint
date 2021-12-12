@@ -214,7 +214,7 @@ end
 rule 'MD013', 'Line length' do
   tags :line_length
   aliases 'line-length'
-  params :line_length => 80, :code_blocks => true, :ignore_code_blocks => false
+  params :line_length => 80, :ignore_code_blocks => false, :code_blocks => true
   params :tables => true
   check do |doc|
     # Every line in the document that is part of a code block.

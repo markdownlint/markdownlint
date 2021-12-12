@@ -372,7 +372,7 @@ Tags: line_length
 
 Aliases: line-length
 
-Parameters: line_length, code_blocks, ignore_code_blocks, tables (number; default 80, boolean; default true, boolean; default false, boolean; default true)
+Parameters: line_length, ignore_code_blocks, code_blocks, tables (number; default 80, boolean; default false, boolean; default true, boolean; default true)
 
 This rule is triggered when there are lines that are longer than the
 configured line length (default: 80 characters). To fix this, split the line
