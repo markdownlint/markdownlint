@@ -239,6 +239,11 @@ rule 'MD013', 'Line length' do
     overlines = doc.matching_lines(/^.{#{@params[:line_length]}}.*\s/)
     if !params[:code_blocks] || params[:ignore_code_blocks]
       overlines -= codeblock_lines
+      unless params[:code_blocks]
+        warn 'MD013 warning: Parameter :code_blocks is deprecated.'
+        warn '  Please replace \":code_blocks => false\" by '\
+             '\":ignore_code_blocks => true\" in your configuration.'
+      end
     end
     overlines -= table_lines unless params[:tables]
     overlines
