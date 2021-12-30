@@ -9,7 +9,7 @@
   code blocks will be ignored.
 * Added option `:ignore_code_blocks` to rule MD013. If set to true, hard tabs in
   code blocks will be ignored. The option `:code_blocks` has been marked as
-  deprecated in the documentation. If `:code_blocks` is set to true in the
+  deprecated in the documentation. If `:code_blocks` is set to false in the
   configuration, a deprecation warning is printed.
 
 ## [v0.11.0] (2020-08-22)
