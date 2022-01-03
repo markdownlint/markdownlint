@@ -214,7 +214,9 @@ end
 rule 'MD013', 'Line length' do
   tags :line_length
   aliases 'line-length'
-  params :line_length => 80, :code_blocks => true, :tables => true
+  params :line_length => 80, :ignore_code_blocks => false, :code_blocks => true,
+         :tables => true
+
   check do |doc|
     # Every line in the document that is part of a code block.
     codeblock_lines = doc.find_type_elements(:codeblock).map do |e|
@@ -235,7 +237,14 @@ rule 'MD013', 'Line length' do
       end
     end.flatten
     overlines = doc.matching_lines(/^.{#{@params[:line_length]}}.*\s/)
-    overlines -= codeblock_lines unless params[:code_blocks]
+    if !params[:code_blocks] || params[:ignore_code_blocks]
+      overlines -= codeblock_lines
+      unless params[:code_blocks]
+        warn 'MD013 warning: Parameter :code_blocks is deprecated.'
+        warn '  Please replace \":code_blocks => false\" by '\
+             '\":ignore_code_blocks => true\" in your configuration.'
+      end
+    end
     overlines -= table_lines unless params[:tables]
     overlines
   end

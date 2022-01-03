@@ -372,7 +372,7 @@ Tags: line_length
 
 Aliases: line-length
 
-Parameters: line_length, code_blocks, tables (number; default 80, boolean; default true, boolean; default true)
+Parameters: line_length, ignore_code_blocks, code_blocks, tables (number; default 80, boolean; default false, boolean; default true, boolean; default true)
 
 This rule is triggered when there are lines that are longer than the
 configured line length (default: 80 characters). To fix this, split the line
@@ -382,8 +382,11 @@ This rule has an exception where there is no whitespace beyond the configured
 line length. This allows you to still include items such as long URLs without
 being forced to break them in the middle.
 
-You also have the option to exclude this rule for code blocks and tables. To
-do this, set the `code_blocks` and/or `tables` parameters to false.
+You also have the option to exclude this rule for code blocks. To
+do this, set the `ignore_code_blocks` parameter to true. To exclude this rule
+for tables set the `tables` parameters to false.  Setting the parameter
+`code_blocks` to false to exclude the rule for code blocks is deprecated and
+will be removed in a future release.
 
 Code blocks are included in this rule by default since it is often a
 requirement for document readability, and tentatively compatible with code
