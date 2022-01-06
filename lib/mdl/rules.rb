@@ -1,3 +1,9 @@
+docs do |id, description|
+  url_hash = [id.downcase,
+              description.downcase.gsub(/[^a-z]+/, '-')].join('---')
+  "https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md##{url_hash}"
+end
+
 rule 'MD001', 'Header levels should only increment by one level at a time' do
   tags :headers
   aliases 'header-increment'

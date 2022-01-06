@@ -78,6 +78,7 @@ module MarkdownLint
 
     status = 0
     results = []
+    docs_to_print = []
     cli.cli_arguments.each do |filename|
       puts "Checking #{filename}..." if Config[:verbose]
       doc = Doc.new_from_file(filename, Config[:ignore_front_matter])
@@ -103,13 +104,16 @@ module MarkdownLint
               'rule' => id,
               'aliases' => rule.aliases,
               'description' => rule.description,
+              'docs' => rule.docs_url,
             }
-          elsif Config[:show_aliases]
-            puts "#{filename}:#{line}: #{rule.aliases.first || id} " +
-                 rule.description.to_s
           else
-            puts "#{filename}:#{line}: #{id} #{rule.description}"
+            linked_id = linkify(printable_id(rule), rule.docs_url)
+            puts "#{filename}:#{line}: #{linked_id} " + rule.description.to_s
           end
+        end
+
+        if !$stdout.tty? && !Config[:json] && !docs_to_print.include?(rule)
+          docs_to_print << rule
         end
       end
     end
@@ -117,10 +121,25 @@ module MarkdownLint
     if Config[:json]
       require 'json'
       puts JSON.generate(results)
-    elsif status != 0
-      puts "\nA detailed description of the rules is available at " +
-           'https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md'
+    elsif docs_to_print.any?
+      puts "\nFurther documentation is available for these failures:"
+      docs_to_print.each do |rule|
+        puts " - #{printable_id(rule)}: #{rule.docs_url}"
+      end
     end
     exit status
+  end
+
+  def self.printable_id(rule)
+    return rule.aliases.first if Config[:show_aliases] && rule.aliases.any?
+
+    rule.id
+  end
+
+  # Creates hyperlinks in terminal emulators, if available: https://gist.github.com/egmontkob/eb114294efbcd5adb1944c9f3cb5feda
+  def self.linkify(text, url)
+    return text unless $stdout.tty? && url
+
+    "\e]8;;#{url}\e\\#{text}\e]8;;\e\\"
   end
 end
