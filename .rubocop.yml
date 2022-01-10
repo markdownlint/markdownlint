@@ -60,6 +60,9 @@ Style/OptionalBooleanParameter:
 Style/StringConcatenation:
   Enabled: false
 
+Style/Lambda:
+  EnforcedStyle: lambda
+
 # we do this a lot. it's very rubyish
 Style/MultilineBlockChain:
   Enabled: false

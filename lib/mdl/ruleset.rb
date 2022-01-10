@@ -7,6 +7,7 @@ module MarkdownLint
       @id = id
       @description = description
       @generate_docs = fallback_docs
+      @docs_overridden = false
       @aliases = []
       @tags = []
       @params = {}
@@ -34,7 +35,10 @@ module MarkdownLint
     end
 
     def docs(url)
-      @generate_docs = ->(_, _) { url }
+      raise 'A docs url is already set within this rule' if @docs_overridden
+
+      @generate_docs = lambda { |_, _| url }
+      @docs_overridden = true
     end
 
     def docs_url
@@ -61,7 +65,11 @@ module MarkdownLint
     end
 
     def docs(url = nil, &block)
-      @fallback_docs = block_given? ? block : ->(_, _) { url }
+      if block_given? && !url.nil?
+        raise ArgumentError, 'Give either a URL or a block, not both'
+      end
+
+      @fallback_docs = block_given? ? block : lambda { |_, _| url }
     end
 
     def load_default
