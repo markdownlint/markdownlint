@@ -1075,6 +1075,8 @@ To fix this, add a language specifier to the code block:
     echo Hello world
     ```
 
+If no specific language is used, you can specify `text` as language.
+
 ## MD041 - First line in file should be a top level header
 
 Tags: headers
