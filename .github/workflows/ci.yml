@@ -30,6 +30,6 @@ jobs:
     - name: Install dependencies
       run: bundle install
     - name: Run rubocop
-      run: ./scripts/run_rubocop.sh
+      run: bundle exec rubocop
     - name: Run tests
       run: bundle exec rake
