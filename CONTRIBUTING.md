@@ -72,8 +72,8 @@ promote this, we require that all pull requests to meet these specifications:
   regressions, we require tests for all new/changed functionality in
   Markdownlint. Test positive and negative scenarios, try to break the new code
   now.
-* **Green CI Tests:** We use [Travis
-  CI](https://travis-ci.org/markdownlint/markdownlint) to test all pull
+* **Green CI Tests:** We use [GitHub
+  Actions](https://github.com/markdownlint/markdownlint/actions) to test all pull
   requests. We require these test runs to succeed on every pull request before
   being merged.
 
