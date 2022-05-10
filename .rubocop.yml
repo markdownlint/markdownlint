@@ -7,16 +7,7 @@ AllCops:
 Layout/LineLength:
   Max: 80
 
-Metrics/AbcSize:
-  Enabled: false
-
-Metrics/MethodLength:
-  Enabled: false
-
-Metrics/ClassLength:
-  Enabled: false
-
-Metrics/BlockLength:
+Metrics:
   Enabled: false
 
 Style/FrozenStringLiteralComment:
@@ -43,15 +34,6 @@ Style/PercentLiteralDelimiters:
 Style/TrailingCommaInArguments:
   EnforcedStyleForMultiline: comma
 
-Metrics/PerceivedComplexity:
-  Enabled: false
-
-Metrics/CyclomaticComplexity:
-  Enabled: false
-
-Metrics/ModuleLength:
-  Enabled: false
-
 Style/OptionalBooleanParameter:
   Enabled: false
 
@@ -67,5 +49,3 @@ Style/MultilineBlockChain:
 Style/NumericPredicate:
   Enabled: false
 
-Metrics/BlockNesting:
-  Enabled: false
