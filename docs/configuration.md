@@ -115,8 +115,8 @@ rules. Here's a simple example that just points to a style file:
 style "#{File.dirname(__FILE__)}/{your_markdown_rule_file_path}.rb"
 ```
 
-As commented, this path is relative to .mdlrc file.  You can find a basic
-example of .mdlrc file [here](../example/.mdlrc_example).
+As commented, this path is relative to `.mdlrc` file. You can find a basic
+example of `.mdlrc` file [here](../example/.mdlrc_example).
 
 Then you should create your new [rule](creating_rules.md) or
 [style](creating_styles.md).
