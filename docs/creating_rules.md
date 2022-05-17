@@ -1,4 +1,32 @@
-# Creating Rules
+# Creating Rules and Rulesets
+
+If the rules provided in this project don't cover your stylistic needs then you
+can create a custom ruleset. A ruleset is a Ruby file that contains rules. Rules
+are small pieces of Ruby code; these are [described below](#rule-syntax).
+
+## Using custom rules
+
+When a custom ruleset has been created, the ruleset can be loaded using the
+configuration options described in [the configuration
+document](./configuration.md) and referred to in the style document.
+
+As a minimal example: if `foo.rb` is a custom ruleset in the same directory as
+`.mdlrc`, and if `foo.rb` contains the custom rules `BAR001` and `BAR002`, then
+these can be used by adding the following lines to `.mdlrc`
+
+```ruby
+rulesets ["#{File.dirname(__FILE__)}/foo.rb"]
+style "#{File.dirname(__FILE__)}/baz.rb"
+```
+
+where `baz.rb` is a style file that contains the contents
+
+```ruby
+rule "BAR001"
+rule "BAR002"
+```
+
+## Rule syntax
 
 Rules are written in ruby, using a rule DSL for defining rules. A rule looks
 like:
@@ -46,7 +74,7 @@ return a list of line numbers for any issues found. If no line numbers are
 found, you can either return an empty list, or nil, whichever is easiest for
 your check.
 
-## Document objects
+### Document objects
 
 The check takes a single parameter `doc`, which is an object containing a
 representation of the markdown document along with several helper functions
@@ -73,7 +101,7 @@ follows:
   this will return the line number for the element. You need to return the
   line number in the list of errors.
 
-## Element objects
+### Element objects
 
 The document contains an internal representation of the markdown document as
 parsed by kramdown. Kramdown's representation of the document is as a tree of

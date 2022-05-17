@@ -87,6 +87,14 @@ configured in a style file.
 For more information on creating style files, see the
 [creating styles](docs/creating_styles.md) document.
 
+### Custom rules and rulesets
+
+It may be that the rules provided in this project don't cover your stylistic
+needs. To account for this, markdownlint supports the creation and use of custom
+rules.
+
+For more information, see the [creating rules](docs/creating_rules.md) document.
+
 ## Related projects
 
 - [markdownlint](https://github.com/DavidAnson/markdownlint) and
