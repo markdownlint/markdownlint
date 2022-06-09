@@ -719,6 +719,8 @@ Aliases: ol-prefix
 
 Parameters: style (`:one`, `:ordered`; default `:one`)
 
+Usage: `rule 'MD029', :style => 'ordered'`
+
 This rule is triggered on ordered lists that do not either start with '1.' or
 do not have a prefix that increases in numerical order (depending on the
 configured style, which defaults to 'one').
