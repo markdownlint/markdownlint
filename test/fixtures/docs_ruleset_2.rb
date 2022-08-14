@@ -19,6 +19,19 @@ rule 'MY005', 'Documents must start with D' do
   end
 end
 
+rule 'MY007', 'Documents must start with F' do
+  tags :opinionated
+
+  docs do |id, description|
+    hash = description.downcase.gsub(/[^a-z]+/, '-')
+    "https://example.com/dynamic-override/#{id}##{hash}"
+  end
+
+  check do |doc|
+    [1] if doc.lines[0] != 'F'
+  end
+end
+
 docs 'https://example.com/later-declaration'
 
 rule 'MY006', 'Documents must start with E' do

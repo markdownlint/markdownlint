@@ -280,6 +280,7 @@ class TestCli < Minitest::Test
       (stdin):1: MY004 Documents must start with C
       (stdin):1: MY005 Documents must start with D
       (stdin):1: MY006 Documents must start with E
+      (stdin):1: MY007 Documents must start with F
 
       Further documentation is available for these failures:
        - MY002: https://example.com/static-docs
@@ -287,9 +288,10 @@ class TestCli < Minitest::Test
        - MY004: https://example.com/MY004#364fe83d86ba1cdcc2ea87aec2fc5ec0
        - MY005: https://example.com/override-docs
        - MY006: https://example.com/later-declaration
+       - MY007: https://example.com/dynamic-override/MY007#documents-must-start-with-f
     OUTPUT
 
-    assert_equal(result[:stdout], expected)
+    assert_equal(expected, result[:stdout])
   end
 
   private

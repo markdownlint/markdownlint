@@ -34,10 +34,14 @@ module MarkdownLint
       @params
     end
 
-    def docs(url)
+    def docs(url = nil, &block)
+      if block_given? != url.nil?
+        raise ArgumentError, 'Give either a URL or a block, not both'
+      end
+
       raise 'A docs url is already set within this rule' if @docs_overridden
 
-      @generate_docs = lambda { |_, _| url }
+      @generate_docs = block_given? ? block : lambda { |_, _| url }
       @docs_overridden = true
     end
 
@@ -65,7 +69,7 @@ module MarkdownLint
     end
 
     def docs(url = nil, &block)
-      if block_given? && !url.nil?
+      if block_given? != url.nil?
         raise ArgumentError, 'Give either a URL or a block, not both'
       end
 
