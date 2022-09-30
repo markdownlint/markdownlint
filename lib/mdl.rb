@@ -81,6 +81,12 @@ module MarkdownLint
     docs_to_print = []
     cli.cli_arguments.each do |filename|
       puts "Checking #{filename}..." if Config[:verbose]
+      unless filename == '-' || File.exist?(filename)
+        warn(
+          "#{Errno::ENOENT}: No such file or directory - #{filename}",
+        )
+        exit 3
+      end
       doc = Doc.new_from_file(filename, Config[:ignore_front_matter])
       filename = '(stdin)' if filename == '-'
       if Config[:show_kramdown_warnings]

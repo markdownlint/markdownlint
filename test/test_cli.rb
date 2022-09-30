@@ -294,6 +294,29 @@ class TestCli < Minitest::Test
     assert_equal(expected, result[:stdout])
   end
 
+  def test_graceful_not_found
+    file_path = 'a/file/that/does/not/exist.md'
+    dir_path = 'a/folder/that/does/not/exist'
+
+    file_result = run_cli(file_path)
+    dir_result = run_cli(dir_path)
+
+    file_expected = "Errno::ENOENT: No such file or directory - #{file_path}\n"
+    dir_expected = "Errno::ENOENT: No such file or directory - #{dir_path}\n"
+
+    # No stdout
+    assert_equal('', file_result[:stdout])
+    assert_equal('', dir_result[:stdout])
+
+    # Statuses are 3
+    assert_equal(3, file_result[:status])
+    assert_equal(3, dir_result[:status])
+
+    # Check error message is expected
+    assert_equal(file_expected, file_result[:stderr])
+    assert_equal(dir_expected, dir_result[:stderr])
+  end
+
   private
 
   def run_cli_with_input(args, stdin)
