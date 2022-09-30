@@ -23,6 +23,7 @@ class TestCli < Minitest::Test
     assert_equal('', result[:stderr])
     d = JSON.parse(result[:stdout])
     assert_match(d[0]['rule'], 'MD002')
+    assert_match(d[0]['docs'], 'https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md#md002---first-header-should-be-a-top-level-header')
   end
 
   def test_default_ruleset_loading
@@ -202,7 +203,7 @@ class TestCli < Minitest::Test
     )
     result = run_cli(path.to_s)
     lines_output = result[:stdout].lines
-    interested_lines = lines_output[0..(lines_output.count - 3)]
+    interested_lines = lines_output[0...lines_output.index("\n")]
     files_with_issues = interested_lines.map { |l| l.split(':')[0] }.sort
     assert_equal(files_with_issues, ["#{path}/bar.markdown", "#{path}/foo.md"])
   end
@@ -218,7 +219,8 @@ class TestCli < Minitest::Test
       #{path}/jekyll_post.md:16: MD001 Header levels should only increment by one level at a time
       #{path}/jekyll_post_2.md:16: MD001 Header levels should only increment by one level at a time
 
-      A detailed description of the rules is available at https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md
+      Further documentation is available for these failures:
+       - MD001: https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md#md001---header-levels-should-only-increment-by-one-level-at-a-time
     OUTPUT
 
     assert_equal(result[:stdout], expected)
@@ -237,10 +239,70 @@ class TestCli < Minitest::Test
     assert_equal(result[:stdout], '')
   end
 
+  def test_printing_url_links_in_tty
+    result = run_cli_as_tty('-r MD002', "## header2\n")
+
+    link_text = 'MD002'
+    url = 'https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md#md002---first-header-should-be-a-top-level-header'
+    expected_link = "\e]8;;#{url}\e\\#{link_text}\e]8;;\e\\"
+
+    expected = <<~OUTPUT
+      (stdin):1: #{expected_link} First header should be a top level header
+    OUTPUT
+
+    assert_equal(result[:stdout], expected)
+  end
+
+  def test_printing_url_links_outside_tty
+    result = run_cli_with_input('-r MD002', "## header2\n")
+
+    url = 'https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md#md002---first-header-should-be-a-top-level-header'
+
+    expected = <<~OUTPUT
+      (stdin):1: MD002 First header should be a top level header
+
+      Further documentation is available for these failures:
+       - MD002: #{url}
+    OUTPUT
+
+    assert_equal(result[:stdout], expected)
+  end
+
+  def test_docs_declaration
+    ruleset1 = File.expand_path('./fixtures/docs_ruleset_1.rb', __dir__)
+    ruleset2 = File.expand_path('./fixtures/docs_ruleset_2.rb', __dir__)
+
+    result = run_cli_with_input("-d -u #{ruleset1},#{ruleset2}", "!\n")
+
+    expected = <<~OUTPUT
+      (stdin):1: MY002 Documents must start with A
+      (stdin):1: MY003 Documents must start with B
+      (stdin):1: MY004 Documents must start with C
+      (stdin):1: MY005 Documents must start with D
+      (stdin):1: MY006 Documents must start with E
+      (stdin):1: MY007 Documents must start with F
+
+      Further documentation is available for these failures:
+       - MY002: https://example.com/static-docs
+       - MY003: https://example.com/override-docs
+       - MY004: https://example.com/MY004#364fe83d86ba1cdcc2ea87aec2fc5ec0
+       - MY005: https://example.com/override-docs
+       - MY006: https://example.com/later-declaration
+       - MY007: https://example.com/dynamic-override/MY007#documents-must-start-with-f
+    OUTPUT
+
+    assert_equal(expected, result[:stdout])
+  end
+
   private
 
   def run_cli_with_input(args, stdin)
     run_cmd("#{mdl_script} -c #{default_rc_file} #{args}", stdin)
+  end
+
+  def run_cli_as_tty(args, stdin)
+    fake_tty = File.expand_path('./fixtures/fake_tty.rb', __dir__)
+    run_cmd("#{mdl_script} -c #{default_rc_file} -u #{fake_tty} #{args}", stdin)
   end
 
   def run_cli_without_rc_flag(args)
