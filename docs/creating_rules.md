@@ -62,8 +62,9 @@ You can optionally provide a URL with more context on this rule and why it
 exists. `markdownlint` links to this URL when this rule fails, which can help
 the people receiving a failure understand how to fix it. Docs URLs can also be
 specified once for many rules in a ruleset, the built-in rules
-[use this feature][1] to set a URL dynamically using the rule id and/or
-description.
+[use this feature](
+https://github.com/markdownlint/markdownlint/blob/81e99c03f1f096aa200011ff7a1043a6f81167e7/lib/mdl/rules.rb#L1-L5
+) to set a URL dynamically using the rule id and/or description.
 
 You can also specify aliases for the rule, which can be used to refer to the
 rule with a human-readable name rather than MD000. To do this, add then with
@@ -126,5 +127,3 @@ parsed by kramdown. Kramdown's representation of the document is as a tree of
    * `:element_level` - A value filled in by markdownlint to denote the nesting
      level of the element, i.e. how deep in the tree is it.
    * Other options that are element type specific.
-
-[1]: https://github.com/markdownlint/markdownlint/blob/81e99c03f1f096aa200011ff7a1043a6f81167e7/lib/mdl/rules.rb#L1-L5 "Example code of dynamically generated docs URLs"
