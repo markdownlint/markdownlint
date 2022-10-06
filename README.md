@@ -1,3 +1,5 @@
+This is a test
+
 # Markdown lint tool
 
 [![Continuous Integration](https://github.com/markdownlint/markdownlint/workflows/Continuous%20Integration/badge.svg)](https://github.com/markdownlint/markdownlint/actions?query=workflow%3A%22Continuous+Integration%22)
