@@ -1,4 +1,4 @@
-FROM alpine:3.11.3
+FROM alpine:3.16.2
 # Standard library gems used by markdownlint, such as 'etc' and 'json', are
 # not installed by default in Alpine Linux distros, since the current policy
 # is to have small packages with extra functionality (standard library
