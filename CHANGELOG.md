@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+## [v0.12.0] (2022-10-17)
+
+### Rules Added
+
+* MD047 - File should end with a blank line
+
+### Added
+
+* New 'docs' method on rules to provide a URL and longer description
+* `docker_image`-based pre-commit
+
 ### Changed
 
 * Changed the default for MD007 to 3 spaces to match minimum spaces for ordered lists
@@ -11,6 +22,14 @@
   code blocks will be ignored. The option `:code_blocks` has been marked as
   deprecated in the documentation. If `:code_blocks` is set to false in the
   configuration, a deprecation warning is printed.
+* Improved documentation on custom rules and rulesets
+* Handle non-printable characters gracefully
+* Support configurable sublist styles for MD004
+
+### Fixed
+
+* Fixed directory argument with `--git-recurse`
+* Preserve empty lines at the end of a file
 
 ## [v0.11.0] (2020-08-22)
 
@@ -262,7 +281,8 @@
 * MD030 - Spaces after list markers
 
 [Unreleased]: https://github.com/markdownlint/markdownlint/tree/master
-[v0.11.0]: https://github.com/markdownlint/markdownlint/tree/v0.10.0
+[v0.12.0]: https://github.com/markdownlint/markdownlint/tree/v0.12.0
+[v0.11.0]: https://github.com/markdownlint/markdownlint/tree/v0.11.0
 [v0.10.0]: https://github.com/markdownlint/markdownlint/tree/v0.10.0
 [v0.9.0]: https://github.com/markdownlint/markdownlint/tree/v0.9.0
 [v0.8.0]: https://github.com/markdownlint/markdownlint/tree/v0.8.0
