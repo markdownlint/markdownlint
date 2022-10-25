@@ -11,7 +11,7 @@ Markdownlint is packaged in some distributions as well as distributed via
 RubyGems. Check the list below to see if it's packaged for your distribution,
 and if so, feel free to use your distros package manager to install it.
 
-[![Packaging status](https://repology.org/badge/vertical-allrepos/mdl.svg)](https://repology.org/project/mdl/versions)
+[![Packaging status](https://repology.org/badge/vertical-allrepos/mdl-markdownlint.svg)](https://repology.org/project/mdl-markdownlint/versions)
 
 To install from rubygems, run:
 
@@ -99,9 +99,12 @@ For more information, see the [creating rules](docs/creating_rules.md) document.
 
 ## Related projects
 
-- [markdownlint](https://github.com/DavidAnson/markdownlint) and
-  [markdownlint-cli](https://github.com/igorshubovych/markdownlint-cli) for
-  Node.js
+- [markdownlint](https://github.com/DavidAnson/markdownlint) - A similar
+  project, but limited in Node.js
+- [markdownlint-cli](https://github.com/igorshubovych/markdownlint-cli) - A CLI
+  for the above Node.js project
+- [markdownlint-cli2](https://github.com/DavidAnson/markdownlint-cli2) - An
+  alternative CLI for the Node.js project
 
 ## Contributing
 
