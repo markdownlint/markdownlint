@@ -1183,7 +1183,7 @@ backticks:
 To fix this, remove the spaces inside the codespan markers:
 
 ```markdown
-    `some text`
+`some text`
 ```
 
 ## MD039 - Spaces inside link text
