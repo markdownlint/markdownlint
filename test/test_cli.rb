@@ -3,8 +3,12 @@ require 'open3'
 require 'set'
 require 'fileutils'
 require 'json'
+require 'rexml/document'
+require 'nokogiri'
 
 class TestCli < Minitest::Test
+  include REXML
+
   def test_help_text
     result = run_cli('--help')
     assert_match(/Usage: \S+ \[options\]/, result[:stdout])
@@ -24,6 +28,24 @@ class TestCli < Minitest::Test
     d = JSON.parse(result[:stdout])
     assert_match(d[0]['rule'], 'MD002')
     assert_match(d[0]['docs'], 'https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md#md002---first-header-should-be-a-top-level-header')
+  end
+
+  def test_checkstyle_output
+    result = run_cli_with_input('-C', "# header\n")
+    assert_ran_ok(result)
+    empty_checkstyle_result = fixture_rc('checkstyle/no_errors.xml')
+    xml = Document.new(File.new(empty_checkstyle_result).read)
+    xml.write(formatted_xml = '', 2)
+    assert_equal(formatted_xml.chomp.strip, result[:stdout].chomp.strip)
+  end
+
+  def test_checkstyle_output_with_matches
+    result = run_cli_with_input('-C -r MD002', "## header2\n")
+    assert_equal(1, result[:status])
+    assert_equal('', result[:stderr])
+    d = Nokogiri::XML(result[:stdout])
+    assert_includes(d.at('error')['source'], 'md002')
+    assert_match(d.at('error')['source'], 'https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md#md002---first-header-should-be-a-top-level-header')
   end
 
   def test_default_ruleset_loading

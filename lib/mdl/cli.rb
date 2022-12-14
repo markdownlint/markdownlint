@@ -107,6 +107,12 @@ module MarkdownLint
            :description => 'JSON output',
            :boolean => true
 
+    option :checkstyle,
+           :short => '-C',
+           :long => '--checkstyle',
+           :description => 'Checkstyle output',
+           :boolean => true
+
     def run(argv = ARGV)
       parse_options(argv)
 

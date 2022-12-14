@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+* Checkstyle formatter/output
+
 ## [v0.12.0] (2022-10-17)
 
 ### Rules Added

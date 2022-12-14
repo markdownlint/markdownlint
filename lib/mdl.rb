@@ -95,6 +95,8 @@ module MarkdownLint
           puts "#{filename}: Kramdown Warning: #{w}"
         end
       end
+
+      results_by_filename = []
       rules.sort.each do |id, rule|
         puts "Processing rule #{id}" if Config[:verbose]
         error_lines = rule.check.call(doc)
@@ -112,6 +114,10 @@ module MarkdownLint
               'description' => rule.description,
               'docs' => rule.docs_url,
             }
+          elsif Config[:checkstyle]
+            results_by_filename << <<~HEREDOC
+              <error line="#{line}" severity="error" message="#{rule.description}" source="#{rule.docs_url}" />
+            HEREDOC
           else
             linked_id = linkify(printable_id(rule), rule.docs_url)
             puts "#{filename}:#{line}: #{linked_id} " + rule.description.to_s
@@ -127,11 +133,28 @@ module MarkdownLint
           docs_to_print << rule
         end
       end
+
+      next unless Config[:checkstyle]
+
+      results << add_errors_to_file_name_xml_node(
+        filename,
+        results_by_filename.join,
+      )
     end
 
     if Config[:json]
       require 'json'
       puts JSON.generate(results)
+    elsif Config[:checkstyle]
+      require 'rexml/document'
+      include REXML
+
+      results = add_file_name_nodes_to_checkstyle_node(results.join)
+
+      xml = Document.new(results)
+      xml.write(formatted_xml = '', 2)
+
+      puts formatted_xml.chomp
     elsif docs_to_print.any?
       puts "\nFurther documentation is available for these failures:"
       docs_to_print.each do |rule|
@@ -152,5 +175,22 @@ module MarkdownLint
     return text unless $stdout.tty? && url
 
     "\e]8;;#{url}\e\\#{text}\e]8;;\e\\"
+  end
+
+  def self.add_errors_to_file_name_xml_node(filename, errors)
+    <<~HEREDOC
+      <file name="#{filename}">
+        #{errors}
+      </file>
+    HEREDOC
+  end
+
+  def self.add_file_name_nodes_to_checkstyle_node(file_name_nodes)
+    <<~HEREDOC
+      <?xml version="1.0" encoding="UTF-8"?> 
+      <checkstyle version="10.5.0">
+        #{file_name_nodes}
+      </checkstyle>
+    HEREDOC
   end
 end
