@@ -13,7 +13,6 @@ have a discussion, and assuming there are no objections, you'll be added.
 * [Phil Dibowitz](https://github.com/jaymzh)
 * [Naomi Reeves](https://github.com/NaomiReeves)
 * [Bryan Wann](https://github.com/bwann)
-* [David Anson](https://github.com/DavidAnson)
 
 ## Past Maintainers
 
