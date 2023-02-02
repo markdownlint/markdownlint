@@ -1,7 +1,7 @@
 # Rolling a new release
 
 Bump the version. Markdownlint uses semantic versioning. From
-<http://semver.org/>:
+<https://semver.org/>:
 
 * Major version for backwards-incompatible changes
 * Minor version for functionality added in a backwards-compatible manner
