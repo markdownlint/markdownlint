@@ -34,20 +34,20 @@ process for contributions:
 1. Open an issue on the [project
    repository](https://github.com/markdownlint/markdownlint/issues), if
    appropriate
-2. If you're adding or making changes to rules, read the [Development
+1. If you're adding or making changes to rules, read the [Development
    docs](#local-development)
-3. Follow the [forking workflow](https://guides.github.com/activities/forking/)
+1. Follow the [forking workflow](https://guides.github.com/activities/forking/)
    steps:
    1. Fork the project ( <https://github.com/markdownlint/markdownlint/fork> )
-   2. Create your feature branch (`git checkout -b my-new-feature`)
-   3. Commit your changes (`git commit -am 'Add some feature'`)
-   4. Push to the branch (`git push origin my-new-feature`)
-4. Create a [GitHub Pull
+   1. Create your feature branch (`git checkout -b my-new-feature`)
+   1. Commit your changes (`git commit -am 'Add some feature'`)
+   1. Push to the branch (`git push origin my-new-feature`)
+1. Create a [GitHub Pull
    Request](https://help.github.com/articles/about-pull-requests/) for your
    change, following all [pull request
    requirements](#pull-request-requirements) and any instructions in the pull
    request template
-5. Participate in a [Code Review](#code-review-process) with the project
+1. Participate in a [Code Review](#code-review-process) with the project
    maintainers on the pull request
 
 ### Your First Code Contribution
@@ -90,7 +90,7 @@ this point is as follows:
 1. A review is required from at least one of the project maintainers. See the
    master maintainers document for Markdownlint project at
    <https://github.com/markdownlint/markdownlint/blob/master/MAINTAINERS.md>.
-2. Your change will be merged into the project's `master` branch, and all
+1. Your change will be merged into the project's `master` branch, and all
    [commits will be
    squashed](https://help.github.com/en/articles/about-pull-request-merges#squash-and-merge-your-pull-request-commits)
    during the merge.
