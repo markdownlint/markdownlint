@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email = ['mark@mivok.net']
   spec.summary = 'Markdown lint tool'
   spec.description = 'Style checker/lint tool for markdown files'
-  spec.homepage = 'http://github.com/markdownlint/markdownlint'
+  spec.homepage = 'https://github.com/markdownlint/markdownlint'
   spec.license = 'MIT'
   spec.metadata['rubygems_mfa_required'] = 'true'
 

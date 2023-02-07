@@ -38,7 +38,7 @@ process for contributions:
    docs](#local-development)
 1. Follow the [forking workflow](https://guides.github.com/activities/forking/)
    steps:
-   1. Fork the project ( <http://github.com/markdownlint/markdownlint/fork> )
+   1. Fork the project ( <https://github.com/markdownlint/markdownlint/fork> )
    1. Create your feature branch (`git checkout -b my-new-feature`)
    1. Commit your changes (`git commit -am 'Add some feature'`)
    1. Push to the branch (`git push origin my-new-feature`)
@@ -104,7 +104,7 @@ Cycles](#release-cycles).
 We release Markdownlint as a gem to [Rubygems](https://rubygems.org/gems/mdl)
 and maintain a [Dockerfile](https://hub.docker.com/r/mivok/markdownlint)
 
-Markdownlint follows the [Semantic Versioning](http://semver.org/) standard.
+Markdownlint follows the [Semantic Versioning](https://semver.org/) standard.
 Our standard version numbers look like `X.Y.Z` and translates to:
 
 * `X` is a major release: has changes that may be incompatible with prior major
