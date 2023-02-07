@@ -41,6 +41,7 @@ process for contributions:
    1. Fork the project ( <https://github.com/markdownlint/markdownlint/fork> )
    1. Create your feature branch (`git checkout -b my-new-feature`)
    1. Commit your changes (`git commit -am 'Add some feature'`)
+   1. Sign your changes (`git commit --ammend -s`)
    1. Push to the branch (`git push origin my-new-feature`)
 1. Create a [GitHub Pull
    Request](https://help.github.com/articles/about-pull-requests/) for your
