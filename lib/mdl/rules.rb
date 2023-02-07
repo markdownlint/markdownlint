@@ -33,7 +33,7 @@ end
 
 rule 'MD003', 'Header style' do
   # Header styles are things like ### and adding underscores
-  # See http://daringfireball.net/projects/markdown/syntax#header
+  # See https://daringfireball.net/projects/markdown/syntax#header
   tags :headers
   aliases 'header-style'
   # :style can be one of :consistent, :atx, :atx_closed, :setext
