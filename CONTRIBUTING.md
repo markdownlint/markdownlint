@@ -77,6 +77,15 @@ promote this, we require that all pull requests to meet these specifications:
   Actions](https://github.com/markdownlint/markdownlint/actions) to test all pull
   requests. We require these test runs to succeed on every pull request before
   being merged.
+* **Signed Commits:**  With [Developer Certificates of
+  Origin](https://en.wikipedia.org/wiki/Developer_Certificate_of_Origin), we
+  want to ascertain your contribution rightfully may enter the project. GitHub
+  hence [automatically checks](https://github.com/apps/dco) your PR in line as
+  one prerequisite for a merge. For additional context, see e.g. the discussion
+  on
+  [stackoverflow](https://stackoverflow.com/questions/1962094/what-is-the-sign-off-feature-in-git-for)
+  or the reasoning on
+  [ProgressChef](https://www.chef.io/blog/introducing-developer-certificate-of-origin).
 
 ### Code Review Process
 
