@@ -1001,6 +1001,8 @@ Tags: html
 
 Aliases: no-inline-html
 
+Parameters: allowed_elements (string; default `''`)
+
 This rule is triggered whenever raw HTML is used in a markdown document:
 
 ```markdown
@@ -1011,6 +1013,12 @@ To fix this, use 'pure' markdown instead of including raw HTML:
 
 ```markdown
 # Markdown header
+```
+
+Note: To allow specific HTML elements, use the `allowed_elements` parameter:
+
+```ruby
+rule 'MD033', :allowed_elements => 'br, p'
 ```
 
 Rationale: Raw HTML is allowed in markdown, but this rule is included for
@@ -1312,4 +1320,3 @@ This file ends with a newline.
 Rationale: Some programs have trouble with files that do not end with a newline.
 More information:
 <https://unix.stackexchange.com/questions/18743/whats-the-point-in-adding-a-new-line-to-the-end-of-a-file>.
-

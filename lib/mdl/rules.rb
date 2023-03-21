@@ -619,8 +619,14 @@ end
 rule 'MD033', 'Inline HTML' do
   tags :html
   aliases 'no-inline-html'
+  params :allowed_elements => ''
   check do |doc|
     doc.element_linenumbers(doc.find_type(:html_element))
+    allowed = params[:allowed_elements].delete(" \t\r\n").downcase.split(',')
+    errors = doc.find_type_elements(:html_element).reject do |e|
+      allowed.include?(e.value)
+    end
+    doc.element_linenumbers(errors)
   end
 end
 
