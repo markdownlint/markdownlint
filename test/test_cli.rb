@@ -14,16 +14,14 @@ class TestCli < Minitest::Test
   def test_json_output
     result = run_cli_with_input('-j', "# header\n")
     assert_ran_ok(result)
-    assert_equal("[]\n", result[:stdout])
+    assert_equal(File.read('test/fixtures/output/json/without_matches.json'), result[:stdout])
   end
 
   def test_json_output_with_matches
     result = run_cli_with_input('-j -r MD002', "## header2\n")
     assert_equal(1, result[:status])
     assert_equal('', result[:stderr])
-    d = JSON.parse(result[:stdout])
-    assert_match(d[0]['rule'], 'MD002')
-    assert_match(d[0]['docs'], 'https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md#md002---first-header-should-be-a-top-level-header')
+    assert_equal(File.read('test/fixtures/output/json/with_matches.json'), result[:stdout])
   end
 
   def test_sarif_output
