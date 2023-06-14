@@ -1,3 +1,4 @@
+require_relative 'mdl/formatter/sarif'
 require_relative 'mdl/cli'
 require_relative 'mdl/config'
 require_relative 'mdl/doc'
@@ -134,8 +135,7 @@ module MarkdownLint
       require 'json'
       puts JSON.generate(results)
     elsif Config[:sarif]
-      require 'json'
-      puts JSON.generate(generate_sarif(rules, results))
+      puts SarifFormatter.generate(rules, results)
     elsif docs_to_print.any?
       puts "\nFurther documentation is available for these failures:"
       docs_to_print.each do |rule|
@@ -156,69 +156,5 @@ module MarkdownLint
     return text unless $stdout.tty? && url
 
     "\e]8;;#{url}\e\\#{text}\e]8;;\e\\"
-  end
-
-  def self.generate_sarif(rules, results)
-    {
-      :'$schema' => 'https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json',
-      :version => '2.1.0',
-      :runs => [
-        {
-          :tool => {
-            :driver => {
-              :name => 'Markdown lint',
-              :version => MarkdownLint::VERSION,
-              :informationUri => 'https://github.com/markdownlint/markdownlint',
-              :rules => generate_sarif_rules(rules),
-            },
-          },
-          :results => generate_sarif_results(rules, results),
-        }
-      ],
-    }
-  end
-
-  def self.generate_sarif_rules(rules)
-    rules.map do |id, rule|
-      {
-        :id => id,
-        :name => rule.aliases.first.split('-').map(&:capitalize).join,
-        :defaultConfiguration => {
-          :level => 'note',
-        },
-        :shortDescription => {
-          :text => rule.description,
-        },
-        :fullDescription => {
-          :text => rule.description,
-        },
-        :helpUri => rule.docs_url,
-      }
-    end
-  end
-
-  def self.generate_sarif_results(rules, results)
-    results.map do |result|
-      {
-        :ruleId => result['rule'],
-        :ruleIndex => rules.find_index { |id, _| id == result['rule'] },
-        :message => {
-          :text => "#{result['rule']} - #{result['description']}",
-        },
-        :locations => [
-          {
-            :physicalLocation => {
-              :artifactLocation => {
-                :uri => result['filename'],
-                :uriBaseId => '%SRCROOT%',
-              },
-              :region => {
-                :startLine => result['line'],
-              },
-            },
-          }
-        ],
-      }
-    end
   end
 end
