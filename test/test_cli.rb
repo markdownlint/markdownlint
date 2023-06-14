@@ -26,6 +26,19 @@ class TestCli < Minitest::Test
     assert_match(d[0]['docs'], 'https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md#md002---first-header-should-be-a-top-level-header')
   end
 
+  def test_sarif_output
+    result = run_cli_with_input('-S', "# header\n")
+    assert_ran_ok(result)
+    assert_equal(File.read('test/fixtures/output/sarif/without_matches.sarif'), result[:stdout])
+  end
+
+  def test_sarif_output_with_matches
+    result = run_cli_with_input('-S -r MD002', "## header2\n")
+    assert_equal(1, result[:status])
+    assert_equal('', result[:stderr])
+    assert_equal(File.read('test/fixtures/output/sarif/with_matches.sarif'), result[:stdout])
+  end
+
   def test_default_ruleset_loading
     result = run_cli('-l')
     assert_ran_ok(result)
