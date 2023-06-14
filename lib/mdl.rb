@@ -103,7 +103,7 @@ module MarkdownLint
         status = 1
         error_lines.each do |line|
           line += doc.offset # Correct line numbers for any yaml front matter
-          if Config[:json]
+          if Config[:json] || Config[:sarif]
             results << {
               'filename' => filename,
               'line' => line,
@@ -118,12 +118,12 @@ module MarkdownLint
           end
         end
 
-        # If we're not in JSON mode (URLs are in the object), and we cannot
+        # If we're not in JSON or SARIF mode (URLs are in the object), and we cannot
         # make real links (checking if we have a TTY is an OK heuristic for
         # that) then, instead of making the output ugly with long URLs, we
         # print them at the end. And of course we only want to print each URL
         # once.
-        if !Config[:json] && !$stdout.tty? && !docs_to_print.include?(rule)
+        if !Config[:json] && !Config[:sarif] && !$stdout.tty? && !docs_to_print.include?(rule)
           docs_to_print << rule
         end
       end
@@ -132,6 +132,9 @@ module MarkdownLint
     if Config[:json]
       require 'json'
       puts JSON.generate(results)
+    elsif Config[:sarif]
+      require 'json'
+      puts JSON.generate(generate_sarif(rules, results))
     elsif docs_to_print.any?
       puts "\nFurther documentation is available for these failures:"
       docs_to_print.each do |rule|
@@ -152,5 +155,69 @@ module MarkdownLint
     return text unless $stdout.tty? && url
 
     "\e]8;;#{url}\e\\#{text}\e]8;;\e\\"
+  end
+
+  def self.generate_sarif(rules, results)
+    {
+      :'$schema' => 'https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json',
+      :version => '2.1.0',
+      :runs => [
+        {
+          :tool => {
+            :driver => {
+              :name => 'Markdown lint',
+              :version => MarkdownLint::VERSION,
+              :informationUri => 'https://github.com/markdownlint/markdownlint',
+              :rules => generate_sarif_rules(rules),
+            },
+          },
+          :results => generate_sarif_results(rules, results),
+        }
+      ],
+    }
+  end
+
+  def self.generate_sarif_rules(rules)
+    rules.map do |id, rule|
+      {
+        :id => id,
+        :name => rule.aliases.first.split('-').map(&:capitalize).join,
+        :defaultConfiguration => {
+          :level => 'note',
+        },
+        :shortDescription => {
+          :text => rule.description,
+        },
+        :fullDescription => {
+          :text => rule.description,
+        },
+        :helpUri => rule.docs_url,
+      }
+    end
+  end
+
+  def self.generate_sarif_results(rules, results)
+    results.map do |result|
+      {
+        :ruleId => result['rule'],
+        :ruleIndex => rules.find_index { |id, _| id == result['rule'] },
+        :message => {
+          :text => "#{result['rule']} - #{result['description']}",
+        },
+        :locations => [
+          {
+            :physicalLocation => {
+              :artifactLocation => {
+                :uri => result['filename'],
+                :uriBaseId => '%SRCROOT%',
+              },
+              :region => {
+                :startLine => result['line'],
+              },
+            },
+          }
+        ],
+      }
+    end
   end
 end

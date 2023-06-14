@@ -107,6 +107,12 @@ module MarkdownLint
            :description => 'JSON output',
            :boolean => true
 
+    option :sarif,
+           :short => '-S',
+           :long => '--sarif',
+           :description => 'SARIF output',
+           :boolean => true
+
     def run(argv = ARGV)
       parse_options(argv)
 
