@@ -118,12 +118,13 @@ module MarkdownLint
           end
         end
 
-        # If we're not in JSON or SARIF mode (URLs are in the object), and we cannot
-        # make real links (checking if we have a TTY is an OK heuristic for
-        # that) then, instead of making the output ugly with long URLs, we
+        # If we're not in JSON or SARIF mode (URLs are in the object), and we
+        # cannot make real links (checking if we have a TTY is an OK heuristic
+        # for that) then, instead of making the output ugly with long URLs, we
         # print them at the end. And of course we only want to print each URL
         # once.
-        if !Config[:json] && !Config[:sarif] && !$stdout.tty? && !docs_to_print.include?(rule)
+        if !Config[:json] && !Config[:sarif] &&
+           !$stdout.tty? && !docs_to_print.include?(rule)
           docs_to_print << rule
         end
       end
