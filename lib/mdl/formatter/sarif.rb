@@ -7,7 +7,9 @@ module MarkdownLint
   class SarifFormatter
     class << self
       def generate(rules, results)
-        JSON.generate(generate_sarif(rules, results))
+        matched_rules_id = results.map { |result| result['rule'] }.uniq
+        matched_rules = rules.select { |id, _| matched_rules_id.include?(id) }
+        JSON.generate(generate_sarif(matched_rules, results))
       end
 
       def generate_sarif(rules, results)
