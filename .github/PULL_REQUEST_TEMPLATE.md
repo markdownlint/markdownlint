@@ -3,7 +3,7 @@
 
 ## Related Issues
 <!--- If you are suggesting a new feature or change, please create an issue first -->
-<!--- Add a link to all corresponding Github issues here, using any [appropriate keywords](https://help.github.com/en/articles/closing-issues-using-keywords) as appropriate -->
+<!--- Add a link to all corresponding GitHub issues here, using any [appropriate keywords](https://help.github.com/en/articles/closing-issues-using-keywords) as appropriate -->
 
 ## Types of changes
 <!--- What types of changes does your code introduce? Put an `x` in all the boxes that apply: -->
