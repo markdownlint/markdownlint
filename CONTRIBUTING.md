@@ -18,7 +18,7 @@ spending time and effort writing code that might not get used.
 
 * Check that the issue has not already been reported
 * Check that the issue has not already been fixed in the latest code
-  (a.k.a. `master`)
+  (a.k.a. `main`)
 * Select the appropriate issue type and open an issue with a descriptive title
 * Be clear, concise, and precise using grammatically correct, complete sentences
   in your summary of the problem
@@ -98,9 +98,9 @@ respond to your pull request with any feedback they might have. The process at
 this point is as follows:
 
 1. A review is required from at least one of the project maintainers. See the
-   master maintainers document for Markdownlint project at
-   <https://github.com/markdownlint/markdownlint/blob/master/MAINTAINERS.md>.
-1. Your change will be merged into the project's `master` branch, and all
+   maintainers document for Markdownlint project at
+   <https://github.com/markdownlint/markdownlint/blob/main/MAINTAINERS.md>.
+1. Your change will be merged into the project's `main` branch, and all
    [commits will be
    squashed](https://help.github.com/en/articles/about-pull-request-merges#squash-and-merge-your-pull-request-commits)
    during the merge.

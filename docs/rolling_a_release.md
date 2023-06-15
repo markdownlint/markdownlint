@@ -9,7 +9,7 @@ Bump the version. Markdownlint uses semantic versioning. From
 * Exception: Versions < 1.0 may introduce backwards-incompatible changes in a
   minor version.
 
-To bump the version, edit `lib/mdl/version.rb` and commit to the master branch.
+To bump the version, edit `lib/mdl/version.rb` and commit to the main branch.
 
 Update the changelog:
 

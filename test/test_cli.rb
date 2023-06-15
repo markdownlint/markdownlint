@@ -235,7 +235,7 @@ class TestCli < Minitest::Test
       #{path}/jekyll_post_2.md:16: MD001 Header levels should only increment by one level at a time
 
       Further documentation is available for these failures:
-       - MD001: https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md#md001---header-levels-should-only-increment-by-one-level-at-a-time
+       - MD001: https://github.com/markdownlint/markdownlint/blob/main/docs/RULES.md#md001---header-levels-should-only-increment-by-one-level-at-a-time
     OUTPUT
 
     assert_equal(result[:stdout], expected)
@@ -258,7 +258,7 @@ class TestCli < Minitest::Test
     result = run_cli_as_tty('-r MD002', "## header2\n")
 
     link_text = 'MD002'
-    url = 'https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md#md002---first-header-should-be-a-top-level-header'
+    url = 'https://github.com/markdownlint/markdownlint/blob/main/docs/RULES.md#md002---first-header-should-be-a-top-level-header'
     expected_link = "\e]8;;#{url}\e\\#{link_text}\e]8;;\e\\"
 
     expected = <<~OUTPUT
@@ -271,7 +271,7 @@ class TestCli < Minitest::Test
   def test_printing_url_links_outside_tty
     result = run_cli_with_input('-r MD002', "## header2\n")
 
-    url = 'https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md#md002---first-header-should-be-a-top-level-header'
+    url = 'https://github.com/markdownlint/markdownlint/blob/main/docs/RULES.md#md002---first-header-should-be-a-top-level-header'
 
     expected = <<~OUTPUT
       (stdin):1: MD002 First header should be a top level header

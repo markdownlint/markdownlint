@@ -158,7 +158,7 @@
 ### Added
 
 * You can now load your own custom rules with the `-u` option. See
-  [rules.rb](https://github.com/markdownlint/markdownlint/blob/master/lib/mdl/rules.rb)
+  [rules.rb](https://github.com/markdownlint/markdownlint/blob/main/lib/mdl/rules.rb)
   for an example of what a rules file looks like. Use the `-d` option if you
   don't want to load markdownlint's default ruleset.
 * You can now refer to rules by human-readable/writable aliases, such as
@@ -280,7 +280,7 @@
 * MD029 - Ordered list item prefix
 * MD030 - Spaces after list markers
 
-[Unreleased]: https://github.com/markdownlint/markdownlint/tree/master
+[Unreleased]: https://github.com/markdownlint/markdownlint/tree/main
 [v0.12.0]: https://github.com/markdownlint/markdownlint/tree/v0.12.0
 [v0.11.0]: https://github.com/markdownlint/markdownlint/tree/v0.11.0
 [v0.10.0]: https://github.com/markdownlint/markdownlint/tree/v0.10.0
