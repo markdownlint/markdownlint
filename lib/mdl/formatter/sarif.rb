@@ -40,6 +40,11 @@ module MarkdownLint
             :defaultConfiguration => {
               :level => 'note',
             },
+            :properties => {
+              :description => rule.description,
+              :tags => rule.tags,
+              :queryURI => rule.docs_url,
+            },
             :shortDescription => {
               :text => rule.description,
             },
@@ -47,6 +52,10 @@ module MarkdownLint
               :text => rule.description,
             },
             :helpUri => rule.docs_url,
+            :help => {
+              :text => "More info: #{rule.docs_url}",
+              :markdown => "[More info](#{rule.docs_url})",
+            },
           }
         end
       end
