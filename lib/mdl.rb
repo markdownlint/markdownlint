@@ -1,4 +1,4 @@
-require_relative 'mdl/formatter/sarif'
+require_relative 'mdl/formatters/sarif'
 require_relative 'mdl/cli'
 require_relative 'mdl/config'
 require_relative 'mdl/doc'
