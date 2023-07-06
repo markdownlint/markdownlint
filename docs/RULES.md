@@ -280,20 +280,20 @@ Aliases: ul-indent
 Parameters: indent (number; default 3)
 
 This rule is triggered when list items are not indented by the configured
-number of spaces (default: 2).
+number of spaces (default: 3).
 
 Example:
 
 ```markdown
 * List item
-   * Nested list item indented by 3 spaces
+  * Nested list item indented by 2 spaces
 ```
 
 Corrected Example:
 
 ```markdown
 * List item
-  * Nested list item indented by 2 spaces
+   * Nested list item indented by 3 spaces
 ```
 
 Rationale (3 space indent): This matches the minimum possible indentation
