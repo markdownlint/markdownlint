@@ -161,7 +161,7 @@ end
 rule 'MD009', 'Trailing spaces' do
   tags :whitespace
   aliases 'no-trailing-spaces'
-  params :br_spaces => 0
+  params :br_spaces => 2
   check do |doc|
     errors = doc.matching_lines(/\s$/)
     if params[:br_spaces] > 1
