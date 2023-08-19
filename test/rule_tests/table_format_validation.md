@@ -69,10 +69,10 @@ Funnily, above table is not picked up by Kramdown. So, its errors are not detect
     | --- | --- |
     | Data | Data |
 
-{MD048:64}
-{MD048:66}
-{MD048:69}
-{MD048:70}
+{MD055:64}
+{MD055:66}
+{MD055:69}
+{MD055:70}
 
 ## Table rows have wrong number of columns
 
@@ -89,9 +89,9 @@ Funnily, above table is not picked up by Kramdown. So, its errors are not detect
 |-----|-----|
 |row|row|row|row|row|
 
-{MD048:81}
-{MD048:86}
-{MD048:90}
+{MD055:81}
+{MD055:86}
+{MD055:90}
 
 ## Rows do not start or end with pipe character
 
@@ -119,12 +119,12 @@ row|row|
 |-----|-----|
 row|row
 
-{MD048:98}
-{MD048:102}
-{MD048:107}
-{MD048:112}
-{MD048:116}
-{MD048:120}
+{MD055:98}
+{MD055:102}
+{MD055:107}
+{MD055:112}
+{MD055:116}
+{MD055:120}
 
 ## Second row has less than three dashes in some column
 
@@ -140,9 +140,9 @@ row|row
 | ------ | | ------ |
 | Col 1 | Col 2 | Col 3 |
 
-{MD048:132}
-{MD048:136}
-{MD048:140}
+{MD055:132}
+{MD055:136}
+{MD055:140}
 
 ## Second row has wrong use of colons
 
@@ -154,8 +154,8 @@ row|row
 | ------ | ----:: | ------ |
 | Col 1 | Col 2 | Col 3 |
 
-{MD048:150}
-{MD048:154}
+{MD055:150}
+{MD055:154}
 
 ## Second row has invalid characters
 
@@ -163,7 +163,7 @@ row|row
 | ---aa--- | ----bb----|
 | row 1 | row 1 |
 
-{MD048:163}
+{MD055:163}
 
 ## Second row has space inbetween dashes and/or colons
 
@@ -175,8 +175,8 @@ row|row
 | ------ | : ---- : | ------ |
 | Col 1 | Col 2 | Col 3 |
 
-{MD048:171}
-{MD048:175}
+{MD055:171}
+{MD055:175}
 
 ## Edge Cases
 
@@ -195,12 +195,12 @@ This weird line is also a table detected by Kramdown |
 
 |||||
 
-{MD048:188}
-{MD048:192}
-{MD048:193}
-{MD048:194}
-{MD048:195}
-{MD048:197}
+{MD055:188}
+{MD055:192}
+{MD055:193}
+{MD055:194}
+{MD055:195}
+{MD055:197}
 
 ## Table with only heading
 
@@ -208,8 +208,8 @@ This weird line is also a table detected by Kramdown |
 
 |two column heading|the next line is reported|
 
-{MD048:208}
-{MD048:210}
+{MD055:208}
+{MD055:210}
 
 ## Not a table
 

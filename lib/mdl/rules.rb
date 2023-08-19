@@ -797,7 +797,7 @@ rule 'MD047', 'File should end with a single newline character' do
   end
 end
 
-rule 'MD048', 'Tables should be well-formed' do
+rule 'MD055', 'Tables should be well-formed' do
   tags :tables
   aliases 'table-format-validation'
   check do |doc|
