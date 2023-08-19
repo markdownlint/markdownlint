@@ -796,3 +796,85 @@ rule 'MD047', 'File should end with a single newline character' do
     error_lines
   end
 end
+
+rule 'MD048', 'Tables should be well-formed' do
+  tags :tables
+  aliases 'table-format-validation'
+  check do |doc|
+    error_lines = []
+    tables = doc.find_type_elements(:table)
+    lines = doc.lines
+    num_lines = lines.length
+
+    tables.each do |table|
+      loc = table.options[:location]-1
+      header = lines[loc]
+
+      if header[0] != '|' || header[-1] != '|' || header.length == 1
+        # Tables should start and end with '|'
+        error_lines << (loc+1)
+      end
+
+      headings = header.strip().split('|').select{ |x| x.length > 0 }
+      num_headings = headings.length
+
+      if loc+1 < num_lines
+        # Second row should be in the form | ---- | ---- |
+        second_row = lines[loc+1]
+        columns = second_row.strip().split('|').select{ |x| x.length > 0 }
+        if num_headings != columns.length
+          # Number of headings do not match with the second row
+          error_lines << (loc+2)
+        end
+        
+        # This pattern matches if
+        #   1) The row starts and stops with | characters
+        #   2) Only consists of characters '|', '-', ':' and whitespace
+        #   3) Each section between the seperators (i.e. '|')
+        #      a) has at least three consecutive dashes
+        #      b) can have whitespace at the beginning or the end
+        #      c) can have colon before and/or after the dashes (for alignment purposes)
+        #   Some examples:
+        #       |-----|----|-------|      --> matches
+        #       |:---:|:---|-------|      --> matches
+        #       |  :------:  | ----|      --> matches
+        #       | - - - | - - - |         --> does NOT match
+        #       |::---|                   --> does NOT match
+        #       |----:|:--|----|          --> does NOT match
+        pattern = /^(\|\s*:?-{3,}:?\s*)+\|$/
+        unless second_row.match(pattern)
+          # Second row is not in the form described by the pattern
+          error_lines << (loc+2)
+        end
+
+        # Check next lines until the end of the table
+        line_num = loc+2
+        while second_row.strip() != '' && line_num < num_lines
+          line = lines[line_num]
+          stripped_line = line.strip()
+
+          # If the line has '|' character, it's "possibly" a table row
+          # because the previous line was also a table row
+          if line.include?('|')
+            columns = stripped_line.split('|').select{ |x| x.length > 0 }
+            if (line[0] != '|' || line[-1] != '|') || columns.length != num_headings
+              # the line does not start and stop with '|' OR 
+              # number of columns do not match number of headings
+              error_lines << (line_num+1)
+            end
+          else
+            # Table ends
+            break
+          end
+
+          line_num += 1
+        end
+      else
+        # Table without a second row 
+        error_lines << (loc+1)
+      end
+    end
+
+    error_lines.uniq.sort
+  end
+end
