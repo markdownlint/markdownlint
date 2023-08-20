@@ -48,6 +48,67 @@ module MarkdownLint
     def docs_url
       @generate_docs&.call(id, description)
     end
+
+    # This method calculates the number of columns in a table row
+    #
+    # @param [String] table_row A row of the table in question.
+    # @return [Numeric] Number of columns in the row
+    def number_of_columns_in_a_table_row(table_row)
+      columns = table_row.strip.split('|')
+
+      if columns.empty?
+        # The stripped line consists of zero or more pipe characters
+        # and nothing more.
+        #
+        # Examples of stripped rows:
+        #   '||' --> one column
+        #   '|||' --> two columns
+        #   '|' --> zero columns
+        [0, table_row.count('|') - 1].max
+      else
+        # Number of columns is the number of splited
+        # segments with pipe separator. The first segment
+        # is ignored when it's empty string because
+        # someting like '|1|2|' is split into ['', '1', '2']
+        # when using split('|') function.
+        #
+        # Some examples:
+        #   '|foo|bar|' --> two columns
+        #   '  |foo|bar|' --> two columns
+        #   '|foo|bar' --> two columns
+        #   'foo|bar' --> two columns
+        columns.size - (columns[0].empty? ? 1 : 0)
+      end
+    end
+
+    # This method returns all the rows of a table
+    #
+    # @param [Array<String>] lines Lines of a doc as an array
+    # @param [Numeric] pos Position/index of the table in the array
+    # @return [Array<String>] Rows of the table in an array
+    def get_table_rows(lines, pos)
+      table_rows = []
+      while pos < lines.length
+        line = lines[pos]
+
+        # If the previous line is a table and the current line
+        #   1) includes pipe character
+        #   2) does not start with code block identifiers
+        #     a) >= 4 spaces
+        #     b) < 4 spaces and ``` right after
+        #
+        # it is possibly a table row
+        unless !line.start_with?('    ') && !line.strip.start_with?('```') \
+            && line.include?('|')
+          break
+        end
+
+        table_rows << line
+        pos += 1
+      end
+
+      table_rows
+    end
   end
 
   # defines a ruleset

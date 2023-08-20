@@ -23,6 +23,10 @@ If there is a non-empty line just above the table, it won't be detected
 
 Funnily, above table is not picked up by Kramdown. So, its errors are not detected.
 
+|table not detected|
+```codeblock
+```
+
 ## Good Tables
 
 | A Good Table | A Good Table |
@@ -66,13 +70,13 @@ Funnily, above table is not picked up by Kramdown. So, its errors are not detect
 | Data | Row shouldn't end with space | 
 
 | Rows shouldn't start or end with space | Column |
-    | --- | --- |
-    | Data | Data |
+   | --- | --- |
+   | Data | Data |
 
-{MD055:64}
-{MD055:66}
-{MD055:69}
+{MD055:68}
 {MD055:70}
+{MD055:73}{MD057:73}
+{MD055:74}
 
 ## Table rows have wrong number of columns
 
@@ -89,9 +93,9 @@ Funnily, above table is not picked up by Kramdown. So, its errors are not detect
 |-----|-----|
 |row|row|row|row|row|
 
-{MD055:81}
-{MD055:86}
-{MD055:90}
+{MD056:85}
+{MD056:90}
+{MD056:94}
 
 ## Rows do not start or end with pipe character
 
@@ -119,12 +123,12 @@ row|row|
 |-----|-----|
 row|row
 
-{MD055:98}
 {MD055:102}
-{MD055:107}
-{MD055:112}
+{MD055:106}
+{MD055:111}{MD057:111}
 {MD055:116}
 {MD055:120}
+{MD055:124}
 
 ## Second row has less than three dashes in some column
 
@@ -140,9 +144,9 @@ row|row
 | ------ | | ------ |
 | Col 1 | Col 2 | Col 3 |
 
-{MD055:132}
-{MD055:136}
-{MD055:140}
+{MD057:136}
+{MD057:140}
+{MD057:144}
 
 ## Second row has wrong use of colons
 
@@ -154,8 +158,8 @@ row|row
 | ------ | ----:: | ------ |
 | Col 1 | Col 2 | Col 3 |
 
-{MD055:150}
-{MD055:154}
+{MD057:154}
+{MD057:158}
 
 ## Second row has invalid characters
 
@@ -163,7 +167,7 @@ row|row
 | ---aa--- | ----bb----|
 | row 1 | row 1 |
 
-{MD055:163}
+{MD057:167}
 
 ## Second row has space inbetween dashes and/or colons
 
@@ -175,8 +179,8 @@ row|row
 | ------ | : ---- : | ------ |
 | Col 1 | Col 2 | Col 3 |
 
-{MD055:171}
-{MD055:175}
+{MD057:175}
+{MD057:179}
 
 ## Edge Cases
 
@@ -195,12 +199,12 @@ This weird line is also a table detected by Kramdown |
 
 |||||
 
-{MD055:188}
-{MD055:192}
-{MD055:193}
-{MD055:194}
-{MD055:195}
-{MD055:197}
+{MD057:192}
+{MD055:196}
+{MD057:197}
+{MD055:198}
+{MD057:199}
+{MD057:201}
 
 ## Table with only heading
 
@@ -208,8 +212,8 @@ This weird line is also a table detected by Kramdown |
 
 |two column heading|the next line is reported|
 
-{MD055:208}
-{MD055:210}
+{MD057:212}
+{MD057:214}
 
 ## Not a table
 
@@ -226,3 +230,18 @@ This weird line is also a table detected by Kramdown |
 ## Table inside heading
 
 ### |This is not a table|
+
+## No second row exists because it's a code block
+
+|table|
+    |--------|
+|this line is in code block|another column won't be a problem|
+
+|table|
+```|------|```
+|this line isn't in code block, but it's not detected as table as well|col|
+|----|not detected|
+|data|not detected|
+
+{MD057:237}
+{MD057:241}
