@@ -98,8 +98,8 @@ module MarkdownLint
         #     b) < 4 spaces and ``` right after
         #
         # it is possibly a table row
-        unless !line.start_with?('    ') && !line.strip.start_with?('```') \
-            && line.include?('|')
+        unless line.include?('|') && !line.start_with?('    ') &&
+            !line.strip.start_with?('```')
           break
         end
 

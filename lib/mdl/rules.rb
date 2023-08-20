@@ -810,7 +810,7 @@ rule 'MD055', 'Table row doesn\'t begin/end with pipes' do
       table_rows = get_table_rows(lines, table_pos)
 
       table_rows.each_with_index do |line, index|
-        if line.length == 1 || line[0] != '|' || line[-1] != '|'
+        if line.length < 2 || line[0] != '|' || line[-1] != '|'
           error_lines << (table_pos + index + 1)
         end
       end
@@ -864,7 +864,7 @@ rule 'MD057', 'Table has missing or invalid header separation (second row)' do
       # This pattern matches if
       #   1) The row starts and stops with | characters
       #   2) Only consists of characters '|', '-', ':' and whitespace
-      #   3) Each section between the seperators (i.e. '|')
+      #   3) Each section between the separators (i.e. '|')
       #      a) has at least three consecutive dashes
       #      b) can have whitespace at the beginning or the end
       #      c) can have colon before and/or after dashes (for alignment)

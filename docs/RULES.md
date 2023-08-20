@@ -41,7 +41,7 @@
    * [MD047 - File should end with a single newline character](#md047---file-should-end-with-a-single-newline-character)
    * [MD055 - Table row doesn't begin/end with pipes](#md055---table-row-doesnt-begin-end-with-pipes)
    * [MD056 - Table has inconsistent number of columns](#md056---table-has-inconsistent-number-of-columns)
-   * [MD057 - Table has missing or invalid header seperation (second row)](#md057---table-has-missing-or-invalid-header-seperation)
+   * [MD057 - Table has missing or invalid header separation (second row)](#md057---table-has-missing-or-invalid-header-separation)
 
 # Rules
 
@@ -1378,15 +1378,15 @@ the extra columns or adding missing ones. One solution can be
 Rationale: If the table rows do not have the same number of columns, there may be 
 redundant or missing data.
 
-## MD057 - Table has missing or invalid header seperation (second row)
+## MD057 - Table has missing or invalid header separation (second row)
 
 Tags: tables
 
 Aliases: table-invalid-second-row
 
-This rule is triggered when the header seperation (second row in the table)
+This rule is triggered when the header separation (second row in the table)
 is not well-formed. It should at least contain three dashes, i.e. '---' and 
-might have colons, i.e. ':' at the start or end of the seperation string:
+might have colons, i.e. ':' at the start or end of the separation string:
 
 ```markdown
 | Heading 1 | Heading 2 | Heading 3 | Heading 4 |
