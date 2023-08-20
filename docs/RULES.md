@@ -39,6 +39,9 @@
    * [MD041 - First line in file should be a top level header](#md041---first-line-in-file-should-be-a-top-level-header)
    * [MD046 - Code block style](#md046---code-block-style)
    * [MD047 - File should end with a single newline character](#md047---file-should-end-with-a-single-newline-character)
+   * [MD055 - Table row doesn't begin/end with pipes](#md055---table-row-doesnt-begin-end-with-pipes)
+   * [MD056 - Table has inconsistent number of columns](#md056---table-has-inconsistent-number-of-columns)
+   * [MD057 - Table has missing or invalid header separation (second row)](#md057---table-has-missing-or-invalid-header-separation)
 
 # Rules
 
@@ -1320,3 +1323,83 @@ This file ends with a newline.
 Rationale: Some programs have trouble with files that do not end with a newline.
 More information:
 <https://unix.stackexchange.com/questions/18743/whats-the-point-in-adding-a-new-line-to-the-end-of-a-file>.
+
+## MD055 - Table row doesn't begin/end with pipes
+
+Tags: tables
+
+Aliases: table-rows-start-and-end-with-pipes
+
+This rule is triggered when a table row does not start or end with pipe, '|',
+character:
+
+```markdown
+| Heading 1 | Heading 2 |
+   | ------- | ---------
+    Data    |    Data   |
+```
+
+To fix this, add or align pipe characters to the beginning or end of the row.
+
+```markdown
+| Heading 1 | Heading 2 |
+| ------- | ---------|
+|   Data    |    Data   |
+```
+
+Rationale: If the table rows are not well-formed, not all renderers 
+may show it correctly.
+
+## MD056 - Table has inconsistent number of columns
+
+Tags: tables
+
+Aliases: inconsistent-columns-in-table
+
+This rule is triggered when the number of columns in table rows do not match:
+
+```markdown
+| Heading 1 | Heading 2 |
+| :--------:| ---------:| ----- |
+|Data|Data|Data|
+|Data|Data|
+```
+
+To fix this, match your number of columns with the header by either deleting
+the extra columns or adding missing ones. One solution can be
+
+```markdown
+| Heading 1 | Heading 2 |
+| :--------:| ---------:|
+|Data|Data|
+|Data|Data|
+```
+
+Rationale: If the table rows do not have the same number of columns, there may be 
+redundant or missing data.
+
+## MD057 - Table has missing or invalid header separation (second row)
+
+Tags: tables
+
+Aliases: table-invalid-second-row
+
+This rule is triggered when the header separation (second row in the table)
+is not well-formed. It should at least contain three dashes, i.e. '---' and 
+might have colons, i.e. ':' at the start or end of the separation string:
+
+```markdown
+| Heading 1 | Heading 2 | Heading 3 | Heading 4 |
+| -- | ::---:: | ---a--- |:----
+|Data|Data|Data|Data|
+```
+
+To fix this, make sure the second row of the table conforms with the above rules
+
+```markdown
+| Heading 1 | Heading 2 | Heading 3 | Heading 4 |
+| --- | :---: | ------ |:----|
+|Data|Data|Data|Data|
+```
+
+Rationale: If the table is not well-formed, not all renderers may show it correctly.
