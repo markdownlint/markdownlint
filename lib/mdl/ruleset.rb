@@ -99,7 +99,7 @@ module MarkdownLint
         #
         # it is possibly a table row
         unless line.include?('|') && !line.start_with?('    ') &&
-            !line.strip.start_with?('```')
+               !line.strip.start_with?('```')
           break
         end
 
