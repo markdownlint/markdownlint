@@ -17,6 +17,8 @@ This tests other things embedded in the blockquote:
 > **bar** more text
 > 'baz' more text
 > `qux` more text
+> [link](example.com) to site
+>  [link](#link) {MD027}
 >
 > - foo
 
