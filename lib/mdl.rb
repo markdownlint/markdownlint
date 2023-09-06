@@ -1,3 +1,4 @@
+require_relative 'mdl/formatters/sarif'
 require_relative 'mdl/cli'
 require_relative 'mdl/config'
 require_relative 'mdl/doc'
@@ -103,7 +104,7 @@ module MarkdownLint
         status = 1
         error_lines.each do |line|
           line += doc.offset # Correct line numbers for any yaml front matter
-          if Config[:json]
+          if Config[:json] || Config[:sarif]
             results << {
               'filename' => filename,
               'line' => line,
@@ -118,12 +119,13 @@ module MarkdownLint
           end
         end
 
-        # If we're not in JSON mode (URLs are in the object), and we cannot
-        # make real links (checking if we have a TTY is an OK heuristic for
-        # that) then, instead of making the output ugly with long URLs, we
+        # If we're not in JSON or SARIF mode (URLs are in the object), and we
+        # cannot make real links (checking if we have a TTY is an OK heuristic
+        # for that) then, instead of making the output ugly with long URLs, we
         # print them at the end. And of course we only want to print each URL
         # once.
-        if !Config[:json] && !$stdout.tty? && !docs_to_print.include?(rule)
+        if !Config[:json] && !Config[:sarif] &&
+           !$stdout.tty? && !docs_to_print.include?(rule)
           docs_to_print << rule
         end
       end
@@ -132,6 +134,8 @@ module MarkdownLint
     if Config[:json]
       require 'json'
       puts JSON.generate(results)
+    elsif Config[:sarif]
+      puts SarifFormatter.generate(rules, results)
     elsif docs_to_print.any?
       puts "\nFurther documentation is available for these failures:"
       docs_to_print.each do |rule|
