@@ -459,10 +459,9 @@ rule 'MD027', 'Multiple spaces after blockquote symbol' do
     doc.find_type_elements(:blockquote).each do |e|
       linenum = doc.element_linenumber(e)
       lines = doc.extract_as_text(e)
-      # Handle first line specially as whitespace is stripped from the text element
-      if doc.element_line(e).match(/^\s*>  /)
-        errors << linenum
-      end
+      # Handle first line specially as whitespace is stripped from the text
+      # element
+      errors << linenum if doc.element_line(e).match(/^\s*>  /)
       lines.each do |line|
         errors << linenum if line.start_with?(' ')
         linenum += 1

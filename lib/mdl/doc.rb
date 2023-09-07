@@ -281,16 +281,15 @@ module MarkdownLint
       # If anything goes amiss here, e.g. unknown type, then nil will be
       # returned and we'll just not catch that part of the text, which seems
       # like a sensible failure mode.
-      lines = element.children.map do |e|
-        if e.type == :text or e.type == :codespan
+      element.children.map do |e|
+        if e.type == :text || e.type == :codespan
           e.value
-        elsif %i{strong em p  a}.include?(e.type)
+        elsif %i{strong em p a}.include?(e.type)
           extract_as_text(e).join("\n")
         elsif e.type == :smart_quote
           quotes[e.value]
         end
       end.join.split("\n")
-      lines
     end
 
     private
