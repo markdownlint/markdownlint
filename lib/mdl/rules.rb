@@ -126,7 +126,7 @@ rule 'MD005', 'Inconsistent indentation for list items at the same level' do
 end
 
 rule 'MD006', 'Consider starting bulleted lists at the beginning of the line' do
-  # Starting at the beginning of the line means that indendation for each
+  # Starting at the beginning of the line means that indentation for each
   # bullet level can be identical.
   tags :bullet, :ul, :indentation
   aliases 'ul-start-left'
