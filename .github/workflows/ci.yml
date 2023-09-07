@@ -15,6 +15,7 @@ jobs:
       with:
         filesToIgnoreRegex: '((test|example|bin)\/.*|docs\/RULES.md)'
   ruby:
+    name: Ruby ${{ matrix.ruby }}
     strategy:
       fail-fast: false
       matrix:
