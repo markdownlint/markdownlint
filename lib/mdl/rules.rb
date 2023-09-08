@@ -1,7 +1,7 @@
 docs do |id, description|
   url_hash = [id.downcase,
               description.downcase.gsub(/[^a-z]+/, '-')].join('---')
-  "https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md##{url_hash}"
+  "https://github.com/markdownlint/markdownlint/blob/main/docs/RULES.md##{url_hash}"
 end
 
 rule 'MD001', 'Header levels should only increment by one level at a time' do
@@ -126,7 +126,7 @@ rule 'MD005', 'Inconsistent indentation for list items at the same level' do
 end
 
 rule 'MD006', 'Consider starting bulleted lists at the beginning of the line' do
-  # Starting at the beginning of the line means that indendation for each
+  # Starting at the beginning of the line means that indentation for each
   # bullet level can be identical.
   tags :bullet, :ul, :indentation
   aliases 'ul-start-left'
@@ -459,10 +459,9 @@ rule 'MD027', 'Multiple spaces after blockquote symbol' do
     doc.find_type_elements(:blockquote).each do |e|
       linenum = doc.element_linenumber(e)
       lines = doc.extract_as_text(e)
-      # Handle first line specially as whitespace is stripped from the text element
-      if doc.element_line(e).match(/^\s*>  /)
-        errors << linenum
-      end
+      # Handle first line specially as whitespace is stripped from the text
+      # element
+      errors << linenum if doc.element_line(e).match(/^\s*>  /)
       lines.each do |line|
         errors << linenum if line.start_with?(' ')
         linenum += 1

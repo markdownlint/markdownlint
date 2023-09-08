@@ -58,7 +58,7 @@ module MarkdownLint
           warn "#{style_file} does not appear to be a built-in style." +
                ' If you meant to pass in your own style file, it must contain' +
                " a '/' or end in '.rb'. See https://github.com/markdownlint/" +
-               'markdownlint/blob/master/docs/configuration.md'
+               'markdownlint/blob/main/docs/configuration.md'
           exit(1)
         end
         style_file = tmp
