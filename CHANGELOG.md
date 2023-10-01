@@ -1,6 +1,31 @@
 # Change Log
 
-## Unreleased
+## [v0.13.0] (2023-10-01)
+
+### Rules Added
+
+* MD055 - Tables: Each row must start and end with a '|' (PR #464)
+* MD056 - Tables: Number of columns is the same for all rows (PR #464)
+* MD057 - Tables: In the second row every column must have at least '---', possibly surrounded with alignment ':' chars (PR #464)
+
+### Added
+
+* Add SARIF output (PR #459)
+* Document DCO process better (PRs #448 and #449)
+
+### Changed
+
+* MD009 - Allow exactly 2 trailing spaces by default (PR #452)
+* MD033 - Add `allowed_elements` parameter (PR #450)
+* Updated build instructions (PR #431)
+
+### Fixed
+
+* MD027 - handle anchor elements correctly (PR #463)
+* Fix examples for RULES.md for MD007 (PR #462)
+* Fix links to use https instead of http (PR #447)
+* Make RULES.md comply with our own rules (PR #439)
+* Fix docker builds (#429)
 
 ## [v0.12.0] (2022-10-17)
 
@@ -281,6 +306,7 @@
 * MD030 - Spaces after list markers
 
 [Unreleased]: https://github.com/markdownlint/markdownlint/tree/main
+[v0.13.0]: https://github.com/markdownlint/markdownlint/tree/v0.13.0
 [v0.12.0]: https://github.com/markdownlint/markdownlint/tree/v0.12.0
 [v0.11.0]: https://github.com/markdownlint/markdownlint/tree/v0.11.0
 [v0.10.0]: https://github.com/markdownlint/markdownlint/tree/v0.10.0
