@@ -9,14 +9,16 @@
 ### Rules Added
 
 * MD055 - Tables: Each row must start and end with a '|' [#464](https://github.com/markdownlint/markdownlint/pull/464)
-* MD056 - Tables: Number of columns is the same for all rows [#464](https://github.com/markdownlint/markdownlint/pull/464)
+* MD056 - Tables: Number of columns is the same for all
+  rows [#464](https://github.com/markdownlint/markdownlint/pull/464)
 * MD057 - Tables: In the second row every column must have at least '---',
   possibly surrounded with alignment ':' chars [#464](https://github.com/markdownlint/markdownlint/pull/464)
 
 ### Added
 
 * Add SARIF output [#459](https://github.com/markdownlint/markdownlint/pull/459)
-* Document DCO process better [#448](https://github.com/markdownlint/markdownlint/pull/448) and [#449](https://github.com/markdownlint/markdownlint/pull/449)
+* Document DCO process better [#448](https://github.com/markdownlint/markdownlint/pull/448)
+  and [#449](https://github.com/markdownlint/markdownlint/pull/449)
 
 ### Changed
 
@@ -131,7 +133,8 @@
 * Update docs to use "MY" prefix for custom rule example [#245](https://github.com/markdownlint/markdownlint/pull/245)
 * Fix crash in MD039 when the link text is empty [#256](https://github.com/markdownlint/markdownlint/pull/256)
 * Reference Node.js markdownlint [#229](https://github.com/markdownlint/markdownlint/pull/229)
-* Added table of contents to RULES.md for easier navigation [#232](https://github.com/markdownlint/markdownlint/pull/232)
+* Added table of contents to RULES.md for easier
+  navigation [#232](https://github.com/markdownlint/markdownlint/pull/232)
 * Fix typos in MD046 docs [#219](https://github.com/markdownlint/markdownlint/pull/219)
 * Fixed MD036 crash [#222](https://github.com/markdownlint/markdownlint/pull/222)
 
@@ -159,16 +162,22 @@
 
 ### Added
 
-* Ignore yaml front matter option [#130](https://github.com/markdownlint/markdownlint/pull/130) and [#143](https://github.com/markdownlint/markdownlint/pull/143)
+* Ignore yaml front matter option [#130](https://github.com/markdownlint/markdownlint/pull/130)
+  and [#143](https://github.com/markdownlint/markdownlint/pull/143)
 
 ### Changed
 
-* Allow top level header rules (MD002, MD025, MD041) to be configurable [#142](https://github.com/markdownlint/markdownlint/pull/142)
+* Allow top level header rules (MD002, MD025, MD041) to be
+  configurable [#142](https://github.com/markdownlint/markdownlint/pull/142)
 
 ### Fixed
 
-* Read UTF-8 files correctly even if locale is set to C [#135](https://github.com/markdownlint/markdownlint/pull/135), [#146](https://github.com/markdownlint/markdownlint/pull/146), [#147](https://github.com/markdownlint/markdownlint/pull/147) and [#148](https://github.com/markdownlint/markdownlint/pull/148)
-* Fix issues loading .mdlrc file [#126](https://github.com/markdownlint/markdownlint/pull/126), [#129](https://github.com/markdownlint/markdownlint/pull/129), [#133](https://github.com/markdownlint/markdownlint/pull/133) and [#148](https://github.com/markdownlint/markdownlint/pull/148)
+* Read UTF-8 files correctly even if locale is set to
+  C [#135](https://github.com/markdownlint/markdownlint/pull/135), [#146](https://github.com/markdownlint/markdownlint/pull/146), [#147](https://github.com/markdownlint/markdownlint/pull/147)
+  and [#148](https://github.com/markdownlint/markdownlint/pull/148)
+* Fix issues loading .mdlrc
+  file [#126](https://github.com/markdownlint/markdownlint/pull/126), [#129](https://github.com/markdownlint/markdownlint/pull/129), [#133](https://github.com/markdownlint/markdownlint/pull/133)
+  and [#148](https://github.com/markdownlint/markdownlint/pull/148)
 * Fix erroneous triggering of MD022/MD023 in some cases [#144](https://github.com/markdownlint/markdownlint/pull/144)
 * Detect codeblock lines correctly when ignoring them [#141](https://github.com/markdownlint/markdownlint/pull/141)
 
@@ -206,8 +215,10 @@
 
 ### Fixed
 
-* Crash with MD034 and pipe character [#93](https://github.com/markdownlint/markdownlint/pull/93) and [#97](https://github.com/markdownlint/markdownlint/pull/97)
-* MD031 failed on nested code blocks [#100](https://github.com/markdownlint/markdownlint/pull/100) and [#109](https://github.com/markdownlint/markdownlint/pull/109)
+* Crash with MD034 and pipe character [#93](https://github.com/markdownlint/markdownlint/pull/93)
+  and [#97](https://github.com/markdownlint/markdownlint/pull/97)
+* MD031 failed on nested code blocks [#100](https://github.com/markdownlint/markdownlint/pull/100)
+  and [#109](https://github.com/markdownlint/markdownlint/pull/109)
 * MD037 crashes on <li> with underscores [#83](https://github.com/markdownlint/markdownlint/pull/83)
 * Regression introduced in v0.2.1 - ignoring rules/tags on the command line
   caused a crash [#108](https://github.com/markdownlint/markdownlint/pull/108)
@@ -230,7 +241,8 @@
 
 * Incorrect parsing of rules/tags specification in .mdlrc [#81](https://github.com/markdownlint/markdownlint/pull/81)
 * Exception on image links with MD039 [#82](https://github.com/markdownlint/markdownlint/pull/82)
-* MD037 flags on two words beginning with underscores on the same line. [#83](https://github.com/markdownlint/markdownlint/pull/83)
+* MD037 flags on two words beginning with underscores on the same
+  line [#83](https://github.com/markdownlint/markdownlint/pull/83)
 
 ### Known issues
 
