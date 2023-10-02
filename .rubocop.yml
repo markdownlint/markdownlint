@@ -3,6 +3,7 @@ AllCops:
   NewCops: enable
   Exclude:
     - 'omnibus/bin/*'
+    - 'vendor/**/*'
 
 Layout/LineLength:
   Max: 80
@@ -51,4 +52,3 @@ Style/MultilineBlockChain:
 
 Style/NumericPredicate:
   Enabled: false
-
