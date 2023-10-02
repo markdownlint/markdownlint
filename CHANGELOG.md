@@ -8,11 +8,11 @@
 
 ### Rules Added
 
-* MD055 - Tables: Each row must start and end with a '|' [#464](https://github.com/markdownlint/markdownlint/pull/464)
+* MD055 - Tables: Each row must start and end with a `|` [#464](https://github.com/markdownlint/markdownlint/pull/464)
 * MD056 - Tables: Number of columns is the same for all
   rows [#464](https://github.com/markdownlint/markdownlint/pull/464)
-* MD057 - Tables: In the second row every column must have at least '---',
-  possibly surrounded with alignment ':' chars [#464](https://github.com/markdownlint/markdownlint/pull/464)
+* MD057 - Tables: In the second row every column must have at least `---`,
+  possibly surrounded with alignment `:` chars [#464](https://github.com/markdownlint/markdownlint/pull/464)
 
 ### Added
 
@@ -173,10 +173,14 @@
 ### Fixed
 
 * Read UTF-8 files correctly even if locale is set to
-  C [#135](https://github.com/markdownlint/markdownlint/pull/135), [#146](https://github.com/markdownlint/markdownlint/pull/146), [#147](https://github.com/markdownlint/markdownlint/pull/147)
+  C [#135](https://github.com/markdownlint/markdownlint/pull/135),
+  [#146](https://github.com/markdownlint/markdownlint/pull/146),
+  [#147](https://github.com/markdownlint/markdownlint/pull/147)
   and [#148](https://github.com/markdownlint/markdownlint/pull/148)
 * Fix issues loading .mdlrc
-  file [#126](https://github.com/markdownlint/markdownlint/pull/126), [#129](https://github.com/markdownlint/markdownlint/pull/129), [#133](https://github.com/markdownlint/markdownlint/pull/133)
+  file [#126](https://github.com/markdownlint/markdownlint/pull/126),
+  [#129](https://github.com/markdownlint/markdownlint/pull/129),
+  [#133](https://github.com/markdownlint/markdownlint/pull/133)
   and [#148](https://github.com/markdownlint/markdownlint/pull/148)
 * Fix erroneous triggering of MD022/MD023 in some cases [#144](https://github.com/markdownlint/markdownlint/pull/144)
 * Detect codeblock lines correctly when ignoring them [#141](https://github.com/markdownlint/markdownlint/pull/141)
