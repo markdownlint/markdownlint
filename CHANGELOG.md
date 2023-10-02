@@ -1,12 +1,15 @@
 # Change Log
 
+## Unreleased
+
 ## [v0.13.0] (2023-10-01)
 
 ### Rules Added
 
 * MD055 - Tables: Each row must start and end with a '|' (PR #464)
 * MD056 - Tables: Number of columns is the same for all rows (PR #464)
-* MD057 - Tables: In the second row every column must have at least '---', possibly surrounded with alignment ':' chars (PR #464)
+* MD057 - Tables: In the second row every column must have at least '---',
+  possibly surrounded with alignment ':' chars (PR #464)
 
 ### Added
 
