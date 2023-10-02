@@ -2,7 +2,9 @@
 
 ## Unreleased
 
-## [v0.13.0] (2023-10-01)
+### Fixed
+
+* Fix Markdown lint version in SARIF output test (PR #469)
 
 ### Rules Added
 
