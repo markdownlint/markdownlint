@@ -4,33 +4,33 @@
 
 ### Fixed
 
-* Fix Markdown lint version in SARIF output test (PR #469)
+* Fix Markdown lint version in SARIF output test [#469](https://github.com/markdownlint/markdownlint/pull/469)
 
 ### Rules Added
 
-* MD055 - Tables: Each row must start and end with a '|' (PR #464)
-* MD056 - Tables: Number of columns is the same for all rows (PR #464)
+* MD055 - Tables: Each row must start and end with a '|' [#464](https://github.com/markdownlint/markdownlint/pull/464)
+* MD056 - Tables: Number of columns is the same for all rows [#464](https://github.com/markdownlint/markdownlint/pull/464)
 * MD057 - Tables: In the second row every column must have at least '---',
-  possibly surrounded with alignment ':' chars (PR #464)
+  possibly surrounded with alignment ':' chars [#464](https://github.com/markdownlint/markdownlint/pull/464)
 
 ### Added
 
-* Add SARIF output (PR #459)
-* Document DCO process better (PRs #448 and #449)
+* Add SARIF output [#459](https://github.com/markdownlint/markdownlint/pull/459)
+* Document DCO process better [#448](https://github.com/markdownlint/markdownlint/pull/448) and [#449](https://github.com/markdownlint/markdownlint/pull/449)
 
 ### Changed
 
-* MD009 - Allow exactly 2 trailing spaces by default (PR #452)
-* MD033 - Add `allowed_elements` parameter (PR #450)
-* Updated build instructions (PR #431)
+* MD009 - Allow exactly 2 trailing spaces by default [#452](https://github.com/markdownlint/markdownlint/pull/452)
+* MD033 - Add `allowed_elements` parameter [#450](https://github.com/markdownlint/markdownlint/pull/450)
+* Updated build instructions [#431](https://github.com/markdownlint/markdownlint/pull/431)
 
 ### Fixed
 
-* MD027 - handle anchor elements correctly (PR #463)
-* Fix examples for RULES.md for MD007 (PR #462)
-* Fix links to use https instead of http (PR #447)
-* Make RULES.md comply with our own rules (PR #439)
-* Fix docker builds (#429)
+* MD027 - handle anchor elements correctly [#463](https://github.com/markdownlint/markdownlint/pull/463)
+* Fix examples for RULES.md for MD007 [#462](https://github.com/markdownlint/markdownlint/pull/462)
+* Fix links to use https instead of http [#447](https://github.com/markdownlint/markdownlint/pull/447)
+* Make RULES.md comply with our own rules [#439](https://github.com/markdownlint/markdownlint/pull/439)
+* Fix docker builds [#429](https://github.com/markdownlint/markdownlint/pull/429)
 
 ## [v0.12.0] (2022-10-17)
 
@@ -85,25 +85,25 @@
 
 ### Changed
 
-* PR #302: Better error messages on missing styles
-* PR #297: Use require_relative to speed up requires
-* PR #155: Bumped alpine version in the Dockerfile
+* Better error messages on missing styles [#302](https://github.com/markdownlint/markdownlint/pull/302)
+* Use require_relative to speed up requires [#297](https://github.com/markdownlint/markdownlint/pull/297)
+* Bumped alpine version in the Dockerfile [#155](https://github.com/markdownlint/markdownlint/pull/155)
 
 ### Fixed
 
-* PR #286: Fix crash in --json
-* PR #293: Handle codeblocks that are nested
-* PR #284: Fix handling of blockquoted list items
+* Fix crash in --json [#286](https://github.com/markdownlint/markdownlint/pull/286)
+* Handle codeblocks that are nested [#293](https://github.com/markdownlint/markdownlint/pull/293)
+* Fix handling of blockquoted list items [#284](https://github.com/markdownlint/markdownlint/pull/284)
 
 ## [v0.8.0] (2019-11-08)
 
 ### Changed
 
-* PR #282: Don't ship test / example files in the gem artifact
+* Don't ship test / example files in the gem artifact [#282](https://github.com/markdownlint/markdownlint/pull/282)
 
 ### Fixed
 
-* PR #238: Handle newlines on Windows better
+* Handle newlines on Windows better [#238](https://github.com/markdownlint/markdownlint/pull/238)
 
 ## [v0.7.0] (2019-10-24)
 
@@ -123,17 +123,17 @@
 
 ### Changed
 
-* PR #248: Ignore blank line after front matter
-* PR #231: Only import JSON when necessary (#223)
-* PR #265: Use newere mixlib-cli
-* PR #246: Nicer error message when activating nonexistent rule
-* PR #241: Fix documentation on `ignore_front_matter`
-* PR #245: Update docs to use "MY" prefix for custom rule example
-* PR #256: Fix crash in MD039 when the link text is empty
-* PR #229: Reference Node.js markdownlint
-* PR #232: Added table of contents to RULES.md for easier navigation
-* PR #219: Fix typos in MD046 docs
-* PR #222: Fixed MD036 crash
+* Ignore blank line after front matter [#248](https://github.com/markdownlint/markdownlint/pull/248)
+* Only import JSON when necessary [#231](https://github.com/markdownlint/markdownlint/pull/231)
+* Use newere mixlib-cli [#265](https://github.com/markdownlint/markdownlint/pull/265)
+* Nicer error message when activating nonexistent rule [#246](https://github.com/markdownlint/markdownlint/pull/246)
+* Fix documentation on `ignore_front_matter` [#241](https://github.com/markdownlint/markdownlint/pull/241)
+* Update docs to use "MY" prefix for custom rule example [#245](https://github.com/markdownlint/markdownlint/pull/245)
+* Fix crash in MD039 when the link text is empty [#256](https://github.com/markdownlint/markdownlint/pull/256)
+* Reference Node.js markdownlint [#229](https://github.com/markdownlint/markdownlint/pull/229)
+* Added table of contents to RULES.md for easier navigation [#232](https://github.com/markdownlint/markdownlint/pull/232)
+* Fix typos in MD046 docs [#219](https://github.com/markdownlint/markdownlint/pull/219)
+* Fixed MD036 crash [#222](https://github.com/markdownlint/markdownlint/pull/222)
 
 ### Removed
 
@@ -146,32 +146,31 @@
 
 ### Changed
 
-* PR #200: allow different nesting on headers duplication check
+* Allow different nesting on headers duplication check [#200](https://github.com/markdownlint/markdownlint/pull/200)
 * MD036 - Ignore multi-line emphasized paragraphs, and emphasized paragraphs
-  that end in punctuation (#140)
+  that end in punctuation [#140](https://github.com/markdownlint/markdownlint/pull/140)
 
 ### Fixed
 
-* PR #168: fix issue numbers false positives
-* Fix issue #102: lint MD039 checking for nodes inside link text
+* Fix issue numbers false positives [#168](https://github.com/markdownlint/markdownlint/pull/168)
+* Lint MD039 checking for nodes inside link text [#102](https://github.com/markdownlint/markdownlint/issues/102)
 
 ## [v0.4.0] (2016-08-22)
 
 ### Added
 
-* Ignore yaml front matter option (#130, #143)
+* Ignore yaml front matter option [#130](https://github.com/markdownlint/markdownlint/pull/130) and [#143](https://github.com/markdownlint/markdownlint/pull/143)
 
 ### Changed
 
-* Allow top level header rules (MD002, MD025, MD041) to be configurable (#142)
+* Allow top level header rules (MD002, MD025, MD041) to be configurable [#142](https://github.com/markdownlint/markdownlint/pull/142)
 
 ### Fixed
 
-* Read UTF-8 files correctly even if locale is set to C (#135, #146, #147,
-  #148)
-* Fix issues loading .mdlrc file (#126, #129, #133, #148)
-* Fix erroneous triggering of MD022/MD023 in some cases (#144)
-* Detect codeblock lines correctly when ignoring them (#141)
+* Read UTF-8 files correctly even if locale is set to C [#135](https://github.com/markdownlint/markdownlint/pull/135), [#146](https://github.com/markdownlint/markdownlint/pull/146), [#147](https://github.com/markdownlint/markdownlint/pull/147) and [#148](https://github.com/markdownlint/markdownlint/pull/148)
+* Fix issues loading .mdlrc file [#126](https://github.com/markdownlint/markdownlint/pull/126), [#129](https://github.com/markdownlint/markdownlint/pull/129), [#133](https://github.com/markdownlint/markdownlint/pull/133) and [#148](https://github.com/markdownlint/markdownlint/pull/148)
+* Fix erroneous triggering of MD022/MD023 in some cases [#144](https://github.com/markdownlint/markdownlint/pull/144)
+* Detect codeblock lines correctly when ignoring them [#141](https://github.com/markdownlint/markdownlint/pull/141)
 
 ## [v0.3.1] (2016-03-20)
 
@@ -207,12 +206,12 @@
 
 ### Fixed
 
-* Crash with MD034 and pipe character (#93, #97)
-* MD031 failed on nested code blocks (#100, #109)
-* MD037 crashes on <li> with underscores (#83)
+* Crash with MD034 and pipe character [#93](https://github.com/markdownlint/markdownlint/pull/93) and [#97](https://github.com/markdownlint/markdownlint/pull/97)
+* MD031 failed on nested code blocks [#100](https://github.com/markdownlint/markdownlint/pull/100) and [#109](https://github.com/markdownlint/markdownlint/pull/109)
+* MD037 crashes on <li> with underscores [#83](https://github.com/markdownlint/markdownlint/pull/83)
 * Regression introduced in v0.2.1 - ignoring rules/tags on the command line
-  caused a crash (#108)
-* MD027 false positive when line starts with a backtick (#105)
+  caused a crash [#108](https://github.com/markdownlint/markdownlint/pull/108)
+* MD027 false positive when line starts with a backtick [#105](https://github.com/markdownlint/markdownlint/pull/105)
 
 ### Merged pull requests
 
@@ -229,13 +228,13 @@
 
 ### Fixed
 
-* Incorrect parsing of rules/tags specification in .mdlrc (#81)
-* Exception on image links with MD039 (#82)
-* MD037 flags on two words beginning with underscores on the same line. (#83)
+* Incorrect parsing of rules/tags specification in .mdlrc [#81](https://github.com/markdownlint/markdownlint/pull/81)
+* Exception on image links with MD039 [#82](https://github.com/markdownlint/markdownlint/pull/82)
+* MD037 flags on two words beginning with underscores on the same line. [#83](https://github.com/markdownlint/markdownlint/pull/83)
 
 ### Known issues
 
-* Exception on some lines with raw html list items in them (#83)
+* Exception on some lines with raw html list items in them [#83](https://github.com/markdownlint/markdownlint/pull/83)
 
 ## [v0.2.0] (2015-04-13)
 
