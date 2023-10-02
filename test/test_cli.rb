@@ -1,6 +1,7 @@
 require_relative 'setup_tests'
 require 'open3'
 require 'set'
+require 'erb'
 require 'fileutils'
 require 'json'
 
@@ -29,7 +30,8 @@ class TestCli < Minitest::Test
   def test_sarif_output
     result = run_cli_with_input('-S', "# header\n")
     assert_ran_ok(result)
-    expected = File.read('test/fixtures/output/sarif/without_matches.sarif')
+    sarif_file = File.read('test/fixtures/output/sarif/without_matches.sarif')
+    expected = ERB.new(sarif_file).result(binding)
     assert_equal(expected, result[:stdout])
   end
 
@@ -37,7 +39,8 @@ class TestCli < Minitest::Test
     result = run_cli_with_input('-S -r MD002', "## header2\n")
     assert_equal(1, result[:status])
     assert_equal('', result[:stderr])
-    expected = File.read('test/fixtures/output/sarif/with_matches.sarif')
+    sarif_file = File.read('test/fixtures/output/sarif/with_matches.sarif')
+    expected = ERB.new(sarif_file).result(binding)
     assert_equal(expected, result[:stdout])
   end
 
