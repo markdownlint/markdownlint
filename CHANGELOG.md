@@ -6,6 +6,8 @@
 
 * Fix Markdown lint version in SARIF output test [#469](https://github.com/markdownlint/markdownlint/pull/469)
 
+## [v0.13.0] (2023-10-01)
+
 ### Rules Added
 
 * MD055 - Tables: Each row must start and end with a `|` [#464](https://github.com/markdownlint/markdownlint/pull/464)
