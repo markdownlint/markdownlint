@@ -92,7 +92,7 @@ relative to the `mdlrc` and not the path the user happens to be in.
 Rulesets - Load a custom ruleset file. This option allows you to load custom
 rules in addition to those included with markdownlint.
 
-* Command line: `-u ruleset.rb,ruleset2.rb`, `--rules ruleset.rb,ruleset2.rb`
+* Command line: `-u ruleset.rb,ruleset2.rb`, `--rulesets ruleset.rb,ruleset2.rb`
 * Config file: `rulesets ['ruleset.rb', 'ruleset2.rb']`
 * Default: Don't load any additional rulesets
 
