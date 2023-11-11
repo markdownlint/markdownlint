@@ -1,7 +1,7 @@
 # Change Log
 
 ## Unreleased
-
+ 
 ### Fixed
 
 * Fix Markdown lint version in SARIF output test [#469](https://github.com/markdownlint/markdownlint/pull/469)
