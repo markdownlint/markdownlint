@@ -1,5 +1,5 @@
 # Contributing to Markdownlint
-
+ 
 We're glad you want to contribute markdownlint! This document will help answer
 common questions you may have during your first contribution. Please, try to
 follow these guidelines when you do so.
