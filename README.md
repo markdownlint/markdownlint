@@ -11,7 +11,7 @@ Markdownlint is packaged in some distributions as well as distributed via
 RubyGems. Check the list below to see if it's packaged for your distribution,
 and if so, feel free to use your distros package manager to install it.
 
-[![Packaging status](https://repology.org/badge/vertical-allrepos/mdl-markdownlint.svg)](https://repology.org/project/mdl-markdownlint/versions)
+[![Packaging status](https://repology.org/badge/vertical-allrepos/mdl-markdownlint.svg?exclude_unsupported=1)](https://repology.org/project/mdl-markdownlint/versions)
 
 To install from rubygems, run:
 
