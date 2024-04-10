@@ -57,9 +57,9 @@ Unsure where to begin contributing to Markdownlint? You can start by looking
 through these beginner and help-wanted issues:
 
 * [Beginner issues](https://github.com/markdownlint/markdownlint/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22+sort%3Acomments-desc)
-   * Issues which should only require a few lines of code, and a test or two.
+  * Issues which should only require a few lines of code, and a test or two.
 * [Help wanted issues](https://github.com/markdownlint/markdownlint/issues?q=is%3aissue+is%3aopen+label%3a%22help+wanted%22+sort%3Acomments-desc)
-   * Issues which should be a bit more involved than beginner issues.  Both
+  * Issues which should be a bit more involved than beginner issues.  Both
      issue lists are sorted by total number of comments. While not perfect,
      number of comments is a reasonable proxy for impact a given change will
      have.
@@ -105,8 +105,7 @@ this point is as follows:
    squashed](https://help.github.com/en/articles/about-pull-request-merges#squash-and-merge-your-pull-request-commits)
    during the merge.
 
-If you would like to learn about when your code will be available in a release
-of Markdownlint, read more about [Markdownlint Release
+If you would like to learn about when your code will be available in a release of Markdownlint, read more about [Markdownlint Release
 Cycles](#release-cycles).
 
 ## Releases
