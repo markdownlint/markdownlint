@@ -34,8 +34,7 @@ process for contributions:
 1. Open an issue on the [project
    repository](https://github.com/markdownlint/markdownlint/issues), if
    appropriate
-1. If you're adding or making changes to rules, read the [Development
-   docs](#local-development)
+1. If you're adding or making changes to rules, read the [Development docs](#local-development)
 1. Follow the [forking workflow](https://guides.github.com/activities/forking/)
    steps:
    1. Fork the project ( <https://github.com/markdownlint/markdownlint/fork> )
@@ -105,8 +104,7 @@ this point is as follows:
    squashed](https://help.github.com/en/articles/about-pull-request-merges#squash-and-merge-your-pull-request-commits)
    during the merge.
 
-If you would like to learn about when your code will be available in a release of Markdownlint, read more about [Markdownlint Release
-Cycles](#release-cycles).
+If you would like to learn about when your code will be available in a release of Markdownlint, read more about [Markdownlint Release Cycles](#release-cycles).
 
 ## Releases
 
