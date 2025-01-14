@@ -1,0 +1,2 @@
+#exmample disabling MD013, allows all others
+rules "~MD013"
