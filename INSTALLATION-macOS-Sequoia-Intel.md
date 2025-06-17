@@ -99,6 +99,6 @@ Tu dois voir la version de `mdl` installée s’afficher.
 
 ---
 
-Ce fichier est prêt à être ajouté à la racine de ton fork, par exemple sous le nom `INSTALLATION-macOS-Sequoia-Intel.md`.
+Fichier ajouté à la racine de mon fork, sous le nom `INSTALLATION-macOS-Sequoia-Intel.md`.
 
 [1] [https://github.com/markdownmint](https://github.com/markdown/markdownlint)
