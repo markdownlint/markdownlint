@@ -4,6 +4,7 @@
   entry: mdl
   language: ruby
   files: \.(md|mdown|markdown)$
+  language_version: 3.3.0
 
 - id: markdownlint_docker
   name: Markdownlint Docker
