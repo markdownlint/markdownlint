@@ -327,7 +327,6 @@
 * MD029 - Ordered list item prefix
 * MD030 - Spaces after list markers
 
-[Unreleased]: https://github.com/markdownlint/markdownlint/tree/main
 [v0.13.0]: https://github.com/markdownlint/markdownlint/tree/v0.13.0
 [v0.12.0]: https://github.com/markdownlint/markdownlint/tree/v0.12.0
 [v0.11.0]: https://github.com/markdownlint/markdownlint/tree/v0.11.0

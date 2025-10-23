@@ -1,0 +1,14 @@
+{
+    "MD024": {
+        "siblings_only": true
+    },
+    "MD033": {
+        "allowed_elements": [
+            "li"
+        ]
+    },
+    "MD013": {
+        "line_length": 159,
+        "code_block_line_length": 120
+    }
+}
