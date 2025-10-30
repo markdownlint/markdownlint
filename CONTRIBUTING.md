@@ -34,21 +34,20 @@ process for contributions:
 1. Open an issue on the [project
    repository](https://github.com/markdownlint/markdownlint/issues), if
    appropriate
-1. If you're adding or making changes to rules, read the [Development
-   docs](#local-development)
-1. Follow the [forking workflow](https://guides.github.com/activities/forking/)
+2. If you're adding or making changes to rules, read the Development docs
+3. Follow the [forking workflow](https://guides.github.com/activities/forking/)
    steps:
    1. Fork the project ( <https://github.com/markdownlint/markdownlint/fork> )
-   1. Create your feature branch (`git checkout -b my-new-feature`)
-   1. Commit your changes (`git commit -am 'Add some feature'`)
-   1. Sign your changes (`git commit --amend -s`)
-   1. Push to the branch (`git push origin my-new-feature`)
-1. Create a [GitHub Pull
+   2. Create your feature branch (`git checkout -b my-new-feature`)
+   3. Commit your changes (`git commit -am 'Add some feature'`)
+   4. Sign your changes (`git commit --amend -s`)
+   5. Push to the branch (`git push origin my-new-feature`)
+4. Create a [GitHub Pull
    Request](https://help.github.com/articles/about-pull-requests/) for your
    change, following all [pull request
    requirements](#pull-request-requirements) and any instructions in the pull
    request template
-1. Participate in a [Code Review](#code-review-process) with the project
+5. Participate in a [Code Review](#code-review-process) with the project
    maintainers on the pull request
 
 ### Your First Code Contribution
@@ -57,9 +56,9 @@ Unsure where to begin contributing to Markdownlint? You can start by looking
 through these beginner and help-wanted issues:
 
 * [Beginner issues](https://github.com/markdownlint/markdownlint/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22+sort%3Acomments-desc)
-   * Issues which should only require a few lines of code, and a test or two.
+  * Issues which should only require a few lines of code, and a test or two.
 * [Help wanted issues](https://github.com/markdownlint/markdownlint/issues?q=is%3aissue+is%3aopen+label%3a%22help+wanted%22+sort%3Acomments-desc)
-   * Issues which should be a bit more involved than beginner issues.  Both
+  * Issues which should be a bit more involved than beginner issues.  Both
      issue lists are sorted by total number of comments. While not perfect,
      number of comments is a reasonable proxy for impact a given change will
      have.
@@ -105,9 +104,7 @@ this point is as follows:
    squashed](https://help.github.com/en/articles/about-pull-request-merges#squash-and-merge-your-pull-request-commits)
    during the merge.
 
-If you would like to learn about when your code will be available in a release
-of Markdownlint, read more about [Markdownlint Release
-Cycles](#release-cycles).
+If you would like to learn about when your code will be available in a release of Markdownlint, read more about [Markdownlint Release Cycles](#releases).
 
 ## Releases
 
