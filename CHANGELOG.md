@@ -1,10 +1,21 @@
 # Change Log
 
-## Unreleased
+## [v0.14.0] (2025-11-25)
 
 ### Fixed
 
-* Fix Markdown lint version in SARIF output test [#469](https://github.com/markdownlint/markdownlint/pull/469)
+* Fix Markdown lint version in SARIF output test
+  [#469](https://github.com/markdownlint/markdownlint/pull/469)
+* Fix example for rulesets flag in configuration docs
+  [#473](https://github.com/markdownlint/markdownlint/pull/473)
+* Require ruby-3.3.0 for standalone pre-commit hook
+  [#528](https://github.com/markdownlint/markdownlint/pull/528)
+
+### Rules Removed
+
+* Removed MD055, MD056, MD057 - These rules for tables caused regressions and
+  were removed (see
+  [#472](https://github.com/markdownlint/markdownlint/issues/472) for details)
 
 ## [v0.13.0] (2023-10-01)
 
@@ -327,7 +338,7 @@
 * MD029 - Ordered list item prefix
 * MD030 - Spaces after list markers
 
-[Unreleased]: https://github.com/markdownlint/markdownlint/tree/main
+[v0.14.0]: https://github.com/markdownlint/markdownlint/tree/v0.14.0
 [v0.13.0]: https://github.com/markdownlint/markdownlint/tree/v0.13.0
 [v0.12.0]: https://github.com/markdownlint/markdownlint/tree/v0.12.0
 [v0.11.0]: https://github.com/markdownlint/markdownlint/tree/v0.11.0
