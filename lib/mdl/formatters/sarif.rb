@@ -8,7 +8,7 @@ module MarkdownLint
     class << self
       def generate(rules, results)
         matched_rules_id = results.map { |result| result['rule'] }.uniq
-        matched_rules = rules.select { |id, _| matched_rules_id.include?(id) }
+        matched_rules = rules.slice(*matched_rules_id)
         JSON.generate(generate_sarif(matched_rules, results))
       end
 

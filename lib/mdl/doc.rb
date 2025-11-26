@@ -282,7 +282,7 @@ module MarkdownLint
       # returned and we'll just not catch that part of the text, which seems
       # like a sensible failure mode.
       element.children.map do |e|
-        if e.type == :text || e.type == :codespan
+        if %i{text codespan}.include?(e.type)
           e.value
         elsif %i{strong em p a}.include?(e.type)
           extract_as_text(e).join("\n")

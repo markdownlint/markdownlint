@@ -27,21 +27,21 @@ module MarkdownLint
       unless Config[:rules][:include].empty?
         rules.select! do |r, v|
           Config[:rules][:include].include?(r) or
-            !(Config[:rules][:include] & v.aliases).empty?
+            Config[:rules][:include].intersect?(v.aliases)
         end
       end
       unless Config[:rules][:exclude].empty?
         rules.select! do |r, v|
           !Config[:rules][:exclude].include?(r) and
-            (Config[:rules][:exclude] & v.aliases).empty?
+            !Config[:rules][:exclude].intersect?(v.aliases)
         end
       end
     end
     # Tag option filter
     if Config[:tags]
-      rules.reject! { |_r, v| (v.tags & Config[:tags][:include]).empty? } \
+      rules.select! { |_r, v| v.tags.intersect?(Config[:tags][:include]) } \
         unless Config[:tags][:include].empty?
-      rules.select! { |_r, v| (v.tags & Config[:tags][:exclude]).empty? } \
+      rules.reject! { |_r, v| v.tags.intersect?(Config[:tags][:exclude]) } \
         unless Config[:tags][:exclude].empty?
     end
 

@@ -3,7 +3,7 @@ module MarkdownLint
   class Rule
     attr_accessor :id, :description
 
-    def initialize(id, description, fallback_docs: nil, &block)
+    def initialize(id, description, fallback_docs: nil, &)
       @id = id
       @description = description
       @generate_docs = fallback_docs
@@ -11,7 +11,7 @@ module MarkdownLint
       @aliases = []
       @tags = []
       @params = {}
-      instance_eval(&block)
+      instance_eval(&)
     end
 
     def check(&block)
@@ -58,9 +58,9 @@ module MarkdownLint
       @rules = {}
     end
 
-    def rule(id, description, &block)
+    def rule(id, description, &)
       @rules[id] =
-        Rule.new(id, description, :fallback_docs => @fallback_docs, &block)
+        Rule.new(id, description, :fallback_docs => @fallback_docs, &)
     end
 
     def load(rules_file)

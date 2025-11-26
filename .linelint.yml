@@ -1,0 +1,9 @@
+rules:
+  end-of-file:
+    enable: true
+    single-new-line: true
+    ignore:
+      # tests with intentional violations
+      - test/rule_tests/fenced_code_without_blank_lines.md
+      - test/rule_tests/file_ends_with_single_newline_character_bad.md
+      - test/rule_tests/lists_without_blank_lines.md

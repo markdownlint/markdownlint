@@ -1,5 +1,3 @@
-require 'set'
-
 module MarkdownLint
   # defines a style
   class Style

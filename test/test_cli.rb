@@ -1,6 +1,5 @@
 require_relative 'setup_tests'
 require 'open3'
-require 'set'
 require 'erb'
 require 'fileutils'
 require 'json'
@@ -369,7 +368,7 @@ class TestCli < Minitest::Test
 
   def run_cmd(command, stdin)
     result = {}
-    result[:stdout], result[:stderr], result[:status] = \
+    result[:stdout], result[:stderr], result[:status] =
       Open3.capture3('bundle', 'exec', *command.split, :stdin_data => stdin)
     result[:status] = result[:status].exitstatus
     result
@@ -401,7 +400,7 @@ class TestCli < Minitest::Test
     assert_equal('Enabled rules:', lines.first)
     lines.shift
     rules = rules.to_set
-    enabled_rules = lines.map { |l| l.split.first }.to_set
+    enabled_rules = lines.to_set { |l| l.split.first }
     if only_these_rules
       assert_equal(rules, enabled_rules)
     else
@@ -415,7 +414,7 @@ class TestCli < Minitest::Test
     assert_equal('Enabled rules:', lines.first)
     lines.shift
     rules = rules.to_set
-    enabled_rules = lines.map { |l| l.split.first }.to_set
+    enabled_rules = lines.to_set { |l| l.split.first }
     assert_equal(Set.new, rules & enabled_rules)
   end
 

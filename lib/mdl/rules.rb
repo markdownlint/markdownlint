@@ -51,8 +51,8 @@ rule 'MD003', 'Header style' do
       if doc_style == :setext_with_atx
         headers.map do |h|
           doc.element_linenumber(h) \
-                      unless (doc.header_style(h) == :setext) || \
-                             ((doc.header_style(h) == :atx) && \
+                      unless (doc.header_style(h) == :setext) ||
+                             ((doc.header_style(h) == :atx) &&
                               (h.options[:level] > 2))
         end.compact
       else
@@ -180,7 +180,7 @@ rule 'MD010', 'Hard tabs' do
     # inside of a code block are acceptable.
     codeblock_lines = doc.find_type_elements(:codeblock).map do |e|
       (doc.element_linenumber(e)..
-               doc.element_linenumber(e) + e.value.lines.count).to_a
+               (doc.element_linenumber(e) + e.value.lines.count)).to_a
     end.flatten
 
     # Check for lines with hard tab
@@ -207,7 +207,7 @@ rule 'MD012', 'Multiple consecutive blank lines' do
     # inside of a code block are acceptable.
     codeblock_lines = doc.find_type_elements(:codeblock).map do |e|
       (doc.element_linenumber(e)..
-               doc.element_linenumber(e) + e.value.lines.count).to_a
+               (doc.element_linenumber(e) + e.value.lines.count)).to_a
     end.flatten
     blank_lines = doc.matching_lines(/^\s*$/)
     cons_blank_lines = blank_lines.each_cons(2).select do |p, n|
@@ -227,7 +227,7 @@ rule 'MD013', 'Line length' do
     # Every line in the document that is part of a code block.
     codeblock_lines = doc.find_type_elements(:codeblock).map do |e|
       (doc.element_linenumber(e)..
-               doc.element_linenumber(e) + e.value.lines.count).to_a
+               (doc.element_linenumber(e) + e.value.lines.count)).to_a
     end.flatten
     # Every line in the document that is part of a table.
     locations = doc.elements
@@ -236,7 +236,7 @@ rule 'MD013', 'Line length' do
     table_lines = locations.map.with_index do |(l, e), i|
       if e.type == :table
         if i + 1 < locations.size
-          (l..locations[i + 1].first - 1).to_a
+          (l..(locations[i + 1].first - 1)).to_a
         else
           (l..doc.lines.count).to_a
         end
@@ -247,7 +247,7 @@ rule 'MD013', 'Line length' do
       overlines -= codeblock_lines
       unless params[:code_blocks]
         warn 'MD013 warning: Parameter :code_blocks is deprecated.'
-        warn '  Please replace \":code_blocks => false\" by '\
+        warn '  Please replace \":code_blocks => false\" by ' \
              '\":ignore_code_blocks => true\" in your configuration.'
       end
     end
@@ -543,7 +543,7 @@ rule 'MD030', 'Spaces after list markers' do
         next if line.empty?
 
         actual_spaces = line.gsub(/^> /, '').match(/^\s*\S+(\s+)/)[1].length
-        required_spaces = params["#{list_type}_#{srule}".to_sym]
+        required_spaces = params[:"#{list_type}_#{srule}"]
         errors << doc.element_linenumber(i) if required_spaces != actual_spaces
       end
     end
@@ -597,7 +597,7 @@ rule 'MD032', 'Lists should be surrounded by blank lines' do
       next if line.strip == '{:toc}'
 
       unless in_code
-        list_marker = line.strip.match(/^([*+\-]|(\d+\.))\s/)
+        list_marker = line.strip.match(/^([*+-]|(\d+\.))\s/)
         if list_marker && !in_list && !prev_line.match(/^($|\s)/)
           errors << (linenum + 1)
         elsif !list_marker && in_list && !line.match(/^($|\s)/)
@@ -692,7 +692,7 @@ rule 'MD037', 'Spaces inside emphasis markers' do
     # Kramdown doesn't parse emphasis with spaces, which means we can just
     # look for emphasis patterns inside regular text with spaces just inside
     # them.
-    (doc.matching_text_element_lines(/\s(\*\*?|__?)\s.+\1/) | \
+    (doc.matching_text_element_lines(/\s(\*\*?|__?)\s.+\1/) |
       doc.matching_text_element_lines(/(\*\*?|__?).+\s\1\s/)).sort
   end
 end

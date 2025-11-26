@@ -19,17 +19,11 @@ Gem::Specification.new do |spec|
   spec.executables = %w{mdl}
   spec.require_paths = ['lib']
 
-  spec.required_ruby_version = '>= 2.7'
+  spec.required_ruby_version = '>= 3.2'
 
   spec.add_dependency 'kramdown', '~> 2.3'
   spec.add_dependency 'kramdown-parser-gfm', '~> 1.1'
-  spec.add_dependency 'mixlib-cli', '~> 2.1', '>= 2.1.1'
-  spec.add_dependency 'mixlib-config', '>= 2.2.1', '< 4'
+  spec.add_dependency 'mixlib-cli'
+  spec.add_dependency 'mixlib-config'
   spec.add_dependency 'mixlib-shellout'
-
-  spec.add_development_dependency 'bundler', '>= 1.12', '< 3'
-  spec.add_development_dependency 'minitest', '~> 5.9'
-  spec.add_development_dependency 'pry', '~> 0.10'
-  spec.add_development_dependency 'rake', '>= 11.2', '< 14'
-  spec.add_development_dependency 'rubocop', '~> 1.28.1'
 end

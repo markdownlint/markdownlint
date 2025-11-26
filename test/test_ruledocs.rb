@@ -13,7 +13,7 @@ class TestRuledocs < Minitest::Test
   end
 
   def load_ruledocs
-    rules = Hash.new({}) # Default to {} if no docs for the rule
+    rules = Hash.new { {} } # Default to {} if no docs for the rule
     curr_rule = nil
     rules_file = File.expand_path('../docs/RULES.md', __dir__)
     File.read(rules_file).split("\n").each do |l|
