@@ -1,6 +1,12 @@
 # Change Log
 
-## Unreleased
+## [v0.15.0] (2025-11-25)
+
+### Changed
+
+* Bumped minum ruby version to 3.2
+  [#531](https://github.com/markdownlint/markdownlint/pull/531), and associated
+  changes
 
 ## [v0.14.0] (2025-11-25)
 
@@ -340,6 +346,7 @@
 * MD029 - Ordered list item prefix
 * MD030 - Spaces after list markers
 
+[v0.15.0]: https://github.com/markdownlint/markdownlint/tree/v0.15.0
 [v0.14.0]: https://github.com/markdownlint/markdownlint/tree/v0.14.0
 [v0.13.0]: https://github.com/markdownlint/markdownlint/tree/v0.13.0
 [v0.12.0]: https://github.com/markdownlint/markdownlint/tree/v0.12.0
