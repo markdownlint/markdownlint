@@ -19,8 +19,9 @@ docker run --rm -v ${PWD}:/data markdownlint/markdownlint .
 The following will tag and upload a new release. Replace X.Y.Z as appropriate.
 
 ```shell
+VERSION=X.Y.Z
 podman build -t markdownlint/markdownlint:latest \
-    -t markdownlint/markdownlint:X.Y.Z .
+    -t markdownlint/markdownlint:${VERSION?} .
 podman push markdownlint/markdownlint:latest
-podman push markdownlint/markdownling:X.Y.Z
+podman push markdownlint/markdownling:${VERSION?}
 ```
