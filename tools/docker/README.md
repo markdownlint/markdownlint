@@ -23,5 +23,5 @@ VERSION=X.Y.Z
 podman build -t markdownlint/markdownlint:latest \
     -t markdownlint/markdownlint:${VERSION?} .
 podman push markdownlint/markdownlint:latest
-podman push markdownlint/markdownling:${VERSION?}
+podman push markdownlint/markdownlint:${VERSION?}
 ```
