@@ -1,2 +1,0 @@
-#exmample disabling MD013, allows all others
-exclude_rule "MD013"
