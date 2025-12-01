@@ -1,2 +1,2 @@
-#Rename this file .mdlrc
+#The custom style file is referenced by .mdlrc as below
 style ".exclude_example.rb"
