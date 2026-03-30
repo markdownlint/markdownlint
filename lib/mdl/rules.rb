@@ -193,7 +193,7 @@ rule 'MD011', 'Reversed link syntax' do
   tags :links
   aliases 'no-reversed-links'
   check do |doc|
-    doc.matching_text_element_lines(/\([^)]+\)\[[^\]]+\]/)
+    doc.matching_text_element_lines(/\([^)]+\)\[[^\]\^]+\]/)
   end
 end
 
