@@ -1,6 +1,6 @@
 on_push:
   - lint
 lint:
-  - bundle exec rubocop
+  - bundle exec rubocop -a
 unit:
   - bundle exec rake test
