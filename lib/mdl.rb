@@ -62,6 +62,7 @@ module MarkdownLint
 
     # Recurse into directories
     cli.cli_arguments.each_with_index do |filename, i|
+      filename = filename.chomp('/') if filename.end_with?('/')
       if Dir.exist?(filename)
         if Config[:git_recurse]
           Dir.chdir(filename) do
