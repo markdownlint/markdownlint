@@ -755,7 +755,8 @@ rule 'MD040', 'Fenced code blocks should have a language specified' do
     # the class attribute set to language-languagename.
     doc.element_linenumbers(doc.find_type_elements(:codeblock).select do |i|
                               !i.attr['class'].to_s.start_with?('language-') &&
-                                !doc.element_line(i).start_with?('    ')
+                                !doc.element_line(i).start_with?('    ') &&
+                                !doc.element_line(i).start_with?("\t")
                             end)
   end
 end
