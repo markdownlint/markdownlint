@@ -688,9 +688,12 @@ rule 'MD037', 'Spaces inside emphasis markers' do
   check do |doc|
     # Kramdown doesn't parse emphasis with spaces, which means we can just
     # look for emphasis patterns inside regular text with spaces just inside
-    # them.
+    # them. Exclude lines with escaped emphasis markers (\* or \_) since
+    # kramdown resolves escapes in text element values.
     (doc.matching_text_element_lines(/\s(\*\*?|__?)\s.+\1/) |
-      doc.matching_text_element_lines(/(\*\*?|__?).+\s\1\s/)).sort
+      doc.matching_text_element_lines(/(\*\*?|__?).+\s\1\s/))
+      .reject { |linenum| doc.lines[linenum - 1]&.match?(/\\[*_]/) }
+      .sort
   end
 end
 
