@@ -211,7 +211,8 @@ module MarkdownLint
     # Returns line numbers for lines that match the given regular expression
 
     def matching_lines(regex)
-      @lines.each_with_index.select { |text, _linenum| regex.match(text) }
+      @lines.each_with_index
+            .select { |text, _linenum| regex.match(text) }
             .map do |i|
               i[1] + 1
             end
