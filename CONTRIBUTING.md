@@ -112,7 +112,7 @@ Cycles](#release-cycles).
 ## Releases
 
 We release Markdownlint as a gem to [Rubygems](https://rubygems.org/gems/mdl)
-and maintain a [Dockerfile](https://hub.docker.com/r/mivok/markdownlint)
+and maintain a [Docker image](https://hub.docker.com/r/markdownlint/markdownlint)
 
 Markdownlint follows the [Semantic Versioning](https://semver.org/) standard.
 Our standard version numbers look like `X.Y.Z` and translates to:
