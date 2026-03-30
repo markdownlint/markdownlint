@@ -504,18 +504,16 @@ rule 'MD029', 'Ordered list item prefix' do
       doc.find_type_elements(:ol).map do |l|
         doc.find_type_elements(:li, false, l.children)
            .map.with_index do |i, idx|
-          unless doc.element_line(i).strip.start_with?("#{idx + 1}. ")
-            doc.element_linenumber(i)
-          end
+          line = doc.element_line(i).gsub(/^[\s>]+/, '')
+          doc.element_linenumber(i) unless line.start_with?("#{idx + 1}. ")
         end
       end.flatten.compact
     when :one
       doc.find_type_elements(:ol).map do |l|
         doc.find_type_elements(:li, false, l.children)
       end.flatten.map do |i|
-        unless doc.element_line(i).strip.start_with?('1. ')
-          doc.element_linenumber(i)
-        end
+        line = doc.element_line(i).gsub(/^[\s>]+/, '')
+        doc.element_linenumber(i) unless line.start_with?('1. ')
       end.compact
     end
   end
