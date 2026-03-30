@@ -234,7 +234,7 @@ class TestCli < Minitest::Test
 
     expected = <<~OUTPUT
       #{path}/jekyll_post.md:16: MD001 Header levels should only increment by one level at a time
-      #{path}/jekyll_post_2.md:16: MD001 Header levels should only increment by one level at a time
+      #{path}/jekyll_post_2.md:17: MD001 Header levels should only increment by one level at a time
 
       Further documentation is available for these failures:
        - MD001: https://github.com/markdownlint/markdownlint/blob/main/docs/RULES.md#md001---header-levels-should-only-increment-by-one-level-at-a-time

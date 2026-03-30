@@ -29,7 +29,7 @@ module MarkdownLint
     def initialize(text, ignore_front_matter = false)
       regex = /^---\n(.*?)---\n\n?/m
       if ignore_front_matter && regex.match(text)
-        @offset = regex.match(text).to_s.split("\n").length
+        @offset = regex.match(text).to_s.count("\n")
         text.sub!(regex, '')
       else
         @offset = 0
