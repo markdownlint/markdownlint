@@ -111,15 +111,13 @@ rule 'MD005', 'Inconsistent indentation for list items at the same level' do
   check do |doc|
     bullets = doc.find_type(:li)
     errors = []
-    indent_levels = []
+    indent_levels = {}
     bullets.each do |b|
       indent_level = doc.indent_for(doc.element_line(b))
-      if indent_levels[b[:element_level]].nil?
-        indent_levels[b[:element_level]] = indent_level
-      end
-      if indent_level != indent_levels[b[:element_level]]
-        errors << doc.element_linenumber(b)
-      end
+      list_type = b[:parent].type
+      key = [b[:element_level], list_type]
+      indent_levels[key] = indent_level if indent_levels[key].nil?
+      errors << doc.element_linenumber(b) if indent_level != indent_levels[key]
     end
     errors
   end
@@ -242,7 +240,7 @@ rule 'MD013', 'Line length' do
         end
       end
     end.flatten
-    overlines = doc.matching_lines(/^.{#{@params[:line_length]}}.*\s/)
+    overlines = doc.matching_lines(/^.{#{@params[:line_length]}}.+/)
     if !params[:code_blocks] || params[:ignore_code_blocks]
       overlines -= codeblock_lines
       unless params[:code_blocks]

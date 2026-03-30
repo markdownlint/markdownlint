@@ -5,8 +5,8 @@ require 'mdl/version'
 Gem::Specification.new do |spec|
   spec.name = 'mdl'
   spec.version = MarkdownLint::VERSION
-  spec.authors = ['Mark Harrison']
-  spec.email = ['mark@mivok.net']
+  spec.authors = ['Phil Dibowitz']
+  spec.email = ['phil@ipom.com']
   spec.summary = 'Markdown lint tool'
   spec.description = 'Style checker/lint tool for markdown files'
   spec.homepage = 'https://github.com/markdownlint/markdownlint'
@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = '>= 3.2'
 
-  spec.add_dependency 'kramdown', '~> 2.3'
+  spec.add_dependency 'kramdown', '~> 2.5'
   spec.add_dependency 'kramdown-parser-gfm', '~> 1.1'
   spec.add_dependency 'mixlib-cli'
   spec.add_dependency 'mixlib-config'
