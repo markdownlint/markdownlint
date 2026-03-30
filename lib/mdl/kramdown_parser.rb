@@ -16,6 +16,14 @@ module Kramdown
 
       # Regular kramdown parser, but with GFM style fenced code blocks
       FENCED_CODEBLOCK_MATCH = Kramdown::Parser::GFM::FENCED_CODEBLOCK_MATCH
+
+      # End paragraphs when a fenced code block starts, matching GFM
+      # behavior. Without this, fenced code blocks without a preceding
+      # blank line are swallowed into the paragraph.
+      PARAGRAPH_END = Regexp.union(
+        Kramdown::Parser::Kramdown::PARAGRAPH_END,
+        Kramdown::Parser::GFM::FENCED_CODEBLOCK_START,
+      )
     end
   end
 end
