@@ -259,8 +259,9 @@ rule 'MD014', 'Dollar signs used before commands without showing output' do
   aliases 'commands-show-output'
   check do |doc|
     doc.find_type_elements(:codeblock).select do |e|
-      !e.value.empty? &&
-        !e.value.split(/\n+/).map { |l| l.match(/^\$\s/) }.include?(nil)
+      lines = e.value.split(/\n+/)
+      !lines.empty? &&
+        !lines.map { |l| l.match(/^\$\s/) }.include?(nil)
     end.map { |e| doc.element_linenumber(e) }
   end
 end
