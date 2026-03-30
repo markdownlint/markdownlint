@@ -47,9 +47,12 @@ module MarkdownLint
 
     def self.new_from_file(filename, ignore_front_matter = false)
       if filename == '-'
-        new($stdin.read, ignore_front_matter)
+        new($stdin.read.scrub, ignore_front_matter)
       else
-        new(File.read(filename, :encoding => 'UTF-8'), ignore_front_matter)
+        new(
+          File.read(filename, :encoding => 'UTF-8').scrub,
+          ignore_front_matter,
+        )
       end
     end
 
