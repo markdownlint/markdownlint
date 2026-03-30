@@ -9,3 +9,7 @@
 ## Heading 5 {MD026};
 
 ## Heading 6 {MD026}?
+
+## :warning: WARNING :warning:
+
+## Heading with emoji :rocket:

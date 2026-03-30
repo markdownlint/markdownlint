@@ -442,7 +442,8 @@ rule 'MD026', 'Trailing punctuation in header' do
   params :punctuation => '.,;:!?'
   check do |doc|
     doc.find_type(:header).select do |h|
-      h[:raw_text].match(/[#{params[:punctuation]}]$/)
+      h[:raw_text].match(/[#{params[:punctuation]}]$/) &&
+        !h[:raw_text].match(/:[a-zA-Z0-9_+-]+:\s*$/)
     end.map do |h|
       doc.element_linenumber(h)
     end
