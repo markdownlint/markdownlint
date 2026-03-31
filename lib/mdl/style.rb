@@ -38,6 +38,7 @@ module MarkdownLint
 
     def exclude_rule(id)
       id = @aliases[id] if @aliases[id]
+      all if @rules.empty?
       @rules.delete(id)
     end
 
@@ -46,6 +47,7 @@ module MarkdownLint
     end
 
     def exclude_tag(tag)
+      all if @rules.empty?
       @rules.subtract(@tagged_rules[tag])
     end
 
