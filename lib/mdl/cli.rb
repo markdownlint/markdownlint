@@ -122,6 +122,9 @@ module MarkdownLint
       # Only fall back to ~/.mdlrc if we are using the default value for -c
       if filename.nil? && (config[:config_file] == CONFIG_FILE)
         filename = File.expand_path("~/#{CONFIG_FILE}")
+      elsif filename.nil? && config[:config_file] != CONFIG_FILE
+        warn "Config file '#{config[:config_file]}' not found"
+        exit 3
       end
 
       if !filename.nil? && File.exist?(filename)
