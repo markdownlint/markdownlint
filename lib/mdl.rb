@@ -124,10 +124,11 @@ module MarkdownLint
         # for that) then, instead of making the output ugly with long URLs, we
         # print them at the end. And of course we only want to print each URL
         # once.
-        if !Config[:json] && !Config[:sarif] &&
-           !$stdout.tty? && !docs_to_print.include?(rule)
-          docs_to_print << rule
-        end
+        next unless !Config[:json] && !Config[:sarif] &&
+                    !$stdout.tty? && rule.docs_url &&
+                    !docs_to_print.include?(rule)
+
+        docs_to_print << rule
       end
     end
 
