@@ -634,7 +634,9 @@ rule 'MD034', 'Bare URL used' do
   tags :links, :url
   aliases 'no-bare-urls'
   check do |doc|
-    errors = doc.matching_text_element_lines(%r{https?://})
+    errors = doc.matching_text_element_lines(
+      %r{https?://}, %i{a html_element}
+    )
     # Text elements inside tables lack location info, so check table
     # text elements separately using the table's location.
     doc.find_type_elements(:table).each do |t|
