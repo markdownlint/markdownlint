@@ -568,7 +568,15 @@ rule 'MD031', 'Fenced code blocks should be surrounded by blank lines' do
         next
       end
 
-      fence = in_code ? nil : Regexp.last_match(1)
+      marker = Regexp.last_match(1)
+      # Backtick info strings cannot contain backticks (CommonMark spec),
+      # so a line like ```test``` is inline code, not a fence opener.
+      if marker[0] == '`' && !in_code
+        rest = line.strip[marker.length..]
+        next if rest&.include?('`')
+      end
+
+      fence = in_code ? nil : marker
       in_code = !in_code
       if (in_code && !lines[linenum - 1].empty?) ||
          (!in_code && !lines[linenum + 1].empty?)
