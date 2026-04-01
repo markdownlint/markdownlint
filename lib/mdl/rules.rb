@@ -505,7 +505,13 @@ rule 'MD027', 'Multiple spaces after blockquote symbol' do
       # element
       errors << linenum if doc.element_line(e).match(/^\s*>  /)
       lines.each do |line|
-        errors << linenum if line.start_with?(' ')
+        # Check extracted text for leading spaces, but verify against the
+        # source line to avoid false positives from kramdown text processing
+        # (e.g. em-dash conversion creating leading spaces).
+        src = doc.lines[linenum - 1]
+        if line.start_with?(' ') && src&.match?(/^\s*(?:>\s?)+\s{2,}\S/)
+          errors << linenum
+        end
         linenum += 1
       end
     end
