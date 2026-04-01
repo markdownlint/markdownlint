@@ -35,7 +35,21 @@ module MarkdownLint
     end
 
     def params(params = nil)
-      @params.update(params) unless params.nil?
+      unless params.nil?
+        # Normalize string values to symbols where the rule's default is
+        # a symbol AND the string looks like a simple identifier, so that
+        # style files can use either :atx or "atx". Values like "---"
+        # (MD035 hr style) are left as strings.
+        params = params.each_with_object({}) do |(k, v), h|
+          h[k] = if v.is_a?(String) && @params[k].is_a?(Symbol) &&
+                    v.match?(/\A[a-z][a-z_]*\z/)
+                   v.to_sym
+                 else
+                   v
+                 end
+        end
+        @params.update(params)
+      end
       @params
     end
 
