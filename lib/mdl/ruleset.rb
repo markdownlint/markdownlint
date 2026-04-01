@@ -19,6 +19,11 @@ module MarkdownLint
       @check
     end
 
+    def fix(&block)
+      @fix = block unless block.nil?
+      @fix
+    end
+
     def tags(*tags)
       @tags = tags.flatten.map(&:to_sym) unless tags.empty?
       @tags

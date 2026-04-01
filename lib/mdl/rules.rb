@@ -167,6 +167,11 @@ rule 'MD009', 'Trailing spaces' do
     end
     errors
   end
+  fix do |doc, lines|
+    lines.each do |linenum|
+      doc.lines[linenum - 1] = doc.lines[linenum - 1].rstrip
+    end
+  end
 end
 
 rule 'MD010', 'Hard tabs' do
@@ -186,6 +191,11 @@ rule 'MD010', 'Hard tabs' do
     # Remove lines with hard tabs, if they stem from codeblock
     hard_tab_lines -= codeblock_lines if params[:ignore_code_blocks]
     hard_tab_lines
+  end
+  fix do |doc, lines|
+    lines.each do |linenum|
+      doc.lines[linenum - 1] = doc.lines[linenum - 1].gsub("\t", '    ')
+    end
   end
 end
 
@@ -212,6 +222,11 @@ rule 'MD012', 'Multiple consecutive blank lines' do
                          n - p == 1
                        end.map { |_p, n| n }
     cons_blank_lines - codeblock_lines
+  end
+  fix do |doc, lines|
+    lines.reverse_each do |linenum|
+      doc.lines.delete_at(linenum - 1)
+    end
   end
 end
 
@@ -274,6 +289,11 @@ rule 'MD018', 'No space after hash on atx style header' do
       doc.header_style(h) == :atx && doc.element_line(h).match(/^#+[^#\s]/)
     end.map { |h| doc.element_linenumber(h) }
   end
+  fix do |doc, lines|
+    lines.each do |linenum|
+      doc.lines[linenum - 1] = doc.lines[linenum - 1].sub(/^(#+)/, '\1 ')
+    end
+  end
 end
 
 rule 'MD019', 'Multiple spaces after hash on atx style header' do
@@ -283,6 +303,11 @@ rule 'MD019', 'Multiple spaces after hash on atx style header' do
     doc.find_type_elements(:header).select do |h|
       doc.header_style(h) == :atx && doc.element_line(h).match(/^#+\s\s/)
     end.map { |h| doc.element_linenumber(h) }
+  end
+  fix do |doc, lines|
+    lines.each do |linenum|
+      doc.lines[linenum - 1] = doc.lines[linenum - 1].sub(/^(#+)\s+/, '\1 ')
+    end
   end
 end
 
@@ -307,6 +332,13 @@ rule 'MD021', 'Multiple spaces inside hashes on closed atx style header' do
         && (doc.element_line(h).match(/^#+\s\s/) \
              || doc.element_line(h).match(/\s\s#+$/))
     end.map { |h| doc.element_linenumber(h) }
+  end
+  fix do |doc, lines|
+    lines.each do |linenum|
+      doc.lines[linenum - 1] = doc.lines[linenum - 1]
+                                  .sub(/^(#+)\s+/, '\1 ')
+                                  .sub(/\s+(#+)$/, ' \1')
+    end
   end
 end
 
@@ -378,6 +410,16 @@ rule 'MD023', 'Headers must start at the beginning of the line' do
       end
     end
     errors.sort
+  end
+  fix do |doc, lines|
+    lines.each do |linenum|
+      doc.lines[linenum - 1] = doc.lines[linenum - 1].lstrip
+      # For setext headers, also lstrip the underline on the next line
+      next_line = doc.lines[linenum]
+      if next_line&.match?(/^\s+(-+|=+)\s*$/)
+        doc.lines[linenum] = next_line.lstrip
+      end
+    end
   end
 end
 
@@ -468,6 +510,12 @@ rule 'MD027', 'Multiple spaces after blockquote symbol' do
       end
     end
     errors
+  end
+  fix do |doc, lines|
+    lines.each do |linenum|
+      doc.lines[linenum - 1] = doc.lines[linenum - 1].sub(/(>\s*>) +/, '\1 ')
+                                  .sub(/^> +/, '> ')
+    end
   end
 end
 
@@ -831,5 +879,8 @@ rule 'MD047', 'File should end with a single newline character' do
     last_line = doc.lines[-1]
     error_lines.push(doc.lines.length) unless last_line.nil? || last_line.empty?
     error_lines
+  end
+  fix do |doc, _lines|
+    doc.lines << '' unless doc.lines[-1] && doc.lines[-1].empty?
   end
 end

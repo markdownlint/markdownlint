@@ -89,6 +89,12 @@ module MarkdownLint
         )
         exit 3
       end
+
+      if Config[:fix] && filename != '-'
+        original_text = File.read(filename, :encoding => 'UTF-8').scrub
+        text = original_text.dup
+      end
+
       doc = Doc.new_from_file(filename, Config[:ignore_front_matter])
       filename = '(stdin)' if filename == '-'
       if Config[:show_kramdown_warnings]
@@ -103,10 +109,19 @@ module MarkdownLint
         next if error_lines.nil? || error_lines.empty?
 
         status = 1
+        corrected = false
+        if Config[:fix] && filename != '(stdin)' && rule.fix
+          rule.fix.call(doc, error_lines)
+          text = doc.to_s
+          doc = Doc.new(text.dup, Config[:ignore_front_matter])
+          corrected = true
+        end
+
+        suffix = corrected ? ' (corrected)' : ''
         error_lines.each do |line|
           line += doc.offset # Correct line numbers for any yaml front matter
           if Config[:json] || Config[:sarif]
-            results << {
+            result = {
               'filename' => filename,
               'line' => line,
               'rule' => id,
@@ -114,9 +129,12 @@ module MarkdownLint
               'description' => rule.description,
               'docs' => rule.docs_url,
             }
+            result['corrected'] = corrected if Config[:fix]
+            results << result
           else
             linked_id = linkify(printable_id(rule), rule.docs_url)
-            puts "#{filename}:#{line}: #{linked_id} " + rule.description.to_s
+            puts "#{filename}:#{line}: #{linked_id} " \
+                 "#{rule.description}#{suffix}"
           end
         end
 
@@ -130,6 +148,10 @@ module MarkdownLint
                     !docs_to_print.include?(rule)
 
         docs_to_print << rule
+      end
+
+      if Config[:fix] && filename != '(stdin)' && text != original_text
+        File.write(filename, text)
       end
     end
 

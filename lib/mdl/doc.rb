@@ -11,7 +11,7 @@ module MarkdownLint
     # subtract 1 from a line number to get the correct line. The element_line*
     # methods take care of this for you.
 
-    attr_reader :lines, :parsed, :elements, :offset
+    attr_reader :lines, :parsed, :elements, :offset, :front_matter
 
     ##
     # A Kramdown::Document object containing the parsed markdown document.
@@ -29,9 +29,11 @@ module MarkdownLint
     def initialize(text, ignore_front_matter = false)
       regex = /\A---\n(.*?)---\n\n?/m
       if ignore_front_matter && regex.match(text)
-        @offset = regex.match(text).to_s.count("\n")
+        @front_matter = regex.match(text).to_s
+        @offset = @front_matter.count("\n")
         text.sub!(regex, '')
       else
+        @front_matter = ''
         @offset = 0
       end
       # The -1 is to cause split to preserve an extra entry in the array so we
@@ -294,6 +296,12 @@ module MarkdownLint
           quotes[e.value]
         end
       end.join.split("\n")
+    end
+
+    ##
+    # Reconstruct the full file content from front matter and lines
+    def to_s
+      @front_matter + @lines.join("\n")
     end
 
     private

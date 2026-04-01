@@ -101,6 +101,12 @@ module MarkdownLint
            :proc => proc { puts MarkdownLint::VERSION },
            :exit => 0
 
+    option :fix,
+           :short => '-f',
+           :long => '--fix',
+           :description => 'Automatically fix what can be fixed',
+           :boolean => true
+
     option :json,
            :short => '-j',
            :long => '--json',
