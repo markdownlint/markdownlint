@@ -645,12 +645,22 @@ rule 'MD032', 'Lists should be surrounded by blank lines' do
     # without surrounding whitespace, so examine the lines directly.
     in_list = false
     in_code = false
+    in_comment = false
     fence = nil
     prev_line = ''
     doc.lines.each_with_index do |line, linenum|
       next if line.strip == '{:toc}'
 
-      unless in_code
+      # Track HTML comments
+      if !in_comment && line.match?(/<!--/) && !line.match?(/-->/)
+        in_comment = true
+      elsif in_comment && line.match?(/-->/)
+        in_comment = false
+        prev_line = ''
+        next
+      end
+
+      unless in_code || in_comment
         list_marker = line.strip.match(/^([*+-]|(\d+\.))\s/)
         if list_marker && !in_list && !prev_line.match(/^($|\s)/)
           errors << (linenum + 1)
