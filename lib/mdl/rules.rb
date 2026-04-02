@@ -255,6 +255,17 @@ rule 'MD013', 'Line length' do
         end
       end
     end.flatten
+    # Fallback: detect table-like lines not recognized by kramdown
+    # (e.g. tables without surrounding blank lines are parsed as paragraphs)
+    unless params[:tables]
+      doc.lines.each_with_index do |line, i|
+        linenum = i + 1
+        next if table_lines.include?(linenum)
+        next if codeblock_lines.include?(linenum)
+
+        table_lines << linenum if line.match?(/^\s*\|.*\|/)
+      end
+    end
     overlines = doc.matching_lines(/^.{#{@params[:line_length]}}.+/)
     if !params[:code_blocks] || params[:ignore_code_blocks]
       overlines -= codeblock_lines
