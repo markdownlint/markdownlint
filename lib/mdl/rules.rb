@@ -142,16 +142,24 @@ rule 'MD007', 'Unordered list indentation' do
   params :indent => 3
   check do |doc|
     errors = []
-    indents = doc.find_type(:ul).map do |e|
-      [doc.indent_for(doc.element_line(e)), doc.element_linenumber(e)]
-    end
-    curr_indent = indents[0][0] unless indents.empty?
-    indents.each do |indent, linenum|
-      if (indent > curr_indent) && (indent - curr_indent != @params[:indent])
-        errors << linenum
+    # Check indentation of nested ul elements relative to their parent ul.
+    # Only compare parent-child ul pairs to avoid false positives when
+    # unrelated lists appear at different indent levels.
+    def check_ul_indent(doc, elements, parent_indent, errors, indent)
+      elements.each do |e|
+        if e.type == :ul
+          el_indent = doc.indent_for(doc.element_line(e))
+          if parent_indent && (el_indent > parent_indent) &&
+             (el_indent - parent_indent != indent)
+            errors << doc.element_linenumber(e)
+          end
+          check_ul_indent(doc, e.children, el_indent, errors, indent)
+        else
+          check_ul_indent(doc, e.children, parent_indent, errors, indent)
+        end
       end
-      curr_indent = indent
     end
+    check_ul_indent(doc, doc.elements, nil, errors, @params[:indent])
     errors
   end
 end
