@@ -7,3 +7,7 @@ which will tell you all you want to know.
 http://www.google.com/ {MD034}
 
 This link should be fine: <http://www.google.com/>
+
+* [Pipe | in link text](https://example.com)
+
+* [Text | More text](https://blog.sean.taipei/2017/05/test)

@@ -715,7 +715,16 @@ rule 'MD034', 'Bare URL used' do
         end
       end
     end
-    errors.uniq.sort
+    # Filter out false positives where the source line doesn't actually
+    # contain a bare URL (kramdown can misparse links containing pipes
+    # as tables, reporting wrong line numbers)
+    errors.uniq.sort.select do |linenum|
+      line = doc.lines[linenum - 1]
+      next false if line.nil?
+
+      # Strip URLs inside markdown links, then check if a bare URL remains
+      line.gsub(%r{\]\(https?://[^)]*\)}, '').match?(%r{https?://})
+    end
   end
 end
 
