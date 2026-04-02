@@ -242,7 +242,7 @@ rule 'MD013', 'Line length' do
   tags :line_length
   aliases 'line-length'
   params :line_length => 80, :ignore_code_blocks => false, :code_blocks => true,
-         :tables => true
+         :tables => true, :headings => true
 
   check do |doc|
     # Every line in the document that is part of a code block.
@@ -274,6 +274,10 @@ rule 'MD013', 'Line length' do
         table_lines << linenum if line.match?(/^\s*\|.*\|/)
       end
     end
+    # Every line in the document that is a header.
+    header_lines = doc.find_type_elements(:header).map do |e|
+      doc.element_linenumber(e)
+    end
     overlines = doc.matching_lines(/^.{#{@params[:line_length]}}.+/)
     if !params[:code_blocks] || params[:ignore_code_blocks]
       overlines -= codeblock_lines
@@ -284,6 +288,7 @@ rule 'MD013', 'Line length' do
       end
     end
     overlines -= table_lines unless params[:tables]
+    overlines -= header_lines unless params[:headings]
     overlines
   end
 end
