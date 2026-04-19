@@ -274,11 +274,13 @@ rule 'MD013', 'Line length' do
         table_lines << linenum if line.match?(/^\s*\|.*\|/)
       end
     end
+    single_word_lines = doc.matching_lines(/^\S+$/)
     # Every line in the document that is a header.
     header_lines = doc.find_type_elements(:header).map do |e|
       doc.element_linenumber(e)
     end
     overlines = doc.matching_lines(/^.{#{@params[:line_length]}}.+/)
+    overlines -= single_word_lines
     if !params[:code_blocks] || params[:ignore_code_blocks]
       overlines -= codeblock_lines
       unless params[:code_blocks]
