@@ -1,6 +1,79 @@
 # Change Log
 
-## Unreleased
+## [v0.16.0] (2026-05-29)
+
+### Added
+
+* Add autocorrecting
+  [#519](https://github.com/markdownlint/markdownlint/pull/559/)
+
+### Changed
+
+* Added extra documentation around excluding rules
+  [#516](https://github.com/markdownlint/markdownlint/pull/516/)
+* Update Kramdown
+  [#539](https://github.com/markdownlint/markdownlint/pull/539/)
+* Start from all rules when style only contains exclusions
+  [#551](https://github.com/markdownlint/markdownlint/pull/551/)
+* Give error when explicitly specified config file is not found
+  [#554](https://github.com/markdownlint/markdownlint/pull/554/)
+* Skip docs footer for rules without a docs URL
+  [#556](https://github.com/markdownlint/markdownlint/pull/556/)
+* Fix "bulletd" typo in test file names
+  [#557](https://github.com/markdownlint/markdownlint/pull/557/)
+* Accept string values for symbol params in style files
+  [#561](https://github.com/markdownlint/markdownlint/pull/561/)
+* Bump bundler version
+  [#569](https://github.com/markdownlint/markdownlint/pull/569/)
+
+### Fixed
+
+* MD005 - Fixed inconsistent UL/OL ordering
+  [#539](https://github.com/markdownlint/markdownlint/pull/539/)
+* MD013 - Fixed line length detection
+  [#539](https://github.com/markdownlint/markdownlint/pull/539/)
+* Fix fenced code blocks not detected without preceding blank line
+  [#541](https://github.com/markdownlint/markdownlint/pull/541/)
+* Fix front matter offset when blank line follows closing ---
+  [#542](https://github.com/markdownlint/markdownlint/pull/542/)
+* MD029 - Fix false positive for ordered lists inside blockquotes
+  [#543](https://github.com/markdownlint/markdownlint/pull/543/)
+* MD026 - Fix false positive on emoji shortcodes in headers
+  [#543](https://github.com/markdownlint/markdownlint/pull/544/)
+* MD011 - Fix false positive on footnote references
+  [#545](https://github.com/markdownlint/markdownlint/pull/545/)
+* Fix crash on files with invalid UTF-8 byte sequences
+  [#546](https://github.com/markdownlint/markdownlint/pull/546/)
+* MD034 - FIx not detecting bare URLs inside tables
+  [#547](https://github.com/markdownlint/markdownlint/pull/547/)
+* Fix front matter regex matching --- inside code blocks
+  [#548](https://github.com/markdownlint/markdownlint/pull/548/)
+* MD037 - Fix false positive on escaped emphasis markers
+  [#549](https://github.com/markdownlint/markdownlint/pull/549/)
+* MD014 - Fix false positive on code blocks with only blank lines
+  [#550](https://github.com/markdownlint/markdownlint/pull/550/)
+* MD040 - Fix false positive on tab-indented code blocks
+  [#552](https://github.com/markdownlint/markdownlint/pull/552/)
+* MD034 - Fix false positive for URLs inside HTML elements
+  [#553](https://github.com/markdownlint/markdownlint/pull/553/)
+* Fix double slashes in file paths when directory has trailing slash
+  [#555](https://github.com/markdownlint/markdownlint/pull/555/)
+* MD031 - Fix false positive on inline backtick code spans
+  [#558](https://github.com/markdownlint/markdownlint/pull/558/)
+* MD013 - Detect table-like lines even when kramdown parses them as paragraphs
+  [#560](https://github.com/markdownlint/markdownlint/pull/560/)
+* MD007 - Fix false positive on unrelated lists at different indent levels
+  [#562](https://github.com/markdownlint/markdownlint/pull/562/)
+* MD034 - Fix false positive when link text contains pipe character
+  [#564](https://github.com/markdownlint/markdownlint/pull/564/)
+* MD032 - Fix false positive on HTML comments adjacent to lists
+  [#565](https://github.com/markdownlint/markdownlint/pull/565/)
+* MD027 - Fix false positive on blockquotes with soft line breaks
+  [#566](https://github.com/markdownlint/markdownlint/pull/566/)
+* MD013 - Add :headings parameter to exclude headings from line length
+  [#563](https://github.com/markdownlint/markdownlint/pull/563/)
+* MD013 - Don't flag lines that are single-words
+  [#572](https://github.com/markdownlint/markdownlint/pull/572/)
 
 ## [v0.15.0] (2025-11-25)
 
@@ -348,6 +421,7 @@
 * MD029 - Ordered list item prefix
 * MD030 - Spaces after list markers
 
+[v0.16.0]: https://github.com/markdownlint/markdownlint/tree/v0.16.0
 [v0.15.0]: https://github.com/markdownlint/markdownlint/tree/v0.15.0
 [v0.14.0]: https://github.com/markdownlint/markdownlint/tree/v0.14.0
 [v0.13.0]: https://github.com/markdownlint/markdownlint/tree/v0.13.0
