@@ -242,7 +242,8 @@ rule 'MD013', 'Line length' do
   tags :line_length
   aliases 'line-length'
   params :line_length => 80, :ignore_code_blocks => false, :code_blocks => true,
-         :tables => true, :headings => true
+         :tables => true, :headings => true,
+         :treat_links_as_single_words => false
 
   check do |doc|
     # Every line in the document that is part of a code block.
@@ -274,7 +275,15 @@ rule 'MD013', 'Line length' do
         table_lines << linenum if line.match?(/^\s*\|.*\|/)
       end
     end
-    single_word_lines = doc.matching_lines(/^\S+$/)
+    single_word_lines = doc.matching_lines(/^\s*\S+$/) +
+                        doc.matching_lines(/^\s*(?:[-*+]|\d+[.)])\s+\S+$/)
+    if params[:treat_links_as_single_words]
+      link_re = /\[.*\]\([^)]*\)/
+      list_re = /^\s*(?:[-*+]|\d+[.)])\s+#{link_re.source}$/
+      single_word_lines +=
+        doc.matching_lines(/^\s*#{link_re.source}$/) +
+        doc.matching_lines(list_re)
+    end
     # Every line in the document that is a header.
     header_lines = doc.find_type_elements(:header).map do |e|
       doc.element_linenumber(e)

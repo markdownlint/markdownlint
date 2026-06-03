@@ -418,7 +418,7 @@ Tags: line_length
 
 Aliases: line-length
 
-Parameters: line_length, ignore_code_blocks, code_blocks, tables, headings (number; default 80, boolean; default false, boolean; default true, boolean; default true, boolean; default true)
+Parameters: line_length, ignore_code_blocks, code_blocks, tables, headings, treat_links_as_single_words (number; default 80, boolean; default false, boolean; default true, boolean; default true, boolean; default true, boolean; default false)
 
 This rule is triggered when there are lines that are longer than the
 configured line length (default: 80 characters). To fix this, split the line
@@ -437,6 +437,10 @@ code blocks is deprecated and will be removed in a future release.
 Code blocks are included in this rule by default since it is often a
 requirement for document readability, and tentatively compatible with code
 rules. Still, some languages do not lend themselves to short lines.
+
+Set `treat_links_as_single_words` to true to suppress this rule for lines
+whose entire content is a markdown link (e.g. `[text](url)`), as well as list
+items whose entire content is a single word or a markdown link.
 
 ## MD014 - Dollar signs used before commands without showing output
 
