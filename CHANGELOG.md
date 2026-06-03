@@ -1,5 +1,22 @@
 # Change Log
 
+## [v0.17.0] (2026-06-03)
+
+### Added
+
+* Added `treat_links_as_single_word` option to MD013
+  [#580](https://github.com/markdownlint/markdownlint/pull/580/)
+
+### Fixed
+
+* MD013 - Do not trigger on a single long word in backticks
+  [#580](https://github.com/markdownlint/markdownlint/pull/580/)
+* MD013 - Do not trigger on a single long word alone on a line continuation
+  [#580](https://github.com/markdownlint/markdownlint/pull/580/)
+* MD013 - Do not trigger on a list item with a single long word
+  [#580](https://github.com/markdownlint/markdownlint/pull/580/)
+* Docker - Use latest alphine so mdl version is correct
+
 ## [v0.16.0] (2026-05-29)
 
 ### Added
@@ -421,6 +438,7 @@
 * MD029 - Ordered list item prefix
 * MD030 - Spaces after list markers
 
+[v0.17.0]: https://github.com/markdownlint/markdownlint/tree/v0.17.0
 [v0.16.0]: https://github.com/markdownlint/markdownlint/tree/v0.16.0
 [v0.15.0]: https://github.com/markdownlint/markdownlint/tree/v0.15.0
 [v0.14.0]: https://github.com/markdownlint/markdownlint/tree/v0.14.0
