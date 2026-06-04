@@ -20,7 +20,7 @@ The following will tag and upload a new release. Replace X.Y.Z as appropriate.
 
 ```shell
 VERSION=X.Y.Z
-podman build -t markdownlint/markdownlint:latest \
+podman build --no-cache -t markdownlint/markdownlint:latest \
     -t markdownlint/markdownlint:${VERSION?} .
 podman push markdownlint/markdownlint:latest
 podman push markdownlint/markdownlint:${VERSION?}
