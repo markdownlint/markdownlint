@@ -67,9 +67,9 @@ module MarkdownLint
         if Config[:git_recurse]
           Dir.chdir(filename) do
             cli.cli_arguments[i] =
-              Mixlib::ShellOut.new("git ls-files '*.md' '*.markdown'")
-                              .run_command.stdout.lines
-                              .map { |m| File.join(filename, m.strip) }
+              Mixlib::ShellOut.new("git ls-files -z '*.md' '*.markdown'")
+                              .run_command.stdout.split("\x00")
+                              .map { |m| File.join(filename, m) }
           end
         else
           cli.cli_arguments[i] = Dir["#{filename}/**/*.{md,markdown}"]
