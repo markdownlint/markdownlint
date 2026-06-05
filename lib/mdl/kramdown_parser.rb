@@ -14,8 +14,14 @@ module Kramdown
         @block_parsers.insert(i, :codeblock_fenced_gfm)
       end
 
-      # Regular kramdown parser, but with GFM style fenced code blocks
-      FENCED_CODEBLOCK_MATCH = Kramdown::Parser::GFM::FENCED_CODEBLOCK_MATCH
+      # GFM fenced code blocks, extended to allow spaces in the info string
+      # (e.g. ```c hlines=2). The GFM regex restricts the info string to a
+      # single non-whitespace token, which causes kramdown to miss blocks whose
+      # info string contains a space, leading to false positives inside them.
+      # Capture groups match GFM's: 1=fence, 2=fence-char, 3=full-info,
+      # 4=first-word, 5=content.
+      FENCED_CODEBLOCK_MATCH =
+        /^ {0,3}(([~`]){3,})\s*?((\S+?)[^\n]*)?\n(.*?)^ {0,3}\1\2*\s*?\n/m
 
       # End paragraphs when a fenced code block starts, matching GFM
       # behavior. Without this, fenced code blocks without a preceding
