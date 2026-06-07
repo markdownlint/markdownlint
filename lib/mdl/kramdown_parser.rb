@@ -21,7 +21,7 @@ module Kramdown
       # Capture groups match GFM's: 1=fence, 2=fence-char, 3=full-info,
       # 4=first-word, 5=content.
       FENCED_CODEBLOCK_MATCH =
-        /^ {0,3}(([~`]){3,})\s*?((\S+?)[^\n]*)?\n(.*?)^ {0,3}\1\2*\s*?\n/m
+        /^ {0,3}(([~`]){3,})\s*?((\S+?)[^\n]*)?\n([\S\s]*?)^ {0,3}\1\2*\s*?\n/m
 
       # End paragraphs when a fenced code block starts, matching GFM
       # behavior. Without this, fenced code blocks without a preceding
