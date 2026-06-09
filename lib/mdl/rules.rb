@@ -493,7 +493,7 @@ rule 'MD024', 'Multiple headers with the same content' do
           stack.pop
         elsif current_level < level
           stack.push([text])
-        elsif stack.last.include?(text)
+        elsif stack.last && stack.last.include?(text)
           same_nesting_duplicates.add(header)
         end
 
