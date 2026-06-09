@@ -1044,6 +1044,8 @@ Tags: links, url
 
 Aliases: no-bare-urls
 
+Parameters: allow_quoted (boolean, default `false`)
+
 This rule is triggered whenever a URL is given that isn't surrounded by angle
 brackets:
 
@@ -1066,6 +1068,20 @@ converted:
 
 ```markdown
 `http://www.example.com`
+```
+
+Alternatively, when setting `allow_quoted` to true, this rule also does not
+trigger on URLs that are directly enquoted in either single or double quotes.
+
+```markdown
+"http://www.example.com"
+```
+
+This is particularly helpful when using bare urls as parameters, for example
+in inline HTML or inside HUGO style shortcodes. For example:
+
+```markdown
+{{< figure src="http://www.example.com/image.png" >}}
 ```
 
 ## MD035 - Horizontal rule style

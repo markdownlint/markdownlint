@@ -751,6 +751,7 @@ end
 rule 'MD034', 'Bare URL used' do
   tags :links, :url
   aliases 'no-bare-urls'
+  params :allow_quoted => false
   check do |doc|
     errors = doc.matching_text_element_lines(
       %r{https?://}, %i{a html_element}
@@ -783,8 +784,17 @@ rule 'MD034', 'Bare URL used' do
       line = doc.lines[linenum - 1]
       next false if line.nil?
 
-      # Strip URLs inside markdown links, then check if a bare URL remains
-      line.gsub(%r{\]\(https?://[^)]*\)}, '').match?(%r{https?://})
+      if params[:allow_quoted]
+        # If allow_quoted is set, also strip any URL directly en-quoted,
+        # check if a bare url remains
+        line.gsub(%r{\]\(https?://[^)]*\)}, '')
+            .gsub(%r{["]https?://\S*?["]}, '')
+            .gsub(%r{[']https?://\S*?[']}, '')
+            .match?(%r{https?://})
+      else
+        # Strip URLs inside markdown links, then check if a bare URL remains
+        line.gsub(%r{\]\(https?://[^)]*\)}, '').match?(%r{https?://})
+      end
     end
   end
 end
