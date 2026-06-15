@@ -784,17 +784,18 @@ rule 'MD034', 'Bare URL used' do
       line = doc.lines[linenum - 1]
       next false if line.nil?
 
+      # Strip URLs inside markdown links, then check if a bare URL remains
+      line = line.gsub(%r{\]\(https?://[^)]*\)}, '')
+
       if params[:allow_quoted]
         # If allow_quoted is set, also strip any URL directly en-quoted,
         # check if a bare url remains
-        line.gsub(%r{\]\(https?://[^)]*\)}, '')
-            .gsub(%r{["]https?://\S*?["]}, '')
-            .gsub(%r{[']https?://\S*?[']}, '')
-            .match?(%r{https?://})
-      else
-        # Strip URLs inside markdown links, then check if a bare URL remains
-        line.gsub(%r{\]\(https?://[^)]*\)}, '').match?(%r{https?://})
+        line = line
+               .gsub(%r{"https?://\S*?"}, '')
+               .gsub(%r{'https?://\S*?'}, '')
       end
+
+      line.match?(%r{https?://})
     end
   end
 end
