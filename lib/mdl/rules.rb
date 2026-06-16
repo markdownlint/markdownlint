@@ -1,3 +1,7 @@
+require 'uri'
+
+URI_REGEXP = URI::RFC2396_PARSER.make_regexp
+
 docs do |id, description|
   url_hash = [id.downcase,
               description.downcase.gsub(/[^a-z]+/, '-')].join('---')
@@ -295,7 +299,17 @@ rule 'MD013', 'Line length' do
     header_lines = doc.find_type_elements(:header).map do |e|
       doc.element_linenumber(e)
     end
+    # Every line that is a link reference:
+    #
+    # This link is referenced[1] at the bottom
+    #
+    # [1]: https://example.com
+    link_reference_lines = doc.matching_lines(/^\[.*\]: #{URI_REGEXP}$/)
+
     overlines = doc.matching_lines(/^.{#{@params[:line_length]}}.+/)
+
+    overlines -= link_reference_lines if params[:treat_links_as_single_words]
+
     overlines -= single_word_lines
     if !params[:code_blocks] || params[:ignore_code_blocks]
       overlines -= codeblock_lines

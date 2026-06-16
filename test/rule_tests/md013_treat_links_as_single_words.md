@@ -15,3 +15,5 @@ This is a very very very very very very very very very very very very very very 
 1) verylongwordthatexceedsthelinelimitbecauseithasnospacesandisorderedlistwithparenstyle
 
 A line [with a very long link whose text has spaces but the whole line is just the link](https://example.com/path) {MD013}
+
+[link ref]: https://github.com/markdownlint/markdownlint/issues/595#issue-4656984122

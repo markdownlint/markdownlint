@@ -26,4 +26,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'mixlib-cli'
   spec.add_dependency 'mixlib-config'
   spec.add_dependency 'mixlib-shellout'
+  spec.add_dependency 'uri'
 end
