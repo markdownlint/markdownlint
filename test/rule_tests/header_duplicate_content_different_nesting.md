@@ -19,4 +19,3 @@ later on
 ## 1.0.0
 
 ### Bug fixes
-
