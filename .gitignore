@@ -1,7 +1,6 @@
 # Bundler/Ruby
 vendor/
 .bundle
-Gemfile.lock
 spec/reports
 tmp
 *.gem

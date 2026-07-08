@@ -722,8 +722,8 @@ rule 'MD032', 'Lists should be surrounded by blank lines' do
       end
       line.strip.match(/^(`{3,}|~{3,})/)
       if Regexp.last_match(1) && (
-          !in_code || (Regexp.last_match(1).slice(0, fence.length) == fence)
-        )
+        !in_code || (Regexp.last_match(1).slice(0, fence.length) == fence)
+      )
         fence = in_code ? nil : Regexp.last_match(1)
         in_code = !in_code
         in_list = false

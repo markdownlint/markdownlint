@@ -33,7 +33,7 @@ jobs:
     - name: Run rubocop
       run: bundle exec rubocop
     - name: Run tests
-      run: bundle exec rake
+      run: bundle exec rake test
   linelint:
     runs-on: ubuntu-latest
     name: Check if all files end in newline
