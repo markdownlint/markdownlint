@@ -7,6 +7,7 @@ PATH
       mixlib-cli
       mixlib-config
       mixlib-shellout
+      uri
 
 GEM
   remote: https://gem.coop/
@@ -70,6 +71,7 @@ GEM
     unicode-display_width (3.2.0)
       unicode-emoji (~> 4.1)
     unicode-emoji (4.2.0)
+    uri (1.1.1)
 
 PLATFORMS
   ruby

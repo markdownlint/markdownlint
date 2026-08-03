@@ -2,5 +2,6 @@ on_push:
   - lint
 lint:
   - bundle exec rubocop -a
+  - ./scripts/mdl_ourselves.sh
 unit:
   - bundle exec rake test

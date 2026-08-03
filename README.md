@@ -1,7 +1,13 @@
 # Markdown lint tool
 
-[![Continuous Integration](https://github.com/markdownlint/markdownlint/workflows/Continuous%20Integration/badge.svg)](https://github.com/markdownlint/markdownlint/actions?query=workflow%3A%22Continuous+Integration%22)
-[![Gem Version](https://badge.fury.io/rb/mdl.svg)](https://badge.fury.io/rb/mdl)
+[![Continuous Integration](
+https://github.com/markdownlint/markdownlint/workflows/Continuous%20Integration/badge.svg
+)](
+https://github.com/markdownlint/markdownlint/actions?query=workflow%3A%22Continuous+Integration%22
+)
+[![Gem Version](https://badge.fury.io/rb/mdl.svg)](
+https://badge.fury.io/rb/mdl
+)
 
 A tool to check markdown files and flag style issues.
 
@@ -11,7 +17,9 @@ Markdownlint is packaged in some distributions as well as distributed via
 RubyGems. Check the list below to see if it's packaged for your distribution,
 and if so, feel free to use your distros package manager to install it.
 
-[![Packaging status](https://repology.org/badge/vertical-allrepos/mdl-markdownlint.svg?exclude_unsupported=1&&columns=3)](https://repology.org/project/mdl-markdownlint/versions)
+[![Packaging status](
+https://repology.org/badge/vertical-allrepos/mdl-markdownlint.svg?exclude_unsupported=1&&columns=3
+)](https://repology.org/project/mdl-markdownlint/versions)
 
 To install from rubygems, run:
 

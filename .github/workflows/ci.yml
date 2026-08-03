@@ -34,6 +34,8 @@ jobs:
       run: bundle exec rubocop
     - name: Run tests
       run: bundle exec rake test
+    - name: Run mdl
+      run: ./scripts/mdl_ourselves.sh
   linelint:
     runs-on: ubuntu-latest
     name: Check if all files end in newline
