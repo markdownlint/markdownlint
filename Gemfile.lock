@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    mdl (0.17.0)
+    mdl (0.18.0)
       kramdown (~> 2.5)
       kramdown-parser-gfm (~> 1.1)
       mixlib-cli

@@ -1,5 +1,32 @@
 # Change Log
 
+## [v0.18.1] (2026-08-05)
+
+### Added
+
+* MD034 - Add `allow_quoted` option.
+  [#594](https://github.com/markdownlint/markdownlint/pull/594/)
+* Add config options for kramdown parser opts: `parse_block_html`,
+  `parse_span_html`, `html_to_native`
+  [#568](https://github.com/markdownlint/markdownlint/pull/568/)
+* Support options on codeblock openers
+  [#590](https://github.com/markdownlint/markdownlint/pull/590/)
+* Add `front_matter_title` parameter for all header-related rules
+  [#570](https://github.com/markdownlint/markdownlint/pull/570/)
+
+### Fixed
+
+* MD024 - Fix crash when `allow_different_nesting` was set
+  [#593](https://github.com/markdownlint/markdownlint/pull/593/)
+* Handle UTF-8 filenames better with `-g`
+  [#591](https://github.com/markdownlint/markdownlint/pull/591/)
+
+### Changed
+
+* MD013 - When `treat_links_as_single_words` is set, also allow
+  link references to be on a single line regardless of length
+  [#597](https://github.com/markdownlint/markdownlint/pull/597/)
+
 ## [v0.17.0] (2026-06-03)
 
 ### Added
@@ -438,6 +465,7 @@
 * MD029 - Ordered list item prefix
 * MD030 - Spaces after list markers
 
+[v0.18.0]: https://github.com/markdownlint/markdownlint/tree/v0.18.0
 [v0.17.0]: https://github.com/markdownlint/markdownlint/tree/v0.17.0
 [v0.16.0]: https://github.com/markdownlint/markdownlint/tree/v0.16.0
 [v0.15.0]: https://github.com/markdownlint/markdownlint/tree/v0.15.0
