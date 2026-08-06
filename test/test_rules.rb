@@ -1,6 +1,46 @@
 require_relative 'setup_tests'
+require 'open3'
+require 'rbconfig'
 
 class TestRules < Minitest::Test
+  def test_default_ruleset_loads_without_rfc2396_parser
+    libdir = File.expand_path('../lib', __dir__)
+    # Simulate the relevant legacy API using the real RFC2396 parser.
+    script = <<~'RUBY'
+      require 'uri'
+      if URI.const_defined?(:RFC2396_PARSER, false)
+        URI.send(:remove_const, :RFC2396_PARSER)
+      end
+      URI.send(:remove_const, :DEFAULT_PARSER)
+      URI.const_set(:DEFAULT_PARSER, URI::RFC2396_Parser.new)
+
+      require 'mdl/ruleset'
+      ruleset = MarkdownLint::RuleSet.new
+      ruleset.load_default
+      regexp = ruleset.singleton_class.const_get(:URI_REGEXP)
+      link_reference = /^\[.*\]: #{regexp}$/
+
+      raise 'valid link reference did not match' unless
+        link_reference.match?('[1]: https://example.com/a?b=c#d')
+      raise 'invalid link reference matched' if
+        link_reference.match?('[1]: not a url')
+    RUBY
+    env = {
+      'BUNDLE_GEMFILE' => nil,
+      'RUBYLIB' => nil,
+      'RUBYOPT' => nil,
+    }
+    _stdout, stderr, status = Open3.capture3(
+      env,
+      RbConfig.ruby,
+      "-I#{libdir}",
+      '-e',
+      script,
+    )
+
+    assert_predicate status, :success?, stderr
+  end
+
   def get_expected_errors(lines)
     # Looks for lines tagged with {MD123} to signify that a rule is expected to
     # fire for this line. It also looks for lines tagged with {MD123:1} to
