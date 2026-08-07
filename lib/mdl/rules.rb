@@ -1,6 +1,11 @@
 require 'uri'
 
-URI_REGEXP = URI::RFC2396_PARSER.make_regexp
+uri_parser = if URI.const_defined?(:RFC2396_PARSER, false)
+               URI::RFC2396_PARSER
+             else
+               URI::DEFAULT_PARSER
+             end
+URI_REGEXP = uri_parser.make_regexp
 
 docs do |id, description|
   url_hash = [id.downcase,
