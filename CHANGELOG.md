@@ -1,6 +1,13 @@
 # Change Log
 
-## [v0.18.1] (2026-08-05)
+## [v0.18.1] (2026-08-09)
+
+### Fixed
+
+* Fixed crash on startup when using old versions of the uri gem.
+  [#606](https://github.com/markdownlint/markdownlint/pull/606/)
+
+## [v0.18.0] (2026-08-05)
 
 ### Added
 
@@ -465,6 +472,7 @@
 * MD029 - Ordered list item prefix
 * MD030 - Spaces after list markers
 
+[v0.18.1]: https://github.com/markdownlint/markdownlint/tree/v0.18.1
 [v0.18.0]: https://github.com/markdownlint/markdownlint/tree/v0.18.0
 [v0.17.0]: https://github.com/markdownlint/markdownlint/tree/v0.17.0
 [v0.16.0]: https://github.com/markdownlint/markdownlint/tree/v0.16.0
