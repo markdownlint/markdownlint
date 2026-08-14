@@ -886,7 +886,7 @@ rule 'MD038', 'Spaces inside code span elements' do
     # block that happen to be parsed as code spans.
     doc.element_linenumbers(
       doc.find_type_elements(:codespan).select do |i|
-        i.value.match(/(^\s|\s$)/) && !i.value.include?("\n")
+        i.value.match(/(^\s[^`]|[^`]\s$)/) && !i.value.include?("\n")
       end,
     )
   end
