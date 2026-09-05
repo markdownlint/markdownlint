@@ -1,5 +1,7 @@
 `normal codespan element`
 
+Start a code block with 3 backticks (` ``` `)
+
 `codespan element with space inside right ` {MD038}
 
 We SHOULD have the following two tests marked with MD038 failurs
