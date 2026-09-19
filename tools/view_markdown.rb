@@ -7,6 +7,5 @@ require 'pry'
 doc = MarkdownLint::Doc.new_from_file(ARGV[0])
 children = doc.parsed.root.children
 
-# rubocop:disable Lint/Debugger
+# rubocop:disable-next Lint/Debugger
 binding.pry
-# rubocop:enable Lint/Debugger

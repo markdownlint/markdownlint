@@ -2,10 +2,11 @@ require_relative 'setup_tests'
 
 # Ensures there is documentation for every rule, and that the
 # descriptions/tags/etc in the rule match those in the documentation
-# rubocop:disable Style/ClassVars
 class TestRuledocs < Minitest::Test
+  # rubocop:disable-next Style/ClassVars
   @@ruleset = MarkdownLint::RuleSet.new
   @@ruleset.load_default
+  # rubocop:disable-next Style/ClassVars
   @@rules = @@ruleset.rules
 
   def setup
@@ -59,4 +60,3 @@ class TestRuledocs < Minitest::Test
     assert_equal @@rules.keys, @ruledocs.keys
   end
 end
-# rubocop:enable Style/ClassVars
