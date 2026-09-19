@@ -5,7 +5,7 @@ FROM alpine:latest
 # included) delivered in individual subpackages. The solution is to install
 # ruby + standard library via the 'ruby-full' package.
 RUN adduser -h /home/mdl -s /sbin/nologin -D -g mdl mdl && \
-    apk add --update --no-cache ruby-full && \
+    apk add --update --no-cache ruby-full git && \
     gem install mdl --no-document && \
     mkdir /data
 WORKDIR /data
