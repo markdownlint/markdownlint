@@ -113,6 +113,8 @@ For more information, see the [creating rules](docs/creating_rules.md) document.
   for the above Node.js project
 - [markdownlint-cli2](https://github.com/DavidAnson/markdownlint-cli2) - An
   alternative CLI for the Node.js project
+- [rubocop-prose](https://github.com/dblock/rubocop-prose) - A similar project,
+  but works with Rubocop
 
 ## Contributing
 
